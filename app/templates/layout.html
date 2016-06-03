@@ -1,0 +1,17 @@
+<html>
+    <head>
+        <title>{% block title %}Tornado Blueprints{% end %}</title>
+    </head>
+    <body>
+        {% block body %}{% end %}
+
+        <ul>
+            <li><a href="{{ reverse_url('home.index') }}">Index</a></li>
+            <li><a href="{{ reverse_url('settings.index') }}">Settings</a></li>
+            <ul>
+                <li><a href="{{ reverse_url('settings.account') }}">Account</a></li>
+            </ul>
+            <li><a href="{{ reverse_url('dashboard.index') }}">Dashboard</a></li>
+        </ul>
+    </body>
+</html>
