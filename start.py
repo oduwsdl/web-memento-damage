@@ -10,7 +10,7 @@ def start_server():
     #                    address='0.0.0.0')
     server.bind(application.settings.get('port'),
                        address='0.0.0.0')
-    server.start() # Specify number of subprocesses
+    server.start(4) # Specify number of subprocesses
     
     print('Server is started at {}:{}'.format(
         'localhost', application.settings.get('port')))

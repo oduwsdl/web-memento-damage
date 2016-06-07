@@ -3,10 +3,12 @@ import errno
 import json
 from hashlib import md5
 
+import thread
 from PyQt4.QtGui import QApplication
 
 import os
 from ext.blueprint import Blueprint, RequestHandler
+from ext.damage import SiteDamage
 from ext.memento import MementoWeb
 from ext.crawl import CrawlListener, Crawler
 from tornado import web, httpclient, escape
@@ -51,15 +53,30 @@ class Memento(Blueprint):
                     os.path.join(writer.blueprint.html_dir, hashed_url)))
                 browser.take_screenshot('{}.png'.format(
                     os.path.join(writer.blueprint.screenshot_dir, hashed_url)))
-                browser.get_images('{}.img.log'.format(
+                images_log = browser.get_images('{}.img.log'.format(
                     os.path.join(writer.blueprint.log_dir, hashed_url)))
-                browser.get_stylesheets('{}.css.log'.format(
+                csses_log = browser.get_stylesheets('{}.css.log'.format(
                     os.path.join(writer.blueprint.log_dir, hashed_url)))
                 browser.get_resources('{}.log'.format(
                     os.path.join(writer.blueprint.log_dir, hashed_url)))
 
                 writer.write('Browser {} is finished crawl {}\n\n'
                              .format(id, url))
+                writer.flush()
+
+                writer.write('Calculating site damage...')
+                writer.flush()
+
+                damage = SiteDamage(images_log, csses_log, '{}.png'.format(
+                    os.path.join(writer.blueprint.screenshot_dir, hashed_url)),
+                                    browser.get_background_color())
+
+                potential_damage = damage.calculate_potential_damage()
+                writer.write('Potential Damage : {}'.format(potential_damage))
+                writer.flush()
+
+                actual_damage = damage.calculate_actual_damage()
+                writer.write('Actual Damage : {}'.format(actual_damage))
                 writer.flush()
 
             def on_resource_received(self, log, id, *browser):
@@ -82,6 +99,9 @@ class Memento(Blueprint):
         crawler.start(url)
 
         app.exec_()
+
+    def calculate_importance(self):
+        pass
 
     '''
     Handlers =================================================================

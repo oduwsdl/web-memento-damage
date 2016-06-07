@@ -1,4 +1,7 @@
+import errno
 import json
+import os
+from datetime import datetime
 from functools import partial
 from urlparse import urlparse
 
@@ -7,6 +10,12 @@ from PyQt4.QtGui import QImage, QPainter
 from PyQt4.QtNetwork import QNetworkAccessManager, QNetworkRequest
 from PyQt4.QtWebKit import QWebView, QWebPage, QWebSettings
 
+from PIL import Image
+from damage import SiteDamage
+
+'''
+Section 'Crawl' ==============================================================
+'''
 
 def variant_to_json(variant):
     if variant.type() == QVariant.Map:
@@ -62,7 +71,8 @@ class CrawlNetwork(QNetworkAccessManager):
             'content_type' : unicode(response.header(
                 self.contentTypeHeader).toString()),
             'headers' : headers,
-            'error_code' : response.error(),
+            'status_code' : response.attribute(
+                QNetworkRequest.HttpStatusCodeAttribute).toInt(),
             'is_local' : url_domain == base_url_domain,
             'is_blocked' : blocked
         }
@@ -84,6 +94,14 @@ class CrawlBrowser(QWebView):
 
         return self.resources
 
+    def make_directory_recursive(self, file):
+        dir = os.path.dirname(os.path.realpath(file))
+        try:
+            os.makedirs(dir)
+        except OSError, e:
+            if e.errno != errno.EEXIST:
+                raise
+
     def take_screenshot(self, output_file):
         # set to webpage size
         self.page().setViewportSize(self.page().mainFrame().contentsSize())
@@ -94,13 +112,20 @@ class CrawlBrowser(QWebView):
         self.page().mainFrame().render(painter)
         painter.end()
 
+        # create directory of file
+        self.make_directory_recursive(output_file)
+
         # save image
         print 'saving screenshot to', output_file
         image.save(output_file)
 
     def get_html(self, output_file=None):
         html = self.page().mainFrame().toHtml()
+        html = unicode(html).encode('utf-8')
         if output_file:
+            # create directory of file
+            self.make_directory_recursive(output_file)
+
             print 'saving html source to', output_file
             with open(output_file, 'wb') as f:
                 f.write(html)
@@ -126,12 +151,24 @@ class CrawlBrowser(QWebView):
                     })
 
         if output_file:
+            # create directory of file
+            self.make_directory_recursive(output_file)
+
             with open(output_file, 'wb') as f:
                 print 'saving images log to', output_file
                 f.write('\n'.join([json.dumps(img) for url, img in
                                    imgs.items()]))
 
         return imgs.values()
+
+    def get_background_color(self):
+        jsFn = """
+        function getBackgroundColor() {
+            return document.body.style.backgroundColor || 'FFFFFF'
+        }
+        """
+
+        return self.page().mainFrame().evaluateJavaScript(jsFn)
     
     def get_stylesheets(self, output_file=None):
         jsFn = """
@@ -240,23 +277,24 @@ class CrawlBrowser(QWebView):
         stylesheets_importance = variant_to_json(stylesheets_importance)
 
         if output_file:
+            # create directory of file
+            self.make_directory_recursive(output_file)
+
             with open(output_file, 'wb') as f:
+                csses = []
                 for url, css in stylesheets_importance.items():
                     if '[INTERNAL]' in url:
-                        f.write(json.dumps(css) + '\n')
+                        csses.append(css)
 
-                    csses = []
                     for idx, res_url in enumerate(res_urls):
                         if res_url.endswith(url):
                             css.update(self.resources[idx])
                             csses.append(css)
 
                     print 'saving stylesheets log to', output_file
-                    f.write('\n'.join([json.dumps(css) for css in enumerate(
-                        csses)]))
+                    f.write('\n'.join([json.dumps(css) for css in csses]))
 
         return stylesheets_importance.values()
-
 
 class CrawlListener:
     def on_start(self, id, browser):
@@ -267,7 +305,6 @@ class CrawlListener:
         pass
     def on_finished(self, sessions):
         pass
-
 
 class Crawler(object):
     sessions = dict()
@@ -356,4 +393,80 @@ class Crawler(object):
                                                          len(self.sessions)))
 
         self.start_session(self.sessions[0])
+
+
+if __name__ == "__main__":
+    import sys
+    import os
+    from hashlib import md5
+    from PyQt4.QtGui import QApplication
+
+    if len(sys.argv) > 0:
+        if len(sys.argv) != 3:
+            print('Usage :')
+            print('python crawl.py <url> <output_dir>')
+            exit()
+
+        url = sys.argv[1]
+        output_dir = sys.argv[2]
+        output_dir = os.path.abspath(output_dir)
+
+        class CustomCrawlListener(CrawlListener):
+            def on_start(self, id, browser):
+                print('Browser {} is starting crawl {}\n\n'
+                    .format(id, browser.page().mainFrame().requestedUrl()))
+                self.timestart = datetime.now()
+
+            def on_loaded(self, id, browser):
+                url = str(browser.page().mainFrame().requestedUrl().toString())
+                hashed_url = md5(url).hexdigest()
+
+                browser.get_html('{}.html'.format(
+                    os.path.join(output_dir, 'html', hashed_url)))
+                browser.take_screenshot('{}.png'.format(
+                    os.path.join(output_dir, 'screenshot', hashed_url)))
+                images_log = browser.get_images('{}.img.log'.format(
+                    os.path.join(output_dir, 'log', hashed_url)))
+                csses_log = browser.get_stylesheets('{}.css.log'.format(
+                    os.path.join(output_dir, 'log', hashed_url)))
+                browser.get_resources('{}.log'.format(
+                    os.path.join(output_dir, 'log', hashed_url)))
+
+                print('Browser {} is finished crawl {}\n\n'
+                             .format(id, url))
+
+                print('Calculating site damage...')
+
+                damage = SiteDamage(images_log, csses_log, '{}.png'.format(
+                    os.path.join(output_dir, 'screenshot', hashed_url)),
+                                    browser.get_background_color())
+
+                potential_damage = damage.calculate_potential_damage()
+                print('Potential Damage : {}'.format(potential_damage))
+
+                actual_damage = damage.calculate_actual_damage()
+                print('Actual Damage : {}'.format(actual_damage))
+
+            def on_resource_received(self, log, id, *browser):
+                print('Browser {} receive resource {}\n\n'
+                             .format(id, log['url']))
+
+            def on_finished(self, sessions):
+                self.timefinish = datetime.now()
+                process_time = (self.timefinish -
+                                self.timestart).microseconds / 1000
+
+                urls = [len(urls) for id, urls, status in sessions]
+
+                print('All Finished\n\n')
+                print('{} URIs has crawled in {} sessions in {} '
+                      'seconds\n\n'.format(sum(urls), len(urls),
+                                               process_time))
+
+        app = QApplication([])
+        crawler = Crawler(app, CustomCrawlListener())
+        crawler.add_blacklist('http://web.archive.org/static')
+        crawler.start(url)
+
+        app.exec_()
 
