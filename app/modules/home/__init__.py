@@ -1,12 +1,15 @@
 import base64
 import errno
+import io
 import json
 from hashlib import md5
 
 import thread
 from PyQt4.QtGui import QApplication
+from datetime import datetime
 
 import os
+from PIL import Image
 from ext.blueprint import Blueprint, RequestHandler
 from ext.damage import SiteDamage
 from ext.memento import MementoWeb
@@ -37,72 +40,6 @@ class Memento(Blueprint):
             if e.errno != errno.EEXIST:
                 raise
 
-    def crawl(self, url, writer, on_finished_fn):
-        class CustomCrawlListener(CrawlListener):
-            message = []
-            def on_start(self, id, browser):
-                writer.write('Browser {} is starting crawl {}\n\n'
-                    .format(id, browser.page().mainFrame().requestedUrl()))
-                writer.flush()
-
-            def on_loaded(self, id, browser):
-                url = str(browser.page().mainFrame().requestedUrl().toString())
-                hashed_url = md5(url).hexdigest()
-
-                browser.get_html('{}.html'.format(
-                    os.path.join(writer.blueprint.html_dir, hashed_url)))
-                browser.take_screenshot('{}.png'.format(
-                    os.path.join(writer.blueprint.screenshot_dir, hashed_url)))
-                images_log = browser.get_images('{}.img.log'.format(
-                    os.path.join(writer.blueprint.log_dir, hashed_url)))
-                csses_log = browser.get_stylesheets('{}.css.log'.format(
-                    os.path.join(writer.blueprint.log_dir, hashed_url)))
-                browser.get_resources('{}.log'.format(
-                    os.path.join(writer.blueprint.log_dir, hashed_url)))
-
-                writer.write('Browser {} is finished crawl {}\n\n'
-                             .format(id, url))
-                writer.flush()
-
-                writer.write('Calculating site damage...')
-                writer.flush()
-
-                damage = SiteDamage(images_log, csses_log, '{}.png'.format(
-                    os.path.join(writer.blueprint.screenshot_dir, hashed_url)),
-                                    browser.get_background_color())
-
-                potential_damage = damage.calculate_potential_damage()
-                writer.write('Potential Damage : {}'.format(potential_damage))
-                writer.flush()
-
-                actual_damage = damage.calculate_actual_damage()
-                writer.write('Actual Damage : {}'.format(actual_damage))
-                writer.flush()
-
-            def on_resource_received(self, log, id, *browser):
-                writer.write('Browser {} receive resource {}\n\n'
-                             .format(id, log['url']))
-                writer.flush()
-
-            def on_finished(self, sessions):
-                urls = [len(urls) for id, urls, status in sessions]
-
-                writer.write('All Finished\n\n')
-                writer.write('{} URIs has crawled in {} sessions\n\n'
-                             .format(sum(urls), len(urls)))
-                writer.flush()
-                on_finished_fn()
-
-        app = QApplication([])
-        crawler = Crawler(app, CustomCrawlListener())
-        crawler.add_blacklist('http://web.archive.org/static')
-        crawler.start(url)
-
-        app.exec_()
-
-    def calculate_importance(self):
-        pass
-
     '''
     Handlers =================================================================
     '''
@@ -114,19 +51,6 @@ class Memento(Blueprint):
             self.render(".index.html")
 
 
-    class CheckMementoSession(RequestHandler):
-        route = ['/memento/check/session']
-
-        @web.asynchronous
-        def get(self, *args, **kwargs):
-            base64url = self.get_query_argument('base64url')
-            session_urls = json.loads(base64.b64decode(base64url))
-            self.blueprint.crawl(session_urls, self, self._on_crawl_finished)
-
-        def _on_crawl_finished(self):
-            self.finish()
-
-
     class CheckMemento(RequestHandler):
         route = ['/memento/check']
 
@@ -135,46 +59,117 @@ class Memento(Blueprint):
             url = self.get_query_argument('url')
             type = self.get_query_argument('type')
 
-            if type.upper() == 'URI-M':
-                self.blueprint.crawl(url, self, self._on_crawl_finished)
-            else:
-                self.write('Crawl URI-R {}'.format(url))
-                self.flush()
+            self.render(".check.html", url=url, type=type)
 
-                m = MementoWeb(url)
-                memento_urls = m.find()
-                sessions_urls = [memento_urls[x:x+10]
-                                   for x in xrange(0, len(memento_urls), 10)]
+    class GetUriM(RequestHandler):
+        route = ['/memento/mementos']
 
-                # sessions_urls = sessions_urls[:50]
+        @web.asynchronous
+        def get(self, *args, **kwargs):
+            url = self.get_query_argument('uri-r')
+            m = MementoWeb(url)
+            memento_urls = m.find()
 
-                self.running_sessions = len(sessions_urls)
-                self.stopped_sessions = 0
-
-                self.write('Crawl URI-M in {} sessions'.format(len(sessions_urls)))
-                for session_urls in sessions_urls:
-                    check_url = self.application.settings.get('base_url') + \
-                                self.reverse_url('.CheckMementoSession') + \
-                                '?base64url={}'.format(
-                                    base64.b64encode(json.dumps(session_urls)))
-
-                    self.write('Crawl URI-M Session {}'.format(check_url))
-                    self.flush()
-
-                    client = httpclient.AsyncHTTPClient()
-                    client.fetch(check_url, callback=self._on_response)
-
-        def _on_response(self, response):
-            if response.error:
-                self.write("Error: %s" % response.error)
-            else:
-                self.write(escape.xhtml_escape(response.body) + '<br/>')
-            self.flush()
-
-            self.stopped_sessions += 1
-            if self.stopped_sessions >= self.running_sessions:
-                self.finish()
-
-        def _on_crawl_finished(self):
+            self.write(json.dumps(memento_urls))
             self.finish()
+
+    class Screenshot(RequestHandler):
+        route = ['/memento/screenshot']
+
+        @web.asynchronous
+        def get(self, *args, **kwargs):
+            url = self.get_query_argument('url')
+            hashed_url = md5(url).hexdigest()
+
+            screenshot_file = '{}.png'.format(os.path.join(
+                self.blueprint.screenshot_dir, hashed_url))
+            f = Image.open(screenshot_file)
+            o = io.BytesIO()
+            f.save(o, format="JPEG")
+            s = o.getvalue()
+
+            self.set_header('Content-type', 'image/png')
+            self.set_header('Content-length', len(s))
+            self.write(s)
+            self.finish()
+
+    class CheckDamage(RequestHandler):
+        route = ['/memento/damage']
+
+        @web.asynchronous
+        def get(self, *args, **kwargs):
+            uri = self.get_query_argument('uri')
+            writer = self
+
+            class CustomCrawlListener(CrawlListener):
+                def __init__(self):
+                    self.result = {}
+
+                def on_start(self, id, browser):
+                    print('Browser {} is starting crawl {}\n\n'
+                        .format(id, browser.page().mainFrame().requestedUrl()))
+                    self.timestart = datetime.now()
+
+                def on_loaded(self, id, browser):
+                    url = str(browser.page().mainFrame().requestedUrl().toString())
+                    hashed_url = md5(url).hexdigest()
+
+                    browser.get_html('{}.html'.format(
+                        os.path.join(writer.blueprint.html_dir, hashed_url)))
+                    browser.take_screenshot('{}.png'.format(
+                        os.path.join(writer.blueprint.screenshot_dir, hashed_url)))
+                    images_log = browser.get_images('{}.img.log'.format(
+                        os.path.join(writer.blueprint.log_dir, hashed_url)))
+                    csses_log = browser.get_stylesheets('{}.css.log'.format(
+                        os.path.join(writer.blueprint.log_dir, hashed_url)))
+                    browser.get_resources('{}.log'.format(
+                        os.path.join(writer.blueprint.log_dir, hashed_url)))
+
+                    print('Browser {} is finished crawl {}\n\n'
+                                 .format(id, url))
+                    print('Calculating site damage...')
+
+                    damage = SiteDamage(images_log, csses_log, '{}.png'.format(
+                        os.path.join(writer.blueprint.screenshot_dir, hashed_url)),
+                        browser.get_background_color())
+
+                    potential_damage = damage.calculate_potential_damage()
+                    print('Potential Damage : {}'.format(potential_damage))
+
+                    actual_damage = damage.calculate_actual_damage()
+                    print('Actual Damage : {}'.format(actual_damage))
+
+                    self.result['images'] = images_log
+                    self.result['csses'] = csses_log
+                    self.result['potential_damage'] = potential_damage
+                    self.result['actual_damage'] = actual_damage
+
+                def on_resource_received(self, log, id, *browser):
+                    print('Browser {} receive resource {}\n\n'
+                                 .format(id, log['url']))
+
+                def on_finished(self, sessions):
+                    self.timefinish = datetime.now()
+                    process_time = (self.timefinish -
+                                    self.timestart).microseconds / 1000
+
+                    urls = [len(urls) for id, urls, status in sessions]
+
+                    print('All Finished\n\n')
+                    print('{} URIs has crawled in {} sessions in {} '
+                          'seconds\n\n'.format(sum(urls), len(urls),
+                                                   process_time))
+
+                    writer.write(json.dumps(self.result))
+                    writer.finish()
+
+            app = QApplication([])
+            crawler = Crawler(app, CustomCrawlListener())
+            crawler.add_blacklist('http://web.archive.org/static')
+            crawler.start(uri)
+
+            app.exec_()
+
+            # self.write(json.dumps({'damage' : 0}))
+            # self.finish()
 
