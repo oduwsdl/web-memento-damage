@@ -69,13 +69,11 @@ class CrawlNetwork(QNetworkAccessManager):
             uri=urlparse(base_url))
         status_code = response.attribute(
                 QNetworkRequest.HttpStatusCodeAttribute).toInt()
-        code, True = status_code
-        # content_type = mimetypes.guess_type(url) if str(code)[0] == 4 else \
-        #     unicode(response.header(self.contentTypeHeader).toString())
+        content_type, encoding = mimetypes.guess_type(url)
 
         resource = {
             'url' : url,
-            'content_type' : mimetypes.guess_type(url),
+            'content_type' : content_type,
             'headers' : headers,
             'status_code' : status_code,
             'is_local' : url_domain == base_url_domain,

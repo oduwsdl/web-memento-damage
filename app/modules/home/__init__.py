@@ -79,6 +79,9 @@ class Memento(Blueprint):
         @web.asynchronous
         def get(self, *args, **kwargs):
             url = self.get_query_argument('url')
+            if not url.endswith('/'):
+                url += '/'
+
             hashed_url = md5(url).hexdigest()
 
             screenshot_file = '{}.png'.format(os.path.join(
@@ -138,12 +141,17 @@ class Memento(Blueprint):
 
                     actual_damage = damage.calculate_actual_damage()
                     print('Actual Damage : {}'.format(actual_damage))
-                    print('Total Damage : {}'.format(actual_damage/potential_damage))
+                    print('Total Damage : {}'.format(
+                        actual_damage/potential_damage if potential_damage
+                        != 0 else 0))
 
                     self.result['images'] = images_log
                     self.result['csses'] = csses_log
                     self.result['potential_damage'] = potential_damage
                     self.result['actual_damage'] = actual_damage
+                    self.result['total_damage'] = \
+                        actual_damage/potential_damage \
+                        if potential_damage != 0 else 0
 
                 def on_resource_received(self, log, id, *browser):
                     print('Browser {} receive resource {}\n\n'

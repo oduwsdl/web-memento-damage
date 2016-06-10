@@ -132,7 +132,18 @@
         });
       }, 'json');
     } else {
-      checkDamageUriM('{{ url }}', function(uri) {
+      checkDamageUriM('{{ url }}', function(uri, result) {
+        // Show summary
+        var olUrlSummaries = $('#summary ol.uri');
+        if(olUrlSummaries.length == 0) {
+          olUrlSummaries = $('<ol>').attr('class', 'uri').appendTo($('#summary'));
+        }
+        var liUrlSummary = $('<li>').appendTo(olUrlSummaries);
+        $('<div>').html(uri).appendTo(liUrlSummary);
+        $('<div>').html('Potential Damage : ' + result['potential_damage']).appendTo(liUrlSummary);
+        $('<div>').html('Actual Damage : ' + result['actual_damage']).appendTo(liUrlSummary);
+        $('<div>').html('Total Damage : ' + result['total_damage']).appendTo(liUrlSummary);
+
         // Show screenshot
         var olUrlScreenshots = $('#screenshots ol.uri');
         if(olUrlScreenshots.length == 0) {
@@ -145,6 +156,7 @@
         );
 
         // Change icon to checklist
+        $('[href="#summary"] .tab-icon').attr('class', 'tab-icon fa fa-check-square-o');
         $('[href="#images"] .tab-icon').attr('class', 'tab-icon fa fa-check-square-o');
         $('[href="#csses"] .tab-icon').attr('class', 'tab-icon fa fa-check-square-o');
         $('[href="#screenshots"] .tab-icon').attr('class', 'tab-icon fa fa-check-square-o');
@@ -230,7 +242,7 @@
         }
 
         // Call onFinished callback
-        onFinished(uri)
+        onFinished(uri, result)
       }, 'json');
     }
 </script>
