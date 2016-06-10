@@ -138,6 +138,7 @@ class Memento(Blueprint):
 
                     actual_damage = damage.calculate_actual_damage()
                     print('Actual Damage : {}'.format(actual_damage))
+                    print('Total Damage : {}'.format(actual_damage/potential_damage))
 
                     self.result['images'] = images_log
                     self.result['csses'] = csses_log

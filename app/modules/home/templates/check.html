@@ -197,7 +197,7 @@
               $('<span>Rectangles</span><span>:</span>').appendTo(liDetail)
               var rectangles = [];
               img['rectangles'].forEach(function(rect) {
-                rectangles.push('Left: ' + rect['left'] + ' px, Top: ' + rect['left'] +
+                rectangles.push('Left: ' + rect['left'] + ' px, Top: ' + rect['top'] +
                   ' px, Width: ' + rect['width'] + ' px, Height: ' + rect['height']);
               });
               $('<span>'+ rectangles.join('<br/>') +'</span>').appendTo(liDetail)

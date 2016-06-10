@@ -1,5 +1,7 @@
 import errno
 import json
+import mimetypes
+
 import os
 from datetime import datetime
 from functools import partial
@@ -65,14 +67,17 @@ class CrawlNetwork(QNetworkAccessManager):
         url_domain = '{uri.scheme}://{uri.netloc}/'.format(uri=urlparse(url))
         base_url_domain = '{uri.scheme}://{uri.netloc}/'.format(
             uri=urlparse(base_url))
+        status_code = response.attribute(
+                QNetworkRequest.HttpStatusCodeAttribute).toInt()
+        code, True = status_code
+        # content_type = mimetypes.guess_type(url) if str(code)[0] == 4 else \
+        #     unicode(response.header(self.contentTypeHeader).toString())
 
         resource = {
             'url' : url,
-            'content_type' : unicode(response.header(
-                self.contentTypeHeader).toString()),
+            'content_type' : mimetypes.guess_type(url),
             'headers' : headers,
-            'status_code' : response.attribute(
-                QNetworkRequest.HttpStatusCodeAttribute).toInt(),
+            'status_code' : status_code,
             'is_local' : url_domain == base_url_domain,
             'is_blocked' : blocked
         }

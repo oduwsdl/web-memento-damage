@@ -126,6 +126,8 @@ class SiteDamage:
             importance = location_importance + size_importance
             importances.append(importance)
 
+        return importances
+
     def calculate_css_damage(self, log, tag_weight=0.5, ratio_weight=0.5,
                              is_potential=False, use_window_size = True,
                              window_size=(1024,768)):
