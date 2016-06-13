@@ -30,37 +30,58 @@ class SiteDamage:
         self.screenshot_file = os.path.abspath(screenshot_file)
         self.background_color = background_color
 
-        self.get_missing_urls()
+        pct_cov = self.get_percentage_coverage()
+        #print('Percentage COverage = {}'.format(pct_cov))
 
-    def get_missing_urls(self):
+        self.find_missings()
+        #print('Missing images = {}'.format(self.missing_imgs_log))
+        #print('Missing csses = {}'.format(self.missing_csses_log))
+
+    def get_percentage_coverage(self):
+        image_coverage = 0
+        for log in self.images_log:
+            for rect in log['rectangles']:
+                w = rect['width']
+                h = rect['height']
+                image_coverage += (w * h)
+
+        viewport_w, vieport_h = log['viewport_size']
+
+        return float(image_coverage) / float(viewport_w * vieport_h)
+
+    def find_missings(self):
         self.missing_imgs_log = []
         for log in self.images_log:
             status_code, true = log['status_code']
             if status_code > 399:
                 self.missing_imgs_log.append(log)
 
-        self.missing_csses_log = []
-        for log in self.csses_log:
-            if 'status_code' in log:
-                status_code, true = log['status_code']
-                if status_code > 399:
-                    self.missing_csses_log.append(log)
+        # self.missing_csses_log = []
+        # for log in self.csses_log:
+        #     if 'status_code' in log:
+        #         status_code, true = log['status_code']
+        #         if status_code > 399:
+        #             self.missing_csses_log.append(log)
+
+        # Since all css set to 404 (missing)
+        self.missing_csses_log = self.csses_log
 
     def calculate_potential_damage(self):
         total_image_damage = 0
-        for log in self.missing_imgs_log:
+        for log in self.images_log:
             image_damage = self.calculate_image_damage(log)
-
             # Based on measureMemento.pl line 463
             for damage in image_damage:
                 total_image_damage += damage
+                print('Potential damage {} for {}'.format(damage, log['url']))
 
         total_css_damage = 0
-        for url in self.missing_csses_log:
-            css_damage = self.calculate_css_damage(log, is_potential=True)
-
+        for log in self.csses_log:
+            css_damage = self.calculate_css_damage(log, use_window_size=False,
+                                                   is_potential=True)
             # Based on measureMemento.pl line 468
             total_css_damage += css_damage
+            print('Potential damage {} for {}'.format(css_damage, log['url']))
 
         # Based on measureMemento.pl line 555
         final_image_damage = total_image_damage * self.image_weight
@@ -73,17 +94,17 @@ class SiteDamage:
         total_image_damage = 0
         for log in self.missing_imgs_log:
             image_damage = self.calculate_image_damage(log)
-
             # Based on measureMemento.pl line 463
             for damage in image_damage:
                 total_image_damage += damage
+                print('Actual damage {} for {}'.format(damage, log['url']))
 
         total_css_damage = 0
-        for url in self.missing_csses_log:
-            css_damage = self.calculate_css_damage(log)
-
+        for log in self.missing_csses_log:
+            css_damage = self.calculate_css_damage(log, use_window_size=False)
             # Based on measureMemento.pl line 468
             total_css_damage += css_damage
+            print('Actual damage {} for {}'.format(css_damage, log['url']))
 
         # Based on measureMemento.pl line 555
         final_image_damage = total_image_damage * self.image_weight
@@ -96,6 +117,11 @@ class SiteDamage:
                                centrality_weight=0.5):
         importances = []
 
+        #im = Image.open(self.screenshot_file)
+        viewport_w, viewport_h = log['viewport_size'] #im.size
+        middle_x = viewport_w / 2
+        middle_y = viewport_h / 2
+
         # A line in *.img.log representate an image
         # An image can be appeared in more than one location in page
         # Location and size is saved in 'rectangles'
@@ -106,12 +132,7 @@ class SiteDamage:
             w = image_rect['width']
             h = image_rect['height']
 
-            im = Image.open(self.screenshot_file)
-            viewport_w, viewport_h = im.size
-            middle_x = viewport_w / 2
-            middle_y = viewport_h / 2
-
-            location_importance = 0
+            location_importance = 0.0
             # Based on measureMemento.pl line 703
             if (x + w) > middle_x and x < middle_x:
                 location_importance += centrality_weight / 2;
@@ -120,7 +141,7 @@ class SiteDamage:
             if (y + h) > middle_y and y < middle_y:
                 location_importance += centrality_weight / 2;
 
-            prop = (w * h) / (viewport_w * viewport_h)
+            prop = float(w * h) / (viewport_w * viewport_h)
             size_importance = prop * size_weight
 
             importance = location_importance + size_importance
@@ -133,16 +154,21 @@ class SiteDamage:
                              window_size=(1024,768)):
         css_url = log['url']
         tag_importance = log['importance']
-        status_code, true =  log['status_code']
 
-        # Based on measureMemento.pl line 760
-        if status_code == 200:
-            return 1
-
-        # If status_code is started with 3xx
-        # Based on measureMemento.pl line 764
-        if str(status_code)[0] == '3':
-            return 0
+        # I think it have no implication, since all css status_code is 404
+        # if 'status_code' not in log:
+        #     status_code = 404
+        # else:
+        #     status_code, true =  log['status_code']
+        #
+        # # Based on measureMemento.pl line 760
+        # if status_code == 200:
+        #     return 1
+        #
+        # # If status_code is started with 3xx
+        # # Based on measureMemento.pl line 764
+        # if str(status_code)[0] == '3':
+        #     return 0
 
         importance = 0
 
@@ -161,7 +187,7 @@ class SiteDamage:
             # Use vieport_size (screenshot size) or default_window_size (
             # 1024x768)
             if not use_window_size:
-                window_size = im.size()
+                window_size = im.size
 
             window_w, windows_h = window_size
 
@@ -172,6 +198,7 @@ class SiteDamage:
             # Iterate over pixels in window size (e.g. 1024x768)
             # And check whether having same color with background
             for x in range(0,window_w):
+                whiteguys_col.setdefault(x, 0)
                 for y in range(0,windows_h):
                     # Get RGBA color in each pixel
                     #     (e.g. White -> (255,255,255,255))
@@ -180,14 +207,14 @@ class SiteDamage:
                     #     (e.g. White -> FFFFFF)
                     pix_hex = rgb2hex(r_, g_, b_)
 
-                    if pix_hex.upper() == self.background_color.upper():
-                        whiteguys_col.setdefault(x, 0)
+                    if pix_hex.upper() == \
+                            self.background_color.upper():
                         whiteguys_col[x] += 1
 
             # divide width into 3 parts
             # Justin use term : low, mid, and high for 1/3 left,
             # 1/3 midlle, and 1/3 right
-            one_third = math.floor(window_w/3)
+            one_third = int(math.floor(window_w/3))
 
             # calculate whiteguys in the 1/3 left
             leftWhiteguys = 0
@@ -210,10 +237,10 @@ class SiteDamage:
             # Based on measureMemento.pl line 803
             if (leftAvg + centerAvg + rightAvg) == 0:
                 importance += 0
-            elif float(rightAvg / (leftAvg+centerAvg+rightAvg)) > \
-                    float(1/3):
-                importance += float(rightAvg / (
-                    leftAvg+centerAvg+rightAvg)) * ratio_weight
+            elif float(rightAvg) / (leftAvg+centerAvg+rightAvg) > \
+                    float(1)/3:
+                importance += float(rightAvg) / (
+                    leftAvg+centerAvg+rightAvg) * ratio_weight
             else:
                 importance += ratio_weight
 

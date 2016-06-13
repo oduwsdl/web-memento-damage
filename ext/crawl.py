@@ -136,22 +136,29 @@ class CrawlBrowser(QWebView):
         return html
     
     def get_images(self, output_file=None):
-        imgs = {}
-        res_urls = [res['url'] for res in self.resources]
         document = self.page().mainFrame().documentElement()
-        for img in document.findAll('img'):
-            for idx, res_url in enumerate(res_urls):
-                if res_url.endswith(str(img.attribute('src'))):
-                    if res_url not in imgs:
-                        imgs[res_url] = self.resources[idx]
-                        imgs[res_url].setdefault('rectangles', [])
+        doc_images = document.findAll('img')
 
-                    imgs[res_url]['rectangles'].append({
-                        'left' : img.geometry().x(),
-                        'top' : img.geometry().y(),
-                        'width' : img.geometry().width(),
-                        'height' : img.geometry().height()
+        res_images = []
+        for res in self.resources:
+            if res['content_type'] and res['content_type'].startswith('image'):
+                res_images.append(res)
+
+        imgs = {}
+        for img in res_images:
+            img.setdefault('rectangles', [])
+            for doc_img in doc_images:
+                img['viewport_size'] = [self.page().viewportSize().width(),
+                                        self.page().viewportSize().height()]
+                if img['url'].endswith(str(doc_img.attribute('src'))):
+                    img['rectangles'].append({
+                        'left' : doc_img.geometry().x(),
+                        'top' : doc_img.geometry().y(),
+                        'width' : doc_img.geometry().width(),
+                        'height' : doc_img.geometry().height()
                     })
+
+            imgs[img['url']] = img
 
         if output_file:
             # create directory of file
@@ -169,9 +176,10 @@ class CrawlBrowser(QWebView):
         function getBackgroundColor() {
             return document.body.style.backgroundColor || 'FFFFFF'
         }
+        getBackgroundColor();
         """
 
-        return self.page().mainFrame().evaluateJavaScript(jsFn)
+        return str(self.page().mainFrame().evaluateJavaScript(jsFn).toString())
     
     def get_stylesheets(self, output_file=None):
         jsFn = """
