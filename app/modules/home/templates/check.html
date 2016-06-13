@@ -18,6 +18,15 @@
       border-top: 0px;
       background-color: #fff;
     }
+
+    .damage-uri {
+      font-weight: bold;
+      font-size: larger;
+      overflow-x: hidden;
+      text-overflow: ellipsis;
+      cursor: pointer;
+      color: #5cb85c;
+    }
   </style>
 {% end %}
 
@@ -76,18 +85,20 @@
           </li>
         </ul>
         <div class="tab-content">
-          <div class="tab-pane fade in active" id="summary">Summary</div>
+          <div class="tab-pane fade in active" id="summary">
+            <h3>Summary</h3>
+          </div>
           <div class="tab-pane fade" id="mementos">
-            <div>List of URI-M</div>
+            <h3>List of URI-M</h3>
           </div>
           <div class="tab-pane fade" id="images">
-            <div>List of Images</div>
+            <h3>List of Images</h3>
           </div>
           <div class="tab-pane fade" id="csses">
-            <div>List of Csses</div>
+            <h3>List of Csses</h3>
           </div>
           <div class="tab-pane fade" id="screenshots">
-            <div>List of Screenshots</div>
+            <h3>List of Screenshots</h3>
           </div>
         </div>
       </div>
@@ -97,153 +108,177 @@
 {% end %}
 
 {% block tail %}
+<script src="{{ static_url('assets/js/md5.js') }}"></script>
 <script type="text/javascript">
-    $('input[name=url]').val('{{ url }}');
-    $('select[name=type]').val('{{ type }}');
+  $('input[name=url]').val('{{ url }}');
+  $('select[name=type]').val('{{ type }}');
 
-    // If type is URI-M, hide tab mementos
-    if('{{ type }}'.toUpperCase() != 'uri-r'.toUpperCase()) {
-      $('.nav .uri-r').hide();
-    }
+  function toggleChevron(e) {
+    $(e.target)
+      .find("i.indicator")
+      .toggleClass('glyphicon-chevron-down glyphicon-chevron-up');
+  }
 
-    // Check mementos if type is URI-M
-    if('{{ type }}'.toUpperCase() != 'uri-m'.toUpperCase()) {
-      $.get('/memento/mementos', { 'uri-r' : '{{ url }}' }, function(memento_uris) {
+  // If type is URI-M, hide tab mementos
+  if('{{ type }}'.toUpperCase() != 'uri-r'.toUpperCase()) {
+    $('.nav .uri-r').hide();
+  }
 
-        // Change icon to checklist
-        $('.uri-r .tab-icon').attr('class', 'tab-icon fa fa-check-square-o')
+  // Check mementos if type is URI-M
+  if('{{ type }}'.toUpperCase() != 'uri-m'.toUpperCase()) {
+    $.get('/memento/mementos', { 'uri-r' : '{{ url }}' }, function(memento_uris) {
 
-        // Show data in mementos tab
-        var ol = $('<ol>').appendTo($('#mementos'));
-        memento_uris.forEach(function(uri) {
-          var li = $('<li>').appendTo(ol);
-          $('<a>').attr('href', uri).html(uri).appendTo(li);
-          var spinnerEl = $('<i>').attr('class', 'fa fa-circle-o-notch fa-spin');
-          var statusEl = $('<span>').html('Checking...')
-          li.append('&nbsp;').append(spinnerEl).append('&nbsp;').append(statusEl);
+      // Change icon to checklist
+      $('.uri-r .tab-icon').attr('class', 'tab-icon fa fa-check-square-o')
+
+      // Show data in mementos tab
+      var ol = $('<ol>').appendTo($('#mementos'));
+      memento_uris.forEach(function(uri) {
+        var li = $('<li>').appendTo(ol);
+        $('<a>').attr('href', uri).html(uri).appendTo(li);
+        var spinnerEl = $('<i>').attr('class', 'fa fa-circle-o-notch fa-spin');
+        var statusEl = $('<span>').html('Checking...')
+        li.append('&nbsp;').append(spinnerEl).append('&nbsp;').append(statusEl);
 
 
-          // Check damage by calling function checkDamage
-          checkDamageUriM(uri, function() {
-            // Change icon to checklist
-            if(spinnerEl) spinnerEl.attr('class', 'fa fa-check-square-o')
-            if(statusEl) statusEl.html('Finished');
-          })
-        });
-      }, 'json');
-    } else {
-      checkDamageUriM('{{ url }}', function(uri, result) {
-        // Show summary
-        var olUrlSummaries = $('#summary ol.uri');
-        if(olUrlSummaries.length == 0) {
-          olUrlSummaries = $('<ol>').attr('class', 'uri').appendTo($('#summary'));
-        }
-        var liUrlSummary = $('<li>').appendTo(olUrlSummaries);
-        $('<div>').html(uri).appendTo(liUrlSummary);
-        $('<div>').html('Potential Damage : ' + result['potential_damage']).appendTo(liUrlSummary);
-        $('<div>').html('Actual Damage : ' + result['actual_damage']).appendTo(liUrlSummary);
-        $('<div>').html('Total Damage : ' + result['total_damage']).appendTo(liUrlSummary);
-
-        // Show screenshot
-        var olUrlScreenshots = $('#screenshots ol.uri');
-        if(olUrlScreenshots.length == 0) {
-          olUrlScreenshots = $('<ol>').attr('class', 'uri').appendTo($('#screenshots'));
-        }
-        var liUrlScreenshot = $('<li>').appendTo(olUrlScreenshots);
-        $('<div>').html(uri).appendTo(liUrlScreenshot);
-        $('<img>').attr('src', '/memento/screenshot?url=' + uri).appendTo(
-          $('<div>').appendTo(liUrlScreenshot)
-        );
-
-        // Change icon to checklist
-        $('[href="#summary"] .tab-icon').attr('class', 'tab-icon fa fa-check-square-o');
-        $('[href="#images"] .tab-icon').attr('class', 'tab-icon fa fa-check-square-o');
-        $('[href="#csses"] .tab-icon').attr('class', 'tab-icon fa fa-check-square-o');
-        $('[href="#screenshots"] .tab-icon').attr('class', 'tab-icon fa fa-check-square-o');
+        // Check damage by calling function checkDamage
+        checkDamageUriM(uri, function() {
+          // Change icon to checklist
+          if(spinnerEl) spinnerEl.attr('class', 'fa fa-check-square-o')
+          if(statusEl) statusEl.html('Finished');
+        })
       });
-    }
+    }, 'json');
+  } else {
+    checkDamageUriM('{{ url }}', function(uri, result) {
+      // Show summary
+      var olUrlSummaries = $('#summary ol.uri');
+      if(olUrlSummaries.length == 0) {
+        olUrlSummaries = $('<ol>').attr('class', 'uri')
+                          .attr('id', 'summary-uri-list').appendTo($('#summary'));
+      }
+      var liUrlSummary = $('<li>').appendTo(olUrlSummaries);
 
-    function checkDamageUriM(uri, onFinished) {
-      $.get('/memento/damage', { 'uri' : uri }, function(result) {
-        // Append URI in 1st level
-        // Images
-        var olUrlImgs = $('#images ol.uri');
-        if(olUrlImgs.length == 0) {
-          olUrlImgs = $('<ol>').attr('class', 'uri').appendTo($('#images'));
-        }
-        var liUrlImg = $('<li>').appendTo(olUrlImgs);
-        $('<div>').html(uri).appendTo(liUrlImg);
-        var olImgUrls = $('<ol>').appendTo(liUrlImg);
+      // Collapsible liUrlSummaryContent
+      var liUrlSummaryHeader = $('<div>').attr('data-toggle', 'collapse')
+                          .attr('data-target', '#summary-' + md5(uri))
+                          .attr('data-parent', '#summary-uri-list')
+                          .attr('class', 'damage-uri')
+                          .appendTo(liUrlSummary);
+        $('<span>').html(uri).appendTo(liUrlSummaryHeader);
+        $('<i class="indicator glyphicon glyphicon-chevron-up  pull-right"></i>').appendTo(liUrlSummaryHeader);
+      var liUrlSummaryContent = $('<div>').attr('class', 'collapse')
+                          .attr('id', 'summary-' + md5(uri))
+                          .appendTo(liUrlSummary);
 
-        // Csses
-        var olUrlCsses = $('#csses ol.uri');
-        if(olUrlCsses.length == 0) {
-          olUrlCsses = $('<ol>').attr('class', 'uri').appendTo($('#csses'));
-        }
-        var liUrlCss = $('<li>').appendTo(olUrlCsses);
-        $('<div>').html(uri).appendTo(liUrlCss);
-        var olCssUrls = $('<ol>').appendTo(liUrlCss);
+      olUrlSummaries
+        .on('hidden.bs.collapse', toggleChevron)
+        .on('shown.bs.collapse', toggleChevron);
 
-        // result is an object, containing keys: images, csses
-        for(var key in result) {
-          val = result[key];
+      $('<div>').html('Potential Damage : ' + result['potential_damage']).appendTo(liUrlSummaryContent);
+      $('<div>').html('Actual Damage : ' + result['actual_damage']).appendTo(liUrlSummaryContent);
+      $('<div>').html('Total Damage : ' + result['total_damage']).appendTo(liUrlSummaryContent);
 
-          if(key == 'images') {
-            val.forEach(function(img) {
-              var li = $('<li>').appendTo(olImgUrls);
+      // Show screenshot
+      var olUrlScreenshots = $('#screenshots ol.uri');
+      if(olUrlScreenshots.length == 0) {
+        olUrlScreenshots = $('<ol>').attr('class', 'uri').appendTo($('#screenshots'));
+      }
+      var liUrlScreenshot = $('<li>').appendTo(olUrlScreenshots);
+      $('<div>').html(uri).appendTo(liUrlScreenshot);
+      $('<img>').attr('src', '/memento/screenshot?url=' + uri).appendTo(
+        $('<div>').appendTo(liUrlScreenshot)
+      );
 
-              // Title = URI
-              var title = $('<div>').appendTo(li);
-              $('<span>').html(img['url']).appendTo(title);
-              $('<span>').html('status_code' in img ? img['status_code'][0] : '').appendTo(title);
+      // Change icon to checklist
+      $('[href="#summary"] .tab-icon').attr('class', 'tab-icon fa fa-check-square-o');
+      $('[href="#images"] .tab-icon').attr('class', 'tab-icon fa fa-check-square-o');
+      $('[href="#csses"] .tab-icon').attr('class', 'tab-icon fa fa-check-square-o');
+      $('[href="#screenshots"] .tab-icon').attr('class', 'tab-icon fa fa-check-square-o');
+    });
+  }
 
-              var detail = $('<ul>').appendTo(li);
+  function checkDamageUriM(uri, onFinished) {
+    $.get('/memento/damage', { 'uri' : uri }, function(result) {
+      // Append URI in 1st level
+      // Images
+      var olUrlImgs = $('#images ol.uri');
+      if(olUrlImgs.length == 0) {
+        olUrlImgs = $('<ol>').attr('class', 'uri').appendTo($('#images'));
+      }
+      var liUrlImg = $('<li>').appendTo(olUrlImgs);
+      $('<div>').html(uri).appendTo(liUrlImg);
+      var olImgUrls = $('<ol>').appendTo(liUrlImg);
 
-              // Detail - content_type
-              var liDetail = $('<li>').appendTo(detail)
-              $('<span>Content-Type</span><span>:</span>').appendTo(liDetail)
-              $('<span>'+ img['content_type'] +'</span>').appendTo(liDetail)
+      // Csses
+      var olUrlCsses = $('#csses ol.uri');
+      if(olUrlCsses.length == 0) {
+        olUrlCsses = $('<ol>').attr('class', 'uri').appendTo($('#csses'));
+      }
+      var liUrlCss = $('<li>').appendTo(olUrlCsses);
+      $('<div>').html(uri).appendTo(liUrlCss);
+      var olCssUrls = $('<ol>').appendTo(liUrlCss);
 
-              // Detail - rectangles
-              var liDetail = $('<li>').appendTo(detail)
-              $('<span>Rectangles</span><span>:</span>').appendTo(liDetail)
-              var rectangles = [];
-              img['rectangles'].forEach(function(rect) {
-                rectangles.push('Left: ' + rect['left'] + ' px, Top: ' + rect['top'] +
-                  ' px, Width: ' + rect['width'] + ' px, Height: ' + rect['height']);
-              });
-              $('<span>'+ rectangles.join('<br/>') +'</span>').appendTo(liDetail)
+      // result is an object, containing keys: images, csses
+      for(var key in result) {
+        val = result[key];
+
+        if(key == 'images') {
+          val.forEach(function(img) {
+            var li = $('<li>').appendTo(olImgUrls);
+
+            // Title = URI
+            var title = $('<div>').appendTo(li);
+            $('<span>').html(img['url']).appendTo(title);
+            $('<span>').html('status_code' in img ? img['status_code'][0] : '').appendTo(title);
+
+            var detail = $('<ul>').appendTo(li);
+
+            // Detail - content_type
+            var liDetail = $('<li>').appendTo(detail)
+            $('<span>Content-Type</span><span>:</span>').appendTo(liDetail)
+            $('<span>'+ img['content_type'] +'</span>').appendTo(liDetail)
+
+            // Detail - rectangles
+            var liDetail = $('<li>').appendTo(detail)
+            $('<span>Rectangles</span><span>:</span>').appendTo(liDetail)
+            var rectangles = [];
+            img['rectangles'].forEach(function(rect) {
+              rectangles.push('Left: ' + rect['left'] + ' px, Top: ' + rect['top'] +
+                ' px, Width: ' + rect['width'] + ' px, Height: ' + rect['height']);
             });
-          }
-
-          else if(key == 'csses') {
-            val.forEach(function(css) {
-              var li = $('<li>').appendTo(olCssUrls);
-
-              // Title = URI
-              var title = $('<div>').appendTo(li);
-              $('<span>').html(css['url']).appendTo(title);
-              $('<span>').html('status_code' in css ? css['status_code'][0] : '').appendTo(title);
-
-              var detail = $('<ul>').appendTo(li);
-
-              // Detail - rules
-              var liDetail = $('<li>').appendTo(detail)
-              $('<span>Rules Selector</span><span>:</span>').appendTo(liDetail)
-              $('<span>'+ css['rules_tag'].join(', ') +
-                ' (Total '+ css['rules_tag'].length +')' +'</span>').appendTo(liDetail);
-
-              // Detail - importance
-              var liDetail = $('<li>').appendTo(detail)
-              $('<span>Importance</span><span>:</span>').appendTo(liDetail)
-              $('<span>'+ css['importance'] +'</span>').appendTo(liDetail)
-            });
-          }
+            $('<span>'+ rectangles.join('<br/>') +'</span>').appendTo(liDetail)
+          });
         }
 
-        // Call onFinished callback
-        onFinished(uri, result)
-      }, 'json');
-    }
+        else if(key == 'csses') {
+          val.forEach(function(css) {
+            var li = $('<li>').appendTo(olCssUrls);
+
+            // Title = URI
+            var title = $('<div>').appendTo(li);
+            $('<span>').html(css['url']).appendTo(title);
+            $('<span>').html('status_code' in css ? css['status_code'][0] : '').appendTo(title);
+
+            var detail = $('<ul>').appendTo(li);
+
+            // Detail - rules
+            var liDetail = $('<li>').appendTo(detail)
+            $('<span>Rules Selector</span><span>:</span>').appendTo(liDetail)
+            $('<span>'+ css['rules_tag'].join(', ') +
+              ' (Total '+ css['rules_tag'].length +')' +'</span>').appendTo(liDetail);
+
+            // Detail - importance
+            var liDetail = $('<li>').appendTo(detail)
+            $('<span>Importance</span><span>:</span>').appendTo(liDetail)
+            $('<span>'+ css['importance'] +'</span>').appendTo(liDetail)
+          });
+        }
+      }
+
+      // Call onFinished callback
+      onFinished(uri, result)
+    }, 'json');
+  }
 </script>
 {% end %}
