@@ -23,19 +23,20 @@
 # SOFTWARE.
 
 # third party
-from tornado.web import RequestHandler, StaticFileHandler
+from tornado.web import RequestHandler as RH, StaticFileHandler
 
 # local
 from .template_loader import TemplateLoader
 
 
-class RequestHandler(RequestHandler):
+class RequestHandler(RH):
     """
     """
 
     blueprint = None
     name = None
     route = '/'
+    kwargs = {}
 
     def __init__(self, application, request, blueprint=None, **kargs):
         """
@@ -168,3 +169,6 @@ class RequestHandler(RequestHandler):
         if name.startswith("."):
             name = self.blueprint.name + name
         return super(RequestHandler, self).reverse_url(name, *args)
+
+class StaticFileHandler(RequestHandler, StaticFileHandler):
+    pass

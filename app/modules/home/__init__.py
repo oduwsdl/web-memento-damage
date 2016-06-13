@@ -1,5 +1,6 @@
 import base64
 import errno
+import inspect
 import io
 import json
 from hashlib import md5
@@ -10,7 +11,7 @@ from datetime import datetime
 
 import os
 from PIL import Image
-from ext.blueprint import Blueprint, RequestHandler
+from ext.blueprint import Blueprint, RequestHandler, StaticFileHandler
 from ext.damage import SiteDamage
 from ext.memento import MementoWeb
 from ext.crawl import CrawlListener, Crawler

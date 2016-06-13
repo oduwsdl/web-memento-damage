@@ -26,7 +26,7 @@ import inspect
 import os
 
 import tornado
-from .request_handler import RequestHandler
+from .request_handler import RequestHandler, StaticFileHandler
 
 
 class Blueprint(object):
@@ -72,6 +72,8 @@ class Blueprint(object):
                             os.path.dirname(inspect.getfile(self.__class__))),
                             "static")
 
+        self.settings['static_url_prefix'] = '/{}/static/'.format(self.name.lower())
+
         self._handlers = list()
         self.scan_handlers()
 
@@ -83,6 +85,13 @@ class Blueprint(object):
         )
 
     def scan_handlers(self):
+        self.add_handlers('.*', [
+            tornado.web.url(r"{}(.*)".format(self.settings['static_url_prefix']),
+                            StaticFileHandler,
+                            { 'path' : self.settings['static_path'] },
+                            name=StaticFileHandler.__name__)
+        ])
+
         for Cls in RequestHandler.__subclasses__():
             if str(Cls.__module__).startswith(self.__class__.__module__):
                 if not Cls.name:
@@ -92,8 +101,10 @@ class Blueprint(object):
                 if isinstance(url, basestring) or isinstance(url, unicode):
                     url = [url, ]
 
+                kwargs = Cls.kwargs if hasattr(Cls, 'kwargs') else {}
+
                 handlers = []
                 for u in url:
                     handlers.append(
-                        tornado.web.url(u, Cls, name=Cls.name))
+                        tornado.web.url(u, Cls, kwargs, name=Cls.name))
                 self.add_handlers('.*', handlers)
