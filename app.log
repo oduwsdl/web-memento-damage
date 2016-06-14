@@ -1,0 +1,159 @@
+No handlers could be found for logger "tornado.application"
+No handlers could be found for logger "tornado.application"
+WARNING:tornado.general:403 GET /static/ (127.0.0.1):  is not a file
+WARNING:tornado.access:403 GET /static/ (127.0.0.1) 3.60ms
+WARNING:tornado.general:403 GET /static/assets/ (127.0.0.1): assets/ is not a file
+WARNING:tornado.access:403 GET /static/assets/ (127.0.0.1) 1.82ms
+Server is started at localhost:8881
+Processing 1 urls in 1 sessions
+Session 0 started
+Browser 0 is starting crawl PyQt4.QtCore.QUrl(u'http://wayback.vefsafn.is/wayback/19961218212138/http://www.kbb.com/')
+
+
+Browser 0 receive resource http://wayback.vefsafn.is/wayback/19961218212138/http://www.kbb.com/
+
+
+Browser 0 receive resource http://wayback.vefsafn.is/wayback/js/graph-calc.js
+
+
+Browser 0 receive resource http://wayback.vefsafn.is/wayback/js/disclaim-element.js
+
+
+Browser 0 receive resource http://wayback.vefsafn.is/wayback/19961218212138/http://www.kbb.com/blueleft.gif
+
+
+Browser 0 receive resource http://wayback.vefsafn.is/wayback/images/toolbar/wm_tb_prv_off.png
+
+
+Browser 0 receive resource http://www.google-analytics.com/ga.js
+
+
+Browser 0 receive resource http://wayback.vefsafn.is/wayback/images/lbslogo.png
+
+
+Browser 0 receive resource http://wayback.vefsafn.is/wayback/images/toolbar/wm_tb_nxt_on.png
+
+
+Browser 0 receive resource http://www.google-analytics.com/r/__utm.gif?utmwv=5.6.7&utms=1&utmn=1238309797&utmhn=wayback.vefsafn.is&utmcs=UTF-8&utmsr=640x480&utmvp=624x464&utmsc=8-bit&utmul=en-us&utmje=0&utmfl=-&utmdt=Kelley Blue Book Used Car Bluebook Values and New Car Pricing&utmhid=1994342134&utmr=-&utmp=/wayback/19961218212138/http://www.kbb.com/&utmht=1465890298698&utmac=UA-19666866-22&utmcc=__utma=19290687.1772979344.1465890299.1465890299.1465890299.1;+__utmz=19290687.1465890299.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none);&utmjid=2142046571&utmredir=1&utmu=qBAAAAAAAAAAAAAAAAAAAAAE~
+
+
+Browser 0 receive resource http://wayback.vefsafn.is/wayback/jsp/graph.jsp?graphdata=525_27_1996:11:000000000001_1997:-1:010101000100_1998:-1:000000000002_1999:-1:180410000110_2000:-1:015173211716_2001:-1:b132cfb92140_2002:-1:001111188881_2003:-1:111321111212_2004:-1:211019a9a898_2005:-1:000000000000_2006:-1:000000000000_2007:-1:000000000000_2008:-1:000000000000_2009:-1:000000000000_2010:-1:000000000000_2011:-1:000000000000_2012:-1:000000000000_2013:-1:000000100010_2014:-1:000000000000_2015:-1:001000000000_2016:-1:000000000000
+
+
+Browser 0 receive resource http://wayback.vefsafn.is/wayback/images/toolbar/transp-yellow-pixel.png
+
+
+Browser 0 receive resource http://wayback.vefsafn.is/wayback/images/toolbar/transp-red-pixel.png
+
+
+Browser 0 receive resource http://wayback.vefsafn.is/wayback/19961218212138/http://www.kbb.com/bbsealbg.gif
+
+
+Browser 0 receive resource http://wayback.vefsafn.is/wayback/19961218212138/http://www.kbb.com/usedcars.gif
+
+
+Browser 0 receive resource http://wayback.vefsafn.is/wayback/19961218212138/http://www.kbb.com/newcars.gif
+
+
+Browser 0 receive resource http://wayback.vefsafn.is/wayback/19961218212138/http://www.kbb.com/bookicon.gif
+
+
+Browser 0 receive resource http://wayback.vefsafn.is/wayback/19961218212138/http://www.kbb.com/history.gif
+
+
+Browser 0 receive resource http://wayback.vefsafn.is/wayback/19961218212138/http://www.kbb.com/vipsites.gif
+
+
+Browser 0 receive resource http://wayback.vefsafn.is/wayback/images/toolbar/wm_tb_close.png
+
+
+Browser 0 receive resource http://wayback.vefsafn.is/wayback/images/toolbar/wm_tb_help.png
+
+
+saving html source to /media/DATA/ERIKA/SummerWork/MementoPediaProject/web-memento-damage/cache/html/1399aa10a87dec8d223ebaa2c2d57725.html
+saving screenshot to /media/DATA/ERIKA/SummerWork/MementoPediaProject/web-memento-damage/cache/screenshot/1399aa10a87dec8d223ebaa2c2d57725.png
+saving images log to /media/DATA/ERIKA/SummerWork/MementoPediaProject/web-memento-damage/cache/log/1399aa10a87dec8d223ebaa2c2d57725.img.log
+saving stylesheets log to /media/DATA/ERIKA/SummerWork/MementoPediaProject/web-memento-damage/cache/log/1399aa10a87dec8d223ebaa2c2d57725.css.log
+saving resources log to /media/DATA/ERIKA/SummerWork/MementoPediaProject/web-memento-damage/cache/log/1399aa10a87dec8d223ebaa2c2d57725.log
+Browser 0 is finished crawl http://wayback.vefsafn.is/wayback/19961218212138/http://www.kbb.com/
+
+
+Calculating site damage...
+Potential damage 0.0102903525886 for http://wayback.vefsafn.is/wayback/19961218212138/http://www.kbb.com/newcars.gif
+Potential damage 0.00482823343459 for httpServer is started at localhost:8880
+Processing 1 urls in 1 sessions
+Session 0 started
+Browser 0 is starting crawl PyQt4.QtCore.QUrl(u'http://wayback.vefsafn.is/wayback/19961218212138/http://www.kbb.com/')
+
+
+Browser 0 receive resource http://wayback.vefsafn.is/wayback/19961218212138/http://www.kbb.com/
+
+
+Browser 0 receive resource http://wayback.vefsafn.is/wayback/js/graph-calc.js
+
+
+Browser 0 receive resource http://wayback.vefsafn.is/wayback/js/disclaim-element.js
+
+
+Browser 0 receive resource http://wayback.vefsafn.is/wayback/19961218212138/http://www.kbb.com/blueleft.gif
+
+
+Browser 0 receive resource http://www.google-analytics.com/ga.js
+
+
+Browser 0 receive resource http://wayback.vefsafn.is/wayback/images/toolbar/wm_tb_prv_off.png
+
+
+Browser 0 receive resource http://www.google-analytics.com/r/__utm.gif?utmwv=5.6.7&utms=1&utmn=860907880&utmhn=wayback.vefsafn.is&utmcs=UTF-8&utmsr=640x480&utmvp=624x464&utmsc=8-bit&utmul=en-us&utmje=0&utmfl=-&utmdt=Kelley Blue Book Used Car Bluebook Values and New Car Pricing&utmhid=1048706202&utmr=-&utmp=/wayback/19961218212138/http://www.kbb.com/&utmht=1465891138688&utmac=UA-19666866-22&utmcc=__utma=19290687.1598097581.1465891139.1465891139.1465891139.1;+__utmz=19290687.1465891139.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none);&utmjid=1744363512&utmredir=1&utmu=qBAAAAAAAAAAAAAAAAAAAAAE~
+
+
+Browser 0 receive resource http://wayback.vefsafn.is/wayback/images/toolbar/wm_tb_nxt_on.png
+
+
+Browser 0 receive resource http://wayback.vefsafn.is/wayback/images/lbslogo.png
+
+
+Browser 0 receive resource http://wayback.vefsafn.is/wayback/images/toolbar/transp-yellow-pixel.png
+
+
+Browser 0 receive resource http://wayback.vefsafn.is/wayback/jsp/graph.jsp?graphdata=525_27_1996:11:000000000001_1997:-1:010101000100_1998:-1:000000000002_1999:-1:180410000110_2000:-1:015173211716_2001:-1:b132cfb92140_2002:-1:001111188881_2003:-1:111321111212_2004:-1:211019a9a898_2005:-1:000000000000_2006:-1:000000000000_2007:-1:000000000000_2008:-1:000000000000_2009:-1:000000000000_2010:-1:000000000000_2011:-1:000000000000_2012:-1:000000000000_2013:-1:000000100010_2014:-1:000000000000_2015:-1:001000000000_2016:-1:000000000000
+
+
+Browser 0 receive resource http://wayback.vefsafn.is/wayback/images/toolbar/transp-red-pixel.png
+
+
+Browser 0 receive resource http://wayback.vefsafn.is/wayback/19961218212138/http://www.kbb.com/bbsealbg.gif
+
+
+Browser 0 receive resource http://wayback.vefsafn.is/wayback/19961218212138/http://www.kbb.com/usedcars.gif
+
+
+Browser 0 receive resource http://wayback.vefsafn.is/wayback/19961218212138/http://www.kbb.com/newcars.gif
+
+
+Browser 0 receive resource http://wayback.vefsafn.is/wayback/19961218212138/http://www.kbb.com/bookicon.gif
+
+
+Browser 0 receive resource http://wayback.vefsafn.is/wayback/19961218212138/http://www.kbb.com/history.gif
+
+
+Browser 0 receive resource http://wayback.vefsafn.is/wayback/19961218212138/http://www.kbb.com/vipsites.gif
+
+
+Browser 0 receive resource http://wayback.vefsafn.is/wayback/images/toolbar/wm_tb_close.png
+
+
+Browser 0 receive resource http://wayback.vefsafn.is/wayback/images/toolbar/wm_tb_help.png
+
+
+saving html source to /media/DATA/ERIKA/SummerWork/MementoPediaProject/web-memento-damage/cache/html/1399aa10a87dec8d223ebaa2c2d57725.html
+saving screenshot to /media/DATA/ERIKA/SummerWork/MementoPediaProject/web-memento-damage/cache/screenshot/1399aa10a87dec8d223ebaa2c2d57725.png
+saving images log to /media/DATA/ERIKA/SummerWork/MementoPediaProject/web-memento-damage/cache/log/1399aa10a87dec8d223ebaa2c2d57725.img.log
+saving stylesheets log to /media/DATA/ERIKA/SummerWork/MementoPediaProject/web-memento-damage/cache/log/1399aa10a87dec8d223ebaa2c2d57725.css.log
+saving resources log to /media/DATA/ERIKA/SummerWork/MementoPediaProject/web-memento-damage/cache/log/1399aa10a87dec8d223ebaa2c2d57725.log
+Browser 0 is finished crawl http://wayback.vefsafn.is/wayback/19961218212138/http://www.kbb.com/
+
+
+Calculating site damage...
+Potential damage 0.0102903525886 for http://wayback.vefsafn.is/wayback/19961218212138/http://www.kbb.com/newcars.gif
+Potential damage 0.00482823343459 for http:
