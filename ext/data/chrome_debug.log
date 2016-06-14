@@ -1,0 +1,8 @@
+[25175:25175:0614/172255:ERROR:browser_main_loop.cc(249)] GTK theme error: Theme directory place/72 of theme MBuntu-OSX has no size field
+
+[25175:25175:0614/172255:WARNING:password_store_factory.cc(250)] Using basic (unencrypted) store for password storage. See https://chromium.googlesource.com/chromium/src/+/master/docs/linux_password_storage.md for more information about password storage options.
+[25175:25207:0614/172307:WARNING:spdy_session.cc(2421)] Received HEADERS for invalid stream 5
+[25175:25175:0614/172308:INFO:CONSOLE(6)] "SW registered", source: https://www.google.com/_/chrome/newtab?espv=2&ie=UTF-8 (6)
+[25175:25175:0614/172326:WARNING:pref_notifier_impl.cc(27)] pref observer found at shutdown plugins.always_authorize
+[25175:25175:0614/172326:WARNING:pref_notifier_impl.cc(27)] pref observer found at shutdown plugins.allow_outdated
+[25175:25175:0614/172326:WARNING:pref_notifier_impl.cc(27)] pref observer found at shutdown printing.enabled

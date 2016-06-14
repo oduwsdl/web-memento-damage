@@ -2,7 +2,7 @@ import os
 from tornado.web import StaticFileHandler
 
 host                    = 'localhost'
-port                    = 8080
+port                    = 8880
 
 debug                   = False
 

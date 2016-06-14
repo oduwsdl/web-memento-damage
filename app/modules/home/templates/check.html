@@ -198,7 +198,7 @@
     });
   }
 
-    function checkDamageUriM(uri, onFinished) {
+  function checkDamageUriM(uri, onFinished) {
     $.get('/memento/damage', { 'uri' : uri }, function(result) {
       // Append URI in 1st level
       // Images
@@ -264,9 +264,11 @@
 
             // Detail - rules
             var liDetail = $('<li>').appendTo(detail)
-            $('<span>Rules Selector</span><span>:</span>').appendTo(liDetail)
-            $('<span>'+ css['rules_tag'].join(', ') +
-              ' (Total '+ css['rules_tag'].length +')' +'</span>').appendTo(liDetail);
+            $('<span>Rules Selector</span><span>:</span>').appendTo(liDetail);
+            if(css['rules_tag']) {
+              $('<span>'+ css['rules_tag'].join(', ') +
+                ' (Total '+ css['rules_tag'].length +')' +'</span>').appendTo(liDetail);
+            }
 
             // Detail - importance
             var liDetail = $('<li>').appendTo(detail)
