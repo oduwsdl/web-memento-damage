@@ -63,6 +63,11 @@ else {
         }
     };
 
+    // After 5 minutes not responding
+    window.setTimeout(function () {
+        phantom.exit(1);
+    }, 5 * 60 * 1000)
+
     // Open URI
     page.open(url, function (status) {
         if (status !== 'success') {
