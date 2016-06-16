@@ -156,4 +156,7 @@ Browser 0 is finished crawl http://wayback.vefsafn.is/wayback/19961218212138/htt
 
 Calculating site damage...
 Potential damage 0.0102903525886 for http://wayback.vefsafn.is/wayback/19961218212138/http://www.kbb.com/newcars.gif
-Potential damage 0.00482823343459 for http:
+Potential damage 0.00482823343459 for http:No handlers could be found for logger "tornado.application"
+No handlers could be found for logger "tornado.application"
+Terminated
+Terminated

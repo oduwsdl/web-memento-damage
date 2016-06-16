@@ -52,8 +52,7 @@ class SiteDamage:
     def find_missings(self):
         self.missing_imgs_log = []
         for log in self.images_log:
-            status_code, true = log['status_code']
-            if status_code > 399:
+            if log['status_code'] > 399:
                 self.missing_imgs_log.append(log)
 
         # self.missing_csses_log = []
