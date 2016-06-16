@@ -2,9 +2,6 @@
 Section 'Damage' =============================================================
 '''
 import math
-import os
-
-from PyQt4.QtNetwork import QNetworkReply
 
 from PIL import Image
 
@@ -249,3 +246,47 @@ class SiteDamage:
             importance += ratio_weight
 
         return importance
+
+if __name__ == "__main__":
+    import sys
+    import os
+    import json
+
+    if len(sys.argv) > 0:
+        if len(sys.argv) < 4:
+            print('Usage :')
+            print('python damage.py <images_log_file> <csses_log_file> '\
+                  '<screenshot_file> <background_color>')
+            exit()
+
+        images_log_file = sys.argv[1]
+        csses_log_file = sys.argv[2]
+        screenshot_file = sys.argv[3]
+        background_color = sys.argv[4] if len(sys.argv) >= 5 else 'FFFFFF'
+
+        images_log = [json.loads(log) for log in
+                      open(images_log_file).readlines()]
+        csses_log = [json.loads(log) for log in
+                      open(csses_log_file).readlines()]
+
+        damage = SiteDamage(images_log, csses_log, screenshot_file,
+                            background_color)
+        potential_damage = damage.calculate_potential_damage()
+        print('Potential Damage : {}'.format(potential_damage))
+
+        actual_damage = damage.calculate_actual_damage()
+        print('Actual Damage : {}'.format(actual_damage))
+        print('Total Damage : {}'.format(
+            actual_damage/potential_damage if potential_damage
+            != 0 else 0))
+
+        result = {}
+        result['images'] = images_log
+        result['csses'] = csses_log
+        result['potential_damage'] = potential_damage
+        result['actual_damage'] = actual_damage
+        result['total_damage'] = \
+            actual_damage/potential_damage \
+            if potential_damage != 0 else 0
+
+        print(json.dumps({'result' : result}))

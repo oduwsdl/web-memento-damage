@@ -23,13 +23,18 @@
 # SOFTWARE.
 
 # third party
-from tornado.web import RequestHandler as RH, StaticFileHandler
+import contextlib
+
+import time
+
+from tornado.ioloop import IOLoop
+from tornado.web import RequestHandler as OriginalRequestHandler, StaticFileHandler
 
 # local
 from .template_loader import TemplateLoader
 
 
-class RequestHandler(RH):
+class RequestHandler(OriginalRequestHandler):
     """
     """
 
@@ -44,7 +49,7 @@ class RequestHandler(RH):
         super(RequestHandler, self).__init__(application=application,
                                         request=request, **kargs)
         self.blueprint = blueprint
-        return None
+        self._timed_out = False
 
     @property
     def settings(self):

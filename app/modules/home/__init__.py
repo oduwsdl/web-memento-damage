@@ -6,7 +6,7 @@ import json
 from hashlib import md5
 
 import thread
-from threading import Thread
+from threading import Thread, Event
 
 from PyQt4.QtGui import QApplication
 from datetime import datetime
@@ -24,6 +24,38 @@ from tornado import web, httpclient, escape
 # from gevent import monkey, spawn, spawn_later;
 # monkey.patch_all()
 
+
+class Command(object):
+    def __init__(self, cmd, pipe_callback):
+        self.cmd = cmd
+        self.process = None
+        self.pipe_callback = pipe_callback
+
+    def run(self, timeout, args=()):
+        def target():
+            self.process = Popen(self.cmd, stdout=PIPE, stderr=PIPE)
+
+            stdout_thread = Thread(target=self.pipe_callback,
+                               args=(self.process.stdout, ) + args)
+            stdout_thread.daemon = True
+            stdout_thread.start()
+
+            stdin_thread = Thread(target=self.pipe_callback,
+                                  args=(self.process.stderr, ) + args)
+            stdin_thread.daemon = True
+            stdin_thread.start()
+
+            self.process.wait()
+
+        thread = Thread(target=target)
+        thread.daemon = True
+        thread.start()
+
+        thread.join(timeout)
+        try: self.process.terminate()
+        except: pass
+
+        return self.process.returncode
 
 class Memento(Blueprint):
     def __init__(self, *args, **settings):
@@ -110,6 +142,11 @@ class Memento(Blueprint):
                 self.application.settings.get('base_dir'),
                 'ext', 'phantomjs', 'crawl.js'
             )
+            damage_py_script = os.path.join(
+                self.application.settings.get('base_dir'),
+                'ext', 'damage.py'
+            )
+
             screenshot_file = '{}.png'.format(os.path.join(
                 self.blueprint.screenshot_dir, hashed_url))
             html_file = '{}.html'.format(os.path.join(
@@ -123,151 +160,48 @@ class Memento(Blueprint):
             crawler_log_file = '{}.crawl.log'.format(os.path.join(
                 self.blueprint.log_dir, hashed_url))
 
+            # Logger
+            f = open(crawler_log_file, 'w')
+            f.write('')
+            f.close()
+
+            f = open(crawler_log_file, 'a')
+
+            def log_output(out, page=None):
+                def write(line):
+                    f.write(line + '\n')
+                    print(line)
+
+                    if 'background_color' in line and page:
+                        page['background_color'] = json.loads(line)\
+                                                   ['background_color']
+                    if 'result' in line:
+                        line = json.loads(line)
+                        self.write(json.dumps(line['result']))
+                        self.finish()
+
+                if out and hasattr(out, 'readline'):
+                    for line in iter(out.readline, b''):
+                    #for line in out.readlines():
+                        line =  line.strip()
+                        write(line)
+                else:
+                    write(out)
+
+            # ...
             page = {
                 'background_color': 'FFFFFF'
             }
 
-            # Run phantomjs crawl.js
-            p = Popen(args=['phantomjs', crawljs_script, uri,
-                            screenshot_file, html_file, log_file],
-                      stdout=PIPE, stderr=PIPE)
+            cmd = Command(['phantomjs', crawljs_script, uri,screenshot_file,
+                           html_file, log_file], log_output)
+            cmd.run(10 * 60, args=(page, ))
 
-            f = open(crawler_log_file, 'w')
-            f.write('')
-            f.close()
-            f = open(crawler_log_file, 'a')
-            def show_output(out, page):
-                for line in iter(out.readline, b''):
-                    f.write(line)
+            cmd = Command(['python', damage_py_script, images_log_file,
+                           csses_log_file, screenshot_file], log_output)
+            cmd.run(10 * 60)
 
-                    line =  line.strip()
-                    print(line)
-
-                    if 'background_color' in line:
-                        page['background_color'] = json.loads(line)\
-                                                   ['background_color']
-                out.close()
-
-            t = Thread(target=show_output, args=(p.stdout, page))
-            t.daemon = True
-            t.start()
-
-            t = Thread(target=show_output, args=(p.stderr, page))
-            t.daemon = True
-            t.start()
-
-            p.wait()
-
-            # Calculate damage
-            def calculate_damage():
-                images_log = [json.loads(log) for log in
-                              open(images_log_file).readlines()]
-                csses_log = [json.loads(log) for log in
-                              open(csses_log_file).readlines()]
-
-                damage = SiteDamage(images_log, csses_log, '{}.png'.format(
-                    os.path.join(self.blueprint.screenshot_dir, hashed_url)),
-                    page['background_color'])
-
-                potential_damage = damage.calculate_potential_damage()
-                print('Potential Damage : {}'.format(potential_damage))
-
-                actual_damage = damage.calculate_actual_damage()
-                print('Actual Damage : {}'.format(actual_damage))
-                print('Total Damage : {}'.format(
-                    actual_damage/potential_damage if potential_damage
-                    != 0 else 0))
-
-                result = {}
-                result['images'] = images_log
-                result['csses'] = csses_log
-                result['potential_damage'] = potential_damage
-                result['actual_damage'] = actual_damage
-                result['total_damage'] = \
-                    actual_damage/potential_damage \
-                    if potential_damage != 0 else 0
-
-                self.write(json.dumps(result))
+            if not self._finished:
+                self.write('Request time out')
                 self.finish()
-
-            t = Thread(target=calculate_damage)
-            t.daemon = True
-            t.start()
-
-
-            # writer = self
-            # class CustomCrawlListener(CrawlListener):
-            #     def __init__(self):
-            #         self.result = {}
-            #
-            #     def on_start(self, id, browser):
-            #         print('Browser {} is starting crawl {}\n\n'
-            #             .format(id, browser.page().mainFrame().requestedUrl()))
-            #         self.timestart = datetime.now()
-            #
-            #     def on_loaded(self, id, browser):
-            #         url = str(browser.page().mainFrame().requestedUrl().toString())
-            #         hashed_url = md5(url).hexdigest()
-            #
-            #         browser.get_html('{}.html'.format(
-            #             os.path.join(writer.blueprint.html_dir, hashed_url)))
-            #         browser.take_screenshot('{}.png'.format(
-            #             os.path.join(writer.blueprint.screenshot_dir, hashed_url)))
-            #         images_log = browser.get_images('{}.img.log'.format(
-            #             os.path.join(writer.blueprint.log_dir, hashed_url)))
-            #         csses_log = browser.get_stylesheets('{}.css.log'.format(
-            #             os.path.join(writer.blueprint.log_dir, hashed_url)))
-            #         browser.get_resources('{}.log'.format(
-            #             os.path.join(writer.blueprint.log_dir, hashed_url)))
-            #
-            #         print('Browser {} is finished crawl {}\n\n'
-            #                      .format(id, url))
-            #         print('Calculating site damage...')
-            #
-            #         damage = SiteDamage(images_log, csses_log, '{}.png'.format(
-            #             os.path.join(writer.blueprint.screenshot_dir, hashed_url)),
-            #             browser.get_background_color())
-            #
-            #         potential_damage = damage.calculate_potential_damage()
-            #         print('Potential Damage : {}'.format(potential_damage))
-            #
-            #         actual_damage = damage.calculate_actual_damage()
-            #         print('Actual Damage : {}'.format(actual_damage))
-            #         print('Total Damage : {}'.format(
-            #             actual_damage/potential_damage if potential_damage
-            #             != 0 else 0))
-            #
-            #         self.result['images'] = images_log
-            #         self.result['csses'] = csses_log
-            #         self.result['potential_damage'] = potential_damage
-            #         self.result['actual_damage'] = actual_damage
-            #         self.result['total_damage'] = \
-            #             actual_damage/potential_damage \
-            #             if potential_damage != 0 else 0
-            #
-            #     def on_resource_received(self, log, id, *browser):
-            #         print('Browser {} receive resource {}\n\n'
-            #                      .format(id, log['url']))
-            #
-            #     def on_finished(self, sessions):
-            #         self.timefinish = datetime.now()
-            #         process_time = (self.timefinish -
-            #                         self.timestart).microseconds / 1000
-            #
-            #         urls = [len(urls) for id, urls, status in sessions]
-            #
-            #         print('All Finished\n\n')
-            #         print('{} URIs has crawled in {} sessions in {} '
-            #               'seconds\n\n'.format(sum(urls), len(urls),
-            #                                        process_time))
-            #
-            #         writer.write(json.dumps(self.result))
-            #         writer.finish()
-            #
-            # app = QApplication([])
-            # crawler = Crawler(app, CustomCrawlListener())
-            # crawler.add_blacklist('http://web.archive.org/static')
-            # crawler.start(uri)
-            #
-            # app.exec_()
 

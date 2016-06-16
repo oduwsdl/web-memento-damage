@@ -1,162 +1,173 @@
 No handlers could be found for logger "tornado.application"
 No handlers could be found for logger "tornado.application"
-WARNING:tornado.general:403 GET /static/ (127.0.0.1):  is not a file
-WARNING:tornado.access:403 GET /static/ (127.0.0.1) 3.60ms
-WARNING:tornado.general:403 GET /static/assets/ (127.0.0.1): assets/ is not a file
-WARNING:tornado.access:403 GET /static/assets/ (127.0.0.1) 1.82ms
-Server is started at localhost:8881
-Processing 1 urls in 1 sessions
-Session 0 started
-Browser 0 is starting crawl PyQt4.QtCore.QUrl(u'http://wayback.vefsafn.is/wayback/19961218212138/http://www.kbb.com/')
-
-
-Browser 0 receive resource http://wayback.vefsafn.is/wayback/19961218212138/http://www.kbb.com/
-
-
-Browser 0 receive resource http://wayback.vefsafn.is/wayback/js/graph-calc.js
-
-
-Browser 0 receive resource http://wayback.vefsafn.is/wayback/js/disclaim-element.js
-
-
-Browser 0 receive resource http://wayback.vefsafn.is/wayback/19961218212138/http://www.kbb.com/blueleft.gif
-
-
-Browser 0 receive resource http://wayback.vefsafn.is/wayback/images/toolbar/wm_tb_prv_off.png
-
-
-Browser 0 receive resource http://www.google-analytics.com/ga.js
-
-
-Browser 0 receive resource http://wayback.vefsafn.is/wayback/images/lbslogo.png
-
-
-Browser 0 receive resource http://wayback.vefsafn.is/wayback/images/toolbar/wm_tb_nxt_on.png
-
-
-Browser 0 receive resource http://www.google-analytics.com/r/__utm.gif?utmwv=5.6.7&utms=1&utmn=1238309797&utmhn=wayback.vefsafn.is&utmcs=UTF-8&utmsr=640x480&utmvp=624x464&utmsc=8-bit&utmul=en-us&utmje=0&utmfl=-&utmdt=Kelley Blue Book Used Car Bluebook Values and New Car Pricing&utmhid=1994342134&utmr=-&utmp=/wayback/19961218212138/http://www.kbb.com/&utmht=1465890298698&utmac=UA-19666866-22&utmcc=__utma=19290687.1772979344.1465890299.1465890299.1465890299.1;+__utmz=19290687.1465890299.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none);&utmjid=2142046571&utmredir=1&utmu=qBAAAAAAAAAAAAAAAAAAAAAE~
-
-
-Browser 0 receive resource http://wayback.vefsafn.is/wayback/jsp/graph.jsp?graphdata=525_27_1996:11:000000000001_1997:-1:010101000100_1998:-1:000000000002_1999:-1:180410000110_2000:-1:015173211716_2001:-1:b132cfb92140_2002:-1:001111188881_2003:-1:111321111212_2004:-1:211019a9a898_2005:-1:000000000000_2006:-1:000000000000_2007:-1:000000000000_2008:-1:000000000000_2009:-1:000000000000_2010:-1:000000000000_2011:-1:000000000000_2012:-1:000000000000_2013:-1:000000100010_2014:-1:000000000000_2015:-1:001000000000_2016:-1:000000000000
-
-
-Browser 0 receive resource http://wayback.vefsafn.is/wayback/images/toolbar/transp-yellow-pixel.png
-
-
-Browser 0 receive resource http://wayback.vefsafn.is/wayback/images/toolbar/transp-red-pixel.png
-
-
-Browser 0 receive resource http://wayback.vefsafn.is/wayback/19961218212138/http://www.kbb.com/bbsealbg.gif
-
-
-Browser 0 receive resource http://wayback.vefsafn.is/wayback/19961218212138/http://www.kbb.com/usedcars.gif
-
-
-Browser 0 receive resource http://wayback.vefsafn.is/wayback/19961218212138/http://www.kbb.com/newcars.gif
-
-
-Browser 0 receive resource http://wayback.vefsafn.is/wayback/19961218212138/http://www.kbb.com/bookicon.gif
-
-
-Browser 0 receive resource http://wayback.vefsafn.is/wayback/19961218212138/http://www.kbb.com/history.gif
-
-
-Browser 0 receive resource http://wayback.vefsafn.is/wayback/19961218212138/http://www.kbb.com/vipsites.gif
-
-
-Browser 0 receive resource http://wayback.vefsafn.is/wayback/images/toolbar/wm_tb_close.png
-
-
-Browser 0 receive resource http://wayback.vefsafn.is/wayback/images/toolbar/wm_tb_help.png
-
-
-saving html source to /media/DATA/ERIKA/SummerWork/MementoPediaProject/web-memento-damage/cache/html/1399aa10a87dec8d223ebaa2c2d57725.html
-saving screenshot to /media/DATA/ERIKA/SummerWork/MementoPediaProject/web-memento-damage/cache/screenshot/1399aa10a87dec8d223ebaa2c2d57725.png
-saving images log to /media/DATA/ERIKA/SummerWork/MementoPediaProject/web-memento-damage/cache/log/1399aa10a87dec8d223ebaa2c2d57725.img.log
-saving stylesheets log to /media/DATA/ERIKA/SummerWork/MementoPediaProject/web-memento-damage/cache/log/1399aa10a87dec8d223ebaa2c2d57725.css.log
-saving resources log to /media/DATA/ERIKA/SummerWork/MementoPediaProject/web-memento-damage/cache/log/1399aa10a87dec8d223ebaa2c2d57725.log
-Browser 0 is finished crawl http://wayback.vefsafn.is/wayback/19961218212138/http://www.kbb.com/
-
-
-Calculating site damage...
-Potential damage 0.0102903525886 for http://wayback.vefsafn.is/wayback/19961218212138/http://www.kbb.com/newcars.gif
-Potential damage 0.00482823343459 for httpServer is started at localhost:8880
-Processing 1 urls in 1 sessions
-Session 0 started
-Browser 0 is starting crawl PyQt4.QtCore.QUrl(u'http://wayback.vefsafn.is/wayback/19961218212138/http://www.kbb.com/')
-
-
-Browser 0 receive resource http://wayback.vefsafn.is/wayback/19961218212138/http://www.kbb.com/
-
-
-Browser 0 receive resource http://wayback.vefsafn.is/wayback/js/graph-calc.js
-
-
-Browser 0 receive resource http://wayback.vefsafn.is/wayback/js/disclaim-element.js
-
-
-Browser 0 receive resource http://wayback.vefsafn.is/wayback/19961218212138/http://www.kbb.com/blueleft.gif
-
-
-Browser 0 receive resource http://www.google-analytics.com/ga.js
-
-
-Browser 0 receive resource http://wayback.vefsafn.is/wayback/images/toolbar/wm_tb_prv_off.png
-
-
-Browser 0 receive resource http://www.google-analytics.com/r/__utm.gif?utmwv=5.6.7&utms=1&utmn=860907880&utmhn=wayback.vefsafn.is&utmcs=UTF-8&utmsr=640x480&utmvp=624x464&utmsc=8-bit&utmul=en-us&utmje=0&utmfl=-&utmdt=Kelley Blue Book Used Car Bluebook Values and New Car Pricing&utmhid=1048706202&utmr=-&utmp=/wayback/19961218212138/http://www.kbb.com/&utmht=1465891138688&utmac=UA-19666866-22&utmcc=__utma=19290687.1598097581.1465891139.1465891139.1465891139.1;+__utmz=19290687.1465891139.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none);&utmjid=1744363512&utmredir=1&utmu=qBAAAAAAAAAAAAAAAAAAAAAE~
-
-
-Browser 0 receive resource http://wayback.vefsafn.is/wayback/images/toolbar/wm_tb_nxt_on.png
-
-
-Browser 0 receive resource http://wayback.vefsafn.is/wayback/images/lbslogo.png
-
-
-Browser 0 receive resource http://wayback.vefsafn.is/wayback/images/toolbar/transp-yellow-pixel.png
-
-
-Browser 0 receive resource http://wayback.vefsafn.is/wayback/jsp/graph.jsp?graphdata=525_27_1996:11:000000000001_1997:-1:010101000100_1998:-1:000000000002_1999:-1:180410000110_2000:-1:015173211716_2001:-1:b132cfb92140_2002:-1:001111188881_2003:-1:111321111212_2004:-1:211019a9a898_2005:-1:000000000000_2006:-1:000000000000_2007:-1:000000000000_2008:-1:000000000000_2009:-1:000000000000_2010:-1:000000000000_2011:-1:000000000000_2012:-1:000000000000_2013:-1:000000100010_2014:-1:000000000000_2015:-1:001000000000_2016:-1:000000000000
-
-
-Browser 0 receive resource http://wayback.vefsafn.is/wayback/images/toolbar/transp-red-pixel.png
-
-
-Browser 0 receive resource http://wayback.vefsafn.is/wayback/19961218212138/http://www.kbb.com/bbsealbg.gif
-
-
-Browser 0 receive resource http://wayback.vefsafn.is/wayback/19961218212138/http://www.kbb.com/usedcars.gif
-
-
-Browser 0 receive resource http://wayback.vefsafn.is/wayback/19961218212138/http://www.kbb.com/newcars.gif
-
-
-Browser 0 receive resource http://wayback.vefsafn.is/wayback/19961218212138/http://www.kbb.com/bookicon.gif
-
-
-Browser 0 receive resource http://wayback.vefsafn.is/wayback/19961218212138/http://www.kbb.com/history.gif
-
-
-Browser 0 receive resource http://wayback.vefsafn.is/wayback/19961218212138/http://www.kbb.com/vipsites.gif
-
-
-Browser 0 receive resource http://wayback.vefsafn.is/wayback/images/toolbar/wm_tb_close.png
-
-
-Browser 0 receive resource http://wayback.vefsafn.is/wayback/images/toolbar/wm_tb_help.png
-
-
-saving html source to /media/DATA/ERIKA/SummerWork/MementoPediaProject/web-memento-damage/cache/html/1399aa10a87dec8d223ebaa2c2d57725.html
-saving screenshot to /media/DATA/ERIKA/SummerWork/MementoPediaProject/web-memento-damage/cache/screenshot/1399aa10a87dec8d223ebaa2c2d57725.png
-saving images log to /media/DATA/ERIKA/SummerWork/MementoPediaProject/web-memento-damage/cache/log/1399aa10a87dec8d223ebaa2c2d57725.img.log
-saving stylesheets log to /media/DATA/ERIKA/SummerWork/MementoPediaProject/web-memento-damage/cache/log/1399aa10a87dec8d223ebaa2c2d57725.css.log
-saving resources log to /media/DATA/ERIKA/SummerWork/MementoPediaProject/web-memento-damage/cache/log/1399aa10a87dec8d223ebaa2c2d57725.log
-Browser 0 is finished crawl http://wayback.vefsafn.is/wayback/19961218212138/http://www.kbb.com/
-
-
-Calculating site damage...
-Potential damage 0.0102903525886 for http://wayback.vefsafn.is/wayback/19961218212138/http://www.kbb.com/newcars.gif
-Potential damage 0.00482823343459 for http:No handlers could be found for logger "tornado.application"
+Server is started at localhost:8880
+Resource received http://cs.odu.edu/
+Resource received http://cs.odu.edu/
+Resource received http://www.cs.odu.edu/
+Resource received http://www.cs.odu.edu/
+Resource received http://www.cs.odu.edu/files/style.css
+Resource received http://www.cs.odu.edu/files/style.css
+Resource received http://www.cs.odu.edu/files/screen.css
+Resource received http://www.cs.odu.edu/files/screen.css
+Resource received http://www.cs.odu.edu/files/mm_menu.js
+Resource received http://www.cs.odu.edu/files/university.js
+Resource received http://www.cs.odu.edu/files/easySlider1.7.js
+Resource received http://www.cs.odu.edu/files/university.js
+Resource received http://www.cs.odu.edu/files/jquery.js
+Resource received http://www.cs.odu.edu/files/easySlider1.7.js
+Resource received http://www.cs.odu.edu/files/mm_menu.js
+Resource received http://www.cs.odu.edu/files/jquery.js
+Resource received http://www.cs.odu.edu/files/gfx-logo-odu-crown.gif
+Resource received http://www.cs.odu.edu/files/spacer.gif
+Resource received http://www.cs.odu.edu/files/spacer.gif
+Resource received http://www.cs.odu.edu/files/gfx-btn-go-dblue.gif
+Resource received http://www.cs.odu.edu/files/gfx-btn-go-dblue.gif
+Resource received http://www.cs.odu.edu/files/gfx-logo-odu-crown.gif
+Resource received http://www.cs.odu.edu/files/hmenu_bg_dept1.gif
+Resource received http://www.cs.odu.edu/files/hmenu_bg_dept1.gif
+Resource received http://www.cs.odu.edu/files/hmenu_college_of_sciences-new.png
+Resource received http://www.cs.odu.edu/files/hmenu_college_of_sciences-new.png
+Resource received http://www.cs.odu.edu/files/logo-cs.gif
+Resource received http://www.cs.odu.edu/files/logo-cs.gif
+Resource received http://www.cs.odu.edu/files/lmenu_bg_162.gif
+Resource received http://www.cs.odu.edu/files/lmenu_1st_resources.png
+Resource received http://www.cs.odu.edu/files/lmenu_bg_162.gif
+Resource received http://www.cs.odu.edu/files/lmenu_1st_resources.png
+Resource received http://www.cs.odu.edu/files/header-right1.gif
+Resource received http://www.cs.odu.edu/files/bullet_blue_triangle.gif
+Resource received http://www.cs.odu.edu/files/bullet_blue_triangle.gif
+Resource received http://www.cs.odu.edu/images/acm2.jpg
+Resource received http://platform.twitter.com/widgets.js
+Resource received http://www.cs.odu.edu/images/acm_meeting_spring1.jpg
+Resource received http://platform.twitter.com/widgets.js
+Resource received http://www.cs.odu.edu/files/header-right1.gif
+Resource received http://www.cs.odu.edu/images/JCDL_2015.jpeg
+Resource received http://www.cs.odu.edu/images/nikos_slider_1.jpg
+Resource received http://www.cs.odu.edu/images/dragas_ps_lab_1.jpg
+Resource received http://www.cs.odu.edu/images/acm2.jpg
+Resource received http://www.cs.odu.edu/images/group_station_orlab_1.jpg
+Resource received http://www.cs.odu.edu/images/acm_meeting_spring1.jpg
+Resource received http://www.cs.odu.edu/images/JCDL_2015.jpeg
+Resource received http://www.cs.odu.edu/images/dragas_ps_lab_1.jpg
+Resource received http://www.cs.odu.edu/images/nikos_slider_1.jpg
+Resource received http://www.cs.odu.edu/images/scsc_best_paper_award.jpg
+Resource received http://www.cs.odu.edu/images/group_station_orlab_1.jpg
+Resource received http://www.cs.odu.edu/files/rmenu_1st_new_user.png
+Resource received http://www.cs.odu.edu/files/rmenu_1st_new_user.png
+Resource received http://www.cs.odu.edu/files/rmenu_alerts.png
+Resource received http://www.cs.odu.edu/files/stop_alert.png
+Resource received http://www.cs.odu.edu/files/rmenu_alerts.png
+Resource received http://www.cs.odu.edu/files/stop_alert.png
+Resource received http://www.cs.odu.edu/images/scsc_best_paper_award.jpg
+Resource received http://www.cs.odu.edu/files/rmenu_1st_upcoming_news.png
+Resource received http://www.cs.odu.edu/files/rmenu_1st_upcoming_news.png
+Resource received http://www.cs.odu.edu/images/lmenu_jobs.png
+Resource received http://www.cs.odu.edu/images/lmenu_jobs.png
+Resource received http://www.cs.odu.edu/files/rmenu_1st_search.png
+Resource received http://www.cs.odu.edu/files/rmenu_1st_search.png
+Resource received http://www.cs.odu.edu/files/rmenu_1st_featured_student.png
+Resource received http://www.cs.odu.edu/files/rmenu_bg_229.gif
+Resource received http://www.cs.odu.edu/files/rmenu_bg_229.gif
+Resource received http://www.cs.odu.edu/files/rmenu_bottom_229.gif
+Resource received http://www.cs.odu.edu/files/rmenu_bottom_229.gif
+Resource received http://www.cs.odu.edu/images/hji.jpg
+Resource received http://www.cs.odu.edu/files/rmenu_1st_featured_student.png
+Resource received http://www.cs.odu.edu/images/hji.jpg
+Resource received http://www.cs.odu.edu/images/muddin.jpg
+Resource received http://www.cs.odu.edu/files/rmenu_1st_about.png
+Resource received http://www.cs.odu.edu/files/rmenu_1st_about.png
+Resource received http://www.cs.odu.edu/files/rmenu_1st_important_dates.png
+Resource received http://www.cs.odu.edu/files/rmenu_1st_important_dates.png
+Resource received http://www.cs.odu.edu/files/rmenu_1st_research.png
+Resource received http://www.cs.odu.edu/files/rmenu_1st_research.png
+Resource received http://www.cs.odu.edu/images/facebook.png
+Resource received http://www.cs.odu.edu/files/shadow-tr.gif
+Resource received http://www.cs.odu.edu/files/shadow-tr.gif
+Resource received http://www.cs.odu.edu/images/facebook.png
+Resource received http://www.cs.odu.edu/files/shadow-bl.gif
+Resource received http://www.cs.odu.edu/files/shadow-r.gif
+Resource received http://www.cs.odu.edu/files/shadow-br.gif
+Resource received http://www.cs.odu.edu/files/shadow-bl.gif
+Resource received http://www.cs.odu.edu/files/shadow-br.gif
+Resource received http://www.cs.odu.edu/files/shadow-b.gif
+Resource http://www.cs.odu.edu/images/muddin.jpg timeout. 408 Network timeout on resource.
+Screenshot is saved in /media/DATA/ERIKA/SummerWork/MementoPediaProject/web-memento-damage/cache/screenshot/cdc1caa29f0c6e7e1ebd3f9e18f3730a.png
+HTML source of page is saved in /media/DATA/ERIKA/SummerWork/MementoPediaProject/web-memento-damage/cache/html/cdc1caa29f0c6e7e1ebd3f9e18f3730a.html
+Network resources is saved in /media/DATA/ERIKA/SummerWork/MementoPediaProject/web-memento-damage/cache/log/cdc1caa29f0c6e7e1ebd3f9e18f3730a.log
+Network resource images is saved in /media/DATA/ERIKA/SummerWork/MementoPediaProject/web-memento-damage/cache/log/cdc1caa29f0c6e7e1ebd3f9e18f3730a.img.log
+Network resource csses is saved in /media/DATA/ERIKA/SummerWork/MementoPediaProject/web-memento-damage/cache/log/cdc1caa29f0c6e7e1ebd3f9e18f3730a.css.log
+Crawl finished in 15950 miliseconds
+{"background_color":"FFFFFF"}
+Potential damage 0.250481287638 for http://www.cs.odu.edu/files/spacer.gif
+Potential damage 8.39233398438e-05 for http://www.cs.odu.edu/files/spacer.gif
+Potential damage 1.78019205729e-05 for http://www.cs.odu.edu/files/spacer.gif
+Potential damage 6.35782877604e-07 for http://www.cs.odu.edu/files/spacer.gif
+Potential damage 6.35782877604e-07 for http://www.cs.odu.edu/files/spacer.gif
+Potential damage 6.35782877604e-07 for http://www.cs.odu.edu/files/spacer.gif
+Potential damage 3.17891438802e-06 for http://www.cs.odu.edu/files/spacer.gif
+Potential damage 6.35782877604e-07 for http://www.cs.odu.edu/files/spacer.gif
+Potential damage 3.17891438802e-06 for http://www.cs.odu.edu/files/spacer.gif
+Potential damage 6.35782877604e-06 for http://www.cs.odu.edu/files/spacer.gif
+Potential damage 4.45048014323e-06 for http://www.cs.odu.edu/files/spacer.gif
+Potential damage 2.54313151042e-06 for http://www.cs.odu.edu/files/spacer.gif
+Potential damage 2.54313151042e-06 for http://www.cs.odu.edu/files/spacer.gif
+Potential damage 2.54313151042e-06 for http://www.cs.odu.edu/files/spacer.gif
+Potential damage 2.54313151042e-06 for http://www.cs.odu.edu/files/spacer.gif
+Potential damage 2.54313151042e-06 for http://www.cs.odu.edu/files/spacer.gif
+Potential damage 2.54313151042e-06 for http://www.cs.odu.edu/files/spacer.gif
+Potential damage 6.35782877604e-06 for http://www.cs.odu.edu/files/spacer.gif
+Potential damage 3.17891438802e-06 for http://www.cs.odu.edu/files/spacer.gif
+Potential damage 3.17891438802e-06 for http://www.cs.odu.edu/files/spacer.gif
+Potential damage 6.35782877604e-06 for http://www.cs.odu.edu/files/spacer.gif
+Potential damage 6.35782877604e-06 for http://www.cs.odu.edu/files/spacer.gif
+Potential damage 6.35782877604e-06 for http://www.cs.odu.edu/files/spacer.gif
+Potential damage 6.35782877604e-06 for http://www.cs.odu.edu/files/spacer.gif
+Potential damage 6.35782877604e-06 for http://www.cs.odu.edu/files/spacer.gif
+Potential damage 6.35782877604e-06 for http://www.cs.odu.edu/files/spacer.gif
+Potential damage 6.35782877604e-06 for http://www.cs.odu.edu/files/spacer.gif
+Potential damage 6.35782877604e-06 for http://www.cs.odu.edu/files/spacer.gif
+Potential damage 6.35782877604e-06 for http://www.cs.odu.edu/files/spacer.gif
+Potential damage 6.35782877604e-06 for http://www.cs.odu.edu/files/spacer.gif
+Potential damage 6.35782877604e-07 for http://www.cs.odu.edu/files/spacer.gif
+Potential damage 4.45048014323e-06 for http://www.cs.odu.edu/files/spacer.gif
+Potential damage 4.45048014323e-06 for http://www.cs.odu.edu/files/spacer.gif
+Potential damage 6.35782877604e-07 for http://www.cs.odu.edu/files/spacer.gif
+Potential damage 6.35782877604e-07 for http://www.cs.odu.edu/files/spacer.gif
+Potential damage 6.35782877604e-05 for http://www.cs.odu.edu/files/bullet_blue_triangle.gif
+Potential damage 6.35782877604e-05 for http://www.cs.odu.edu/files/bullet_blue_triangle.gif
+Potential damage 6.35782877604e-05 for http://www.cs.odu.edu/files/bullet_blue_triangle.gif
+Potential damage 6.35782877604e-05 for http://www.cs.odu.edu/files/bullet_blue_triangle.gif
+Potential damage 6.35782877604e-05 for http://www.cs.odu.edu/files/bullet_blue_triangle.gif
+Potential damage 6.35782877604e-05 for http://www.cs.odu.edu/files/bullet_blue_triangle.gif
+Potential damage 6.35782877604e-05 for http://www.cs.odu.edu/files/bullet_blue_triangle.gif
+Potential damage 6.35782877604e-05 for http://www.cs.odu.edu/files/bullet_blue_triangle.gif
+Potential damage 6.35782877604e-05 for http://www.cs.odu.edu/files/bullet_blue_triangle.gif
+Potential damage 6.35782877604e-05 for http://www.cs.odu.edu/files/bullet_blue_triangle.gif
+Potential damage 6.35782877604e-05 for http://www.cs.odu.edu/files/bullet_blue_triangle.gif
+Potential damage 6.35782877604e-05 for http://www.cs.odu.edu/files/bullet_blue_triangle.gif
+Potential damage 6.35782877604e-05 for http://www.cs.odu.edu/files/bullet_blue_triangle.gif
+Potential damage 6.35782877604e-05 for http://www.cs.odu.edu/files/bullet_blue_triangle.gif
+Potential damage 6.35782877604e-05 for http://www.cs.odu.edu/files/bullet_blue_triangle.gif
+Potential damage 6.35782877604e-05 for http://www.cs.odu.edu/files/bullet_blue_triangle.gif
+Potential damage 6.35782877604e-05 for http://www.cs.odu.edu/files/bullet_blue_triangle.gif
+Potential damage 6.35782877604e-05 for http://www.cs.odu.edu/files/bullet_blue_triangle.gif
+Potential damage 6.35782877604e-05 for http://www.cs.odu.edu/files/bullet_blue_triangle.gif
+Potential damage 6.35782877604e-05 for http://www.cs.odu.edu/files/bullet_blue_triangle.gif
+Potential damage 6.35782877604e-05 for http://www.cs.odu.edu/files/bullet_blue_triangle.gif
+Potential damage 6.35782877604e-05 for http://www.cs.odu.edu/files/bullet_blue_triangle.gif
+Potential damage 6.35782877604e-05 for http://www.cs.odu.edu/files/bullet_blue_triangle.gif
+Potential damage 6.35782877604e-05 for http://www.cs.odu.edu/files/bullet_blue_triangle.gif
+Potential damage 6.35782877604e-05 for http://www.cs.odu.edu/files/bullet_blue_triangle.gif
+Potential damage 6.35782877604e-05 for http://www.cs.odu.edu/files/bullet_blue_triangle.gif
+Potential damage 6.35782877604e-05 for http://www.cs.odu.edu/files/bullet_blue_triangle.gif
+Potential damage 6.35782877604e-05 for http://www.cs.odu.edu/files/bullet_blue_triangle.gif
+Potential damage 6.35782877604e-05 for http://www.cs.odu.edu/files/bullet_blue_triangle.gif
+Potential damage 6.35782877604e-05 for http://www.cs.odu.edu/files/bullet_blue_triangle.gif
+Potential damage 6.35782877604e-05 for http://www.cs.odu.edu/files/bullet_blue_triangle.gif
+Potential damage 6.35782877604e-05 for http://www.cs.odu.edu/files/bullet_blue_triangle.gif
+Potential damage 6.35782877604e-05 for http://www.Terminated
+Terminated
+No handlers could be found for logger "tornado.application"
 No handlers could be found for logger "tornado.application"
 Terminated
 Terminated
