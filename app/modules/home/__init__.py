@@ -122,6 +122,27 @@ class Memento(Blueprint):
             self.write(s)
             self.finish()
 
+    class ProgressCheckDamage(RequestHandler):
+        route = ['/memento/damage/progress']
+
+        @web.asynchronous
+        def get(self, *args, **kwargs):
+            uri = self.get_query_argument('uri')
+            start = self.get_query_argument('start', 0)
+            start = int(start)
+
+            hashed_uri = md5(uri).hexdigest()
+
+            crawler_log_file = '{}.crawl.log'.format(os.path.join(
+                self.blueprint.log_dir, hashed_uri))
+
+            with open(crawler_log_file, 'rb') as f:
+                for idx, line in enumerate(f.readlines()):
+                    if idx >= start:
+                        self.write(line)
+                self.finish()
+
+
     class CheckDamage(RequestHandler):
         route = ['/memento/damage']
 
