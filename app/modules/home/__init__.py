@@ -1,28 +1,20 @@
-import base64
 import errno
-import inspect
 import io
 import json
-from hashlib import md5
-
-import thread
-from threading import Thread, Event
-
-from PyQt4.QtGui import QApplication
 from datetime import datetime
-
+from hashlib import md5
 from subprocess import Popen, PIPE
+from threading import Thread
 
 import os
 from PIL import Image
-from ext.blueprint import Blueprint, RequestHandler, StaticFileHandler
-from ext.damage import SiteDamage
+from ext.blueprint import Blueprint, RequestHandler
 from ext.memento import MementoWeb
-from ext.crawl import CrawlListener, Crawler
-from tornado import web, httpclient, escape
+from sqlalchemy import desc
+from tornado import web
 
-# from gevent import monkey, spawn, spawn_later;
-# monkey.patch_all()
+from app import database
+from models import MementoModel
 
 
 class Command(object):
@@ -93,9 +85,10 @@ class Memento(Blueprint):
         @web.asynchronous
         def get(self, *args, **kwargs):
             url = self.get_query_argument('url')
-            type = self.get_query_argument('type')
+            type = self.get_query_argument('type', 'URI-M')
+            fresh = self.get_query_argument('fresh', 'false')
 
-            self.render(".check.html", url=url, type=type)
+            self.render(".check.html", url=url, type=type, fresh=fresh)
 
     class GetUriM(RequestHandler):
         route = ['/memento/mementos']
@@ -135,18 +128,60 @@ class Memento(Blueprint):
         @web.asynchronous
         def get(self, *args, **kwargs):
             uri = self.get_query_argument('uri')
+            fresh = self.get_query_argument('fresh', 'false')
+            # since all query string arguments are in unicode, cast fresh to
+            # boolean
+            if fresh.lower() == 'true': fresh = True
+            elif fresh.lower() == 'false': fresh = False
+
             hashed_url = md5(uri).hexdigest()
+
+            # If fresh == True, do fresh calculation
+            if fresh:
+                self.do_fresh_calculation(uri, hashed_url)
+            else:
+                # If there are calculation history, use it
+                last_calculation = self.check_calculation_archives(hashed_url)
+                if last_calculation:
+                    result = last_calculation.result
+                    time = last_calculation.response_time
+
+                    result = json.loads(result)
+                    result['is_archive'] = True
+                    result['archive_time'] = time.isoformat()
+
+                    self.write(result)
+                    self.finish()
+                else:
+                    self.do_fresh_calculation(uri, hashed_url)
+
+        def check_calculation_archives(self, hashed_uri):
+            last_calculation = database.session.query(MementoModel)\
+                .filter(MementoModel.hashed_uri==hashed_uri)\
+                .order_by(desc(MementoModel.response_time))\
+                .first()
+
+            return last_calculation
+
+        def do_fresh_calculation(self, uri, hashed_url):
+            # Instantiate MementoModel
+            model = MementoModel()
+            model.uri = uri
+            model.hashed_uri = hashed_url
+            model.request_time = datetime.now()
 
             # Define path for each arguments of crawl.js
             crawljs_script = os.path.join(
                 self.application.settings.get('base_dir'),
                 'ext', 'phantomjs', 'crawl.js'
             )
+            # Define damage.py location
             damage_py_script = os.path.join(
                 self.application.settings.get('base_dir'),
                 'ext', 'damage.py'
             )
 
+            # Define arguments
             screenshot_file = '{}.png'.format(os.path.join(
                 self.blueprint.screenshot_dir, hashed_url))
             html_file = '{}.html'.format(os.path.join(
@@ -177,7 +212,20 @@ class Memento(Blueprint):
                                                    ['background_color']
                     if 'result' in line:
                         line = json.loads(line)
-                        self.write(json.dumps(line['result']))
+
+                        result = line['result']
+                        result['is_success'] = True
+                        result['is_archive'] = False
+
+                        result = json.dumps(result)
+
+                        # Write result to db
+                        model.response_time = datetime.now()
+                        model.result = result
+                        database.session.add(model)
+                        database.session.commit()
+
+                        self.write(result)
                         self.finish()
 
                 if out and hasattr(out, 'readline'):
@@ -188,20 +236,40 @@ class Memento(Blueprint):
                 else:
                     write(out)
 
-            # ...
+            # Error
+            def result_error(err = 'Request time out'):
+                if not self._finished:
+                    result = {
+                        'is_success' : False,
+                        'error' : err
+                    }
+
+                    self.write(json.dumps(result))
+                    self.finish()
+
+            # page background-color will be set from phantomjs result
             page = {
                 'background_color': 'FFFFFF'
             }
 
+            # Crawl page with phantomjs crawl.js via arguments
+            # Equivalent with console:
+            #   phantomjs crawl.js <screenshot> <html> <log>
             cmd = Command(['phantomjs', crawljs_script, uri,screenshot_file,
                            html_file, log_file], log_output)
-            cmd.run(10 * 60, args=(page, ))
+            err_code = cmd.run(10 * 60, args=(page, ))
 
-            cmd = Command(['python', damage_py_script, images_log_file,
-                           csses_log_file, screenshot_file], log_output)
-            cmd.run(10 * 60)
-
-            if not self._finished:
-                self.write('Request time out')
-                self.finish()
+            if err_code == 0:
+                # Calculate damage with damage.py via arguments
+                # Equivalent with console:
+                #   python damage.py <img_log> <css_log> <screenshot_log> <bg>
+                cmd = Command(['python', damage_py_script, images_log_file,
+                               csses_log_file, screenshot_file,
+                               page['background_color']],
+                              log_output)
+                err_code = cmd.run(10 * 60)
+                if err_code != 0:
+                    result_error()
+            else:
+                result_error()
 

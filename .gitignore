@@ -1,2 +1,4 @@
 cache/*
 env-*/*
+.idea/*
+app.db

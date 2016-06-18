@@ -42,12 +42,6 @@
         <form class="news-letter" method="GET" action="/memento/check">
           <div class="subscribe-hide">
             <div class="input-group">
-              <div class = "input-group-btn">
-                <select name="type" class="form-control" title="Select Type of URI ...">
-                  <option>URI-M</option>
-                  <option>URI-R</option>
-                </select>
-              </div>
               <input class="form-control" type="text" name="url" placeholder="http://www.somesite.com" required />
               <span class="input-group-btn">
                 <button class="btn btn-success" type="submit">Check Again &raquo;</button>
@@ -65,7 +59,18 @@
 
 <section id="result">
   <div class="container">
-    <div class="row">
+    <div class="row"> <!--Message result-->
+      <div class="col-sm-10 col-sm-offset-1">
+        <div id="alert-is-archive" style="display:none" class="alert alert-warning" role="alert">
+          <strong>Warning!</strong> This result is an archive damage calculation
+          that was done in <strong><span id="archive-time"></span></strong>. 
+          To make fresh calculation follow this URI 
+          <strong><a id="fresh-uri" href="#">Fresh Calculation</a></strong>
+        </div>
+      </div>
+    </div>
+
+    <div class="row"> <!--Tab result-->
       <div class="col-sm-10 col-sm-offset-1">
         <ul class="nav nav-tabs">
           <li class="active"><a data-toggle="tab" href="#summary">
@@ -127,7 +132,6 @@
   // Check mementos if type is URI-M
   if('{{ type }}'.toUpperCase() != 'uri-m'.toUpperCase()) {
     $.get('/memento/mementos', { 'uri-r' : '{{ url }}' }, function(memento_uris) {
-
       // Change icon to checklist
       $('.uri-r .tab-icon').attr('class', 'tab-icon fa fa-check-square-o')
 
@@ -150,7 +154,15 @@
       });
     }, 'json');
   } else {
-    checkDamageUriM('{{ url }}', function(uri, result) {
+    checkDamageUriM('{{ url }}', {{ fresh }}, function(uri, result) {
+      // Show alert if result is an archive calculation ================================
+      if(result['is_archive'] == true) {
+        $('#alert-is-archive').show();
+        $('#archive-time').html(result['archive_time']);
+        $('#fresh-uri').attr('href', window.location.href + '&fresh=true')
+          .html(window.location.href + '&fresh=true');
+      }
+      
       // Show summary
       var olUrlSummaries = $('#summary ol.uri');
       if(olUrlSummaries.length == 0) {
@@ -198,8 +210,8 @@
     });
   }
 
-  function checkDamageUriM(uri, onFinished) {
-    $.get('/memento/damage', { 'uri' : uri }, function(result) {
+  function checkDamageUriM(uri, fresh, onFinished) {
+    $.get('/memento/damage', { 'uri' : uri, 'fresh' : fresh }, function(result) {
       // Append URI in 1st level
       // Images
       var olUrlImgs = $('#images ol.uri');
