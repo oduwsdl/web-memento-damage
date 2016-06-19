@@ -35,16 +35,22 @@ class SiteDamage:
         #print('Missing csses = {}'.format(self.missing_csses_log))
 
     def get_percentage_coverage(self):
-        image_coverage = 0
-        for log in self.images_log:
+        pct_images_coverage = 0.0
+        for idx, log in enumerate(self.images_log):
+            viewport_w, vieport_h = log['viewport_size']
+            image_coverage  = 0
             for rect in log['rectangles']:
                 w = rect['width']
                 h = rect['height']
                 image_coverage += (w * h)
 
-        viewport_w, vieport_h = log['viewport_size']
+            pct_image_coverage = float(image_coverage) / \
+                                 float(viewport_w * vieport_h)
+            self.images_log[idx]['percentage_coverage'] = pct_image_coverage
 
-        return float(image_coverage) / float(viewport_w * vieport_h)
+            pct_images_coverage += pct_image_coverage
+
+        return pct_images_coverage
 
     def find_missings(self):
         self.missing_imgs_log = []
@@ -62,52 +68,71 @@ class SiteDamage:
         # Since all css set to 404 (missing)
         self.missing_csses_log = self.csses_log
 
+    def calculate_all(self):
+        self.calculate_potential_damage()
+        self.calculate_actual_damage()
+
     def calculate_potential_damage(self):
-        total_image_damage = 0
-        for log in self.images_log:
+        total_images_damage = 0
+        for idx, log in enumerate(self.images_log):
             image_damage = self.calculate_image_damage(log)
+            total_image_damage = 0
             # Based on measureMemento.pl line 463
             for damage in image_damage:
                 total_image_damage += damage
-                print('Potential damage {} for {}'.format(damage, log['url']))
+
+            total_images_damage += total_image_damage
+
+            self.images_log[idx]['potential_damage'] = total_image_damage
+            print('Potential damage {} for {}'
+                  .format(total_image_damage, log['url']))
 
         total_css_damage = 0
-        for log in self.csses_log:
+        for idx, log in enumerate(self.csses_log):
             css_damage = self.calculate_css_damage(log, use_window_size=False,
                                                    is_potential=True)
             # Based on measureMemento.pl line 468
             total_css_damage += css_damage
+
+            self.csses_log[idx]['potential_damage'] = css_damage
             print('Potential damage {} for {}'.format(css_damage, log['url']))
 
         # Based on measureMemento.pl line 555
-        final_image_damage = total_image_damage * self.image_weight
-        final_css_damage = total_css_damage * self.css_weight
-        total_damage = final_image_damage + final_css_damage
-
-        return total_damage
+        self.potential_image_damage = total_images_damage * self.image_weight
+        self.potential_css_damage = total_css_damage * self.css_weight
+        self.potential_damage = self.potential_image_damage + \
+                                self.potential_css_damage
 
     def calculate_actual_damage(self):
-        total_image_damage = 0
-        for log in self.missing_imgs_log:
-            image_damage = self.calculate_image_damage(log)
-            # Based on measureMemento.pl line 463
-            for damage in image_damage:
-                total_image_damage += damage
-                print('Actual damage {} for {}'.format(damage, log['url']))
+        total_images_damage = 0
+        for idx, log in enumerate(self.images_log):
+            if log['status_code'] > 399:
+                image_damage = self.calculate_image_damage(log)
+                total_image_damage = 0
+                # Based on measureMemento.pl line 463
+                for damage in image_damage:
+                    total_image_damage += damage
+
+                total_images_damage += total_image_damage
+
+                self.images_log[idx]['actual_damage'] = total_image_damage
+                print('Actual damage {} for {}'
+                      .format(total_image_damage, log['url']))
 
         total_css_damage = 0
-        for log in self.missing_csses_log:
+        for idx, log in enumerate(self.csses_log):
             css_damage = self.calculate_css_damage(log, use_window_size=False)
             # Based on measureMemento.pl line 468
             total_css_damage += css_damage
+
+            self.csses_log[idx]['actual_damage'] = css_damage
             print('Actual damage {} for {}'.format(css_damage, log['url']))
 
         # Based on measureMemento.pl line 555
-        final_image_damage = total_image_damage * self.image_weight
-        final_css_damage = total_css_damage * self.css_weight
-        total_damage = final_image_damage + final_css_damage
-
-        return total_damage
+        self.actual_image_damage = total_images_damage * self.image_weight
+        self.actual_css_damage = total_css_damage * self.css_weight
+        self.actual_damage = self.actual_image_damage + \
+                             self.actual_css_damage
 
     def calculate_image_damage(self, log, size_weight=0.5,
                                centrality_weight=0.5):
@@ -271,22 +296,28 @@ if __name__ == "__main__":
 
         damage = SiteDamage(images_log, csses_log, screenshot_file,
                             background_color)
-        potential_damage = damage.calculate_potential_damage()
-        print('Potential Damage : {}'.format(potential_damage))
-
-        actual_damage = damage.calculate_actual_damage()
-        print('Actual Damage : {}'.format(actual_damage))
+        damage.calculate_all()
+        print('Potential Damage : {}'.format(damage.potential_damage))
+        print('Actual Damage : {}'.format(damage.actual_damage))
         print('Total Damage : {}'.format(
-            actual_damage/potential_damage if potential_damage
-            != 0 else 0))
+            damage.actual_damage/damage.potential_damage if
+            damage.potential_damage != 0 else 0))
 
         result = {}
-        result['images'] = images_log
-        result['csses'] = csses_log
-        result['potential_damage'] = potential_damage
-        result['actual_damage'] = actual_damage
+        result['images'] = damage.images_log
+        result['csses'] = damage.csses_log
+        result['potential_damage'] = {
+            'total' : damage.potential_damage,
+            'image' : damage.potential_image_damage,
+            'css' : damage.potential_css_damage,
+        }
+        result['actual_damage'] = {
+            'total' : damage.actual_damage,
+            'image' : damage.actual_image_damage,
+            'css' : damage.actual_css_damage,
+        }
         result['total_damage'] = \
-            actual_damage/potential_damage \
-            if potential_damage != 0 else 0
+            damage.actual_damage/damage.potential_damage \
+            if damage.potential_damage != 0 else 0
 
         print(json.dumps({'result' : result}))

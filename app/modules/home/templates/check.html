@@ -23,16 +23,50 @@
       width: 100%;
     }
 
+    .result-list {
+      padding-left:30px;
+      list-style:none;
+    }
+    .result-list li {
+      margin-bottom:7px;
+    }
+    .result-list li:before {
+      font-family: 'FontAwesome';
+      content: '\f046';
+      margin:0 15px 0 -25px;
+    }
     .result-list .title {
+      display: inline-table;
+      table-layout: fixed;
+      width: 99%;
       font-weight: bold;
       overflow-x: hidden;
       cursor: pointer;
       color: #5cb85c;
-    }    
-    .result-list .title span {
+    }
+    .result-list .title div {
+      display: table-cell;
+    }
+    .result-list .title div:first-child {
+      width: 90%;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+    .result-list .title div:last-child {
+      text-align: right;
+    }
+
+    .result-list .title .t-row {
+      display: table-row;
+    }
+    .result-list .title .t-cell {
       text-overflow: ellipsis;
       overflow: hidden;
       white-space: nowrap;
+      display: table-cell;
+      padding: 0 10px 0 0;
+      min-width: 300px;
     }
     
     .result-list .detail {
@@ -57,6 +91,25 @@
     }
     .log-line:nth-child(odd) {
       background: #FFF
+    }
+
+    .main-table {
+      width: 100%;
+    }
+    .fixed-table {
+      width: 100%;
+      table-layout: fixed;
+      border-collapse: collapse;
+      border-spacing: 0;
+      border: 0;
+    }
+    .fixed-table td {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .nowrap {
+      white-space: nowrap;
     }
   </style>
 {% end %}
@@ -125,20 +178,36 @@
         </ul>
         <div class="tab-content">
           <div class="tab-pane fade in active" id="summary">
-            <h3>Summary</h3>
+            <h4>Summary</h4>
+            <div class="result"></div>
+            <div class="notes alert alert-info" role="alert">
+              <div><strong>Techical Notes</strong></div>
+            </div>
           </div>
           <div class="tab-pane fade" id="mementos">
-            <h3>List of URI-M</h3>
+            <h4>List of URI-M</h4>
+            <div class="result"></div>
+            <div class="notes alert alert-info" role="alert">
+              <div><strong>Techical Notes</strong></div>
+            </div>
           </div>
           <div class="tab-pane fade" id="images">
-            <h3>List of Images</h3>
+            <h4>List of Images</h4>
+            <div class="result"></div>
+            <div class="notes alert alert-info" role="alert">
+              <div><strong>Techical Notes</strong></div>
+            </div>
           </div>
           <div class="tab-pane fade" id="csses">
-            <h3>List of Csses</h3>
+            <h4>List of Csses</h4>
+            <div class="result"></div>
+            <div class="notes alert alert-info" role="alert">
+              <div><strong>Techical Notes</strong></div>
+            </div>
           </div>
           <div class="tab-pane fade" id="screenshots"></div>
           <div class="tab-pane fade" id="log">
-            <h3>Log Progress</h3>
+            <h4>Log Progress</h4>
           </div>
         </div>
       </div>
@@ -165,57 +234,75 @@
   }
   
   function showSummary(result) {
-    var olImages = $('<ol class="result-list">').appendTo('#summary');
+    var olImages = $('<ol class="result-list">').appendTo('#summary .result');
     
     var liImage = $('<li>').appendTo(olImages);
-      var divTitle = $('<div class="title" data-toggle="collapse">')
-        .attr('data-target', '#potential-damage')
-        .appendTo(liImage);
-      $('<span>').html('Potential Damage').appendTo(divTitle);
-      $('<span>').html(result['potential_damage']).appendTo(divTitle);
+    var divTitle = $('<div class="title" data-toggle="collapse">')
+      .attr('data-target', '#potential-damage')
+      .appendTo(liImage);
+    $('<div style="width:50%">').html('Potential Damage').appendTo(divTitle);
+    $('<div>').html(result['potential_damage']['total']).appendTo(divTitle);
       
     var divContent = $('<div class="collapse detail" id="potential-damage">')
       .appendTo(liImage);
+    $('<div class="item"><div>Potential Image Damage</div><div> : </div><div>'+
+      result['potential_damage']['image'] +'</div></div>').appendTo(divContent);
+    $('<div class="item"><div>Potential Css Damage</div><div> : </div><div>'+
+      result['potential_damage']['css'] +'</div></div>').appendTo(divContent);
     
     var liImage = $('<li>').appendTo(olImages);
-      var divTitle = $('<div class="title" data-toggle="collapse">')
-        .attr('data-target', '#actual-damage')
-        .appendTo(liImage);
-      $('<span>').html('Potential Damage').appendTo(divTitle);
-      $('<span>').html(result['actual_damage']).appendTo(divTitle);
+    var divTitle = $('<div class="title" data-toggle="collapse">')
+      .attr('data-target', '#actual-damage')
+      .appendTo(liImage);
+    $('<div style="width:50%">').html('Actual Damage').appendTo(divTitle);
+    $('<div>').html(result['actual_damage']['total']).appendTo(divTitle);
       
     var divContent = $('<div class="collapse detail" id="actual-damage">')
       .appendTo(liImage);
+    $('<div class="item"><div>Actual Image Damage</div><div> : </div><div>'+
+      result['actual_damage']['image'] +'</div></div>').appendTo(divContent);
+    $('<div class="item"><div>Actual Css Damage</div><div> : </div><div>'+
+      result['actual_damage']['css'] +'</div></div>').appendTo(divContent);
     
     var liImage = $('<li>').appendTo(olImages);
-      var divTitle = $('<div class="title" data-toggle="collapse">')
-        .attr('data-target', '#total-damage')
-        .appendTo(liImage);
-      $('<span>').html('Potential Damage').appendTo(divTitle);
-      $('<span>').html(result['total_damage']).appendTo(divTitle);
+    var divTitle = $('<div class="title" data-toggle="collapse">')
+      .attr('data-target', '#total-damage')
+      .appendTo(liImage);
+    $('<div style="width:50%">').html('Total Damage').appendTo(divTitle);
+    $('<div>').html(result['total_damage']).appendTo(divTitle);
       
     var divContent = $('<div class="collapse detail" id="total-damage">')
       .appendTo(liImage);
   }
   
   function showImages(images) {
-    var olImages = $('<ol class="result-list">').appendTo('#images');
+    var olImages = $('<ol class="result-list">').appendTo('#images .result');
     
-    images.forEach(function(image) {
+    images.forEach(function(image, idx) {
+      var elId = 'image-' + idx;
+
       var liImage = $('<li>').appendTo(olImages);
+
       var divTitle = $('<div class="title">')
         .attr('data-toggle', 'collapse')
-        .attr('data-target', '#image-' + md5(image['url']))  
+        .attr('data-target', '#' + elId)
         .appendTo(liImage);
-      $('<span>').html(image['url']).appendTo(divTitle);
-      $('<span>').html('status_code' in image ? 
+      $('<div>').html(image['url']).appendTo(divTitle);
+      $('<div>').html('status_code' in image ?
                        image['status_code'] : '').appendTo(divTitle);
       
       var divContent = $('<div class="collapse detail">')
-        .attr('id', 'image-' + md5(image['url']))
-        .appendTo(liImage);
+        .attr('id', elId).appendTo(liImage);
       $('<div class="item"><div>Content-Type</div><div> : </div><div>'+ 
         image['content_type'] +'</div></div>').appendTo(divContent);
+      $('<div class="item"><div>Coverage</div><div> : </div><div>'+
+        (image['percentage_coverage']*100) +' %</div></div>').appendTo(divContent);
+      $('<div class="item"><div>Potential Damage</div><div> : </div><div>'+
+        ('potential_damage' in image ? image['potential_damage'] : '-') +
+        '</div></div>').appendTo(divContent);
+      $('<div class="item"><div>Actual Damage</div><div> : </div><div>'+
+        ('actual_damage' in image ? image['actual_damage'] : '-') +
+        '</div></div>').appendTo(divContent);
       var rectangles = [];
       image['rectangles'].forEach(function(rect) {
         rectangles.push('Left: ' + rect['left'] + ' px, Top: ' + rect['top'] +
@@ -227,20 +314,22 @@
   }
   
   function showStylesheets(csses) {
-    var olImages = $('<ol class="result-list">').appendTo('#csses');
+    var olImages = $('<ol class="result-list">').appendTo('#csses .result');
     
-    csses.forEach(function(css) {
+    csses.forEach(function(css, idx) {
+      var elId = 'css-' + idx;
+
       var liImage = $('<li>').appendTo(olImages);
       var divTitle = $('<div class="title">')
         .attr('data-toggle', 'collapse')
-        .attr('data-target', '#css-' + md5(css['url']))  
+        .attr('data-target', '#' + elId)
         .appendTo(liImage);
-      $('<span>').html(css['url']).appendTo(divTitle);
-      $('<span>').html('status_code' in css ? 
+      $('<div>').html(css['url']).appendTo(divTitle);
+      $('<div>').html('status_code' in css ?
                        css['status_code'] : '').appendTo(divTitle);
       
       var divContent = $('<div class="collapse detail">')
-        .attr('id', 'css-' + md5(css['url']))
+        .attr('id', elId)
         .appendTo(liImage);
       if(!css['rules_tag']) css['rules_tag'] = [];
       $('<div class="item"><div>Rules Selector</div><div> : </div><div>'+ 
@@ -249,6 +338,12 @@
         '</div></div>').appendTo(divContent);
       $('<div class="item"><div>Importance</div><div> : </div><div>'+ 
         css['importance'] +'</div></div>').appendTo(divContent);
+      $('<div class="item"><div>Potential Damage</div><div> : </div><div>'+
+        ('potential_damage' in css ? css['potential_damage'] : '-') +
+        '</div></div>').appendTo(divContent);
+      $('<div class="item"><div>Actual Damage</div><div> : </div><div>'+
+        ('actual_damage' in css ? css['actual_damage'] : '-') +
+        '</div></div>').appendTo(divContent);
     });
   }
 

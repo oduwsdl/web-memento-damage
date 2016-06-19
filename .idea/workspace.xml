@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="abb02a85-edb0-4070-84af-33ef9785e6b3" name="Default" comment="Styling Result" />
+    <list default="true" id="abb02a85-edb0-4070-84af-33ef9785e6b3" name="Default" comment="Styling Result">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app.log" afterPath="$PROJECT_DIR$/app.log" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/modules/home/templates/check.html" afterPath="$PROJECT_DIR$/app/modules/home/templates/check.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ext/damage.py" afterPath="$PROJECT_DIR$/ext/damage.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ext/phantomjs/crawl.js" afterPath="$PROJECT_DIR$/ext/phantomjs/crawl.js" />
+    </list>
     <ignored path="memento-pedia-tornado.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -36,8 +41,8 @@
       <file leaf-file-name="check.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/modules/home/templates/check.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="3.125">
-              <caret line="333" column="35" selection-start-line="333" selection-start-column="35" selection-end-line="333" selection-end-column="35" />
+            <state vertical-scroll-proportion="-21.208334">
+              <caret line="270" column="29" selection-start-line="270" selection-start-column="29" selection-end-line="270" selection-end-column="29" />
               <folding />
             </state>
           </provider>
@@ -46,8 +51,18 @@
       <file leaf-file-name="start.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/start.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.41878173">
+            <state vertical-scroll-proportion="0.2782462">
               <caret line="15" column="18" selection-start-line="15" selection-start-column="18" selection-end-line="15" selection-end-column="18" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="damage.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ext/damage.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="127" column="39" selection-start-line="127" selection-start-column="39" selection-end-line="127" selection-end-column="39" />
               <folding />
             </state>
           </provider>
@@ -94,12 +109,12 @@
         <option value="$PROJECT_DIR$/ext/crawl_selenium.py" />
         <option value="$PROJECT_DIR$/ext/phantomjs/crawl.js" />
         <option value="$PROJECT_DIR$/ext/blueprint/request_handler.py" />
-        <option value="$PROJECT_DIR$/ext/damage.py" />
         <option value="$PROJECT_DIR$/app/modules/home/templates/index.html" />
         <option value="$PROJECT_DIR$/config.py" />
         <option value="$PROJECT_DIR$/app/__init__.py" />
         <option value="$PROJECT_DIR$/app/modules/home/models.py" />
         <option value="$PROJECT_DIR$/app/modules/home/__init__.py" />
+        <option value="$PROJECT_DIR$/ext/damage.py" />
         <option value="$PROJECT_DIR$/app/modules/home/templates/check.html" />
         <option value="$PROJECT_DIR$/start.py" />
       </list>
@@ -154,8 +169,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -328,7 +343,7 @@
       <recent name="$PROJECT_DIR$/app/static" />
     </key>
   </component>
-  <component name="RunManager" selected="Bash.xvfb-start.sh">
+  <component name="RunManager" selected="Python.start">
     <configuration default="false" name="start" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -557,14 +572,14 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="26" width="1366" height="741" extended-state="0" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23939393" sideWeight="0.49356914" order="1" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24318182" sideWeight="0.49356914" order="1" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329582" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3279743" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3279743" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.31993568" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31993568" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21818182" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329582" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22424242" sideWeight="0.50643086" order="0" side_tool="true" content_ui="tabs" />
@@ -602,13 +617,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$USER_HOME$/.PyCharm50/system/python_stubs/-175830887/datetime.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3322091">
-          <caret line="570" column="4" selection-start-line="570" selection-start-column="4" selection-end-line="570" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/.PyCharm50/system/python_stubs/-175830887/PyQt4/QtNetwork/QNetworkAccessManager.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.3322091">
@@ -812,13 +820,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ext/damage.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.39291736">
-          <caret line="256" column="28" selection-start-line="256" selection-start-column="28" selection-end-line="256" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/modules/home/templates/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.31634447">
@@ -858,7 +859,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.86003375">
           <caret line="51" column="31" selection-start-line="51" selection-start-column="31" selection-end-line="51" selection-end-column="31" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -901,7 +901,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.3322091">
           <caret line="425" column="8" selection-start-line="425" selection-start-column="8" selection-end-line="425" selection-end-column="8" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -912,19 +911,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/.PyCharm50/system/python_stubs/-1678265593/__builtin__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3322091">
-          <caret line="1054" column="8" selection-start-line="1054" selection-start-column="8" selection-end-line="1054" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/.PyCharm50/system/python_stubs/-1678265593/_io.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.02866779">
           <caret line="888" column="6" selection-start-line="888" selection-start-column="6" selection-end-line="888" selection-end-column="6" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -932,7 +922,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.3322091">
           <caret line="343" column="8" selection-start-line="343" selection-start-column="8" selection-end-line="343" selection-end-column="8" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -940,15 +929,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.02529511">
           <caret line="57" column="9" selection-start-line="57" selection-start-column="9" selection-end-line="57" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/modules/home/templates/check.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="3.125">
-          <caret line="333" column="35" selection-start-line="333" selection-start-column="35" selection-end-line="333" selection-end-column="35" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -962,9 +942,41 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$USER_HOME$/.PyCharm50/system/python_stubs/-1678265593/__builtin__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3322091">
+          <caret line="2675" column="8" selection-start-line="2675" selection-start-column="8" selection-end-line="2675" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/modules/home/templates/check.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-21.208334">
+          <caret line="270" column="29" selection-start-line="270" selection-start-column="29" selection-end-line="270" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ext/damage.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="127" column="39" selection-start-line="127" selection-start-column="39" selection-end-line="127" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/start.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.41878173">
+        <state vertical-scroll-proportion="0.2782462">
           <caret line="15" column="18" selection-start-line="15" selection-start-column="18" selection-end-line="15" selection-end-column="18" />
           <folding />
         </state>

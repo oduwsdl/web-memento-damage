@@ -8,6 +8,8 @@ var networkResources = {}
 phantom.injectJs('md5.js')
 // Import underscore.js to make array unique
 phantom.injectJs('underscore.js')
+// Import mimetype.js to resolve content-type of 4xx resources
+phantom.injectJs('mimetype.js')
 
 // Set start time
 var starttime = Date.now()
@@ -53,7 +55,7 @@ else {
         var resource = {
             'url' : resUrl, 
             'status_code' : res.status, 
-            'content_type' : res.contentType, 
+            'content_type' : res.status > 399 ? mimeType.lookup(resUrl) : res.contentType, 
             'headers' : headers,             
         }
         
@@ -138,7 +140,7 @@ function processImages(url, resourceBasename) {
     // document.images also can be execute in browser console
     var images = page.evaluate(function () {
         var documentImages =  document.images;
-        var allImages = [];
+        var allImages = {};
 
         for(var i=0; i<documentImages.length; i++) {
             var docImage = documentImages[i];
@@ -152,59 +154,63 @@ function processImages(url, resourceBasename) {
                     curtop += obj.offsetTop;
                 } while (obj = obj.offsetParent);
             }
-
-            // Create json containing url and rectangle
-            var jsonImage = {
-                'url' : docImage['src'],
-                'viewport_size' : [document.body.clientWidth, document.body.clientHeight],
-                'rectangle' : {
-                    'width' : docImage['width'],
-                    'height' : docImage['height'],
-                    'top' : curtop,
-                    'left' : curleft,
-                },
-            };
-
-            // Append to all images
-            allImages.push(jsonImage);
+            
+            rectangle = {
+                'width' : docImage['width'],
+                'height' : docImage['height'],
+                'top' : curtop,
+                'left' : curleft,
+            }
+            
+            console.log(allImages.hasOwnProperty(docImage['src']))
+            if(! allImages.hasOwnProperty(docImage['src'])) {
+                allImages[docImage['src']] = {};
+            }
+            
+            if(! ('rectangles' in allImages[docImage['src']])) {
+                allImages[docImage['src']]['rectangles'] = []
+            }
+            
+            allImages[docImage['src']]['rectangles'].push(rectangle);
         }
 
         return allImages;
     });
-
+    
+    var viewport_size = page.evaluate(function () {
+        return [document.body.clientWidth, document.body.clientHeight];
+    });
+    
     // Check images url == resource url, append position if same
     var networkImages = {};
-    var networkResourcesKeys = Object.keys(networkResources);
-    for(var i=0; i<images.length; i++) {
-        var image = images[i];
-
-        idx = _.indexOf(networkResourcesKeys, image['url']);
-        if(idx >= 0) {
-            if(_.indexOf(networkImages, image['url']) < 0) {
-                networkImages[image['url']] = networkResources[networkResourcesKeys[idx]]
+    var docImageUrls = Object.keys(images);
+    for(url in networkResources) {
+        if(networkResources[url]['content_type'].indexOf('image/') == 0) {
+            networkImages[url] = networkResources[url];        
+            docImageUrls.forEach(function(diUrl, idx) {
+                if(url.indexOf(diUrl) >= 0) {
+                    networkImages[url] = _.extend(networkImages[url], images[diUrl]);
+                }
+            });
+            
+            if(! ('rectangles' in networkImages[url])) {
+                networkImages[url]['rectangles'] = []
             }
-
-            networkImages[image['url']]['viewport_size'] = image['viewport_size']
-
-            if('rectangles' in networkImages[image['url']]) {
-                networkImages[image['url']]['rectangles'].push(image['rectangle'])
-            } else {
-                networkImages[image['url']]['rectangles'] = []
-            }
+            
+            networkImages[url]['url'] = url;
+            networkImages[url]['viewport_size'] = viewport_size;
         }
     }
 
     // Save all resource images
-    // var resourceImageFile = path.join(resourceDir, resourceBasename + '.img.log');
-    var resourceImageFile = resourceBasename + '.img.log'
-
     var networkImagesValues = []
     var networkImagesKeys = Object.keys(networkImages);
     for(r=0; r<networkImagesKeys.length; r++) {
         var value = networkImages[networkImagesKeys[r]];
         networkImagesValues.push(JSON.stringify(value));
     }
-
+    
+    var resourceImageFile = resourceBasename + '.img.log'
     fs.write(resourceImageFile, networkImagesValues.join('\n'), "w");
     console.log('Network resource images is saved in', resourceImageFile)
 }

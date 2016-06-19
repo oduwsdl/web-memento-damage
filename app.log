@@ -175,3 +175,591 @@ No handlers could be found for logger "tornado.application"
 No handlers could be found for logger "tornado.application"
 Terminated
 Terminated
+No handlers could be found for logger "tornado.application"
+No handlers could be found for logger "tornado.application"
+Terminated
+Terminated
+No handlers could be found for logger "tornado.application"
+No handlers could be found for logger "tornado.application"
+WARNING:tornado.access:404 GET /favicon.ico (127.0.0.1) 19.81ms
+Server is started at localhost:8881
+Resource received http://cs.odu.edu/
+Resource received http://cs.odu.edu/
+Resource received http://www.cs.odu.edu/
+Resource received http://www.cs.odu.edu/
+Resource received http://www.cs.odu.edu/files/style.css
+Resource received http://www.cs.odu.edu/files/style.css
+Resource received http://www.cs.odu.edu/files/mm_menu.js
+Resource received http://www.cs.odu.edu/files/university.js
+Resource received http://www.cs.odu.edu/files/screen.css
+Resource received http://www.cs.odu.edu/files/easySlider1.7.js
+Resource received http://www.cs.odu.edu/files/screen.css
+Resource received http://www.cs.odu.edu/files/university.js
+Resource received http://www.cs.odu.edu/files/jquery.js
+Resource received http://www.cs.odu.edu/files/easySlider1.7.js
+Resource received http://www.cs.odu.edu/files/mm_menu.js
+Resource received http://www.cs.odu.edu/files/jquery.js
+Resource received http://platform.twitter.com/widgets.js
+Resource received http://platform.twitter.com/widgets.js
+Resource received http://www.cs.odu.edu/files/spacer.gif
+Resource received http://www.cs.odu.edu/files/spacer.gif
+Resource received http://www.cs.odu.edu/files/gfx-logo-odu-crown.gif
+Resource received http://www.cs.odu.edu/files/gfx-logo-odu-crown.gif
+Resource received http://www.cs.odu.edu/files/logo-cs.gif
+Resource received http://www.cs.odu.edu/files/gfx-btn-go-dblue.gif
+Resource received http://www.cs.odu.edu/files/gfx-btn-go-dblue.gif
+Resource received http://www.cs.odu.edu/files/hmenu_bg_dept1.gif
+Resource received http://www.cs.odu.edu/files/hmenu_bg_dept1.gif
+Resource received http://www.cs.odu.edu/files/hmenu_college_of_sciences-new.png
+Resource received http://www.cs.odu.edu/files/hmenu_college_of_sciences-new.png
+Resource received http://www.cs.odu.edu/files/header-right1.gif
+Resource received http://www.cs.odu.edu/files/logo-cs.gif
+Resource received http://www.cs.odu.edu/files/lmenu_bg_162.gif
+Resource received http://www.cs.odu.edu/files/lmenu_bg_162.gif
+Resource received http://www.cs.odu.edu/files/lmenu_1st_resources.png
+Resource received http://www.cs.odu.edu/files/lmenu_1st_resources.png
+Resource received http://www.cs.odu.edu/files/bullet_blue_triangle.gif
+Resource received http://www.cs.odu.edu/files/bullet_blue_triangle.gif
+Resource received http://www.cs.odu.edu/images/acm2.jpg
+Resource received http://www.cs.odu.edu/files/header-right1.gif
+Resource received http://www.cs.odu.edu/images/acm_meeting_spring1.jpg
+Resource received http://www.cs.odu.edu/images/JCDL_2015.jpeg
+Resource received http://www.cs.odu.edu/images/nikos_slider_1.jpg
+Resource received http://www.cs.odu.edu/images/dragas_ps_lab_1.jpg
+Resource received http://www.cs.odu.edu/images/group_station_orlab_1.jpg
+Resource received http://www.cs.odu.edu/images/acm2.jpg
+Resource received http://www.cs.odu.edu/images/JCDL_2015.jpeg
+Resource received http://www.cs.odu.edu/images/acm_meeting_spring1.jpg
+Resource received http://www.cs.odu.edu/images/nikos_slider_1.jpg
+Resource received http://www.cs.odu.edu/images/scsc_best_paper_award.jpg
+Resource received http://www.cs.odu.edu/files/rmenu_1st_new_user.png
+Resource received http://www.cs.odu.edu/files/rmenu_1st_new_user.png
+Resource received http://www.cs.odu.edu/images/dragas_ps_lab_1.jpg
+Resource received http://www.cs.odu.edu/images/group_station_orlab_1.jpg
+Resource received http://www.cs.odu.edu/files/rmenu_1st_upcoming_news.png
+Resource received http://www.cs.odu.edu/files/rmenu_1st_upcoming_news.png
+Resource received http://www.cs.odu.edu/images/lmenu_jobs.png
+Resource received http://www.cs.odu.edu/images/lmenu_jobs.png
+Resource received http://www.cs.odu.edu/files/rmenu_1st_search.png
+Resource received http://www.cs.odu.edu/files/rmenu_1st_search.png
+Resource received http://www.cs.odu.edu/files/rmenu_bg_229.gif
+Resource received http://www.cs.odu.edu/files/rmenu_bg_229.gif
+Resource received http://www.cs.odu.edu/files/rmenu_1st_featured_student.png
+Resource received http://www.cs.odu.edu/files/rmenu_1st_featured_student.png
+Resource received http://www.cs.odu.edu/images/scsc_best_paper_award.jpg
+ResoServer is started at localhost:8880
+Resource received http://cs.odu.edu/
+Resource received http://cs.odu.edu/
+Resource received http://www.cs.odu.edu/
+Resource received http://www.cs.odu.edu/
+Resource received http://www.cs.odu.edu/files/style.css
+Resource received http://www.cs.odu.edu/files/style.css
+Resource received http://www.cs.odu.edu/files/jquery.js
+Resource received http://www.cs.odu.edu/files/mm_menu.js
+Resource received http://www.cs.odu.edu/files/screen.css
+Resource received http://www.cs.odu.edu/files/screen.css
+Resource received http://www.cs.odu.edu/files/university.js
+Resource received http://www.cs.odu.edu/files/easySlider1.7.js
+Resource received http://www.cs.odu.edu/files/university.js
+Resource received http://www.cs.odu.edu/files/easySlider1.7.js
+Resource received http://www.cs.odu.edu/files/mm_menu.js
+Resource received http://www.cs.odu.edu/files/jquery.js
+Resource received http://www.cs.odu.edu/files/spacer.gif
+Resource received http://www.cs.odu.edu/files/spacer.gif
+Resource received http://www.cs.odu.edu/files/gfx-btn-go-dblue.gif
+Resource received http://www.cs.odu.edu/files/gfx-btn-go-dblue.gif
+Resource received http://www.cs.odu.edu/files/hmenu_college_of_sciences-new.png
+Resource received http://www.cs.odu.edu/files/hmenu_college_of_sciences-new.png
+Resource received http://www.cs.odu.edu/files/gfx-logo-odu-crown.gif
+Resource received http://www.cs.odu.edu/files/hmenu_bg_dept1.gif
+Resource received http://www.cs.odu.edu/files/hmenu_bg_dept1.gif
+Resource received http://www.cs.odu.edu/files/logo-cs.gif
+Resource received http://www.cs.odu.edu/files/gfx-logo-odu-crown.gif
+Resource received http://www.cs.odu.edu/files/header-right1.gif
+Resource received http://www.cs.odu.edu/files/lmenu_bg_162.gif
+Resource received http://www.cs.odu.edu/files/lmenu_bg_162.gif
+Resource received http://www.cs.odu.edu/files/lmenu_1st_resources.png
+Resource received http://www.cs.odu.edu/files/logo-cs.gif
+Resource received http://platform.twitter.com/widgets.js
+Resource received http://www.cs.odu.edu/files/lmenu_1st_resources.png
+Resource received http://www.cs.odu.edu/files/bullet_blue_triangle.gif
+Resource received http://www.cs.odu.edu/files/bullet_blue_triangle.gif
+Resource received http://www.cs.odu.edu/images/acm2.jpg
+Resource received http://platform.twitter.com/widgets.js
+Resource received http://www.cs.odu.edu/files/header-right1.gif
+Resource received http://www.cs.odu.edu/images/acm_meeting_spring1.jpg
+Resource received http://www.cs.odu.edu/images/JCDL_2015.jpeg
+Resource received http://www.cs.odu.edu/images/nikos_slider_1.jpg
+Resource received http://www.cs.odu.edu/images/dragas_ps_lab_1.jpg
+Resource received http://www.cs.odu.edu/images/group_station_orlab_1.jpg
+Resource received http://www.cs.odu.edu/images/acm2.jpg
+Resource received http://www.cs.odu.edu/images/JCDL_2015.jpeg
+Resource received http://www.cs.odu.edu/images/acm_meeting_spring1.jpg
+Resource received http://www.cs.odu.edu/images/nikos_slider_1.jpg
+Resource received http://www.cs.odu.edu/images/scsc_best_paper_award.jpg
+Resource received http://www.cs.odu.edu/files/rmenu_1st_new_user.png
+Resource received http://www.cs.odu.edu/images/group_station_orlab_1.jpg
+Resource received http://www.cs.odu.edu/files/rmenu_1st_new_user.png
+Resource received http://www.cs.odu.edu/images/dragas_ps_lab_1.jpg
+Resource received http://www.cs.odu.edu/files/rmenu_1st_upcoming_news.png
+Resource received http://www.cs.odu.edu/files/rmenu_1st_upcoming_news.png
+Resource received http://www.cs.odu.edu/images/lmenu_jobs.png
+Resource received http://www.cs.odu.edu/images/lmenu_jobs.png
+Resource received http://www.cs.odu.edu/files/rmenu_1st_search.png
+Resource received http://www.cs.odu.edu/files/rmenu_1st_search.png
+Resource received http://www.cs.odu.edu/files/rmenu_bg_229.gif
+Resource received http://www.cs.odu.edu/files/rmenu_bg_229.gif
+Resource received http://www.cs.odu.edu/files/rmenu_1st_featured_student.png
+Resource received http://www.cs.odu.edu/files/rmenu_1st_featured_student.png
+Resource received http://www.cs.odu.edu/images/scsc_best_paper_award.jpg
+Resource received http://www.cs.odu.edu/images/hji.jpg
+Resource received http://www.cs.odu.edu/files/rmenu_bottom_229.gif
+Resource received http://www.cs.odu.edu/files/rmenu_bottom_229.gif
+Resource received http://www.cs.odu.edu/images/muddin.jpg
+Resource received http://www.cs.odu.edu/images/hji.jpg
+Resource received http://www.cs.odu.edu/files/rmenu_1st_important_dates.png
+Resource received http://www.cs.odu.edu/files/rmenu_1st_about.png
+Resource received http://www.cs.odu.edu/files/rmenu_1st_important_dates.png
+Resource received http://www.cs.odu.edu/files/rmenu_1st_about.png
+Resource received http://www.cs.odu.edu/files/rmenu_1st_research.png
+Resource received http://www.cs.odu.edu/images/facebook.png
+Resource received http://www.cs.odu.edu/images/facebook.png
+Resource received http://www.cs.odu.edu/files/rmenu_1st_research.png
+Resource received http://www.cs.odu.edu/files/shadow-tr.gif
+Resource received http://www.cs.odu.edu/files/shadow-tr.gif
+Resource received http://www.cs.odu.edu/files/shadow-bl.gif
+Resource received http://www.cs.odu.edu/files/shadow-bl.gif
+Resource received http://www.cs.odu.edu/files/shadow-br.gif
+Resource received http://www.cs.odu.edu/files/shadow-br.gif
+Resource received http://www.cs.odu.edu/files/shadow-r.gif
+Resource received http://www.cs.odu.edu/files/shadow-b.gif
+Resource http://www.cs.odu.edu/images/muddin.jpg timeout. 408 Network timeout on resource.
+Screenshot is saved in /media/DATA/ERIKA/SummerWork/MementoPediaProject/web-memento-damage/cache/screenshot/cdc1caa29f0c6e7e1ebd3f9e18f3730a.png
+HTML source of page is saved in /media/DATA/ERIKA/SummerWork/MementoPediaProject/web-memento-damage/cache/html/cdc1caa29f0c6e7e1ebd3f9e18f3730a.html
+Network resources is saved in /media/DATA/ERIKA/SummerWork/MementoPediaProject/web-memento-damage/cache/log/cdc1caa29f0c6e7e1ebd3f9e18f3730a.log
+Network resource images is saved in /media/DATA/ERIKA/SummerWork/MementoPediaProject/web-memento-damage/cache/log/cdc1caa29f0c6e7e1ebd3f9e18f3730a.img.log
+Network resource csses is saved in /media/DATA/ERIKA/SummerWork/MementoPediaProject/web-memento-damage/cache/log/cdc1caa29f0c6e7e1ebd3f9e18f3730a.css.log
+Crawl finished in 14772 miliseconds
+{"background_color":"FFFFFF"}
+Traceback (most recent call last):
+File "/media/DATA/ERIKA/SummerWork/MementoPediaProject/web-memento-damage/ext/damage.py", line 273, in <module>
+background_color)
+File "/media/DATA/ERIKA/SummerWork/MementoPediaProject/web-memento-damage/ext/damage.py", line 30, in __init__
+pct_cov = self.get_percentage_coverage()
+File "/media/DATA/ERIKA/SummerWork/MementoPediaProject/web-memento-damage/ext/damage.py", line 40, in get_percentage_coverage
+for rect in log['rectangles']:
+KeyError: 'rectangles'
+Resource received http://wayback.vefsafn.is/wayback/19961218212138/http://www.kbb.com/
+Resource received http://wayback.vefsafn.is/wayback/19961218212138/http://www.kbb.com/
+Resource received http://wayback.vefsafn.is/wayback/js/graph-calc.js
+Resource received http://wayback.vefsafn.is/wayback/js/graph-calc.js
+Resource received http://wayback.vefsafn.is/wayback/js/disclaim-element.js
+Resource received http://wayback.vefsafn.is/wayback/js/disclaim-element.js
+Resource received http://wayback.vefsafn.is/wayback/19961218212138/http://www.kbb.com/blueleft.gif
+Resource received http://wayback.vefsafn.is/wayback/images/lbslogo.png
+Resource received http://wayback.vefsafn.is/wayback/images/toolbar/wm_tb_prv_off.png
+Resource received http://wayback.vefsafn.is/wayback/images/toolbar/wm_tb_prv_off.png
+Resource received http://www.google-analytics.com/ga.js
+Resource received http://www.google-analytics.com/ga.js
+Resource received http://wayback.vefsafn.is/wayback/images/lbslogo.png
+Resource received http://wayback.vefsafn.is/wayback/images/toolbar/wm_tb_nxt_on.png
+Resource received http://wayback.vefsafn.is/wayback/images/toolbar/wm_tb_nxt_on.png
+Resource received http://www.google-analytics.com/r/__utm.gif?utmwv=5.6.7&utms=1&utmn=451014221&utmhn=wayback.vefsafn.is&utmcs=UTF-8&utmsr=1024x768&utmvp=1024x768&utmsc=32-bit&utmul=c&utmje=0&utmfl=-&utmdt=Kelley%20Blue%20Book%20Used%20Car%20Bluebook%20Values%20and%20New%20Car%20Pricing&utmhid=1224329378&utmr=-&utmp=%2Fwayback%2F19961218212138%2Fhttp%3A%2F%2Fwww.kbb.com%2F&utmht=1466270336443&utmac=UA-19666866-22&utmcc=__utma%3D19290687.74911345.1466270336.1466270336.1466270336.1%3B%2B__utmz%3D19290687.1466270336.1.1.utmcsr%3D(direct)%7Cutmccn%3D(direct)%7Cutmcmd%3D(none)%3B&utmjid=88135939&utmredir=1&utmu=qBAAAAAAAAAAAAAAAAAAAAAE~
+Resource received http://www.google-analytics.com/r/__utm.gif?utmwv=5.6.7&utms=1&utmn=451014221&utmhn=wayback.vefsafn.is&utmcs=UTF-8&utmsr=1024x768&utmvp=1024x768&utmsc=32-bit&utmul=c&utmje=0&utmfl=-&utmdt=Kelley%20Blue%20Book%20Used%20Car%20Bluebook%20Values%20and%20New%20Car%20Pricing&utmhid=1224329378&utmr=-&utmp=%2Fwayback%2F19961218212138%2Fhttp%3A%2F%2Fwww.kbb.com%2F&utmht=1466270336443&utmac=UA-19666866-22&utmcc=__utma%3D19290687.74911345.1466270336.1466270336.1466270336.1%3B%2B__utmz%3D19290687.1466270336.1.1.utmcsr%3D(direct)%7Cutmccn%3D(direct)%7Cutmcmd%3D(none)%3B&utmjid=88135939&utmredir=1&utmu=qBAAAAAAAAAAAAAAAAAAAAAE~
+Resource received http://wayback.vefsafn.is/wayback/jsp/graph.jsp?graphdata=525_27_1996:11:000000000001_1997:-1:010101000100_1998:-1:000000000002_1999:-1:180410000110_2000:-1:015173211716_2001:-1:b132cfb92140_2002:-1:001111188881_2003:-1:111321111212_2004:-1:211019a9a898_2005:-1:000000000000_2006:-1:000000000000_2007:-1:000000000000_2008:-1:000000000000_2009:-1:000000000000_2010:-1:000000000000_2011:-1:000000000000_2012:-1:000000000000_2013:-1:000000100010_2014:-1:000000000000_2015:-1:001000000000_2016:-1:000000000000
+Resource received http://wayback.vefsafn.is/wayback/jsp/graph.jsp?graphdata=525_27_1996:11:000000000001_1997:-1:010101000100_1998:-1:000000000002_1999:-1:180410000110_2000:-1:015173211716_2001:-1:b132cfb92140_2002:-1:001111188881_2003:-1:111321111212_2004:-1:211019a9a898_2005:-1:000000000000_2006:-1:000000000000_2007:-1:000000000000_2008:-1:000000000000_2009:-1:000000000000_2010:-1:000000000000_2011:-1:000000000000_2012:-1:000000000000_2013:-1:000000100010_2014:-1:000000000000_2015:-1:001000000000_2016:-1:000000000000
+Resource received http://wayback.vefsafn.is/wayback/images/toolbar/transp-yellow-pixel.png
+Resource received http://wayback.vefsafn.is/wayback/images/toolbar/transp-yellow-pixel.png
+Resource received http://wayback.vefsafn.is/wayback/images/toolbar/transp-red-pixel.png
+Resource received http://wayback.vefsafn.is/wayback/images/toolbar/transp-red-pixel.png
+Resource received http://wayback.vefsafn.is/wayback/19961218212138/http://www.kbb.com/bbsealbg.gif
+Resource received http://wayback.vefsafn.is/wayback/19961218212138/http://www.kbb.com/usedcars.gif
+Resource received http://wayback.vefsafn.is/wayback/19961218212138/http://www.kbb.com/newcars.gif
+Resource received http://wayback.vefsafn.is/wayback/19961218212138/http://www.kbb.com/bookicon.gif
+Resource received http://wayback.vefsafn.is/wayback/images/toolbar/wm_tb_close.png
+Resource received http://wayback.vefsafn.is/wayback/images/toolbar/wm_tb_close.png
+Resource received http://wayback.vefsafn.is/wayback/19961218212138/http://www.kbb.com/history.gif
+Resource received http://wayback.vefsafn.is/wayback/19961218212138/http://www.kbb.com/vipsites.gif
+Resource received http://wayback.vefsafn.is/wayback/images/toolbar/wm_tb_help.png
+Resource received http://wayback.vefsafn.is/wayback/images/toolbar/wm_tb_help.png
+Screenshot is saved in /media/DATA/ERIKA/SummerWork/MementoPediaProject/web-memento-damage/cache/screenshot/1399aa10a87dec8d223ebaa2c2d57725.png
+HTML source of page is saved in /media/DATA/ERIKA/SummerWork/MementoPediaProject/web-memento-damage/cache/html/1399aa10a87dec8d223ebaa2c2d57725.html
+Network resources is saved in /media/DATA/ERIKA/SummerWork/MementoPediaProject/web-memento-damage/cache/log/1399aa10a87dec8d223ebaa2c2d57725.log
+Network resource images is saved in /media/DATA/ERIKA/SummerWork/MementoPediaProject/web-memento-damage/cache/log/1399aa10a87dec8d223ebaa2c2d57725.img.log
+Network resource csses is saved in /media/DATA/ERIKA/SummerWork/MementoPediaProject/web-memento-damage/cache/log/1399aa10a87dec8d223ebaa2c2d57725.css.log
+Crawl finished in 6227 miliseconds
+{"background_color":"FFFFFF"}
+Traceback (most recent call last):
+File "/media/DATA/ERIKA/SummerWork/MementoPediaProject/web-memento-damage/ext/damage.py", line 273, in <module>
+background_color)
+File "/media/DATA/ERIKA/SummerWork/MementoPediaProject/web-memento-damage/ext/damage.py", line 30, in __init__
+pct_cov = self.get_percentage_coverage()
+File "/media/DATA/ERIKA/SummerWork/MementoPediaProject/web-memento-damage/ext/damage.py", line 40, in get_percentage_coverage
+for rect in log['rectangles']:
+KeyError: 'rectangles'
+Resource received http://wayback.vefsafn.is/wayback/19961218212138/http://www.kbb.com/
+Resource received http://wayback.vefsafn.is/wayback/19961218212138/http://www.kbb.com/
+Resource received http://wayback.vefsafn.is/wayback/js/disclaim-element.js
+Resource received http://wayback.vefsafn.is/wayback/js/disclaim-element.js
+Resource received http://wayback.vefsafn.is/wayback/js/graph-calc.js
+Resource received http://wayback.vefsafn.is/wayback/js/graph-calc.js
+Resource received http://wayback.vefsafn.is/wayback/19961218212138/http://www.kbb.com/blueleft.gif
+Resource received http://wayback.vefsafn.is/wayback/images/lbslogo.png
+Resource received http://wayback.vefsafn.is/wayback/images/toolbar/wm_tb_prv_off.png
+Resource received http://wayback.vefsafn.is/wayback/images/toolbar/wm_tb_prv_off.png
+Resource received http://wayback.vefsafn.is/wayback/images/toolbar/wm_tb_nxt_on.png
+Resource received http://wayback.vefsafn.is/wayback/images/toolbar/wm_tb_nxt_on.png
+Resource received http://wayback.vefsafn.is/wayback/images/lbslogo.png
+Resource received http://wayback.vefsafn.is/wayback/jsp/graph.jsp?graphdata=525_27_1996:11:000000000001_1997:-1:010101000100_1998:-1:000000000002_1999:-1:180410000110_2000:-1:015173211716_2001:-1:b132cfb92140_2002:-1:001111188881_2003:-1:111321111212_2004:-1:211019a9a898_2005:-1:000000000000_2006:-1:000000000000_2007:-1:000000000000_2008:-1:000000000000_2009:-1:000000000000_2010:-1:000000000000_2011:-1:000000000000_2012:-1:000000000000_2013:-1:000000100010_2014:-1:000000000000_2015:-1:001000000000_2016:-1:000000000000
+Resource received http://wayback.vefsafn.is/wayback/jsp/graph.jsp?graphdata=525_27_1996:11:000000000001_1997:-1:010101000100_1998:-1:000000000002_1999:-1:180410000110_2000:-1:015173211716_2001:-1:b132cfb92140_2002:-1:001111188881_2003:-1:111321111212_2004:-1:211019a9a898_2005:-1:000000000000_2006:-1:000000000000_2007:-1:000000000000_2008:-1:000000000000_2009:-1:000000000000_2010:-1:000000000000_2011:-1:000000000000_2012:-1:000000000000_2013:-1:000000100010_2014:-1:000000000000_2015:-1:001000000000_2016:-1:000000000000
+Resource received http://wayback.vefsafn.is/wayback/images/toolbar/transp-yellow-pixel.png
+Resource received http://wayback.vefsafn.is/wayback/images/toolbar/transp-yellow-pixel.png
+Resource received http://www.google-analytics.com/ga.js
+Resource received http://www.google-analytics.com/ga.js
+Resource received http://wayback.vefsafn.is/wayback/images/toolbar/transp-red-pixel.png
+Resource received http://wayback.vefsafn.is/wayback/images/toolbar/transp-red-pixel.png
+Resource received http://www.google-analytics.com/r/__utm.gif?utmwv=5.6.7&utms=1&utmn=1272209455&utmhn=wayback.vefsafn.is&utmcs=UTF-8&utmsr=1024x768&utmvp=1024x768&utmsc=32-bit&utmul=c&utmje=0&utmfl=-&utmdt=Kelley%20Blue%20Book%20Used%20Car%20Bluebook%20Values%20and%20New%20Car%20Pricing&utmhid=614349431&utmr=-&utmp=%2Fwayback%2F19961218212138%2Fhttp%3A%2F%2Fwww.kbb.com%2F&utmht=1466270847118&utmac=UA-19666866-22&utmcc=__utma%3D19290687.1623330262.1466270847.1466270847.1466270847.1%3B%2B__utmz%3D19290687.1466270847.1.1.utmcsr%3D(direct)%7Cutmccn%3D(direct)%7Cutmcmd%3D(none)%3B&utmjid=759376837&utmredir=1&utmu=qBAAAAAAAAAAAAAAAAAAAAAE~
+Resource received http://www.google-analytics.com/r/__utm.gif?utmwv=5.6.7&utms=1&utmn=1272209455&utmhn=wayback.vefsafn.is&utmcs=UTF-8&utmsr=1024x768&utmvp=1024x768&utmsc=32-bit&utmul=c&utmje=0&utmfl=-&utmdt=Kelley%20Blue%20Book%20Used%20Car%20Bluebook%20Values%20and%20New%20Car%20Pricing&utmhidurce received http://www.cs.odu.edu/images/hji.jpg
+Resource received http://www.cs.odu.edu/files/rmenu_bottom_229.gif
+Resource received http://www.cs.odu.edu/files/rmenu_bottom_229.gif
+Resource received http://www.cs.odu.edu/images/muddin.jpg
+Resource received http://www.cs.odu.edu/files/rmenu_1st_about.png
+Resource received http://www.cs.odu.edu/files/rmenu_1st_about.png
+Resource received http://www.cs.odu.edu/files/rmenu_1st_important_dates.png
+Resource received http://www.cs.odu.edu/files/rmenu_1st_important_dates.png
+Resource received http://www.cs.odu.edu/files/rmenu_1st_research.png
+Resource received http://www.cs.odu.edu/files/rmenu_1st_research.png
+Resource received http://www.cs.odu.edu/images/hji.jpg
+Resource received http://www.cs.odu.edu/images/facebook.png
+Resource received http://www.cs.odu.edu/files/shadow-tr.gif
+Resource received http://www.cs.odu.edu/files/shadow-tr.gif
+Resource received http://www.cs.odu.edu/files/shadow-bl.gif
+Resource received http://www.cs.odu.edu/files/shadow-bl.gif
+Resource received http://www.cs.odu.edu/images/facebook.png
+Resource received http://www.cs.odu.edu/files/shadow-br.gif
+Resource received http://www.cs.odu.edu/files/shadow-br.gif
+Resource received http://www.cs.odu.edu/files/shadow-r.gif
+Resource received http://www.cs.odu.edu/files/shadow-b.gif
+Resource http://www.cs.odu.edu/images/muddin.jpg timeout. 408 Network timeout on resource.
+Screenshot is saved in /media/DATA/ERIKA/SummerWork/MementoPediaProject/web-memento-damage/cache/screenshot/cdc1caa29f0c6e7e1ebd3f9e18f3730a.png
+HTML source of page is saved in /media/DATA/ERIKA/SummerWork/MementoPediaProject/web-memento-damage/cache/html/cdc1caa29f0c6e7e1ebd3f9e18f3730a.html
+Network resources is saved in /media/DATA/ERIKA/SummerWork/MementoPediaProject/web-memento-damage/cache/log/cdc1caa29f0c6e7e1ebd3f9e18f3730a.log
+Network resource images is saved in /media/DATA/ERIKA/SummerWork/MementoPediaProject/web-memento-damage/cache/log/cdc1caa29f0c6e7e1ebd3f9e18f3730a.img.log
+Network resource csses is saved in /media/DATA/ERIKA/SummerWork/MementoPediaProject/web-memento-damage/cache/log/cdc1caa29f0c6e7e1ebd3f9e18f3730a.css.log
+Crawl finished in 16906 miliseconds
+{"background_color":"FFFFFF"}
+Traceback (most recent call last):
+File "/media/DATA/ERIKA/SummerWork/MementoPediaProject/web-memento-damage/ext/damage.py", line 273, in <module>
+background_color)
+File "/media/DATA/ERIKA/SummerWork/MementoPediaProject/web-memento-damage/ext/damage.py", line 30, in __init__
+pct_cov = self.get_percentage_coverage()
+File "/media/DATA/ERIKA/SummerWork/MementoPediaProject/web-memento-damage/ext/damage.py", line 40, in get_percentage_coverage
+for rect in log['rectangles']:
+KeyError: 'rectangles'
+Resource received http://wayback.vefsafn.is/wayback/19961218212138/http://www.kbb.com/
+Resource received http://wayback.vefsafn.is/wayback/19961218212138/http://www.kbb.com/
+Resource received http://wayback.vefsafn.is/wayback/js/disclaim-element.js
+Resource received http://wayback.vefsafn.is/wayback/js/disclaim-element.js
+Resource received http://wayback.vefsafn.is/wayback/js/graph-calc.js
+Resource received http://wayback.vefsafn.is/wayback/js/graph-calc.js
+Resource received http://wayback.vefsafn.is/wayback/19961218212138/http://www.kbb.com/blueleft.gif
+Resource received http://wayback.vefsafn.is/wayback/images/lbslogo.png
+Resource received http://wayback.vefsafn.is/wayback/images/toolbar/wm_tb_prv_off.png
+Resource received http://wayback.vefsafn.is/wayback/images/toolbar/wm_tb_prv_off.png
+Resource received http://wayback.vefsafn.is/wayback/images/toolbar/wm_tb_nxt_on.png
+Resource received http://wayback.vefsafn.is/wayback/images/toolbar/wm_tb_nxt_on.png
+Resource received http://wayback.vefsafn.is/wayback/images/lbslogo.png
+Resource received http://wayback.vefsafn.is/wayback/jsp/graph.jsp?graphdata=525_27_1996:11:000000000001_1997:-1:010101000100_1998:-1:000000000002_1999:-1:180410000110_2000:-1:015173211716_2001:-1:b132cfb92140_2002:-1:001111188881_2003:-1:111321111212_2004:-1:211019a9a898_2005:-1:000000000000_2006:-1:000000000000_2007:-1:000000000000_2008:-1:000000000000_2009:-1:000000000000_2010:-1:000000000000_2011:-1:000000000000_2012:-1:000000000000_2013:-1:000000100010_2014:-1:000000000000_2015:-1:001000000000_2016:-1:000000000000
+Resource received http://wayback.vefsafn.is/wayback/jsp/graph.jsp?graphdata=525_27_1996:11:000000000001_1997:-1:010101000100_1998:-1:000000000002_1999:-1:180410000110_2000:-1:015173211716_2001:-1:b132cfb92140_2002:-1:001111188881_2003:-1:111321111212_2004:-1:211019a9a898_2005:-1:000000000000_2006:-1:000000000000_2007:-1:000000000000_2008:-1:000000000000_2009:-1:000000000000_2010:-1:000000000000_2011:-1:000000000000_2012:-1:000000000000_2013:-1:000000100010_2014:-1:000000000000_2015:-1:001000000000_2016:-1:000000000000
+Resource received http://wayback.vefsafn.is/wayback/images/toolbar/transp-yellow-pixel.png
+Resource received http://wayback.vefsafn.is/wayback/images/toolbar/transp-yellow-pixel.png
+Resource received http://wayback.vefsafn.is/wayback/images/toolbar/transp-red-pixel.png
+Resource received http://wayback.vefsafn.is/wayback/images/toolbar/transp-red-pixel.png
+Resource received http://wayback.vefsafn.is/wayback/19961218212138/http://www.kbb.com/bbsealbg.gif
+Resource received http://wayback.vefsafn.is/wayback/19961218212138/http://www.kbb.com/usedcars.gif
+Resource received http://www.google-analytics.com/ga.js
+Resource received http://www.google-analytics.com/ga.js
+Resource received http://wayback.vefsafn.is/wayback/19961218212138/http://www.kbb.com/newcars.gif
+Resource received http://wayback.vefsafn.is/wayback/19961218212138/http://www.kbb.com/bookicon.gif
+Resource received http://wayback.vefsafn.is/wayback/19961218212138/http://www.kbb.com/vipsites.gif
+Resource received http://wayback.vefsafn.is/wayback/19961218212138/http://www.kbb.com/history.gif
+Resource received http://wayback.vefsafn.is/wayback/images/toolbar/wm_tb_close.png
+Resource received http://wayback.vefsafn.is/wayback/images/toolbar/wm_tb_close.png
+Resource received http://www.google-analytics.com/r/__utm.gif?utmwv=5.6.7&utms=1&utmn=1442735497&utmhn=wayback.vefsafn.is&utmcs=UTF-8&utmsr=1024x768&utmvp=1024x768&utmsc=32-bit&utmul=c&utmje=0&utmfl=-&utmdt=Kelley%20Blue%20Book%20Used%20Car%20Bluebook%20Values%20and%20New%20Car%20Pricing&utmhid=1530505357&utmr=-&utmp=%2Fwayback%2F19961218212138%2Fhttp%3A%2F%2Fwww.kbb.com%2F&utmht=1466271016845&utmac=UA-19666866-22&utmcc=__utma%3D19290687.202924859.1466271017.1466271017.1466271017.1%3B%2B__utmz%3D19290687.1466271017.1.1.utmcsr%3D(direct)%7Cutmccn%3D(direct)%7Cutmcmd%3D(none)%3B&utmjid=1769057192&utmredir=1&utmu=qBAAAAAAAAAAAAAAAAAAAAAE~
+Resource received http://www.google-analytics.com/r/__utm.gif?utmwv=5.6.7&utms=1&utmn=1442735497&utmhn=wayback.vefsafn.is&utmcs=UTF-8&utmsr=1024x768&utmvp=1024x768&utmsc=32-bit&utmul=c&utmje=0&utmfl=-&utmdt=Kelley%20Blue%20Book%20Used%20Car%20Bluebook%20Values%20and%20New%20Car%20Pricing&utmhid=1530505357&utmr=-&utmp=%2Fwayback%2F19961218212138%2Fhttp%3A%2F%2Fwww.kbb.com%2F&utmht=1466271016845&utmac=UA-19666866-22&utmcc=__utma%3D19290687.202924859.1466271017.1466271017.1466271017.1%3B%2B__utmz%3D19290687.1466271017.1.1.utmcsr%3D(direct)%7Cutmccn%3D(direct)%7Cutmcmd%3D(none)%3B&utmjid=1769057192&utmredir=1&utmu=qBAAAAAAAAAAAAAAAAAAAAAE~
+Resource received http://wayback.vefsafn.is/wayback/images/toolbar/wm_tb_help.png
+Resource received http://wayback.vefsafn.is/wayback/images/toolbar/wm_tb_help.png
+Screenshot is saved in /media/DATA/ERIKA/SummerWork/MementoPediaProject/web-memento-damage/cache/screenshot/1399aa10a87dec8d223ebaa2c2d57725.png
+HTML source of page is saved in /media/DATA/ERIKA/SummerWork/MementoPediaProject/web-memento-damage/cache/html/1399aa10a87dec8d223ebaa2c2d57725.html
+Network resources is saved in /media/DATA/ERIKA/SummerWork/MementoPediaProject/web-memento-damage/cache/log/1399aa10a87dec8d223ebaa2c2d57725.log
+Network resource images is saved in /media/DATA/ERIKA/SummerWork/MementoPediaProject/web-memento-damage/cache/log/1399aa10a87dec8d223ebaa2c2d57725.img.log
+Network resource csses is saved in /media/DATA/ERIKA/SummerWork/MementoPediaProject/web-memento-damage/cache/log/1399aa10a87dec8d223ebaa2c2d57725.css.log
+Crawl finished in 5323 miliseconds
+{"background_color":"FFFFFF"}
+Potential damage 0.00298309326172 for http://wayback.vefsafn.is/wayback/images/lbslogo.png
+Potential damage 0.000142415364583 for http://wayback.vefsafn.is/wayback/images/toolbar/wm_tb_prv_off.png
+Potential damage 0.000142415364583 for http://wayback.vefsafn.is/wayback/images/toolbar/wm_tb_nxt_on.png
+Potential damage 0.25901222229 for http://wayback.vefsafn.is/wayback/jsp/graph.jsp?graphdata=525_27_1996:11:000000000001_1997:-1:010101000100_1998:-1:000000000002_1999:-1:180410000110_2000:-1:015173211716_2001:-1:b132cfb92140_2002:-1:001111188881_2003:-1:111321111212_2004:-1:211019a9a898_2005:-1:000000000000_2006:-1:000000000000_2007:-1:000000000000_2008:-1:000000000000_2009:-1:000000000000_2010:-1:000000000000_2011:-1:000000000000_2012:-1:000000000000_2013:-1:000000100010_2014:-1:000000000000_2015:-1:001000000000_2016:-1:000000000000
+Potential damage 0.000429153442383 for http://wayback.vefsafn.is/wayback/images/toolbar/transp-yellow-pixel.png
+Potential damage 3.43322753906e-05 for http://wayback.vefsafn.is/wayback/images/toolbar/transp-red-pixel.png
+Potential damage 0.00778198242188 for http://wayback.vefsafn.is/wayback/19961218212138/http://www.kbb.com/bbsealbg.gif
+Potential damage 0.00635782877604 for http://wayback.vefsafn.is/wayback/19961218212138/http://www.kbb.com/usedcars.gif
+Potential damage 0.00635782877604 for http://wayback.vefsafn.is/wayback/19961218212138/http://www.kbb.com/newcars.gif
+Potential damage 0.256357828776 for http://wayback.vefsafn.is/wayback/19961218212138/http://www.kbb.com/bookicon.gif
+Potential damage 0.00635782877604 for http://wayback.vefsafn.is/wayback/19961218212138/http://www.kbb.com/vipsites.gif
+Potential damage 0.00635782877604 for http://wayback.vefsafn.is/wayback/19961218212138/http://www.kbb.com/history.gif
+Potential damage 1.0 for [INTERNAL]
+Potential Damage : 0.236406230927
+Actual damage 0.00778198242188 for http://wayback.vefsafn.is/wayback/19961218212138/http://www.kbb.com/bbsealbg.gif
+Actual damage 0.00635782877604 for http://wayback.vefsafn.is/wayback/19961218212138/http://www.kbb.com/usedcars.gif
+Actual damage 0.00635782877604 for http://wayback.vefsafn.is/wayback/19961218212138/http://www.kbb.com/newcars.gif
+Actual damage 0.256357828776 for http://wayback.vefsafn.is/wayback/19961218212138/http://www.kbb.com/bookicon.gif
+Actual damage 0.00635782877604 for http://wayback.vefsafn.is/wayback/19961218212138/http://www.kbb.com/vipsites.gif
+Actual damage 0.00635782877604 for http://wayback.vefsafn.is/wayback/19961218212138/http://www.kbb.com/history.gif
+Actual damage 0.673076923077 for [INTERNAL]
+Actual Damage : 0.131384101281
+Total Damage : 0.555755661625
+{"result": {"images": [{"url": "http://wayback.vefsafn.is/wayback/19961218212138/http://www.kbb.com/blueleft.gif", "status_code": 404, "headers": {"Date": "Sat, 18 Jun 2016 17:30:14 GMT", "Content-Length": "1417", "Content-Type": "text/html;charset=utf-8", "Connection": "close"}, "content_type": "image/gif", "viewport_size": [1024, 768], "rectangles": []}, {"url": "http://wayback.vefsafn.is/wayback/images/lbslogo.png", "status_code": 200, "headers": {"Content-Length": "4564", "Accept-Ranges": "bytes", "Last-Modified": "Fri, 05 Jun 2015 08:56:54 GMT", "Connection": "close", "ETag": "W/\"4564-1433494614000\"", "Link": "<http://mementoweb.org/terms/donotnegotiate>; rel=\"type\"", "Date": "Sat, 18 Jun 2016 17:30:14 GMT", "Content-Type": "image/png"}, "content_type": "image/png", "viewport_size": [1024, 768], "rectangles": [{"width": 92, "top": 10, "left": 32, "height": 51}]}, {"url": "http://wayback.vefsafn.is/wayback/images/toolbar/wm_tb_prv_off.png", "status_code": 200, "headers": {"Content-Length": "291", "Accept-Ranges": "bytes", "Last-Modified": "Wed, 20 Jan 2016 15:18:32 GMT", "Connection": "close", "ETag": "W/\"291-1453303112000\"", "Link": "<http://mementoweb.org/terms/donotnegotiate>; rel=\"type\"", "Date": "Sat, 18 Jun 2016 17:30:14 GMT", "Content-Type": "image/png"}, "content_type": "image/png", "viewport_size": [1024, 768], "rectangles": [{"width": 14, "top": 34, "left": 810, "height": 16}]}, {"url": "http://wayback.vefsafn.is/wayback/images/toolbar/wm_tb_nxt_on.png", "status_code": 200, "headers": {"Content-Length": "2987", "Accept-Ranges": "bytes", "Last-Modified": "Fri, 05 Jun 2015 08:56:54 GMT", "Connection": "close", "ETag": "W/\"2987-1433494614000\"", "Link": "<http://mementoweb.org/terms/donotnegotiate>; rel=\"type\"", "Date": "Sat, 18 Jun 2016 17:30:14 GMT", "Content-Type": "image/png"}, "content_type": "image/png", "viewport_size": [1024, 768], "rectangles": [{"width": 14, "top": 34, "left": 893, "height": 16}]}, {"url": "http://wayback.vefsafn.is/wayback/jsp/graph.jsp?graphdata=525_27_1996:11:000000000001_1997:-1:010101000100_1998:-1:000000000002_1999:-1:180410000110_2000:-1:015173211716_2001:-1:b132cfb92140_2002:-1:001111188881_2003:-1:111321111212_2004:-1:211019a9a898_2005:-1:000000000000_2006:-1:000000000000_2007:-1:000000000000_2008:-1:000000000000_2009:-1:000000000000_2010:-1:000000000000_2011:-1:000000000000_2012:-1:000000000000_2013:-1:000000100010_2014:-1:000000000000_2015:-1:001000000000_2016:-1:000000000000", "status_code": 200, "headers": {"Date": "Sat, 18 Jun 2016 17:30:15 GMT", "Content-Type": "image/png", "Connection": "close", "Link": "<http://mementoweb.org/terms/donotnegotiate>; rel=\"type\"", "Transfer-Encoding": "chunked"}, "content_type": "image/png", "viewport_size": [1024, 768], "rectangles": [{"width": 525, "top": 46, "left": 250, "height": 27}]}, {"url": "http://wayback.vefsafn.is/wayback/images/toolbar/transp-yellow-pixel.png", "status_code": 200, "headers": {"Content-Length": "70", "Accept-Ranges": "bytes", "Last-Modified": "Wed, 20 Jan 2016 15:18:32 GMT", "Connection": "close", "ETag": "W/\"70-1453303112000\"", "Link": "<http://mementoweb.org/terms/donotnegotiate>; rel=\"type\"", "Date": "Sat, 18 Jun 2016 17:30:15 GMT", "Content-Type": "image/png"}, "content_type": "image/png", "viewport_size": [1024, 768], "rectangles": [{"width": 25, "top": 0, "left": 0, "height": 27}]}, {"url": "http://wayback.vefsafn.is/wayback/images/toolbar/transp-red-pixel.png", "status_code": 200, "headers": {"Content-Length": "122", "Accept-Ranges": "bytes", "Last-Modified": "Wed, 20 Jan 2016 15:18:32 GMT", "Connection": "close", "ETag": "W/\"122-1453303112000\"", "Link": "<http://mementoweb.org/terms/donotnegotiate>; rel=\"type\"", "Date": "Sat, 18 Jun 2016 17:30:15 GMT", "Content-Type": "image/png"}, "content_type": "image/png", "viewport_size": [1024, 768], "rectangles": [{"width": 2, "top": 0, "left": 0, "height": 27}]}, {"url": "http://wayback.vefsafn.is/wayback/19961218212138/http://www.kbb.com/bbsealbg.gif", "status_code": 404, "headers": {"Date": "Sat, 18 Jun 2016 17:30:15 GMT", "Content-Length": "1417", "Content-Type": "text/html;charset=utf-8", "Connection": "close"}, "content_type": "image/gif", "viewport_size": [1024, 768], "rectangles": [{"width": 102, "top": 70, "left": 8, "height": 120}]}, {"url": "http://wayback.vefsafn.is/wayback/19961218212138/http://www.kbb.com/usedcars.gif", "status_code": 404, "headers": {"Date": "Sat, 18 Jun 2016 17:30:15 GMT", "Content-Length": "1417", "Content-Type": "text/html;charset=utf-8", "Connection": "close"}, "content_type": "image/gif", "viewport_size": [1024, 768], "rectangles": [{"width": 100, "top": 222, "left": 8, "height": 100}]}, {"url": "http://wayback.vefsafn.is/wayback/19961218212138/http://www.kbb.com/newcars.gif", "status_code": 404, "headers": {"Date": "Sat, 18 Jun 2016 17:30:15 GMT", "Content-Length": "1414", "Content-Type": "text/html;charset=utf-8", "Connection": "close"}, "content_type": "image/gif", "viewport_size": [1024, 768], "rectangles": [{"width": 100, "top": 222, "left": 254, "height": 100}]}, {"url": "http://wayback.vefsafn.is/wayback/19961218212138/http://www.kbb.com/bookicon.gif", "status_code": 404, "headers": {"Date": "Sat, 18 Jun 2016 17:30:15 GMT", "Content-Length": "1417", "Content-Type": "text/html;charset=utf-8", "Connection": "close"}, "content_type": "image/gif", "viewport_size": [1024, 768], "rectangles": [{"width": 100, "top": 222, "=614349431&utmr=-&utmp=%2Fwayback%2F19961218212138%2Fhttp%3A%2F%2Fwww.kbb.com%2F&utmht=1466270847118&utmac=UA-19666866-22&utmcc=__utma%3D19290687.1623330262.1466270847.1466270847.1466270847.1%3B%2B__utmz%3D19290687.1466270847.1.1.utmcsr%3D(direct)%7Cutmccn%3D(direct)%7Cutmcmd%3D(none)%3B&utmjid=759376837&utmredir=1&utmu=qBAAAAAAAAAAAAAAAAAAAAAE~
+Resource received http://wayback.vefsafn.is/wayback/19961218212138/http://www.kbb.com/bbsealbg.gif
+Resource received http://wayback.vefsafn.is/wayback/19961218212138/http://www.kbb.com/usedcars.gif
+Resource received http://wayback.vefsafn.is/wayback/19961218212138/http://www.kbb.com/newcars.gif
+Resource received http://wayback.vefsafn.is/wayback/19961218212138/http://www.kbb.com/bookicon.gif
+Resource received http://wayback.vefsafn.is/wayback/19961218212138/http://www.kbb.com/history.gif
+Resource received http://wayback.vefsafn.is/wayback/19961218212138/http://www.kbb.com/vipsites.gif
+Resource received http://wayback.vefsafn.is/wayback/images/toolbar/wm_tb_close.png
+Resource received http://wayback.vefsafn.is/wayback/images/toolbar/wm_tb_close.png
+Resource received http://wayback.vefsafn.is/wayback/images/toolbar/wm_tb_help.png
+Resource received http://wayback.vefsafn.is/wayback/images/toolbar/wm_tb_help.png
+Screenshot is saved in /media/DATA/ERIKA/SummerWork/MementoPediaProject/web-memento-damage/cache/screenshot/1399aa10a87dec8d223ebaa2c2d57725.png
+HTML source of page is saved in /media/DATA/ERIKA/SummerWork/MementoPediaProject/web-memento-damage/cache/html/1399aa10a87dec8d223ebaa2c2d57725.html
+Network resources is saved in /media/DATA/ERIKA/SummerWork/MementoPediaProject/web-memento-damage/cache/log/1399aa10a87dec8d223ebaa2c2d57725.log
+Network resource images is saved in /media/DATA/ERIKA/SummerWork/MementoPediaProject/web-memento-damage/cache/log/1399aa10a87dec8d223ebaa2c2d57725.img.log
+Network resource csses is saved in /media/DATA/ERIKA/SummerWork/MementoPediaProject/web-memento-damage/cache/log/1399aa10a87dec8d223ebaa2c2d57725.css.log
+Crawl finished in 4425 miliseconds
+{"background_color":"FFFFFF"}
+Traceback (most recent call last):
+File "/media/DATA/ERIKA/SummerWork/MementoPediaProject/web-memento-damage/ext/damage.py", line 273, in <module>
+background_color)
+File "/media/DATA/ERIKA/SummerWork/MementoPediaProject/web-memento-damage/ext/damage.py", line 30, in __init__
+pct_cov = self.get_percentage_coverage()
+File "/media/DATA/ERIKA/SummerWork/MementoPediaProject/web-memento-damage/ext/damage.py", line 45, in get_percentage_coverage
+viewport_w, vieport_h = log['viewport_size']
+KeyError: 'viewport_size'
+Resource received http://cs.odu.edu/
+Resource received http://cs.odu.edu/
+Resource received http://www.cs.odu.edu/
+Resource received http://www.cs.odu.edu/
+Resource received http://www.cs.odu.edu/files/style.css
+Resource received http://www.cs.odu.edu/files/style.css
+Resource received http://www.cs.odu.edu/files/screen.css
+Resource received http://www.cs.odu.edu/files/screen.css
+Resource received http://www.cs.odu.edu/files/mm_menu.js
+Resource received http://www.cs.odu.edu/files/university.js
+Resource received http://www.cs.odu.edu/files/jquery.js
+Resource received http://www.cs.odu.edu/files/easySlider1.7.js
+Resource received http://www.cs.odu.edu/files/university.js
+Resource received http://www.cs.odu.edu/files/easySlider1.7.js
+Resource received http://www.cs.odu.edu/files/mm_menu.js
+Resource received http://www.cs.odu.edu/files/jquery.js
+Resource received http://www.cs.odu.edu/files/spacer.gif
+Resource received http://www.cs.odu.edu/files/spacer.gif
+Resource received http://www.cs.odu.edu/files/gfx-logo-odu-crown.gif
+Resource received http://www.cs.odu.edu/files/gfx-btn-go-dblue.gif
+Resource received http://www.cs.odu.edu/files/gfx-btn-go-dblue.gif
+Resource received http://www.cs.odu.edu/files/hmenu_college_of_sciences-new.png
+Resource received http://www.cs.odu.edu/files/hmenu_bg_dept1.gif
+Resource received http://www.cs.odu.edu/files/hmenu_bg_dept1.gif
+Resource received http://www.cs.odu.edu/files/hmenu_college_of_sciences-new.png
+Resource received http://www.cs.odu.edu/files/logo-cs.gif
+Resource received http://www.cs.odu.edu/files/gfx-logo-odu-crown.gif
+Resource received http://www.cs.odu.edu/files/header-right1.gif
+Resource received http://www.cs.odu.edu/files/logo-cs.gif
+Resource received http://www.cs.odu.edu/files/lmenu_bg_162.gif
+Resource received http://www.cs.odu.edu/files/lmenu_bg_162.gif
+Resource received http://www.cs.odu.edu/images/acm2.jpg
+Resource received http://platform.twitter.com/widgets.js
+Resource received http://www.cs.odu.edu/files/bullet_blue_triangle.gif
+Resource received http://www.cs.odu.edu/files/bullet_blue_triangle.gif
+Resource received http://www.cs.odu.edu/files/lmenu_1st_resources.png
+Resource received http://www.cs.odu.edu/files/lmenu_1st_resources.png
+Resource received http://platform.twitter.com/widgets.js
+Resource received http://www.cs.odu.edu/files/header-right1.gif
+Resource received http://www.cs.odu.edu/images/JCDL_2015.jpeg
+Resource received http://www.cs.odu.edu/images/acm_meeting_spring1.jpg
+Resource received http://www.cs.odu.edu/images/nikos_slider_1.jpg
+Resource received http://www.cs.odu.edu/images/dragas_ps_lab_1.jpg
+Resource received http://www.cs.odu.edu/images/acm2.jpg
+Resource received http://www.cs.odu.edu/images/group_station_orlab_1.jpg
+Resource received http://www.cs.odu.edu/images/JCDL_2015.jpeg
+Resource received http://www.cs.odu.edu/images/scsc_best_paper_award.jpg
+Resource received http://www.cs.odu.edu/files/rmenu_1st_new_user.png
+Resource received http://www.cs.odu.edu/files/rmenu_1st_new_user.png
+Resource received http://www.cs.odu.edu/images/nikos_slider_1.jpg
+Resource received http://www.cs.odu.edu/images/group_station_orlab_1.jpg
+Resource received http://www.cs.odu.edu/images/dragas_ps_lab_1.jpg
+Resource received http://www.cs.odu.edu/images/scsc_best_paper_award.jpg
+Resource received http://www.cs.odu.edu/images/acm_meeting_spring1.jpg
+Resource received http://www.cs.odu.edu/files/rmenu_1st_upcoming_news.png
+Resource received http://www.cs.odu.edu/files/rmenu_1st_upcoming_news.png
+Resource received http://www.cs.odu.edu/images/lmenu_jobs.png
+Resource received http://www.cs.odu.edu/images/lmenu_jobs.png
+Resource received http://www.cs.odu.edu/files/rmenu_1st_search.png
+Resource received http://www.cs.odu.edu/files/rmenu_1st_search.png
+Resource received http://www.cs.odu.edu/files/rmenu_bg_229.gif
+Resource received http://www.cs.odu.edu/files/rmenu_bg_229.gif
+Resource received http://www.cs.odu.edu/files/rmenu_1st_featured_student.png
+Resource received http://www.cs.odu.edu/files/rmenu_bottom_229.gif
+Resource received http://www.cs.odu.edu/files/rmenu_bottom_229.gif
+Resource received http://www.cs.odu.edu/images/hji.jpg
+Resource received http://www.cs.odu.edu/files/rmenu_1st_featured_student.png
+Resource received http://www.cs.odu.edu/files/rmenu_1st_about.png
+Resource received http://www.cs.odu.edu/files/rmenu_1st_about.png
+Resource received http://www.cs.odu.edu/images/muddin.jpg
+Resource received http://www.cs.odu.edu/files/rmenu_1st_important_dates.png
+Resource received http://www.cs.odu.edu/files/rmenu_1st_important_dates.png
+Resource received http://www.cs.odu.edu/files/rmenu_1st_research.png
+Resource received http://www.cs.odu.edu/images/hji.jpg
+Resource received http://www.cs.odu.edu/files/rmenu_1st_research.png
+Resource received http://www.cs.odu.edu/images/facebook.png
+Resource received http://www.cs.odu.edu/images/facebook.png
+Resource received http://www.cs.odu.edu/files/shadow-tr.gif
+Resource received http://www.cs.odu.edu/files/shadow-r.gif
+Resource received http://www.cs.odu.edu/files/shadow-tr.gif
+Resource received http://www.cs.odu.edu/files/shadow-bl.gif
+Resource received http://www.cs.odu.edu/files/shadow-bl.gif
+Resource received http://www.cs.odu.edu/files/shadow-br.gif
+Resource received http://www.cs.odu.edu/files/shadow-br.gif
+Resource received http://www.cs.odu.edu/files/shadow-b.gif
+Resource http://www.cs.odu.edu/images/muddin.jpg timeout. 408 Network timeout on resource.
+Screenshot is saved in /media/DATA/ERIKA/SummerWork/MementoPediaProject/web-memento-damage/cache/screenshot/cdc1caa29f0c6e7e1ebd3f9e18f3730a.png
+HTML source of page is saved in /media/DATA/ERIKA/SummerWork/MementoPediaProject/web-memento-damage/cache/html/cdc1caa29f0c6e7e1ebd3f9e18f3730a.html
+Network resources is saved in /media/DATA/ERIKA/SummerWork/MementoPediaProject/web-memento-damage/cache/log/cdc1caa29f0c6e7e1ebd3f9e18f3730a.log
+Network resource images is saved in /media/DATA/ERIKA/SummerWork/MementoPediaProject/web-memento-damage/cache/log/cdc1caa29f0c6e7e1ebd3f9e18f3730a.img.log
+Network resource csses is saved in /media/DATA/ERIKA/SummerWork/MementoPediaProject/web-memento-damage/cache/log/cdc1caa29f0c6e7e1ebd3f9e18f3730a.css.log
+Crawl finished in 15521 miliseconds
+{"background_color":"FFFFFF"}
+Potential damage 6.35782877604e-07 for http://www.cs.odu.edu/files/spacer.gif
+Potential damage 0.250481287638 for http://www.cs.odu.edu/files/spacer.gif
+Potential damage 8.39233398438e-05 for http://www.cs.odu.edu/files/spacer.gif
+Potential damage 1.78019205729e-05 for http://www.cs.odu.edu/files/spacer.gif
+Potential damage 6.35782877604e-07 for http://www.cs.odu.edu/files/spacer.gif
+Potential damage 6.35782877604e-07 for http://www.cs.odu.edu/files/spacer.gif
+Potential damage 6.35782877604e-07 for http://www.cs.odu.edu/files/spacer.gif
+Potential damage 3.17891438802e-06 for http://www.cs.odu.edu/files/spacer.gif
+Potential damage 6.35782877604e-07 for http://www.cs.odu.edu/files/spacer.gif
+Potential damage 3.17891438802e-06 for http://www.cs.odu.edu/files/spacer.gif
+Potential damage 6.35782877604e-06 for http://www.cs.odu.edu/files/spacer.gif
+Potential damage 4.45048014323e-06 for http://www.cs.odu.edu/files/spacer.gif
+Potential damage 2.54313151042e-06 for http://www.cs.odu.edu/files/spacer.gif
+Potential damage 2.54313151042e-06 for http://www.cs.odu.edu/files/spacer.gif
+Potential damage 2.54313151042e-06 for http://www.cs.odu.edu/files/spacer.gif
+Potential damage 2.54313151042e-06 for http://www.cs.odu.edu/files/spacer.gif
+Potential damage 2.54313151042e-06 for http://www.cs.odu.edu/files/spacer.gif
+Potential damage 2.54313151042e-06 for http://www.cs.odu.edu/files/spacer.gif
+Potential damage 6.35782877604e-06 for http://www.cs.odu.edu/files/spacer.gif
+Potential damage 3.17891438802e-06 for http://www.cs.odu.edu/files/spacer.gif
+Potential damage 3.17891438802e-06 for http://www.cs.odu.edu/files/spacer.gif
+Potential damage 6.35782877604e-06 for http://www.cs.odu.edu/files/spacer.gif
+Potential damage 6.35782877604e-06 for http://www.cs.odu.edu/files/spacer.gif
+Potential damage 6.35782877604e-06 for http://www.cs.odu.edu/files/spacer.gif
+Potential damage 6.35782877604e-06 for http://www.cs.odu.edu/files/spacer.gif
+Potential damage 6.35782877604e-06 for http://www.cs.odu.edu/files/spacer.gif
+Potential damage 6.35782877604e-06 for http://www.cs.odu.edu/files/spacer.gif
+Potential damage 6.35782877604e-06 for http://www.cs.odu.edu/files/spacer.gif
+Potential damage 6.35782877604e-06 for http://www.cs.odu.edu/files/spacer.gif
+Potential damage 6.35782877604e-06 for http://www.cs.odu.edu/files/spacer.gif
+Potential damage 6.35782877604e-06 for http://www.cs.odu.edu/files/spacer.gif
+Potential damage 6.35782877604e-07 for http://www.cs.odu.edu/files/spacer.gif
+Potential damage 4.45048014323e-06 for http://www.cs.odu.edu/files/spacer.gif
+Potential damage 4.45048014323e-06 for http://www.cs.odu.edu/files/spacer.gif
+Potential damage 6.35782877604e-07 for http://www.cs.odu.edu/files/spacer.gif
+Potential damage 6.35782877604e-07 for http://www.cs.odu.edu/files/spacer.gif
+Potential damage 0.0040340423584 for http://www.cs.odu.edu/files/gfx-logo-odu-crown.gif
+Potential damage 0.00295003255208 for http://www.cs.odu.edu/files/hmenu_college_of_sciences-new.png
+Potential damage 0.00940450032552 for http://www.cs.odu.edu/files/logo-cs.gif
+Potential damage 0.00852966308594 for http://www.cs.odu.edu/files/header-right1.gif
+Potential damage 0.302591959635 for http://www.cs.odu.edu/images/acm2.jpg
+Potential damage 0.302591959635 for http://www.cs.odu.edu/images/acm2.jpg
+Potential damage 6.35782877604e-05 for http://www.cs.odu.edu/files/bullet_blue_triangle.gif
+Potential damage 6.35782877604e-05 for http://www.cs.odu.edu/files/bullet_blue_triangle.gif
+Potential damage 6.35782877604e-05 for http://www.cs.odu.edu/files/bullet_blue_triangle.gif
+Potential damage 6.35782877604e-05 for http://www.cs.odu.edu/files/bullet_blue_triangle.gif
+Potential damage 6.35782877604e-05 for http://www.cs.odu.edu/files/bullet_blue_triangle.gif
+Potential damage 6.35782877604e-05 for http://www.cs.odu.edu/files/bullet_blue_triangle.gif
+Potential damage 6.35782877604e-05 for http://www.cs.odu.edu/files/bullet_blue_triangle.gif
+Potential damage 6.35782877604e-05 for http://www.cs.odu.edu/files/bullet_blue_triangle.gif
+Potential damage 6.35782877604e-05 for http://www.cs.odu.edu/files/bullet_blue_triangle.gif
+Potential damage 6.35782877604e-05 for http://www.cs.odu.edu/files/bullet_blue_triangle.gif
+Potential damage 6.35782877604e-05 for http://www.cs.odu.edu/files/bullet_blue_triangle.gif
+Potential damage 6.35782877604e-05 for http://www.cs.odu.edu/files/bullet_blue_triangle.gif
+Potential damage 6.35782877604e-05 for http://www.cs.odu.edu/files/bullet_blue_triangle.gif
+Potential damage 6.35782877604e-05 for http://www.cs.odu.edu/files/bullet_blue_triangle.gif
+Potential damage 6.35782877604e-05 for http://www.cs.odu.edu/files/bullet_blue_triangle.gif
+Potential damage 6.35782877604e-05 for http://www.cs.odu.edu/files/bullet_blue_triangle.gif
+Potential damage 6.35782877604e-05 for http://www.cs.odu.edu/files/bullet_blue_triangle.gif
+Potential damage 6.35782877604e-05 for http://www.cs.odu.edu/files/bullet_blue_triangle.gif
+Potential damage 6.35782877604e-05 for http://www.cs.odu.edu/files/bullet_blue_triangle.gif
+Potential damage 6.35782877604e-05 for http://www.cs.odu.edu/files/bullet_blue_triangle.gif
+Potential damage 6.35782877604e-05 for http://www.cs.odu.edu/files/bullet_blue_triangle.gif
+Potential damage 6.35782877604e-05 for http://www.cs.odu.edu/files/bullet_blue_triangle.gif
+Potential damage 6.35782877604e-05 for http://www.cs.odu.edu/files/bullet_blue_triangle.gif
+Potential damage 6.35782877604e-05 for http://www.cs.odu.edu/files/bullet_blue_triangle.gif
+Potential damage 6.35782877604e-05 for http://www.cs.odu.edu/files/bullet_blue_triangle.gif
+Potential damage 6.35782877604e-05 for http://www.cs.odu.edu/files/bullet_blue_triangle.gif
+Potential damage 6.35782877604e-05 for http://www.cs.odu.edu/files/bullet_blue_triangle.gif
+Potential damage 6.35782877604e-05 for http://www.cs.odu.edu/files/bullet_blue_triangle.gif
+Potential damage 6.35782877604e-05 for http://www.cs.odu.edu/files/bullet_blue_triangle.gif
+Potential damage 6.35782877604e-05 for http://www.cs.odu.edu/files/bullet_blue_triangle.gif
+Potential damage 6.35782877604e-05 for http://www.cs.odu.edu/files/bullet_blue_triangle.gif
+Potential damage 6.35782877604e-05 for http://www.cs.odu.edu/files/bullet_blue_triangle.gif
+Potential damage 6.35782877604e-05 for http://www.cs.odu.edu/files/bullet_blue_triangle.gif
+Potential damage 6.35782877604e-05 for http://www.cs.odu.edu/files/bullet_blue_triangle.gif
+Potential damage 6.35782877604e-05 for http://www.cs.odu.edu/files/bullet_blue_triangle.gif
+Potential damage 6.35782877604e-05 for http://www.cs.odu.edu/files/bullet_blue_triangle.gif
+Potential damage 6.35782877604e-05 for http://www.cs.odu.edu/files/bullet_blue_triangle.gif
+Potential damage 6.35782877604e-05 for http://www.cs.odu.edu/files/bullet_blue_triangle.gif
+Potential damage 6.35782877604e-05 for http://www.cs.odu.edu/files/bullet_blue_triangle.gif
+Potential damage 6.35782877604e-05 for http://www.cs.odu.edu/files/bullet_blue_triangle.gif
+Potential damage 6.35782877604e-05 for http://www.cs.odu.edu/files/bullet_blue_triangle.gif
+Potential damage 6.35782877604e-05 for http://www.cs.odu.edu/files/bullet_blue_triangle.gif
+Potential damage 6.35782877604e-05 for http://www.cs.odu.edu/files/bullet_blue_triangle.gif
+Potential damage 6.35782877604e-05 for http://www.cs.odu.edu/files/bullet_blue_triangle.gif
+Potential damage 0.00205993652344 for http://www.cs.odu.edu/files/lmenu_1st_resources.png
+Potential damage 0.302591959635 for http://www.cs.odu.edu/images/JCDL_2015.jpeg
+Potential damage 0.552591959635 for http://www.cs.odu.edu/images/acm_meeting_spring1.jpg
+Potential damage 0.302591959635 for http://www.cs.odu.edu/images/nikos_slider_1.jpg
+Potential damage 0.302591959635 for http://www.cs.odu.edu/images/dragas_ps_lab_1.jpg
+Potential damage 0.302591959635 for http://www.cs.odu.edu/images/group_station_orlab_1.jpg
+Potential damage 0.302591959635 for http://www.cs.odu.edu/images/scsc_best_paper_award.jpg
+Potential damage 0.302591959635 for http://www.cs.odu.edu/images/scsc_best_paper_award.jpg
+Potential damage 0.253785451253 for http://www.cs.odu.edu/files/rmenu_1st_new_user.png
+Potential damage 0.253785451253 for http://www.cs.odu.edu/files/rmenu_1st_upcoming_news.png
+Potential damage 0.253785451253 for http://www.cs.odu.edu/images/lmenu_jobs.png
+Potential damage 0.253785451253 for http://www.cs.odu.edu/files/rmenu_1st_search.png
+Potential damage 0.00378545125326 for http://www.cs.odu.edu/files/rmenu_1st_featured_student.png
+Potential damage 0.00378545125326 for http://www.cs.odu.edu/files/rmenu_1st_featured_student.png
+Potential damage 0.00116475423177 for http://www.cs.odu.edu/files/rmenu_bottom_229.gif
+Potential damage 0.00116475423177 for http://www.cs.odu.edu/files/rmenu_bottom_229.gif
+Potential damage 0.00116475423177 for http://www.cs.odu.edu/files/rmenu_bottom_229.gif
+Potential damage 0.00116475423177 for http://www.cs.odu.edu/files/rmenu_bottom_229.gif
+Potential damage 0.00116475423177 for http://www.cs.odu.edu/files/rmenu_bottom_229.gif
+Potential damage 0.00953674316406 for http://www.cs.odu.edu/images/hji.jpg
+Potential damage 0.00378545125326 for http://www.cs.odu.edu/files/rmenu_1st_about.png
+Potential damage 0.259536743164 for http://www.cs.odu.edu/images/muddin.jpg
+Potential damage 0.00378545125326 for http://www.cs.odu.edu/files/rmenu_1st_important_dates.png
+Potential damage 0.00378545125326 for http://www.cs.odu.edu/files/rmenu_1st_research.png
+Potential damage 0.000254313151042 for http://www.cs.odu.edu/images/facebook.png
+Potential damage 1.01725260417e-05 for http://www.cs.odu.edu/files/shadow-tr.gif
+Potential damage 1.27156575521e-05 for http://www.cs.odu.edu/files/shadow-bl.gif
+Potential damage 1.27156575521e-05 for http://www.cs.odu.edu/files/shadow-br.gif
+Potential damage 1.0 for http://www.cs.odu.edu/files/style.css
+Potential damage 1.0 for http://www.cs.odu.edu/files/screen.css
+Potential damage 1.0 for [INTERNAL]
+Potential Damage : 1.69003450871
+Actual damage 1.0 for http://www.cs.odu.edu/files/style.css
+Actual damage 1.0 for http://www.cs.odu.edu/files/screen.css
+Actual damage 1.0 for [INTERNAL]
+Actual Damage : 0.15
+Total Damage : 0.0887555841182
+{"result": {"images": [{"url": "http://www.cs.odu.edu/files/spacer.gif", "status_code": 200, "headers": {"Content-Length": "43", "Accept-Ranges": "bytes", "Expires": "Tue, 13 Jun 2017 17:36:47 GMT", "Server": "nginx", "Last-Modified": "Sun, 12 Jan 2014 02:50:35 GMT", "Connection": "keep-alive", "ETag": "\"52d202fb-2b\"", "Cache-Control": "max-age=31104000", "Date": "Sat, 18 Jun 2016 17:36:47 GMT", "Content-Type": "image/gif"}, "content_type": "image/gif", "viewport_size": [1024, 768], "rectangles": [{"width": 1, "top": 7, "left": 127, "height": 1}, {"width": 757, "top": 7, "left": 128, "height": 1}, {"width": 44, "top": 11, "left": 846, "height": 3}, {"width": 1, "top": 8, "left": 890, "height": 28}, {"width": 1, "top": 48, "left": 128, "height": 1}, {"width": 1, "top": 49, "left": 128, "height": 1}, {"width": 1, "top": 79, "left": 128, "height": 1}, {"width": 1, "top": 80, "left": 128, "height": 5}, {"width": 1, "top": 128, "left": 128, "height": 1}, {"width": 1, "top": 129, "left": 128, "height": 5}, {"width": 1, "top": 134, "left": 128, "height": 10}, {"width": 7, "top": 575, "left": 128, "height": 1}, {"width": 1, "top": 254, "left": 135, "height": 4}, {"width": 1, "top": 320, "left": 135, "height": 4}, {"width": 1, "top": 504, "left": 135, "height": 4}, {"width": 1, "top": 570, "left": 135, "height": 4}, {"width": 1, "top": 767, "left": 135, "height": 4}, {"width": 1, "top": 923, "left": 135, "height": 4}, {"width": 1, "top": 978, "left": 135, "height": 10}, {"width": 5, "top": 575, "left": 285, "height": 1}, {"width": 5, "top": 572, "left": 290, "height": 1}, {"width": 10, "top": 244, "left": 662, "height": 1}, {"width": 10, "top": 244, "left": 881, "height": 1}, {"width": 10, "top": 428, "left": 662, "height": 1}, {"width": 10, "top": 428, "left": 881, "height": 1}, {"width": 10, "top": 603, "left": 662, "height": 1}, {"width": 10, "top": 603, "left": 881, "height": 1}, {"width": 10, "top": 705, "left": 662, "height": 1}, {"width": 10, "top": 705, "left": 881, "height": 1}, {"width": 10, "top": 792, "left": 662, "height": 1}, {"width": 10, "top": 792, "left": 881, "height": 1}, {"width": 1, "top": 1002, "left": 128, "height": 1}, {"width": 1, "top": 1003, "left": 509, "height": 7}, {"width": 1, "top": 1038, "left": 509, "height": 7}, {"width": 1, "top": 1059, "left": 128, "height": 1}, {"width": 1, "top": 7, "left": 891, "height": 1}]}, {"url": "http://www.cs.odu.edu/files/gfx-logo-odu-crown.gif", "status_code": 200, "headers": {"Content-Length": "1979", "Accept-Ranges": "bytes", "Expires": "Tue, 13 Jun 2017 17:36:47 GMT", "Server": "nginx", "Last-Modified": "Sun, 12 Jan 2014 02:50:35 GMT", "Connection": "keep-alive", "ETag": "\"52d202fb-7bb\"", "Cache-Control": "max-age=31104000", "Date": "Sat, 18 Jun 2016 17:36:47 GMT", "Content-Type": "image/gif"}, "content_type": "image/gif", "viewport_size": [1024, 768], "rectangles": [{"width": 235, "top": 14, "left": 128, "height": 27}]}, {"url": "http://www.cs.odu.edu/files/gfx-btn-go-dblue.gif", "status_code": 200, "headers": {"Content-Length": "845", "Accept-Ranges": "bytes", "Expires": "Tue, 13 Jun 2017 17:36:47 GMT", "Server": "nginx", "Last-Modified": "Sun, 12 Jan 2014 02:50:35 GMT", "Connection": "keep-alive", "ETag": "\"52d202fb-34d\"", "Cache-Control": "max-age=31104000", "Date": "Sat, 18 Jun 2016 17:36:47 GMT", "Content-Type": "image/gif"}, "content_type": "image/gif", "viewport_size": [1024, 768], "rectangles": []}, {"url": "http://www.cs.odu.edu/files/hmenu_college_of_sciences-new.png", "status_code": 200, "headers": {"Content-Length": "6444", "Accept-Ranges": "bytes", "Expires": "Tue, 13 Jun 2017 17:36:47 GMT", "Server": "nginx", "Last-Modified": "Sun, 12 Jan 2014 02:50:35 GMT", "Connection": "keep-alive", "ETag": "\"52d202fb-192c\"", "Cache-Control": "max-age=31104000", "Date": "Sat, 18 Jun 2016 17:36:47 GMT", "Content-Type": "image/png"}, "content_type": "image/png", "viewport_size": [1024, 768], "rectangles": [{"width": 160, "top": 50, "left": 128, "height": 29}]}, {"url": "http://www.cs.odu.edu/files/hmenu_bg_dept1.gif", "status_code": 200, "headers": {"Content-Length": "152", "Accept-Ranges": "bytes", "Expires": "Tue, 13 Jun 2017 17:36:47 GMT", "Server": "nginx", "Last-Modified": "Sun, 12 Jan 2014 02:50:35 GMT", "Connection": "keep-alive", "ETag": "\"52d202fb-98\"", "Cache-Control": "max-age=31104000", "Date": "Sat, 18 Jun 2016 17:36:47 GMT", "Content-Type": "image/gif"}, "content_type": "image/gif", "viewport_size": [1024, 768], "rectangles": []}, {"url": "http://www.cs.odu.edu/files/logo-cs.gif", "status_code": 200, "headers": {"Content-Length": "6619", "Accept-Ranges": "bytes", "Expires": "Tue, 13 Jun 2017 17:36:47 GMT", "Server": "nginx", "Last-Modified": "Sun, 12 Jan 2014 02:50:35 GMT", "Connection": "keep-alive", "ETag": "\"52d202fb-19db\"", "Cache-Control": "max-age=31104000", "Date": "Sat, 18 Jun 2016 17:36:47 GMT", "Content-Type": "image/gif"}, "content_type": "image/gif", "viewport_size": [1024, 768], "rectangles": [{"width": 344, "top": 85, "left": 128, "height": 43}]}, {"url": "http://www.cs.odu.edu/files/header-right1.gif", "status_code": 200, "headers": {"Content-Length": "14114", "Accept-Ranges": "bytes", "Expires": "Tue, 13 Jun 2017 17:36:47 GMT", "Server": "nginx", "Last-Modified": "Sun, 12 Jan 2014 02:50:35 GMT", "Connection": "keep-alive", "ETag": "\"52d202fb-3722\"", "Cache-Control": "max-age=31104000", "Date": "Sat, 18 Jun 2016 17:36:47 GMT", "Content-Type": "image/gif"}, "content_type": "image/gif", "viewport_size": [1024, 768], "rectangles": [{"width": 312, "top": 85, "left": 579, "height": 43}]}, {"url": "http://www.cs.odu.edu/files/lmenu_bg_162.gif", "status_code": 200, "headers": {"Content-Length": "64", "Accept-Ranges": "bytes", "Expires": "Tue, 13 Jun 2017 17:36:47 GMT", "Server": "nginx", "Last-Modified": "Sun, 12 Jan 2014 02:50:35 GMT", "Connection": "keep-alive", "ETag": "\"52d202fb-40\"", "Cache-Control": "max-age=31104000", "Date": "Sat, 18 Jun 2016 17:36:47 GMT", "Content-Type": "image/gif"}, "content_type": "image/gif", "viewport_size": [1024, 768], "rectangles": []}, {"url": "http://www.cs.odu.edu/images/acm2.jpg", "status_code": 200, "headers": {"Content-Length": "36058", "Accept-Ranges": "bytes", "Expires": "Tue, 13 Jun 2017 17:36:47 GMT", "Server": "nginx", "Last-Modified": "Sun, 12 Jan 2014 02:50:36 GMT", "Connection": "keep-alive", "ETag": "\"52d202fc-8cda\"", "Cache-Control": "max-age=31104000", "Date": "Sat, 18 Jun 2016 17:36:47 GMT", "Content-Type": "image/jpeg"}, "content_type": "image/jpeg", "viewport_size": [1024, 768], "rectangles": [{"width": 352, "top": 158, "left": -57, "height": 235}, {"width": 352, "top": 158, "left": 2407, "height": 235}]}, {"url": "http://www.cs.odu.edu/files/bullet_blue_triangle.gif", "status_code": 200, "headers": {"Content-Length": "54", "Accept-Ranges": "bytes", "Expires": "Tue, 13 Jun 2017 17:36:47 GMT", "Server": "nginx", "Last-Modified": "Sun, 12 Jan 2014 02:50:34 GMT", "Connection": "keep-alive", "ETag": "\"52d202fa-36\"", "Cache-Control": "max-age=31104000", "Date": "Sat, 18 Jun 2016 17:36:47 GMT", "Content-Type": "image/gif"}, "content_type": "image/gif", "viewport_size": [1024, 768], "rectangles": [{"width": 10, "top": 181, "left": 135, "height": 10}, {"width": 10, "top": 196, "left": 135, "height": 10}, {"width": 10, "top": 211, "left": 135, "height": 10}, {"width": 10, "top": 239, "left": 135, "height": 10}, {"width": 10, "top": 275, "left": 135, "height": 10}, {"width": 10, "top": 290, "left": 135, "height": 10}, {"width": 10, "top": 305, "left": 135, "height": 10}, {"width": 10, "top": 341, "left": 135, "height": 10}, {"width": 10, "top": 356, "left": 135, "height": 10}, {"width": 10, "top": 371, "left": 135, "height": 10}, {"width": 10, "top": 386, "left": 135, "height": 10}, {"width": 10, "top": 401, "left": 135, "height": 10}, {"width": 10, "top": 416, "left": 135, "height": 10}, {"width": 10, "top": 431, "left": 135, "height": 10}, {"width": 10, "top": 446, "left": 135, "height": 10}, {"width": 10, "top": 461, "left": 135, "height": 10}, {"width": 10, "top": 476, "left": 135, "height": 10}, {"width": 10, "top": 525, "left": 135, "height": 10}, {"width": 10, "top": 540, "left": 135, "height": 10}, {"width": 10, "top": 555, "left": 135, "height": 10}, {"width": 10, "top": 591, "left": 135, "height": 10}, {"width": 10, "top": 606, "left": 135, "height": 10}, {"width": 10, "top": 621, "left": 135, "height": 10}, {"width": 10, "top": 649, "left": 135, "height": 10}, {"width": 10, "top": 664, "left": 135, "height": 10}, {"width": 10, "top": 679, "left": 135, "height": 10}, {"width": 10, "top": 707, "left": 135, "height": 10}, {"width": 10, "top": 736, "left": 135, "height": 10}, {"width": 10, "top": 752, "left": 135, "height": 10}, {"width": 10, "top": 788, "left": 135, "height": 10}, {"width": 10, "top": 803, "left": 135, "height": 10}, {"width": 10, "top": 818, "left": 135, "height": 10}, {"width": 10, "top": 833, "left": 135, "height": 10}, {"width": 10, "top": 848, "left": 135, "height": 10}, {"width": 10, "top": 863, "left": 135, "height": 10}, {"width": 10, "top": 878, "left": 135, "height": 10}, {"width": 10, "top": 893, "left": 135, "height": 10}, {"width": 10, "top": 908, "left": 135, "height": 10}, {"width": 10, "top": 471, "left": 310, "height": 10}, {"width": 10, "top": 471, "left": 425, "height": 10}, {"width": 10, "top": 471, "left": 541, "height": 10}, {"width": 10, "top": 490, "left": 310, "height": 10}, {"width": 10, "top": 490, "left": 425, "height": 10}, {"width": 10, "top": 490, "left": 541, "height": 10}]}, {"url": "http://www.cs.odu.edu/files/lmenu_1st_resources.png", "status_code": 200, "headers": {"Content-Length": "3668", "Accept-Ranges": "bytes", "Expires": "Tue, 13 Jun 2017 17:36:47 GMT", "Server": "nginx", "Last-Modified": "Sun, 12 Jan 2014 02:50:35 GMT", "Connection": "keep-alive", "ETag": "\"52d202fb-e54\"", "Cache-Control": "max-age=31104000", "Date": "Sat, 18 Jun 2016 17:36:47 GMT", "Content-Type": "image/png"}, "content_type": "image/png", "viewport_size": [1024, 768], "rectangles": [{"width": 162, "top": 144, "left": 128, "height": 20}]}, {"url": "http://www.cs.odu.edu/images/JCDL_2015.jpeg", "status_code": 200, "headers": {"Content-Length": "30680", "Accept-Ranges": "bytes", "Expires": "Tue, 13 Jun 2017 17:36:48 GMT", "Server": "nginx", "Last-Modified": "Mon, 21 Sep 2015 19:08:20 GMT", "Connection": "keep-alive", "ETag": "\"560055a4-77d8\"", "Cache-Control": "max-age=31104000", "Date": "Sat, 18 Jun 2016 17:36:48 GMT", "Content-Type": "image/jpeg"}, "content_type": "image/jpeg", "viewport_size": [1024, 768], "rectangles": [{"width": 352, "top": 158, "left": 647, "height": 235}]}, {"url": "http://www.cs.odu.edu/images/acm_meeting_spring1.jpg", "status_code": 200, "headers": {"Content-Length": "65170", "Accept-Ranges": "bytes", "Expires": "Tue, 13 Jun 2017 17:36:48 GMT", "Server": "nginx", "Last-Modified": "Fri, 22 Jan 2016 17:02:21 GMT", "Connection": "keep-alive", "ETag": "\"56a2609d-fe92\"", "Cache-Control": "max-age=31104000", "Date": "Sat, 18 Jun 2016 17:36:48 GMT", "Content-Type": "image/jpeg"}, "content_type": "image/jpeg", "viewport_size": [1024, 768], "rectangles": [{"width": 352, "top": 158, "left": 295, "height": 235}]}, {"url": "http://www.cs.odu.edu/images/nikos_slider_1.jpg", "status_code": 200, "headers": {"Content-Length": "77350", "Accept-Ranges": "bytes", "Expires": "Tue, 13 Jun 2017 17:36:48 GMT", "Server": "nginx", "Last-Modified": "Sun, 12 Jan 2014 02:50:39 GMT", "Connection": "keep-alive", "ETag": "\"52d202ff-12e26\"", "Cache-Control": "max-age=31104000", "Date": "Sat, 18 Jun 2016 17:36:48 GMT", "Content-Type": "image/jpeg"}, "content_type": "image/jpeg", "viewport_size": [1024, 768], "rectangles": [{"width": 352, "top": 158, "left": 999, "height": 235}]}, {"url": "http://www.cs.odu.edu/images/dragas_ps_lab_1.jpg", "status_code": 200, "headers": {"Content-Length": "66033", "Accept-Ranges": "bytes", "Expires": "Tue, 13 Jun 2017 17:36:48 GMT", "Server": "nginx", "Last-Modified": "Sun, 12 Jan 2014 02:50:38 GMT", "Connection": "keep-alive", "ETag": "\"52d202fe-101f1\"", "Cache-Control": "max-age=31104000", "Date": "Sat, 18 Jun 2016 17:36:48 GMT", "Content-Type": "image/jpeg"}, "content_type": "image/jpeg", "viewport_size": [1024, 768], "rectangles": [{"width": 352, "top": 158, "left": 1351, "height": 235}]}, {"url": "http://www.cs.odu.edu/images/group_station_orlab_1.jpg", "status_code": 200, "headers": {"Content-Length": "81254", "Accept-Ranges": "bytes", "Expires": "Tue, 13 Jun 2017 17:36:48 GMT", "Server": "nginx", "Last-Modified": "Sun, 12 Jan 2014 02:50:38 GMT", "Connection": "keep-alive", "ETag": "\"52d202fe-13d66\"", "Cache-Control": "max-age=31104000", "Date": "Sat, 18 Jun 2016 17:36:48 GMT", "Content-Type": "image/jpeg"}, "content_type": "image/jpeg", "viewport_size": [1024, 768], "rectangles": [{"width": 352, "top": 158, "left": 1703, "height": 235}]}, {"url": "http://www.cs.odu.edu/images/scsc_best_paper_award.jpg", "status_code": 200, "headers": {"Content-Length": "101880", "Accept-Ranges": "bytes", "Expires": "Tue, 13 Jun 2017 17:36:48 GMT", "Server": "nginx", "Last-Modified": "Fri, 18 Sep 2015 20:14:25 GMT", "Connection": "keep-alive", "ETag": "\"55fc70a1-18df8\"", "Cache-Control": "max-age=31104000", "Date": "Sat, 18 Jun 2016 17:36:48 GMT", "Content-Type": "image/jpeg"}, "content_type": "image/jpeg", "viewport_size": [1024, 768], "rectangles": [{"width": 352, "top": 158, "left": -409, "height": 235}, {"width": 352, "top": 158, "left": 2055, "height": 235}]}, {"url": "http://www.cs.odu.edu/files/rmenu_1st_new_user.png", "status_code": 200, "headers": {"Content-Length": "1476", "Accept-Ranges": "bytes", "Expires": "Tue, 13 Jun 2017 17:36:48 GMT", "Server": "nginx", "Last-Modified": "Sun, 12 Jan 2014 02:50:35 GMT", "Connection": "keep-alive", "ETag": "\"52d202fb-5c4\"", "Cache-Control": "max-age=31104000", "Date": "Sat, 18 Jun 2016 17:36:48 GMT", "Content-Type": "image/png"}, "content_type": "image/png", "viewport_size": [1024, 768], "rectangles": [{"width": 229, "top": 440, "left": 302, "height": 26}]}, {"url": "http://www.cs.odu.edu/files/rmenu_1st_upcoming_news.png", "status_code": 200, "headers": {"Content-Length": "1005", "Accept-Ranges": "bytes", "Expires": "Tue, 13 Jun 2017 17:36:49 GMT", "Server": "nginx", "Last-Modified": "Sun, 12 Jan 2014 02:50:35 GMT", "Connection": "keep-alive", "ETag": "\"52d202fb-3ed\"", "Cache-Control": "max-age=31104000", "Date": "Sat, 18 Jun 2016 17:36:49 GMT", "Content-Type": "image/png"}, "content_type": "image/png", "viewport_size": [1024, 768], "rectangles": [{"width": 229, "top": 520, "left": 302, "height": 26}]}, {"url": "http://www.cs.odu.edu/images/lmenu_jobs.png", "status_code": 200, "headers": {"Content-Length": "1664", "Accept-Ranges": "bytes", "Expires": "Tue, 13 Jun 2017 17:36:49 GMT", "Server": "nginx", "Last-Modified": "Fri, 23 Jan 2015 22:23:16 GMT", "Connection": "keep-alive", "ETag": "\"54c2c9d4-680\"", "Cache-Control": "max-age=31104000", "Date": "Sat, 18 Jun 2016 17:36:49 GMT", "Content-Type": "image/png"}, "content_type": "image/png", "viewport_size": [1024, 768], "rectangles": [{"width": 229, "top": 624, "left": 302, "height": 26}]}, {"url": "http://www.cs.odu.edu/files/rmenu_1st_search.png", "status_code": 200, "headers": {"Content-Length": "3599", "Accept-Ranges": "bytes", "Expires": "Tue, 13 Jun 2017 17:36:49 GMT", "Server": "nginx", "Last-Modified": "Sun, 12 Jan 2014 02:50:35 GMT", "Connection": "keep-alive", "ETag": "\"52d202fb-e0f\"", "Cache-Control": "max-age=31104000", "Date": "Sat, 18 Jun 2016 17:36:49 GMT", "Content-Type": "image/png"}, "content_type": "image/png", "viewport_size": [1024, 768], "rectangles": [{"width": 229, "top": 702, "left": 302, "height": 26}]}, {"url": "http://www.cs.odu.edu/files/rmenu_bg_229.gif", "status_code": 200, "headers": {"Content-Length": "54", "Accept-Ranges": "bytes", "Expires": "Tue, 13 Jun 2017 17:36:49 GMT", "Server": "nginx", "Last-Modified": "Sun, 12 Jan 2014 02:50:35 GMT", "Connection": "keep-alive", "ETag": "\"52d202fb-36\"", "Cache-Control": "max-age=31104000", "Date": "Sat, 18 Jun 2016 17:36:49 GMT", "Content-Type": "image/gif"}, "content_type": "image/gif", "viewport_size": [1024, 768], "rectangles": []}, {"url": "http://www.cs.odu.edu/files/rmenu_1st_featured_student.png", "status_code": 200, "headers": {"Content-Length": "1540", "Accept-Ranges": "bytes", "Expires": "Tue, 13 Jun 2017 17:36:50 GMT", "Server": "nginx", "Last-Modified": "Sun, 12 Jan 2014 02:50:35 GMT", "Connection": "keep-alive", "ETag": "\"52d202fb-604\"", "Cache-Control": "max-age=31104000", "Date": "Sat, 18 Jun 2016 17:36:50 GMT", "Content-Type": "image/png"}, "content_type": "image/png", "viewport_size": [1024, 768], "rectangles": [{"width": 229, "top": 144, "left": 662, "height": 26}, {"width": 229, "top": 328, "left": 662, "height": 26}]}, {"url": "http://www.cs.odu.edu/files/rmenu_bottom_229.gif", "status_code": 200, "headers": {"Content-Length": "126", "Accept-Ranges": "bytes", "Expires": "Tue, 13 Jun 2017 17:36:50 GMT", "Server": "nginx", "Last-Modified": "Sun, 12 Jan 2014 02:50:35 GMT", "Connection": "keep-alive", "ETag": "\"52d202fb-7e\"", "Cache-Control": "max-age=31104000", "Date": "Sat, 18 Jun 2016 17:36:50 GMT", "Content-Type": "image/gif"}, "content_type": "image/gif", "viewport_size": [1024, 768], "rectangles": [{"width": 229, "top": 320, "left": 662, "height": 8}, {"width": 229, "top": 504, "left": 662, "height": 8}, {"width": 229, "top": 670, "left": 662, "height": 8}, {"width": 229, "top": 708, "left": 662, "height": 8}, {"width": 229, "top": 844, "left": 662, "height": 8}]}, {"url": "http://www.cs.odu.edu/images/hji.jpg", "status_code": 200, "headers": {"Content-Length": "36152", "Accept-Ranges": "bytes", "Expires": "Tue, 13 Jun 2017 17:36:50 GMT", "Server": "nginx", "Last-Modified": "Sat, 30 Apr 2016 15:09:46 GMT", "Connection": "keep-alive", "ETag": "\"5724caba-8d38\"", "Cache-Control": "max-age=31104000", "Date": "Sat, 18 Jun 2016 17:36:50 GMT", "Content-Type": "image/jpeg"}, "content_type": "image/jpeg", "viewport_size": [1024, 768], "rectangles": [{"width": 100, "top": 170, "left": 781, "height": 150}]}, {"url": "http://www.cs.odu.edu/files/rmenu_1st_about.png", "status_code": 200, "headers": {"Content-Length": "613", "Accept-Ranges": "bytes", "Expires": "Tue, 13 Jun 2017 17:36:50 GMT", "Server": "nginx", "Last-Modified": "Sun, 12 Jan 2014 02:50:35 GMT", "Connection": "keep-alive", "ETag": "\"52d202fb-265\"", "Cache-Control": "max-age=31104000", "Date": "Sat, 18 Jun 2016 17:36:50 GMT", "Content-Type": "image/png"}, "content_type": "image/png", "viewport_size": [1024, 768], "rectangles": [{"width": 229, "top": 512, "left": 662, "height": 26}]}, {"url": "http://www.cs.odu.edu/images/muddin.jpg", "status_code": 200, "headers": {"Content-Length": "1864696", "Accept-Ranges": "bytes", "Expires": "Tue, 13 Jun 2017 17:36:50 GMT", "Server": "nginx", "Last-Modified": "Fri, 29 Apr 2016 20:12:40 GMT", "Connection": "keep-alive", "ETag": "\"5723c038-1c73f8\"", "Cache-Control": "max-age=31104000", "Date": "Sat, 18 Jun 2016 17:36:50 GMT", "Content-Type": "image/jpeg"}, "content_type": "image/jpeg", "viewport_size": [1024, 768], "rectangles": [{"width": 100, "top": 354, "left": 781, "height": 150}]}, {"url": "http://www.cs.odu.edu/files/rmenu_1st_important_dates.png", "status_code": 200, "headers": {"Content-Length": "878", "Accept-Ranges": "bytes", "Expires": "Tue, 13 Jun 2017 17:36:50 GMT", "Server": "nginx", "Last-Modified": "Sun, 12 Jan 2014 02:50:35 GMT", "Connection": "keep-alive", "ETag": "\"52d202fb-36e\"", "Cache-Control": "max-age=31104000", "Date": "Sat, 18 Jun 2016 17:36:50 GMT", "Content-Type": "image/png"}, "content_type": "image/png", "viewport_size": [1024, 768], "rectangles": [{"width": 229, "top": 678, "left": 662, "height": 26}]}, {"url": "http://www.cs.odu.edu/files/rmenu_1st_research.png", "status_code": 200, "headers": {"Content-Length": "4531", "Accept-Ranges": "bytes", "Expires": "Tue, 13 Jun 2017 17:36:50 GMT", "Server": "nginx", "Last-Modified": "Wed, 05 Mar 2014 22:40:49 GMT", "Connection": "keep-alive", "ETag": "\"5317a7f1-11b3\"", "Cache-Control": "max-age=31104000", "Date": "Sat, 18 Jun 2016 17:36:50 GMT", "Content-Type": "image/png"}, "content_type": "image/png", "viewport_size": [1024, 768], "rectangles": [{"width": 229, "top": 716, "left": 662, "height": 26}]}, {"url": "http://www.cs.odu.edu/images/facebook.png", "status_code": 200, "headers": {"Content-Length": "4983", "Accept-Ranges": "bytes", "Expires": "Tue, 13 Jun 2017 17:36:51 GMT", "Server": "nginx", "Last-Modified": "Sun, 12 Jan 2014 02:50:38 GMT", "Connection": "keep-alive", "ETag": "\"52d202fe-1377\"", "Cache-Control": "max-age=31104000", "Date": "Sat, 18 Jun 2016 17:36:51 GMT", "Content-Type": "image/png"}, "content_type": "image/png", "viewport_size": [1024, 768], "rectangles": [{"width": 20, "top": 866, "left": 662, "height": 20}]}, {"url": "http://www.cs.odu.edu/files/shadow-tr.gif", "status_code": 200, "headers": {"Content-Length": "94", "Accept-Ranges": "bytes", "Expires": "Tue, 13 Jun 2017 17:36:51 GMT", "Server": "nginx", "Last-Modified": "Sun, 12 Jan 2014 02:50:35 GMT", "Connection": "keep-alive", "ETag": "\"52d202fb-5e\"", "Cache-Control": "max-age=31104000", "Date": "Sat, 18 Jun 2016 17:36:51 GMT", "Content-Type": "image/gif"}, "content_type": "image/gif", "viewport_size": [1024, 768], "rectangles": [{"width": 4, "top": 7, "left": 892, "height": 4}]}, {"url": "http://www.cs.odu.edu/files/shadow-r.gif", "status_code": 404, "headers": {"Content-Encoding": "gzip", "Transfer-Encoding": "chunked", "Server": "nginx", "Connection": "keep-alive", "Date": "Sat, 18 Jun 2016 17:36:51 GMT", "Content-Type": "text/html"}, "content_type": "image/gif", "viewport_size": [1024, 768], "rectangles": []}, {"url": "http://www.cs.odu.edu/files/shadow-bl.gif", "status_code": 200, "headers": {"Content-Length": "98Terminated
+Terminated
