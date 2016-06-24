@@ -13,6 +13,7 @@ from sqlalchemy.orm import scoped_session, sessionmaker
 # Instantiate Tornado Application
 _settings = Application.import_settings_from_object(config)
 application = Application(**_settings)
+application.config = _settings
 
 # Instantiate SQLAlchemy ORM (Object Relational Manager)
 class _Database(object):
