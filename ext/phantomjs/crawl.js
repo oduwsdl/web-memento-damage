@@ -185,20 +185,22 @@ function processImages(url, resourceBasename) {
     var networkImages = {};
     var docImageUrls = Object.keys(images);
     for(url in networkResources) {
-        if(networkResources[url]['content_type'].indexOf('image/') == 0) {
-            networkImages[url] = networkResources[url];        
-            docImageUrls.forEach(function(diUrl, idx) {
-                if(url.indexOf(diUrl) >= 0) {
-                    networkImages[url] = _.extend(networkImages[url], images[diUrl]);
+        if(networkResources[url]['content_type']) {
+            if(networkResources[url]['content_type'].indexOf('image/') == 0) {
+                networkImages[url] = networkResources[url];
+                docImageUrls.forEach(function(diUrl, idx) {
+                    if(url.indexOf(diUrl) >= 0) {
+                        networkImages[url] = _.extend(networkImages[url], images[diUrl]);
+                    }
+                });
+
+                if(! ('rectangles' in networkImages[url])) {
+                    networkImages[url]['rectangles'] = []
                 }
-            });
-            
-            if(! ('rectangles' in networkImages[url])) {
-                networkImages[url]['rectangles'] = []
+
+                networkImages[url]['url'] = url;
+                networkImages[url]['viewport_size'] = viewport_size;
             }
-            
-            networkImages[url]['url'] = url;
-            networkImages[url]['viewport_size'] = viewport_size;
         }
     }
 

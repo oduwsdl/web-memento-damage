@@ -1,0 +1,110 @@
+{% extends 'frontpage.html' %}
+
+{% block title %}API{% end %}
+
+{% block head %}
+<style>
+  .nav .active {
+    font-weight: bold;
+    background: #72bcd4;
+  }
+
+  .nav .nav {
+    display: none;
+  }
+
+  .nav .active .nav {
+    display: block;
+  }
+
+  .nav .nav a {
+    font-weight: normal;
+    font-size: .85em;
+  }
+
+  .nav .nav span {
+    margin: 0 5px 0 2px;
+  }
+
+  .nav .nav .active a,
+  .nav .nav .active:hover a,
+  .nav .nav .active:focus a {
+    font-weight: bold;
+    padding-left: 30px;
+    border-left: 5px solid black;
+  }
+
+  .nav .nav .active span,
+  .nav .nav .active:hover span,
+  .nav .nav .active:focus span {
+    display: none;
+  }
+</style>
+{% end %}
+
+{% block content %}
+<div class="col-md-3 col-md-offset-1 scrollspy">
+  <ul id="side-nav" class="nav hidden-xs hidden-sm" data-spy="affix">
+    <li>
+      <a href="#abstract">Abstract</a>
+    </li>
+    <li>
+      <a href="#web-development">Web Development</a>
+      <ul class="nav">
+        <li>
+          <a href="#ruby">
+            <span class="fa fa-angle-double-right"></span>Ruby
+          </a>
+        </li>
+        <li>
+          <a href="#python">
+            <span class="fa fa-angle-double-right"></span>Python
+          </a>
+        </li>
+      </ul><!--end of sub navigation-->
+    </li>
+  </ul><!-- end of main navigation -->
+</div>
+
+<div class="col-md-7">
+  <section id="abstract">
+    <h2>Abstract</h2>
+    <p class="lead">This document describes the APIs that are associated with the Time Travel service.</p>
+    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.
+
+Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem.
+
+Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh.Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem.</p>
+  </section>
+  <section id="web-development">
+    <section id="ruby">
+      <h3>Ruby</h3>
+      <p>Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem.
+
+Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem.</p>
+    </section>
+    <section id="python">
+      <h3>Python</h3>
+      <p>Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem.
+
+Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem.</p>
+    </section>
+  </section>
+</div>
+{% end %}
+
+{% block tail %}
+<script type="text/javascript">
+  $('body')
+    .attr('data-spy', 'scroll')
+    .attr('data-target', '.scrollspy')
+    .css('position', 'relative');
+
+  $('#side-nav').affix({
+    offset: {
+      top: $('#side-nav').offset().top,
+      bottom: $('footer').outerHeight(true) + 40
+    }
+  });
+</script>
+{% end %}
