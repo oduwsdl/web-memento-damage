@@ -258,7 +258,7 @@
   }
   
   function showScreenshot(uri) {
-    $('<img>').attr('src', '/memento/screenshot?url=' + uri)
+    $('<img>').attr('src', '/api/damage/screenshot/' + encodeURIComponent(uri))
       .appendTo($('#screenshots'));
   }
   
@@ -520,7 +520,7 @@
   }
 
   function checkDamageUriM(uri, fresh, onFinished) {
-    $.get('/memento/damage', { 'uri' : uri, 'fresh' : fresh }, function(result) {
+    $.get('/api/damage/' + encodeURIComponent(uri) + '/' + fresh, function(result) {
       // Call onFinished callback
       onFinished(uri, result)
     }, 'json');
@@ -528,7 +528,7 @@
 
   function progressCheckDamageUriM(uri, start, onFinished) {
     setTimeout(function() {
-      $.get('/memento/damage/progress', { 'uri' : uri, 'start' : start }, function(result) {
+      $.get('/api/damage/progress/' + encodeURIComponent(uri) + '/' + start, function(result) {
         // Call onFinished callback
         onFinished(uri, result)
       });

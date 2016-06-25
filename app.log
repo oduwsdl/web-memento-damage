@@ -771,3 +771,8 @@ No handlers could be found for logger "tornado.application"
 No handlers could be found for logger "tornado.application"
 Terminated
 Terminated
+No handlers could be found for logger "tornado.application"
+No handlers could be found for logger "tornado.application"
+WARNING:tornado.access:404 GET /favicon.ico (127.0.0.1) 933.53ms
+Terminated
+Terminated

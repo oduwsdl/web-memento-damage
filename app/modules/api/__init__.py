@@ -3,7 +3,11 @@ from datetime import datetime
 
 import errno
 
+import io
+from urlparse import urlparse
+
 import os
+from PIL import Image
 from app import database
 from app.models.models import MementoModel
 from ext.blueprint import Blueprint, RequestHandler
@@ -41,7 +45,48 @@ class API(Blueprint):
 
         @web.asynchronous
         def get(self, *args, **kwargs):
-            self.render('.index.html')
+            referer = self.request.headers.get("Referer")
+            parsed_uri = urlparse(referer)
+            domain = '{uri.scheme}://{uri.netloc}/'.format(uri=parsed_uri)
+
+            self.render('.index.html', domain=domain)
+
+    class ProgressCheckDamage(RequestHandler):
+        route = ['/damage/progress/([^/]+)',
+                 '/damage/progress/([^/]+)/([^/]+)']
+
+        @web.asynchronous
+        def get(self, uri, start=0):
+            start = int(start)
+            hashed_uri = md5(uri).hexdigest()
+
+            crawler_log_file = '{}.crawl.log'.format(os.path.join(
+                self.blueprint.log_dir, hashed_uri))
+
+            with open(crawler_log_file, 'rb') as f:
+                for idx, line in enumerate(f.readlines()):
+                    if idx >= start:
+                        self.write(line)
+                self.finish()
+
+    class Screenshot(RequestHandler):
+        route = ['/damage/screenshot/([^/]+)']
+
+        @web.asynchronous
+        def get(self, uri):
+            hashed_uri = md5(uri).hexdigest()
+
+            screenshot_file = '{}.png'.format(os.path.join(
+                self.blueprint.screenshot_dir, hashed_uri))
+            f = Image.open(screenshot_file)
+            o = io.BytesIO()
+            f.save(o, format="JPEG")
+            s = o.getvalue()
+
+            self.set_header('Content-type', 'image/png')
+            self.set_header('Content-length', len(s))
+            self.write(s)
+            self.finish()
 
     class Damage(RequestHandler):
         route = ['/damage/([^/]+)', '/damage/([^/]+)/([^/]+)']
