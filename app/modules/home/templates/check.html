@@ -3,124 +3,155 @@
 {% block title %}Check Damage{% end %}
 
 {% block head %}
-  <style type="text/css">
-    .important {
-      color: #336699;
-    }
+<style type="text/css">
+  .important {
+    color: #336699;
+  }
 
-    select[name^=type] {
-        width: 100px !important;
-    }
+  select[name^=type] {
+      width: 100px !important;
+  }
 
-    .tab-content {
-      padding: 10px 15px;
-      border: 1px solid #ddd;
-      border-top: 0px;
-      background-color: #fff;
-    }
-    .tab-content .tab-title {
-      border-bottom: 1px solid #ddd;
-      padding-bottom: 5px;
-    }
-    .tab-content .tab-title .info {
-      font-size: small;
-      top: 3px;
-      position: relative;
-    }
-    
-    #screenshots img {
-      width: 100%;
-    }
+  .tab-content {
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-top: 0px;
+    background-color: #fff;
+  }
+  .tab-content .tab-title {
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 5px;
+  }
+  .tab-content .tab-title .info {
+    font-size: small;
+    top: 3px;
+    position: relative;
+    color: #AF0300;
+  }
 
-    .result-list {
-      padding-left:30px;
-      list-style:none;
-    }
-    .result-list li {
-      margin-bottom:7px;
-    }
-    .result-list li:before {
-      font-family: 'FontAwesome';
-      content: '\f046';
-      margin:0 15px 0 -25px;
-    }
-    .result-list .title {
-      display: inline-table;
-      table-layout: fixed;
-      width: 99%;
-      font-weight: bold;
-      overflow-x: hidden;
-      cursor: pointer;
-      color: #5cb85c;
-    }
-    .result-list .title div {
-      display: table-cell;
-    }
-    .result-list .title div:first-child {
-      width: 90%;
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-    }
-    .result-list .title div:last-child {
-      text-align: right;
-    }
+  #screenshots img {
+    width: 100%;
+  }
 
-    .result-list .title .t-row {
-      display: table-row;
-    }
-    .result-list .title .t-cell {
-      text-overflow: ellipsis;
-      overflow: hidden;
-      white-space: nowrap;
-      display: table-cell;
-      padding: 0 10px 0 0;
-      min-width: 300px;
-    }
-    
-    .result-list .detail {
-      margin-left: 20px;
-    }    
-    .result-list .detail .item {
-      display: table-row;
-    }    
-    .result-list .detail .item div {
-      display: table-cell;
-      padding: 0 5px;
-    }
+  .result-list {
+    padding-left:30px;
+    list-style:none;
+  }
+  .result-list li {
+    margin-bottom:7px;
+  }
+  .result-list li:before {
+    font-family: 'FontAwesome';
+    content: '\f046';
+    margin:0 15px 0 -25px;
+  }
+  .result-list .title {
+    display: inline-table;
+    table-layout: fixed;
+    width: 99%;
+    font-weight: bold;
+    overflow-x: hidden;
+    cursor: pointer;
+    color: #5cb85c;
+  }
+  .result-list .title div {
+    display: table-cell;
+  }
+  .result-list .title div:first-child {
+    width: 90%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  .result-list .title div:last-child {
+    text-align: right;
+  }
 
-    .log-line {
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      padding: 3px;
-    }
-    .log-line:nth-child(even) {
-      background: #CCC
-    }
-    .log-line:nth-child(odd) {
-      background: #FFF
-    }
+  .result-list .title .t-row {
+    display: table-row;
+  }
+  .result-list .title .t-cell {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    display: table-cell;
+    padding: 0 10px 0 0;
+    min-width: 300px;
+  }
 
-    .main-table {
-      width: 100%;
-    }
-    .fixed-table {
-      width: 100%;
-      table-layout: fixed;
-      border-collapse: collapse;
-      border-spacing: 0;
-      border: 0;
-    }
-    .fixed-table td {
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    .nowrap {
-      white-space: nowrap;
-    }
-  </style>
+  .result-list .detail {
+    margin-left: 20px;
+  }
+  .result-list .detail .item {
+    display: table-row;
+  }
+  .result-list .detail .item div {
+    display: table-cell;
+    padding: 0 5px;
+  }
+
+  .log-line {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 3px;
+  }
+  .log-line:nth-child(even) {
+    background: #CCC
+  }
+  .log-line:nth-child(odd) {
+    background: #FFF
+  }
+
+  .main-table {
+    width: 100%;
+  }
+  .fixed-table {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+    border-spacing: 0;
+    border: 0;
+  }
+  .fixed-table td {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .nowrap {
+    white-space: nowrap;
+  }
+
+  .notes>.title {
+    font-weight: bold;
+    margin-bottom: 5px;
+    font-size: larger;
+  }
+  .notes>.title span {
+    border-bottom: 2px solid;
+  }
+  .notes>ul {
+    padding-left:30px;
+    list-style:none;
+  }
+  .notes>ul>li {
+    margin-bottom:7px;
+  }
+  .notes>ul>li:before {
+    content: '\f046';
+    margin: 0 15px 0 -30px;
+  }
+  .notes>ul>li>.title {
+    display: inline;
+    font-weight: bold;
+  }
+  .notes ol {
+    padding-left: 15px;
+  }
+  .notes ol li {
+    list-style: inherit;
+  }
+</style>
 {% end %}
 
 {% block content %}
@@ -152,6 +183,14 @@
 
 <section id="result">
   <div class="container">
+    <div class="row">
+      <div class="col-sm-10 col-sm-offset-1">
+        <div id="alert-is-finished" class="alert alert-success" style="display:none" role="alert">
+          <strong>Finished!</strong> Memento damage calculation is finished in
+          <strong><span id="calculation-time"></span></strong> minutes.
+        </div>
+      </div>
+    </div>
     <div class="row"> <!--Message result-->
       <div class="col-sm-10 col-sm-offset-1">
         <div id="alert-is-archive" style="display:none" class="alert alert-warning" role="alert">
@@ -195,7 +234,54 @@
             </h4>
             <div class="result"></div>
             <div class="notes alert alert-info" role="alert">
-              <div><strong>Techical Notes</strong></div>
+              <div class="title"><span>Techical Notes</span></div>
+              <ul class="content">
+                <li>
+                  <div class="title">Actual Damage</div>
+                  <p>
+                    Actual damage is the real damage that happens to your URI.
+                    It is computed by list all embedded resources (image, css,
+                    javascript, and multimedia), identify which of them are missing,
+                    find their importance, and add the importance value together to
+                    get the actual damage.
+                  </p>
+                </li>
+                <li>
+                  <div class="title">Potential Damage</div>
+                  <p>
+                    Potential damage is the damage that could happen if all embedded
+                    resources are missing. It is calculated by exactly the same way
+                    as actual damage.
+                  </p>
+                </li>
+                <li>
+                  <div class="title">Total Damage</div>
+                  <p>
+                    Total damage is the ratio between actual damage and potential
+                    damage. It ranges from <code>0</code> - <code>1</code>.
+                    The value of <code>1</code> means your URI is <code>100%</code>
+                    damaged. <br/>
+                    Total damage is computed by using this formula:
+                  </p>
+                </li>
+                <li>
+                  <div class="title">What constitute the damage value?</div>
+                  <p>
+                    There are 5 components which are considered when computing damage:
+                  </p>
+                  <ol>
+                    <li>Image</li>
+                    <li>Css</li>
+                    <li>Javascript</li>
+                    <li>Multimedia</li>
+                    <li>Text</li>
+                  </ol>
+                  <p>
+                    We added together the important values from the embedded resources
+                    to get the value of damaged.
+                  </p>
+                </li>
+              </ul>
             </div>
           </div>
           <div class="tab-pane fade" id="mementos">
@@ -223,7 +309,7 @@
             </div>
           </div>
           <div class="tab-pane fade" id="csses">
-            <h4 class="tab-title">List of Csses
+            <h4 class="tab-title">List of Stylesheets
               <div class="pull-right info">
                 <i class="fa fa-info-circle"></i>
                 Click on each item to see more detail
@@ -274,7 +360,7 @@
       result['potential_damage']['total'] + '&nbsp;' +
         '<a href="#" data-toggle="tooltip" data-placement="left" title="'+
           'Detail wil be appeared here' +
-        '"><i class="fa fa-question"></i></a>'
+        '"><i class="fa fa-info-circle"></i></a>'
     ).appendTo(divTitle);
       
     var divContent = $('<div class="collapse detail" id="potential-damage">')
@@ -283,13 +369,13 @@
       result['potential_damage']['image'] + '&nbsp;' +
         '<a href="#" data-toggle="tooltip" data-placement="right" title="'+
           'Detail wil be appeared here' +
-        '"><i class="fa fa-question"></i></a>' +
+        '"><i class="fa fa-info-circle"></i></a>' +
       '</div></div>').appendTo(divContent);
     $('<div class="item"><div>Potential Css Damage</div><div> : </div><div>'+
       result['potential_damage']['css'] + '&nbsp;' +
         '<a href="#" data-toggle="tooltip" data-placement="right" title="'+
           'Detail wil be appeared here' +
-        '"><i class="fa fa-question"></i></a>' +
+        '"><i class="fa fa-info-circle"></i></a>' +
       '</div></div>').appendTo(divContent);
     
     var liImage = $('<li>').appendTo(olImages);
@@ -301,7 +387,7 @@
       result['actual_damage']['total'] + '&nbsp;' +
         '<a href="#" data-toggle="tooltip" data-placement="left" title="'+
           'Detail wil be appeared here' +
-        '"><i class="fa fa-question"></i></a>'
+        '"><i class="fa fa-info-circle"></i></a>'
     ).appendTo(divTitle);
       
     var divContent = $('<div class="collapse detail" id="actual-damage">')
@@ -310,13 +396,13 @@
       result['actual_damage']['image'] + '&nbsp;' +
         '<a href="#" data-toggle="tooltip" data-placement="right" title="'+
           'Detail wil be appeared here' +
-        '"><i class="fa fa-question"></i></a>' +
+        '"><i class="fa fa-info-circle"></i></a>' +
       '</div></div>').appendTo(divContent);
     $('<div class="item"><div>Actual Css Damage</div><div> : </div><div>'+
       result['actual_damage']['css'] + '&nbsp;' +
         '<a href="#" data-toggle="tooltip" data-placement="right" title="'+
           'Detail wil be appeared here' +
-        '"><i class="fa fa-question"></i></a>' +
+        '"><i class="fa fa-info-circle"></i></a>' +
       '</div></div>').appendTo(divContent);
     
     var liImage = $('<li>').appendTo(olImages);
@@ -328,7 +414,7 @@
       result['total_damage'] + '&nbsp;' +
         '<a href="#" data-toggle="tooltip" data-placement="left" title="'+
           'Detail wil be appeared here' +
-        '"><i class="fa fa-question"></i></a>'
+        '"><i class="fa fa-info-circle"></i></a>'
     ).appendTo(divTitle);
       
     var divContent = $('<div class="collapse detail" id="total-damage">')
@@ -359,19 +445,19 @@
         (image['percentage_coverage']*100) + ' %' + '&nbsp;' +
           '<a href="#" data-toggle="tooltip" data-placement="right" title="'+
             'Detail wil be appeared here' +
-          '"><i class="fa fa-question"></i></a>' +
+          '"><i class="fa fa-info-circle"></i></a>' +
         '</div></div>').appendTo(divContent);
       $('<div class="item"><div>Potential Damage</div><div> : </div><div>'+
         ('potential_damage' in image ? image['potential_damage'] : '-') + '&nbsp;' +
           '<a href="#" data-toggle="tooltip" data-placement="right" title="'+
             'Detail wil be appeared here' +
-          '"><i class="fa fa-question"></i></a>' +
+          '"><i class="fa fa-info-circle"></i></a>' +
         '</div></div>').appendTo(divContent);
       $('<div class="item"><div>Actual Damage</div><div> : </div><div>'+
         ('actual_damage' in image ? image['actual_damage'] : '-') + '&nbsp;' +
           '<a href="#" data-toggle="tooltip" data-placement="right" title="'+
             'Detail wil be appeared here' +
-          '"><i class="fa fa-question"></i></a>' +
+          '"><i class="fa fa-info-circle"></i></a>' +
         '</div></div>').appendTo(divContent);
       var rectangles = [];
       image['rectangles'].forEach(function(rect) {
@@ -410,19 +496,19 @@
         css['importance'] + '&nbsp;' +
           '<a href="#" data-toggle="tooltip" data-placement="right" title="'+
             'There are ' + css['importance'] + ' element(s) affected by this rules' +
-          '"><i class="fa fa-question"></i></a>' +
+          '"><i class="fa fa-info-circle"></i></a>' +
         '</div></div>').appendTo(divContent);
       $('<div class="item"><div>Potential Damage</div><div> : </div><div>'+
         ('potential_damage' in css ? css['potential_damage'] : '-') + '&nbsp;' +
           '<a href="#" data-toggle="tooltip" data-placement="right" title="'+
             'Detail wil be appeared here' +
-          '"><i class="fa fa-question"></i></a>' +
+          '"><i class="fa fa-info-circle"></i></a>' +
         '</div></div>').appendTo(divContent);
       $('<div class="item"><div>Actual Damage</div><div> : </div><div>'+
         ('actual_damage' in css ? css['actual_damage'] : '-') + '&nbsp;' +
           '<a href="#" data-toggle="tooltip" data-placement="right" title="'+
             'Detail wil be appeared here' +
-          '"><i class="fa fa-question"></i></a>' +
+          '"><i class="fa fa-info-circle"></i></a>' +
         '</div></div>').appendTo(divContent);
     });
   }
@@ -520,7 +606,13 @@
   }
 
   function checkDamageUriM(uri, fresh, onFinished) {
+    var startTime = new Date().getTime();
+
     $.get('/api/damage/' + encodeURIComponent(uri) + '/' + fresh, function(result) {
+      var totalTime = new Date().getTime() - startTime;
+      $('#calculation-time').html(formatTimer(totalTime));
+      $('#alert-is-finished').show();
+
       // Call onFinished callback
       onFinished(uri, result)
     }, 'json');
@@ -533,6 +625,15 @@
         onFinished(uri, result)
       });
     }, 3000);
+  }
+
+  function formatTimer(ms) {
+    minutes = Math.floor(ms/3600);
+    ms = ms - minutes*3600;
+    seconds = Math.floor(ms/60);
+    ms = ms - seconds*60;
+
+    return minutes + ':' + seconds + '.' + ms;
   }
 </script>
 {% end %}
