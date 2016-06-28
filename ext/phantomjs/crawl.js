@@ -30,8 +30,8 @@ else {
     
     //outputDir = system.args[2];
 
-    // Set timeout on fetching resources to 10 seconds (can be changed)
-    page.settings.resourceTimeout = 10000;
+    // Set timeout on fetching resources to 30 seconds (can be changed)
+    page.settings.resourceTimeout = 30000;
     page.onResourceTimeout = function(e) {
         console.log('Resource', e.url, 'timeout.', e.errorCode, e.errorString);
     };
@@ -73,7 +73,10 @@ else {
     // Open URI
     page.open(url, function (status) {
         if (status !== 'success') {
-            console.log('Unable to load the url', url);
+            console.log(JSON.stringify({'crawl-result' : {
+              'error' : true,
+              'message' : 'Unable to load the url'
+            }}));
             phantom.exit(1);
         } else {
             // After page is opened, process page.
@@ -86,7 +89,10 @@ else {
                 var finishtime = Date.now()
                 
                 // Show message that crawl finished, and calculate executing time
-                console.log('Crawl finished in', (finishtime - starttime), 'miliseconds');
+                console.log(JSON.stringify({'crawl-result' : {
+                  'error' : false,
+                  'message' : 'Crawl finished in ' + (finishtime - starttime) + ' miliseconds'
+                }}));
 
                 // Show bgcolor
                 console.log(JSON.stringify({'background_color' : getBackgroundColor()}));

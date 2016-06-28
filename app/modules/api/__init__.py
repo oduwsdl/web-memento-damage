@@ -69,6 +69,27 @@ class API(Blueprint):
                         self.write(line)
                 self.finish()
 
+    class CheckError(RequestHandler):
+        route = ['/damage/error/([^/]+)']
+
+        @web.asynchronous
+        def get(self, uri):
+            hashed_uri = md5(uri).hexdigest()
+
+            crawler_log_file = '{}.crawl.log'.format(os.path.join(
+                self.blueprint.log_dir, hashed_uri))
+
+            with open(crawler_log_file, 'rb') as f:
+                for idx, line in enumerate(f.readlines()):
+                    if 'crawl-result' in line:
+                        json_line = json.loads(line)
+                        self.write(json.dumps(json_line['crawl-result']))
+                        self.finish()
+
+                if not self._finished:
+                    self.write(json.dumps({'error': False}))
+                    self.finish()
+
     class Screenshot(RequestHandler):
         route = ['/damage/screenshot/([^/]+)']
 
@@ -181,7 +202,7 @@ class API(Blueprint):
                         line = json.loads(line)
 
                         result = line['result']
-                        result['is_success'] = True
+                        result['error'] = False
                         result['is_archive'] = False
 
                         result = json.dumps(result)
@@ -204,11 +225,11 @@ class API(Blueprint):
                     write(out)
 
             # Error
-            def result_error(err = 'Request time out'):
+            def result_error(err = ''):
                 if not self._finished:
                     result = {
-                        'is_success' : False,
-                        'error' : err
+                        'error' : True,
+                        'message' : err
                     }
 
                     self.write(json.dumps(result))

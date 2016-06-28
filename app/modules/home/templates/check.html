@@ -185,7 +185,8 @@
 
 <section id="result">
   <div class="container">
-    <div class="row">
+
+    <div class="row"> <!--Calculation timer-->
       <div class="col-sm-10 col-sm-offset-1">
         <div id="alert-is-finished" class="alert alert-success" style="display:none" role="alert">
           <strong>Finished!</strong> Memento damage calculation is finished in
@@ -193,6 +194,14 @@
         </div>
       </div>
     </div>
+
+    <div id="alert-is-error" class="row"> <!--Error message-->
+      <div class="col-sm-10 col-sm-offset-1">
+        <div class="alert alert-danger" style="display:none" role="alert">
+        </div>
+      </div>
+    </div>
+
     <div class="row"> <!--Message result-->
       <div class="col-sm-10 col-sm-offset-1">
         <div id="alert-is-archive" style="display:none" class="alert alert-warning" role="alert">
@@ -547,7 +556,22 @@
     }, 'json');
   } else {
     checkDamageFinished = false;
+    isError = false;
+
     checkDamageUriM('{{ url }}', {{ fresh }}, function(uri, result) {
+      checkDamageFinished = true;
+
+      if(result['error']) {
+        if(!isError) {
+          $('#alert-is-error .alert')
+            .html('<strong>Error!</strong> ' + result['message'] + '. See log tab')
+            .show();
+
+          isError = true;
+        }
+        return;
+      }
+
       // Show alert if result is an archive calculation ================================
       if(result['is_archive'] == true) {
         $('#alert-is-archive').show();
@@ -581,8 +605,6 @@
       $('[href="#screenshots"] .tab-icon').attr('class', 'tab-icon fa fa-check-square-o');
       $('[href="#log"] .tab-icon').attr('class', 'tab-icon fa fa-check-square-o');
 
-      checkDamageFinished = true;
-
       // Activate tooltip
       $('[data-toggle="tooltip"]').tooltip({container: 'body'});
     });
@@ -591,7 +613,7 @@
     log = $('#log')
     totalLines = 0
 
-    function onFinished(uri, result) {
+    function onCheckProgressFinished(uri, result) {
       if(result.length > 0) {
         lines = result.split('\n');
         lines.forEach(function(line) {
@@ -602,10 +624,28 @@
       }
 
       if(!checkDamageFinished) {
-        progressCheckDamageUriM('{{ url }}', totalLines, onFinished)
+        progressCheckDamageUriM('{{ url }}', totalLines, onCheckProgressFinished)
       }
     }
-    progressCheckDamageUriM('{{ url }}', 0, onFinished)
+    progressCheckDamageUriM('{{ url }}', 0, onCheckProgressFinished)
+
+    // Show error
+    function onCheckErrorFinished(uri, result) {
+      if(result['error']) {
+        if(! isError) {
+          $('#alert-is-error .alert')
+            .html('<strong>Error!</strong> ' + result['message'] + '. See log tab')
+            .show();
+
+          isError = true;
+        }
+      }
+
+      if(!checkDamageFinished) {
+        errorCheckDamageUriM('{{ url }}', onCheckErrorFinished)
+      }
+    }
+    errorCheckDamageUriM('{{ url }}', onCheckErrorFinished)
   }
 
   function checkDamageUriM(uri, fresh, onFinished) {
@@ -614,7 +654,7 @@
     $.get('/api/damage/' + encodeURIComponent(uri) + '/' + fresh, function(result) {
       var totalTime = new Date().getTime() - startTime;
       $('#calculation-time').html(formatTimer(totalTime));
-      $('#alert-is-finished').show();
+      //$('#alert-is-finished').show();
 
       // Call onFinished callback
       onFinished(uri, result)
@@ -627,6 +667,15 @@
         // Call onFinished callback
         onFinished(uri, result)
       });
+    }, 3000);
+  }
+
+  function errorCheckDamageUriM(uri, onFinished) {
+    setTimeout(function() {
+      $.get('/api/damage/error/' + encodeURIComponent(uri), function(result) {
+        // Call onFinished callback
+        onFinished(uri, result)
+      }, 'json');
     }, 3000);
   }
 
