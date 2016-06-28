@@ -35,12 +35,14 @@
 
   .result-list {
     padding-left:30px;
-    list-style:none;
   }
   .result-list li {
     margin-bottom:7px;
   }
-  .result-list li:before {
+  .custom-ul {
+    list-style:none;
+  }
+  .custom-ul li:before {
     font-family: 'FontAwesome';
     content: '\f046';
     margin:0 15px 0 -25px;
@@ -260,8 +262,9 @@
                     Total damage is the ratio between actual damage and potential
                     damage. It ranges from <code>0</code> - <code>1</code>.
                     The value of <code>1</code> means your URI is <code>100%</code>
-                    damaged. <br/>
-                    Total damage is computed by using this formula:
+                    damaged.<br/>
+                    Total damage is computed by using this formula:<br/>
+                    $Total Damage=\frac{Actual Damage}{Potential Damage}$
                   </p>
                 </li>
                 <li>
@@ -304,9 +307,9 @@
               </div>
             </h4>
             <div class="result"></div>
-            <div class="notes alert alert-info" role="alert">
+            <!--<div class="notes alert alert-info" role="alert">
               <div><strong>Techical Notes</strong></div>
-            </div>
+            </div>-->
           </div>
           <div class="tab-pane fade" id="csses">
             <h4 class="tab-title">List of Stylesheets
@@ -316,9 +319,9 @@
               </div>
             </h4>
             <div class="result"></div>
-            <div class="notes alert alert-info" role="alert">
+            <!--<div class="notes alert alert-info" role="alert">
               <div><strong>Techical Notes</strong></div>
-            </div>
+            </div>-->
           </div>
           <div class="tab-pane fade" id="screenshots"></div>
           <div class="tab-pane fade" id="log">
@@ -349,7 +352,7 @@
   }
   
   function showSummary(result) {
-    var olImages = $('<ol class="result-list">').appendTo('#summary .result');
+    var olImages = $('<ol class="result-list custom-ul">').appendTo('#summary .result');
     
     var liImage = $('<li>').appendTo(olImages);
     var divTitle = $('<div class="title" data-toggle="collapse">')
