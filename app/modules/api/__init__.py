@@ -243,8 +243,9 @@ class API(Blueprint):
             # Crawl page with phantomjs crawl.js via arguments
             # Equivalent with console:
             #   phantomjs crawl.js <screenshot> <html> <log>
-            cmd = Command(['phantomjs', crawljs_script, uri,screenshot_file,
-                           html_file, log_file], log_output)
+            cmd = Command(['phantomjs', '--ssl-protocol=any', crawljs_script,
+                           uri, screenshot_file, html_file, log_file],
+                          log_output)
             err_code = cmd.run(10 * 60, args=(page, ))
 
             if err_code == 0:
