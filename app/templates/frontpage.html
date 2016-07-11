@@ -88,7 +88,15 @@
     <script>hljs.initHighlightingOnLoad();</script>
 
     <script type="text/x-mathjax-config">
-      MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [['$','$'], ['\\(','\\)']]
+        },
+        "HTML-CSS": {
+          preferredFont: "'Arial Unicode MS',serif",
+          scale: 80
+        }
+      });
     </script>
     <script async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
 

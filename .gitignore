@@ -3,3 +3,4 @@ env-*/*
 .idea/*
 app.db
 app.log
+memento_damage.pem

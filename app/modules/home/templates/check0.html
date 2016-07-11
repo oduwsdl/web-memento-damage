@@ -182,14 +182,6 @@
   #damage-detail p {
     padding-bottom: 10px;
   }
-
-  .summary-step:last-child {
-    border-bottom: none;
-  }
-  .summary-step {
-    border-bottom: 1px solid;
-    padding-top: 20px;
-  }
 </style>
 {% end %}
 
@@ -413,10 +405,16 @@
     var step1 = $('<div class="summary-step" id="summary-step1">').appendTo($('#damage-detail'));
 
     $('<p>').html(
+      'Total damage is the ratio between actual damage and potential '+
+      'damage. It ranges from <code>0</code> - <code>1</code>. '+
+      'The value of <code>1</code> means your URI is <code>100%</code> '+
+      'damaged.<br/> '+
+      'Total damage is computed by using this formula:<br/> '+
       '$Total Damage=\\frac{Actual Damage}{Potential Damage}$'
     ).appendTo(step1);
 
     $('<p>').html(
+      'So, the equation will be:<br/>'+
       '$Total Damage=\\frac{'+ result['actual_damage']['total'] +'}{'+
       result['potential_damage']['total'] +'}='+ result['total_damage'] +'$'
     ).appendTo(step1);
@@ -425,58 +423,60 @@
     var step2 = $('<div class="summary-step" id="summary-step2">').appendTo($('#damage-detail'));
 
     $('<p>').html(
+      'Potential damage is the damage that could happen if all embedded '+
+      'resources are missing. It is calculated by exactly the same way '+
+      'as actual damage. '+
+      'Potential damage is computed by using this formula:<br/>'+
       '$Potential Damage = Images + Stylesheets$'
     ).appendTo(step2);
+
     $('<p>').html(
+      'So, the equation will be:<br/>'+
       '$Potential Damage = '+ result['potential_damage']['image'] +
       ' + '+ result['potential_damage']['css'] +' = '+ result['potential_damage']['total'] +'$'
     ).appendTo(step2);
 
     $('<p>').html(
-      '$Potential Damage of Images = \\sum_{i=0}^n (centrality importance + size importance); n = all images$'
-    ).appendTo(step2);
-    $('<p>').html(
-      'Detail of potential damage of images can be explored in tab <a href="#" class="img-ref">images</a>'
+      'Potential damage of image is calculated by including all of images '+
+      '(found and missing images). Potential damage of image contains of two factors: ' +
+      '<b>centrality</b> and <b>size</b>. <br/>' +
+      'Centrality is considered when image is passed by imaginary vertical line ('+
+      'the left side of image is located in the left of center-width and the right side '+
+      'is located in the right of center-width of viewport) and or imaginary horizontal line '+
+      '(the top side of image is located above center-height and the bottom side '+
+      'is located below center-height of viewport). <br/>'+
+      'While size importance is calculated by using image coverage (area of image '+
+      'compared to area of viewport).<br/>'+
+      'The formula of potential damage of images is: <br/>'+
+      '$Potential Damage of Images = \\sum_{i=0}^n (centrality importance + size importance)$'
     ).appendTo(step2);
 
     $('<p>').html(
-      '$Potential Damage of Stylesheets = Tag importance + Ratio importance$'
+      'Detail of potential damage of images can be explored in tab <a href="#" id="img-ref">images</a>'
     ).appendTo(step2);
-    $('<p>').html(
-      'Detail of potential damage of stylesheets can be explored in tab <a href="#" class="css-ref">stylesheets</a>'
-    ).appendTo(step2);
+
+    $('#img-ref').on('click', function() {
+      $('.nav-tabs a[href="#images"]').tab('show')
+    })
 
     // Show Actual Damage ======================================================
     var step3 = $('<div class="summary-step" id="summary-step3">').appendTo($('#damage-detail'));
 
     $('<p>').html(
+      'Actual damage is the real damage that happens to your URI. '+
+      'It is computed by list all embedded resources (image, css, '+
+      'javascript, and multimedia), identify which of them are missing, '+
+      'find their importance, and add the importance value together to '+
+      'get the actual damage. '+
+      'Actual damage is computed by using this formula:<br/>'+
       '$Actual Damage = Images + Stylesheets$'
     ).appendTo(step3);
+
     $('<p>').html(
+      'So, the equation will be:<br/>'+
       '$Actual Damage = '+ result['actual_damage']['image'] +
       ' + '+ result['actual_damage']['css'] +' = '+ result['actual_damage']['total'] +'$'
     ).appendTo(step3);
-
-    $('<p>').html(
-      '$Actual Damage of Images = \\sum_{i=0}^m (centrality importance + size importance); m = missing images$'
-    ).appendTo(step3);
-    $('<p>').html(
-      'Detail of actual damage of images can be explored in tab <a href="#" class="img-ref">images</a>'
-    ).appendTo(step3);
-
-    $('<p>').html(
-      '$Actual Damage of Stylesheets = Tag importance + Ratio importance$'
-    ).appendTo(step3);
-    $('<p>').html(
-      'Detail of actual damage of stylesheets can be explored in tab <a href="#" class="css-ref">stylesheets</a>'
-    ).appendTo(step3);
-
-    $('.img-ref').on('click', function() {
-      $('.nav-tabs a[href="#images"]').tab('show')
-    });
-    $('.css-ref').on('click', function() {
-      $('.nav-tabs a[href="#csses"]').tab('show')
-    });
 
     MathJax.Hub.Queue(["Typeset",MathJax.Hub,"damage-detail"]);
   }

@@ -114,8 +114,6 @@ class API(Blueprint):
 
         @web.asynchronous
         def get(self, uri, fresh="false"):
-            print uri, fresh
-
             # since all query string arguments are in unicode, cast fresh to
             # boolean
             if fresh.lower() == 'true': fresh = True
