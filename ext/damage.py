@@ -76,25 +76,39 @@ class SiteDamage:
         total_images_damage = 0
         for idx, log in enumerate(self.images_log):
             image_damage = self.calculate_image_damage(log)
-            total_image_damage = 0
             # Based on measureMemento.pl line 463
-            for damage in image_damage:
+            total_location_importance = 0
+            total_size_importance = 0
+            total_image_damage = 0
+            for location_importance, size_importance, damage in image_damage:
+                total_location_importance += location_importance
+                total_size_importance += size_importance
                 total_image_damage += damage
 
             total_images_damage += total_image_damage
 
-            self.images_log[idx]['potential_damage'] = total_image_damage
+            self.images_log[idx]['potential_damage'] = {
+                'location' : total_location_importance,
+                'size' : total_size_importance,
+                'total' : total_image_damage
+            }
             print('Potential damage {} for {}'
                   .format(total_image_damage, log['url']))
 
         total_css_damage = 0
         for idx, log in enumerate(self.csses_log):
-            css_damage = self.calculate_css_damage(log, use_window_size=False,
-                                                   is_potential=True)
+            tag_importance, ratio_importance, css_damage = \
+                self.calculate_css_damage(log, use_window_size=False, \
+                                          is_potential=True)
+
             # Based on measureMemento.pl line 468
             total_css_damage += css_damage
 
-            self.csses_log[idx]['potential_damage'] = css_damage
+            self.csses_log[idx]['potential_damage'] = {
+                'tag'   : tag_importance,
+                'ratio' : ratio_importance,
+                'total' : css_damage
+            }
             print('Potential damage {} for {}'.format(css_damage, log['url']))
 
         # Based on measureMemento.pl line 555
@@ -108,24 +122,38 @@ class SiteDamage:
         for idx, log in enumerate(self.images_log):
             if log['status_code'] > 399:
                 image_damage = self.calculate_image_damage(log)
-                total_image_damage = 0
                 # Based on measureMemento.pl line 463
-                for damage in image_damage:
+                total_location_importance = 0
+                total_size_importance = 0
+                total_image_damage = 0
+                for location_importance, size_importance, damage in image_damage:
+                    total_location_importance += location_importance
+                    total_size_importance += size_importance
                     total_image_damage += damage
 
                 total_images_damage += total_image_damage
 
-                self.images_log[idx]['actual_damage'] = total_image_damage
+                self.images_log[idx]['actual_damage'] = {
+                    'location' : total_location_importance,
+                    'size' : total_size_importance,
+                    'total' : total_image_damage
+                }
                 print('Actual damage {} for {}'
                       .format(total_image_damage, log['url']))
 
         total_css_damage = 0
         for idx, log in enumerate(self.csses_log):
-            css_damage = self.calculate_css_damage(log, use_window_size=False)
+            tag_importance, ratio_importance, css_damage = \
+                self.calculate_css_damage(log, use_window_size=False)
+
             # Based on measureMemento.pl line 468
             total_css_damage += css_damage
 
-            self.csses_log[idx]['actual_damage'] = css_damage
+            self.csses_log[idx]['actual_damage'] = {
+                'tag'   : tag_importance,
+                'ratio' : ratio_importance,
+                'total' : css_damage
+            }
             print('Actual damage {} for {}'.format(css_damage, log['url']))
 
         # Based on measureMemento.pl line 555
@@ -166,7 +194,8 @@ class SiteDamage:
             size_importance = prop * size_weight
 
             importance = location_importance + size_importance
-            importances.append(importance)
+            importances.append((location_importance, size_importance,
+                                importance))
 
         return importances
 
@@ -174,7 +203,7 @@ class SiteDamage:
                              is_potential=False, use_window_size = True,
                              window_size=(1024,768)):
         css_url = log['url']
-        tag_importance = log['importance']
+        rules_importance = log['importance']
 
         # I think it have no implication, since all css status_code is 404
         # if 'status_code' not in log:
@@ -191,11 +220,13 @@ class SiteDamage:
         # if str(status_code)[0] == '3':
         #     return 0
 
-        importance = 0
+        tag_importance = 0.0
+        ratio_importance = 0.0
+        total_importance = 0.0
 
         # Based on measureMemento.pl line 771
-        if tag_importance > 0:
-            importance += tag_weight
+        if rules_importance > 0:
+            tag_importance = tag_weight
 
         # Based on measureMemento.pl line 777
         if not is_potential:
@@ -257,20 +288,21 @@ class SiteDamage:
 
             # Based on measureMemento.pl line 803
             if (leftAvg + centerAvg + rightAvg) == 0:
-                importance += 0
+                ratio_importance = 0.0
             elif float(rightAvg) / (leftAvg+centerAvg+rightAvg) > \
                     float(1)/3:
-                importance += float(rightAvg) / (
+                ratio_importance = float(rightAvg) / (
                     leftAvg+centerAvg+rightAvg) * ratio_weight
             else:
-                importance += ratio_weight
+                ratio_importance = ratio_weight
 
 
         # Based on measureMemento.pl line 819
         else:
-            importance += ratio_weight
+            ratio_importance = ratio_weight
 
-        return importance
+        total_importance = tag_importance + ratio_importance
+        return (tag_importance, ratio_importance, total_importance)
 
 if __name__ == "__main__":
     import sys
@@ -309,12 +341,12 @@ if __name__ == "__main__":
         result['potential_damage'] = {
             'total' : damage.potential_damage,
             'image' : damage.potential_image_damage,
-            'css' : damage.potential_css_damage,
+            'css'   : damage.potential_css_damage,
         }
         result['actual_damage'] = {
             'total' : damage.actual_damage,
             'image' : damage.actual_image_damage,
-            'css' : damage.actual_css_damage,
+            'css'   : damage.actual_css_damage,
         }
         result['total_damage'] = \
             damage.actual_damage/damage.potential_damage \

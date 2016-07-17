@@ -6,6 +6,8 @@ import errno
 import io
 from urlparse import urlparse
 
+import sys
+
 import os
 from PIL import Image
 from app import database
@@ -250,7 +252,9 @@ class API(Blueprint):
                 # Calculate damage with damage.py via arguments
                 # Equivalent with console:
                 #   python damage.py <img_log> <css_log> <screenshot_log> <bg>
-                cmd = Command(['python', damage_py_script, images_log_file,
+                python = sys.executable
+
+                cmd = Command([python, damage_py_script, images_log_file,
                                csses_log_file, screenshot_file,
                                page['background_color']],
                               log_output)

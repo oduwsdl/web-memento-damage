@@ -69,7 +69,7 @@
         </div>
       </div>
     </nav>
-    
+
     {% block content %}{% end %}
 
     <footer>
@@ -92,10 +92,9 @@
         tex2jax: {
           inlineMath: [['$','$'], ['\\(','\\)']]
         },
-        "HTML-CSS": {
-          preferredFont: "'Arial Unicode MS',serif",
-          scale: 80
-        }
+        CommonHTML: { linebreaks: { automatic: true } },
+        "HTML-CSS": { linebreaks: { automatic: true } },
+        SVG: { linebreaks: { automatic: true } }
       });
     </script>
     <script async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>

@@ -183,6 +183,15 @@
     padding-bottom: 10px;
   }
 
+  .mjx-chtml {
+    font-size: 100% !important;
+    text-align: left !important;
+  }
+
+  .mjx-block {
+    text-align: left !important;
+  }
+
   .summary-step:last-child {
     border-bottom: none;
   }
@@ -413,34 +422,34 @@
     var step1 = $('<div class="summary-step" id="summary-step1">').appendTo($('#damage-detail'));
 
     $('<p>').html(
-      '$Total Damage=\\frac{Actual Damage}{Potential Damage}$'
+      '$$Total Damage=\\frac{Actual Damage}{Potential Damage}$$'
     ).appendTo(step1);
 
     $('<p>').html(
-      '$Total Damage=\\frac{'+ result['actual_damage']['total'] +'}{'+
-      result['potential_damage']['total'] +'}='+ result['total_damage'] +'$'
+      '$$Total Damage=\\frac{'+ result['actual_damage']['total'] +'}{'+
+      result['potential_damage']['total'] +'}='+ result['total_damage'] +'$$'
     ).appendTo(step1);
 
     // Show Potential Damage ===================================================
     var step2 = $('<div class="summary-step" id="summary-step2">').appendTo($('#damage-detail'));
 
     $('<p>').html(
-      '$Potential Damage = Images + Stylesheets$'
+      '$$Potential Damage = Images + Stylesheets$$'
     ).appendTo(step2);
     $('<p>').html(
-      '$Potential Damage = '+ result['potential_damage']['image'] +
-      ' + '+ result['potential_damage']['css'] +' = '+ result['potential_damage']['total'] +'$'
+      '$$Potential Damage = '+ result['potential_damage']['image'] +
+      ' + '+ result['potential_damage']['css'] +' = '+ result['potential_damage']['total'] +'$$'
     ).appendTo(step2);
 
     $('<p>').html(
-      '$Potential Damage of Images = \\sum_{i=0}^n (centrality importance + size importance); n = all images$'
+      '$$Potential Damage of Images = \\sum_{i=0}^n (centrality importance + size importance); n = all images$$'
     ).appendTo(step2);
     $('<p>').html(
       'Detail of potential damage of images can be explored in tab <a href="#" class="img-ref">images</a>'
     ).appendTo(step2);
 
     $('<p>').html(
-      '$Potential Damage of Stylesheets = Tag importance + Ratio importance$'
+      '$$Potential Damage of Stylesheets = Tag importance + Ratio importance$$'
     ).appendTo(step2);
     $('<p>').html(
       'Detail of potential damage of stylesheets can be explored in tab <a href="#" class="css-ref">stylesheets</a>'
@@ -450,22 +459,22 @@
     var step3 = $('<div class="summary-step" id="summary-step3">').appendTo($('#damage-detail'));
 
     $('<p>').html(
-      '$Actual Damage = Images + Stylesheets$'
+      '$$Actual Damage = Images + Stylesheets$$'
     ).appendTo(step3);
     $('<p>').html(
-      '$Actual Damage = '+ result['actual_damage']['image'] +
-      ' + '+ result['actual_damage']['css'] +' = '+ result['actual_damage']['total'] +'$'
+      '$$Actual Damage = '+ result['actual_damage']['image'] +
+      ' + '+ result['actual_damage']['css'] +' = '+ result['actual_damage']['total'] +'$$'
     ).appendTo(step3);
 
     $('<p>').html(
-      '$Actual Damage of Images = \\sum_{i=0}^m (centrality importance + size importance); m = missing images$'
+      '$$Actual Damage of Images = \\sum_{i=0}^m (centrality importance + size importance); m = missing images$$'
     ).appendTo(step3);
     $('<p>').html(
       'Detail of actual damage of images can be explored in tab <a href="#" class="img-ref">images</a>'
     ).appendTo(step3);
 
     $('<p>').html(
-      '$Actual Damage of Stylesheets = Tag importance + Ratio importance$'
+      '$$Actual Damage of Stylesheets = Tag importance + Ratio importance$$'
     ).appendTo(step3);
     $('<p>').html(
       'Detail of actual damage of stylesheets can be explored in tab <a href="#" class="css-ref">stylesheets</a>'
@@ -581,15 +590,17 @@
           '"><i class="fa fa-info-circle"></i></a>' +
         '</div></div>').appendTo(divContent);
       $('<div class="item"><div>Potential Damage</div><div> : </div><div>'+
-        ('potential_damage' in image ? image['potential_damage'] : '-') + '&nbsp;' +
-          '<a href="#" data-toggle="tooltip" data-placement="right" title="'+
-            'Detail wil be appeared here' +
+        ('potential_damage' in image ? image['potential_damage']['total'] : '-') + '&nbsp;' +
+          '<a href="#" data-toggle="tooltip" data-placement="right" data-html="true" title="'+
+            'Location importance : ' + ('potential_damage' in image ? image['potential_damage']['location'] : '-') + '&lt;br/&gt;' +
+            'Size importance : ' + ('potential_damage' in image ? image['potential_damage']['size'] : '-') +
           '"><i class="fa fa-info-circle"></i></a>' +
         '</div></div>').appendTo(divContent);
       $('<div class="item"><div>Actual Damage</div><div> : </div><div>'+
-        ('actual_damage' in image ? image['actual_damage'] : '-') + '&nbsp;' +
-          '<a href="#" data-toggle="tooltip" data-placement="right" title="'+
-            'Detail wil be appeared here' +
+        ('actual_damage' in image ? image['actual_damage']['total'] : '-') + '&nbsp;' +
+          '<a href="#" data-toggle="tooltip" data-placement="right" data-html="true" title="'+
+            'Location importance : ' + ('actual_damage' in image ? image['actual_damage']['location'] : '-') + '&lt;br/&gt;' +
+            'Size importance : ' + ('actual_damage' in image ? image['actual_damage']['size'] : '-') +
           '"><i class="fa fa-info-circle"></i></a>' +
         '</div></div>').appendTo(divContent);
       var rectangles = [];
@@ -632,15 +643,17 @@
           '"><i class="fa fa-info-circle"></i></a>' +
         '</div></div>').appendTo(divContent);
       $('<div class="item"><div>Potential Damage</div><div> : </div><div>'+
-        ('potential_damage' in css ? css['potential_damage'] : '-') + '&nbsp;' +
-          '<a href="#" data-toggle="tooltip" data-placement="right" title="'+
-            'Detail wil be appeared here' +
+        ('potential_damage' in css ? css['potential_damage']['total'] : '-') + '&nbsp;' +
+          '<a href="#" data-toggle="tooltip" data-placement="right" data-html="true" title="'+
+            'Tag importance : ' + ('potential_damage' in css ? css['potential_damage']['tag'] : '-') + '&lt;br/&gt;' +
+            'Ratio importance : ' + ('potential_damage' in css ? css['potential_damage']['ratio'] : '-') +
           '"><i class="fa fa-info-circle"></i></a>' +
         '</div></div>').appendTo(divContent);
       $('<div class="item"><div>Actual Damage</div><div> : </div><div>'+
-        ('actual_damage' in css ? css['actual_damage'] : '-') + '&nbsp;' +
-          '<a href="#" data-toggle="tooltip" data-placement="right" title="'+
-            'Detail wil be appeared here' +
+        ('actual_damage' in css ? css['actual_damage']['total'] : '-') + '&nbsp;' +
+          '<a href="#" data-toggle="tooltip" data-placement="right" data-html="true" title="'+
+            'Tag importance : ' + ('actual_damage' in css ? css['actual_damage']['tag'] : '-') + '&lt;br/&gt;' +
+            'Ratio importance : ' + ('actual_damage' in css ? css['actual_damage']['ratio'] : '-') +
           '"><i class="fa fa-info-circle"></i></a>' +
         '</div></div>').appendTo(divContent);
     });
