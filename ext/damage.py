@@ -336,6 +336,18 @@ if __name__ == "__main__":
             damage.potential_damage != 0 else 0))
 
         result = {}
+        # multimedia_weight   = 0.50
+        # css_weight          = 0.05
+        # proportion          = 3.0/4.0
+        # image_weight        = proportion * (1-(multimedia_weight + css_weight))
+        # text_weight         = 1 -(multimedia_weight + css_weight + image_weight)
+        # words_per_image     = 1000
+        result['weight'] = {
+            'multimedia' : damage.multimedia_weight,
+            'css' : damage.css_weight,
+            'image' : damage.image_weight,
+            'text' : damage.text_weight
+        }
         result['images'] = damage.images_log
         result['csses'] = damage.csses_log
         result['potential_damage'] = {

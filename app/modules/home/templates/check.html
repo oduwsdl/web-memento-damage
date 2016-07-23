@@ -33,6 +33,9 @@
     width: 100%;
   }
 
+  .inner-result {
+    padding: 30px;
+  }
   .result-list {
     padding-left:30px;
   }
@@ -252,6 +255,7 @@
     }
     .rwd-table th {
       text-align: center;
+      background-color: #f2f2f2;
     }
     .rwd-table th:first-child, .rwd-table td:first-child {
       padding-left: 0;
@@ -351,7 +355,9 @@
               </div>
             </h4> -->
 
-            <div class="result"></div>
+            <div class="result">
+              <div class="inner-result"></div>
+            </div>
             <div class="notes alert alert-info collapse" id="damage-detail" role="alert"></div>
 
             <div class="notes alert alert-info" role="alert">
@@ -471,11 +477,11 @@
   }
 
   function showSummary(result) {
-    var divTotalDamage = $('<div class="total-damage">').appendTo('#summary .result');
+    var divTotalDamage = $('<div class="total-damage">').appendTo('#summary .result .inner-result');
     $('<span>').html('Total Damage is').appendTo(divTotalDamage);
     $('<span>').html(result['total_damage']).appendTo(divTotalDamage);
 
-    var divHeader = $('<div class="total-damage-detail-button">').appendTo('#summary .result');
+    var divHeader = $('<div class="total-damage-detail-button">').appendTo('#summary .result .inner-result');
     $('<button data-toggle="collapse" data-target="#damage-detail">')
       .html('<i class="fa fa-info-circle"></i> Show Detail').appendTo(divHeader);
 
@@ -548,10 +554,10 @@
       $('.nav-tabs a[href="#csses"]').tab('show')
     });
 
-    // MathJax.Hub.Queue(["Typeset",MathJax.Hub,"damage-detail"]);
+    MathJax.Hub.Queue(["Typeset",MathJax.Hub,"damage-detail"]);
   }
 
-  function showImages(images) {
+  function showImages(images, weight) {
     var table = $('<table class="rwd-table">').appendTo('#images .result');
     $(
       '<thead>'+
@@ -600,15 +606,19 @@
           '<th>'+ adSize.toFixed(5) +'</th>'+
         '</tr>'+
         '<tr>'+
-          '<th colspan="2"></th>'+
-          '<th colspan="2">'+ (pdLocation + pdSize).toFixed(5) +'</th>'+
-          '<th colspan="2">'+ (adLocation + adSize).toFixed(5) +'</th>'+
+          '<th colspan="2">Weight</th>'+
+          '<th colspan="4">'+ weight.toFixed(5) +'</th>'+
+        '</tr>'+
+        '<tr>'+
+          '<th colspan="2">Damage</th>'+
+          '<th colspan="2">'+ ((pdLocation + pdSize) * weight).toFixed(5) +'</th>'+
+          '<th colspan="2">'+ ((adLocation + adSize) * weight).toFixed(5) +'</th>'+
         '</tr>'+
       '</thead>'
     ).appendTo(table);
   }
 
-  function showStylesheets(csses) {
+  function showStylesheets(csses, weight) {
     var table = $('<table class="rwd-table">').appendTo('#csses .result');
     $(
       '<thead>'+
@@ -657,9 +667,13 @@
           '<th>'+ adRatio.toFixed(5) +'</th>'+
         '</tr>'+
         '<tr>'+
+          '<th colspan="2">Weight</th>'+
+          '<th colspan="4">'+ weight.toFixed(5) +'</th>'+
+        '</tr>'+
+        '<tr>'+
           '<th colspan="2"></th>'+
-          '<th colspan="2">'+ (pdTag + pdRatio).toFixed(5) +'</th>'+
-          '<th colspan="2">'+ (adTag + adRatio).toFixed(5) +'</th>'+
+          '<th colspan="2">'+ ((pdTag + pdRatio) * weight).toFixed(5) +'</th>'+
+          '<th colspan="2">'+ ((adTag + adRatio) * weight).toFixed(5) +'</th>'+
         '</tr>'+
       '</thead>'
     ).appendTo(table);
@@ -728,10 +742,10 @@
         val = result[key];
 
         if(key == 'images') {
-          showImages(val);
+          showImages(val, result['weight']['image']);
         }
         else if(key == 'csses') {
-          showStylesheets(val);
+          showStylesheets(val, result['weight']['css']);
         }
       }
 
