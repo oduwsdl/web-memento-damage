@@ -19,7 +19,7 @@
     background-color: #fff;
   }
   .tab-content .tab-title {
-    border-bottom: 1px solid #ddd;
+    /*border-bottom: 1px solid #ddd;*/
     padding-bottom: 5px;
   }
   .tab-content .tab-title .info {
@@ -154,9 +154,9 @@
     list-style: inherit;
   }
 
-  .result {
+  /*.result {
     padding: 20px 0;
-  }
+  }*/
   .total-damage {
     text-align: center;
     font-size: large;
@@ -198,6 +198,67 @@
   .summary-step {
     border-bottom: 1px solid;
     padding-top: 20px;
+  }
+
+  /* Table view */
+  .rwd-table {
+    margin: 1em 0;
+    min-width: 300px;
+    width: 100%;
+  }
+  .rwd-table tr {
+    border-bottom: 1px solid #ddd;
+  }
+  .rwd-table tr:first-child {
+    border-top: 1px solid #ddd;
+  }
+  .rwd-table th {
+    display: none;
+  }
+  .rwd-table td {
+    display: block;
+  }
+  .rwd-table td:first-child {
+    padding-top: .5em;
+  }
+  .rwd-table td:last-child {
+    padding-bottom: .5em;
+  }
+  .rwd-table td:before {
+    content: attr(data-th) ": ";
+    font-weight: bold;
+    width: 6.5em;
+    display: inline-block;
+  }
+  .rwd-table th, .rwd-table td {
+    text-align: left;
+  }
+  .rwd-table th, .rwd-table td {
+    margin: .5em 1em;
+  }
+  h1 {
+    font-weight: normal;
+    letter-spacing: -1px;
+    color: #34495E;
+  }
+
+  @media (min-width: 600px) {
+    .rwd-table td:before {
+      display: none;
+    }
+    .rwd-table th, .rwd-table td {
+      display: table-cell;
+      padding: 5px !important;
+    }
+    .rwd-table th {
+      text-align: center;
+    }
+    .rwd-table th:first-child, .rwd-table td:first-child {
+      padding-left: 0;
+    }
+    .rwd-table th:last-child, .rwd-table td:last-child {
+      padding-right: 0;
+    }
   }
 </style>
 {% end %}
@@ -487,176 +548,121 @@
       $('.nav-tabs a[href="#csses"]').tab('show')
     });
 
-    MathJax.Hub.Queue(["Typeset",MathJax.Hub,"damage-detail"]);
+    // MathJax.Hub.Queue(["Typeset",MathJax.Hub,"damage-detail"]);
   }
 
-  // function showSummary(result) {
-  //   var olImages = $('<ol class="result-list custom-ul">').appendTo('#summary .result');
-  //
-  //   var liImage = $('<li>').appendTo(olImages);
-  //   var divTitle = $('<div class="title" data-toggle="collapse">')
-  //     .attr('data-target', '#potential-damage')
-  //     .appendTo(liImage);
-  //   $('<div style="width:50%">').html('Potential Damage').appendTo(divTitle);
-  //   $('<div>').html(
-  //     result['potential_damage']['total'] + '&nbsp;' +
-  //       '<a href="#" data-toggle="tooltip" data-placement="left" title="'+
-  //         'Detail wil be appeared here' +
-  //       '"><i class="fa fa-info-circle"></i></a>'
-  //   ).appendTo(divTitle);
-  //
-  //   var divContent = $('<div class="collapse detail" id="potential-damage">')
-  //     .appendTo(liImage);
-  //   $('<div class="item"><div>Potential Image Damage</div><div> : </div><div>'+
-  //     result['potential_damage']['image'] + '&nbsp;' +
-  //       '<a href="#" data-toggle="tooltip" data-placement="right" title="'+
-  //         'Detail wil be appeared here' +
-  //       '"><i class="fa fa-info-circle"></i></a>' +
-  //     '</div></div>').appendTo(divContent);
-  //   $('<div class="item"><div>Potential Css Damage</div><div> : </div><div>'+
-  //     result['potential_damage']['css'] + '&nbsp;' +
-  //       '<a href="#" data-toggle="tooltip" data-placement="right" title="'+
-  //         'Detail wil be appeared here' +
-  //       '"><i class="fa fa-info-circle"></i></a>' +
-  //     '</div></div>').appendTo(divContent);
-  //
-  //   var liImage = $('<li>').appendTo(olImages);
-  //   var divTitle = $('<div class="title" data-toggle="collapse">')
-  //     .attr('data-target', '#actual-damage')
-  //     .appendTo(liImage);
-  //   $('<div style="width:50%">').html('Actual Damage').appendTo(divTitle);
-  //   $('<div>').html(
-  //     result['actual_damage']['total'] + '&nbsp;' +
-  //       '<a href="#" data-toggle="tooltip" data-placement="left" title="'+
-  //         'Detail wil be appeared here' +
-  //       '"><i class="fa fa-info-circle"></i></a>'
-  //   ).appendTo(divTitle);
-  //
-  //   var divContent = $('<div class="collapse detail" id="actual-damage">')
-  //     .appendTo(liImage);
-  //   $('<div class="item"><div>Actual Image Damage</div><div> : </div><div>'+
-  //     result['actual_damage']['image'] + '&nbsp;' +
-  //       '<a href="#" data-toggle="tooltip" data-placement="right" title="'+
-  //         'Detail wil be appeared here' +
-  //       '"><i class="fa fa-info-circle"></i></a>' +
-  //     '</div></div>').appendTo(divContent);
-  //   $('<div class="item"><div>Actual Css Damage</div><div> : </div><div>'+
-  //     result['actual_damage']['css'] + '&nbsp;' +
-  //       '<a href="#" data-toggle="tooltip" data-placement="right" title="'+
-  //         'Detail wil be appeared here' +
-  //       '"><i class="fa fa-info-circle"></i></a>' +
-  //     '</div></div>').appendTo(divContent);
-  //
-  //   var liImage = $('<li>').appendTo(olImages);
-  //   var divTitle = $('<div class="title" data-toggle="collapse">')
-  //     .attr('data-target', '#total-damage')
-  //     .appendTo(liImage);
-  //   $('<div style="width:50%">').html('Total Damage').appendTo(divTitle);
-  //   $('<div>').html(
-  //     result['total_damage'] + '&nbsp;' +
-  //       '<a href="#" data-toggle="tooltip" data-placement="left" title="'+
-  //         'Detail wil be appeared here' +
-  //       '"><i class="fa fa-info-circle"></i></a>'
-  //   ).appendTo(divTitle);
-  //
-  //   var divContent = $('<div class="collapse detail" id="total-damage">')
-  //     .appendTo(liImage);
-  // }
-
   function showImages(images) {
-    var olImages = $('<ol class="result-list">').appendTo('#images .result');
+    var table = $('<table class="rwd-table">').appendTo('#images .result');
+    $(
+      '<thead>'+
+        '<tr>'+
+          '<th rowspan="2">URI</th>'+
+          '<th rowspan="2">Status</th>'+
+          '<th colspan="2">Potential Damage</th>'+
+          '<th colspan="2">Actual Damage</th>'+
+        '</tr>'+
+        '<tr>'+
+          '<th>Location</th>'+
+          '<th>Size</th>'+
+          '<th>Location</th>'+
+          '<th>Size</th>'+
+        '</tr>'+
+      '</thead>'
+    ).appendTo(table);
 
+    tbody = '<tbody>';
+    pdLocation = pdSize = adLocation = adSize = 0;
     images.forEach(function(image, idx) {
-      var elId = 'image-' + idx;
+      tbody += '<tr>'+
+        '<td data-th="URI">'+ image['url'] +'</td>'+
+        '<td data-th="Status">'+ ('status_code' in image ? image['status_code'] : '') +'</td>'+
+        '<td data-th="Location">' + ('potential_damage' in image ? image['potential_damage']['location'].toFixed(5) : '-') + '</td>'+
+        '<td data-th="Size">' + ('potential_damage' in image ? image['potential_damage']['size'].toFixed(5) : '-') + '</td>'+
+        '<td data-th="Location">' + ('actual_damage' in image ? image['actual_damage']['location'].toFixed(5) : '-') + '</td>'+
+        '<td data-th="Size">' + ('actual_damage' in image ? image['actual_damage']['size'].toFixed(5) : '-') + '</td>'+
+      '</tr>';
 
-      var liImage = $('<li>').appendTo(olImages);
-
-      var divTitle = $('<div class="title">')
-        .attr('data-toggle', 'collapse')
-        .attr('data-target', '#' + elId)
-        .appendTo(liImage);
-      $('<div>').html(image['url']).appendTo(divTitle);
-      $('<div>').html('status_code' in image ?
-                       image['status_code'] : '').appendTo(divTitle);
-
-      var divContent = $('<div class="collapse detail">')
-        .attr('id', elId).appendTo(liImage);
-      $('<div class="item"><div>Content-Type</div><div> : </div><div>'+
-        image['content_type'] + '</div></div>').appendTo(divContent);
-      $('<div class="item"><div>Coverage</div><div> : </div><div>'+
-        (image['percentage_coverage']*100) + ' %' + '&nbsp;' +
-          '<a href="#" data-toggle="tooltip" data-placement="right" title="'+
-            'Detail wil be appeared here' +
-          '"><i class="fa fa-info-circle"></i></a>' +
-        '</div></div>').appendTo(divContent);
-      $('<div class="item"><div>Potential Damage</div><div> : </div><div>'+
-        ('potential_damage' in image ? image['potential_damage']['total'] : '-') + '&nbsp;' +
-          '<a href="#" data-toggle="tooltip" data-placement="right" data-html="true" title="'+
-            'Location importance : ' + ('potential_damage' in image ? image['potential_damage']['location'] : '-') + '&lt;br/&gt;' +
-            'Size importance : ' + ('potential_damage' in image ? image['potential_damage']['size'] : '-') +
-          '"><i class="fa fa-info-circle"></i></a>' +
-        '</div></div>').appendTo(divContent);
-      $('<div class="item"><div>Actual Damage</div><div> : </div><div>'+
-        ('actual_damage' in image ? image['actual_damage']['total'] : '-') + '&nbsp;' +
-          '<a href="#" data-toggle="tooltip" data-placement="right" data-html="true" title="'+
-            'Location importance : ' + ('actual_damage' in image ? image['actual_damage']['location'] : '-') + '&lt;br/&gt;' +
-            'Size importance : ' + ('actual_damage' in image ? image['actual_damage']['size'] : '-') +
-          '"><i class="fa fa-info-circle"></i></a>' +
-        '</div></div>').appendTo(divContent);
-      var rectangles = [];
-      image['rectangles'].forEach(function(rect) {
-        rectangles.push('Left: ' + rect['left'] + ' px, Top: ' + rect['top'] +
-          ' px, Width: ' + rect['width'] + ' px, Height: ' + rect['height'] + ' px');
-      });
-      $('<div class="item"><div>Rectangles</div><div> : </div><div>'+
-        rectangles.join('<br/>') +'</div></div>').appendTo(divContent);
+      pdLocation += ('potential_damage' in image ? image['potential_damage']['location'] : 0);
+      pdSize += ('potential_damage' in image ? image['potential_damage']['size'] : 0);
+      adLocation += ('actual_damage' in image ? image['actual_damage']['location'] : 0);
+      adSize += ('actual_damage' in image ? image['actual_damage']['size'] : 0);
     });
+    tbody += '</tbody>';
+    $(tbody).appendTo(table);
+
+    $(
+      '<thead>'+
+        '<tr>'+
+          '<th colspan="2">Total</th>'+
+          '<th>'+ pdLocation.toFixed(5) +'</th>'+
+          '<th>'+ pdSize.toFixed(5) +'</th>'+
+          '<th>'+ adLocation.toFixed(5) +'</th>'+
+          '<th>'+ adSize.toFixed(5) +'</th>'+
+        '</tr>'+
+        '<tr>'+
+          '<th colspan="2"></th>'+
+          '<th colspan="2">'+ (pdLocation + pdSize).toFixed(5) +'</th>'+
+          '<th colspan="2">'+ (adLocation + adSize).toFixed(5) +'</th>'+
+        '</tr>'+
+      '</thead>'
+    ).appendTo(table);
   }
 
   function showStylesheets(csses) {
-    var olImages = $('<ol class="result-list">').appendTo('#csses .result');
+    var table = $('<table class="rwd-table">').appendTo('#csses .result');
+    $(
+      '<thead>'+
+        '<tr>'+
+          '<th rowspan="2">URI</th>'+
+          '<th rowspan="2">Status</th>'+
+          '<th colspan="2">Potential Damage</th>'+
+          '<th colspan="2">Actual Damage</th>'+
+        '</tr>'+
+        '<tr>'+
+          '<th>Tag</th>'+
+          '<th>Ratio</th>'+
+          '<th>Tag</th>'+
+          '<th>Ratio</th>'+
+        '</tr>'+
+      '</thead>'
+    ).appendTo(table);
 
+    tbody = '<tbody>';
+    pdTag = pdRatio = adTag = adRatio = 0;
     csses.forEach(function(css, idx) {
-      var elId = 'css-' + idx;
+      tbody += '<tr>'+
+        '<td data-th="URI">'+ css['url'] +'</td>'+
+        '<td data-th="Status">'+ ('status_code' in css ? css['status_code'] : '') +'</td>'+
+        '<td data-th="Tag">' + ('potential_damage' in css ? css['potential_damage']['tag'].toFixed(5) : '-') + '</td>'+
+        '<td data-th="Ratio">' + ('potential_damage' in css ? css['potential_damage']['ratio'].toFixed(5) : '-') + '</td>'+
+        '<td data-th="Tag">' + ('actual_damage' in css ? css['actual_damage']['tag'].toFixed(5) : '-') + '</td>'+
+        '<td data-th="Ratio">' + ('actual_damage' in css ? css['actual_damage']['ratio'].toFixed(5) : '-') + '</td>'+
+      '</tr>';
 
-      var liImage = $('<li>').appendTo(olImages);
-      var divTitle = $('<div class="title">')
-        .attr('data-toggle', 'collapse')
-        .attr('data-target', '#' + elId)
-        .appendTo(liImage);
-      $('<div>').html(css['url']).appendTo(divTitle);
-      $('<div>').html('status_code' in css ?
-                       css['status_code'] : '').appendTo(divTitle);
-
-      var divContent = $('<div class="collapse detail">')
-        .attr('id', elId)
-        .appendTo(liImage);
-      if(!css['rules_tag']) css['rules_tag'] = [];
-      $('<div class="item"><div>Rules Selector</div><div> : </div><div>'+
-          css['rules_tag'].join(', ') +
-          ' <strong>(Total '+ css['rules_tag'].length +')</strong>' +
-        '</div></div>').appendTo(divContent);
-      $('<div class="item"><div>Importance</div><div> : </div><div>'+
-        css['importance'] + '&nbsp;' +
-          '<a href="#" data-toggle="tooltip" data-placement="right" title="'+
-            'There are ' + css['importance'] + ' element(s) affected by this rules' +
-          '"><i class="fa fa-info-circle"></i></a>' +
-        '</div></div>').appendTo(divContent);
-      $('<div class="item"><div>Potential Damage</div><div> : </div><div>'+
-        ('potential_damage' in css ? css['potential_damage']['total'] : '-') + '&nbsp;' +
-          '<a href="#" data-toggle="tooltip" data-placement="right" data-html="true" title="'+
-            'Tag importance : ' + ('potential_damage' in css ? css['potential_damage']['tag'] : '-') + '&lt;br/&gt;' +
-            'Ratio importance : ' + ('potential_damage' in css ? css['potential_damage']['ratio'] : '-') +
-          '"><i class="fa fa-info-circle"></i></a>' +
-        '</div></div>').appendTo(divContent);
-      $('<div class="item"><div>Actual Damage</div><div> : </div><div>'+
-        ('actual_damage' in css ? css['actual_damage']['total'] : '-') + '&nbsp;' +
-          '<a href="#" data-toggle="tooltip" data-placement="right" data-html="true" title="'+
-            'Tag importance : ' + ('actual_damage' in css ? css['actual_damage']['tag'] : '-') + '&lt;br/&gt;' +
-            'Ratio importance : ' + ('actual_damage' in css ? css['actual_damage']['ratio'] : '-') +
-          '"><i class="fa fa-info-circle"></i></a>' +
-        '</div></div>').appendTo(divContent);
+      pdTag += ('potential_damage' in css ? css['potential_damage']['tag'] : 0)
+      pdRatio += ('potential_damage' in css ? css['potential_damage']['ratio'] : 0)
+      adTag += ('actual_damage' in css ? css['actual_damage']['tag'] : 0)
+      adRatio += ('actual_damage' in css ? css['actual_damage']['ratio'] : 0)
     });
+    tbody += '</tbody>';
+    $(tbody).appendTo(table);
+
+    $(
+      '<thead>'+
+        '<tr>'+
+          '<th colspan="2">Total</th>'+
+          '<th>'+ pdTag.toFixed(5) +'</th>'+
+          '<th>'+ pdRatio.toFixed(5) +'</th>'+
+          '<th>'+ adTag.toFixed(5) +'</th>'+
+          '<th>'+ adRatio.toFixed(5) +'</th>'+
+        '</tr>'+
+        '<tr>'+
+          '<th colspan="2"></th>'+
+          '<th colspan="2">'+ (pdTag + pdRatio).toFixed(5) +'</th>'+
+          '<th colspan="2">'+ (adTag + adRatio).toFixed(5) +'</th>'+
+        '</tr>'+
+      '</thead>'
+    ).appendTo(table);
   }
 
   // If type is URI-M, hide tab mementos

@@ -9,7 +9,7 @@
   }
 
   select[name^=type] {
-      width: 100px !important;
+    width: 100px !important;
   }
 
   .tab-content {
@@ -153,6 +153,52 @@
   .notes ol li {
     list-style: inherit;
   }
+
+  .result {
+    padding: 20px 0;
+  }
+  .total-damage {
+    text-align: center;
+    font-size: large;
+    padding: 15px;
+  }
+  .total-damage span {
+    padding: 0 3px;
+  }
+  .total-damage span:last-child {
+    font-weight: bold;
+    color: #337ab7;
+  }
+
+  .total-damage-detail-button {
+    text-align: center;
+  }
+  .total-damage-detail-button button {
+    padding: 2px 12px;
+    border: 1px solid;
+    border-radius: 5px;
+  }
+
+  #damage-detail p {
+    padding-bottom: 10px;
+  }
+
+  .mjx-chtml {
+    font-size: 100% !important;
+    text-align: left !important;
+  }
+
+  .mjx-block {
+    text-align: left !important;
+  }
+
+  .summary-step:last-child {
+    border-bottom: none;
+  }
+  .summary-step {
+    border-bottom: 1px solid;
+    padding-top: 20px;
+  }
 </style>
 {% end %}
 
@@ -206,8 +252,8 @@
       <div class="col-sm-10 col-sm-offset-1">
         <div id="alert-is-archive" style="display:none" class="alert alert-warning" role="alert">
           <strong>Warning!</strong> This result is an archive damage calculation
-          that was done in <strong><span id="archive-time"></span></strong>. 
-          To make fresh calculation follow this URI 
+          that was done in <strong><span id="archive-time"></span></strong>.
+          To make fresh calculation follow this URI
           <strong><a id="fresh-uri" href="#">Fresh Calculation</a></strong>
         </div>
       </div>
@@ -237,13 +283,16 @@
         </ul>
         <div class="tab-content">
           <div class="tab-pane fade in active" id="summary">
-            <h4 class="tab-title">Summary
+            <!-- <h4 class="tab-title">Summary
               <div class="pull-right info">
                 <i class="fa fa-info-circle"></i>
                 Click on each item to see more detail
               </div>
-            </h4>
+            </h4> -->
+
             <div class="result"></div>
+            <div class="notes alert alert-info collapse" id="damage-detail" role="alert"></div>
+
             <div class="notes alert alert-info" role="alert">
               <div class="title"><span>Techical Notes</span></div>
               <ul class="content">
@@ -354,88 +403,169 @@
       .find("i.indicator")
       .toggleClass('glyphicon-chevron-down glyphicon-chevron-up');
   }
-  
+
   function showScreenshot(uri) {
     $('<img>').attr('src', '/api/damage/screenshot/' + encodeURIComponent(uri))
       .appendTo($('#screenshots'));
   }
-  
+
   function showSummary(result) {
-    var olImages = $('<ol class="result-list custom-ul">').appendTo('#summary .result');
-    
-    var liImage = $('<li>').appendTo(olImages);
-    var divTitle = $('<div class="title" data-toggle="collapse">')
-      .attr('data-target', '#potential-damage')
-      .appendTo(liImage);
-    $('<div style="width:50%">').html('Potential Damage').appendTo(divTitle);
-    $('<div>').html(
-      result['potential_damage']['total'] + '&nbsp;' +
-        '<a href="#" data-toggle="tooltip" data-placement="left" title="'+
-          'Detail wil be appeared here' +
-        '"><i class="fa fa-info-circle"></i></a>'
-    ).appendTo(divTitle);
-      
-    var divContent = $('<div class="collapse detail" id="potential-damage">')
-      .appendTo(liImage);
-    $('<div class="item"><div>Potential Image Damage</div><div> : </div><div>'+
-      result['potential_damage']['image'] + '&nbsp;' +
-        '<a href="#" data-toggle="tooltip" data-placement="right" title="'+
-          'Detail wil be appeared here' +
-        '"><i class="fa fa-info-circle"></i></a>' +
-      '</div></div>').appendTo(divContent);
-    $('<div class="item"><div>Potential Css Damage</div><div> : </div><div>'+
-      result['potential_damage']['css'] + '&nbsp;' +
-        '<a href="#" data-toggle="tooltip" data-placement="right" title="'+
-          'Detail wil be appeared here' +
-        '"><i class="fa fa-info-circle"></i></a>' +
-      '</div></div>').appendTo(divContent);
-    
-    var liImage = $('<li>').appendTo(olImages);
-    var divTitle = $('<div class="title" data-toggle="collapse">')
-      .attr('data-target', '#actual-damage')
-      .appendTo(liImage);
-    $('<div style="width:50%">').html('Actual Damage').appendTo(divTitle);
-    $('<div>').html(
-      result['actual_damage']['total'] + '&nbsp;' +
-        '<a href="#" data-toggle="tooltip" data-placement="left" title="'+
-          'Detail wil be appeared here' +
-        '"><i class="fa fa-info-circle"></i></a>'
-    ).appendTo(divTitle);
-      
-    var divContent = $('<div class="collapse detail" id="actual-damage">')
-      .appendTo(liImage);
-    $('<div class="item"><div>Actual Image Damage</div><div> : </div><div>'+
-      result['actual_damage']['image'] + '&nbsp;' +
-        '<a href="#" data-toggle="tooltip" data-placement="right" title="'+
-          'Detail wil be appeared here' +
-        '"><i class="fa fa-info-circle"></i></a>' +
-      '</div></div>').appendTo(divContent);
-    $('<div class="item"><div>Actual Css Damage</div><div> : </div><div>'+
-      result['actual_damage']['css'] + '&nbsp;' +
-        '<a href="#" data-toggle="tooltip" data-placement="right" title="'+
-          'Detail wil be appeared here' +
-        '"><i class="fa fa-info-circle"></i></a>' +
-      '</div></div>').appendTo(divContent);
-    
-    var liImage = $('<li>').appendTo(olImages);
-    var divTitle = $('<div class="title" data-toggle="collapse">')
-      .attr('data-target', '#total-damage')
-      .appendTo(liImage);
-    $('<div style="width:50%">').html('Total Damage').appendTo(divTitle);
-    $('<div>').html(
-      result['total_damage'] + '&nbsp;' +
-        '<a href="#" data-toggle="tooltip" data-placement="left" title="'+
-          'Detail wil be appeared here' +
-        '"><i class="fa fa-info-circle"></i></a>'
-    ).appendTo(divTitle);
-      
-    var divContent = $('<div class="collapse detail" id="total-damage">')
-      .appendTo(liImage);
+    var divTotalDamage = $('<div class="total-damage">').appendTo('#summary .result');
+    $('<span>').html('Total Damage is').appendTo(divTotalDamage);
+    $('<span>').html(result['total_damage']).appendTo(divTotalDamage);
+
+    var divHeader = $('<div class="total-damage-detail-button">').appendTo('#summary .result');
+    $('<button data-toggle="collapse" data-target="#damage-detail">')
+      .html('<i class="fa fa-info-circle"></i> Show Detail').appendTo(divHeader);
+
+    // Show Total Damage =======================================================
+    var step1 = $('<div class="summary-step" id="summary-step1">').appendTo($('#damage-detail'));
+
+    $('<p>').html(
+      '$$Total Damage=\\frac{Actual Damage}{Potential Damage}$$'
+    ).appendTo(step1);
+
+    $('<p>').html(
+      '$$Total Damage=\\frac{'+ result['actual_damage']['total'] +'}{'+
+      result['potential_damage']['total'] +'}='+ result['total_damage'] +'$$'
+    ).appendTo(step1);
+
+    // Show Potential Damage ===================================================
+    var step2 = $('<div class="summary-step" id="summary-step2">').appendTo($('#damage-detail'));
+
+    $('<p>').html(
+      '$$Potential Damage = Images + Stylesheets$$'
+    ).appendTo(step2);
+    $('<p>').html(
+      '$$Potential Damage = '+ result['potential_damage']['image'] +
+      ' + '+ result['potential_damage']['css'] +' = '+ result['potential_damage']['total'] +'$$'
+    ).appendTo(step2);
+
+    $('<p>').html(
+      '$$Potential Damage of Images = \\sum_{i=0}^n (centrality importance + size importance); n = all images$$'
+    ).appendTo(step2);
+    $('<p>').html(
+      'Detail of potential damage of images can be explored in tab <a href="#" class="img-ref">images</a>'
+    ).appendTo(step2);
+
+    $('<p>').html(
+      '$$Potential Damage of Stylesheets = Tag importance + Ratio importance$$'
+    ).appendTo(step2);
+    $('<p>').html(
+      'Detail of potential damage of stylesheets can be explored in tab <a href="#" class="css-ref">stylesheets</a>'
+    ).appendTo(step2);
+
+    // Show Actual Damage ======================================================
+    var step3 = $('<div class="summary-step" id="summary-step3">').appendTo($('#damage-detail'));
+
+    $('<p>').html(
+      '$$Actual Damage = Images + Stylesheets$$'
+    ).appendTo(step3);
+    $('<p>').html(
+      '$$Actual Damage = '+ result['actual_damage']['image'] +
+      ' + '+ result['actual_damage']['css'] +' = '+ result['actual_damage']['total'] +'$$'
+    ).appendTo(step3);
+
+    $('<p>').html(
+      '$$Actual Damage of Images = \\sum_{i=0}^m (centrality importance + size importance); m = missing images$$'
+    ).appendTo(step3);
+    $('<p>').html(
+      'Detail of actual damage of images can be explored in tab <a href="#" class="img-ref">images</a>'
+    ).appendTo(step3);
+
+    $('<p>').html(
+      '$$Actual Damage of Stylesheets = Tag importance + Ratio importance$$'
+    ).appendTo(step3);
+    $('<p>').html(
+      'Detail of actual damage of stylesheets can be explored in tab <a href="#" class="css-ref">stylesheets</a>'
+    ).appendTo(step3);
+
+    $('.img-ref').on('click', function() {
+      $('.nav-tabs a[href="#images"]').tab('show')
+    });
+    $('.css-ref').on('click', function() {
+      $('.nav-tabs a[href="#csses"]').tab('show')
+    });
+
+    MathJax.Hub.Queue(["Typeset",MathJax.Hub,"damage-detail"]);
   }
-  
+
+  // function showSummary(result) {
+  //   var olImages = $('<ol class="result-list custom-ul">').appendTo('#summary .result');
+  //
+  //   var liImage = $('<li>').appendTo(olImages);
+  //   var divTitle = $('<div class="title" data-toggle="collapse">')
+  //     .attr('data-target', '#potential-damage')
+  //     .appendTo(liImage);
+  //   $('<div style="width:50%">').html('Potential Damage').appendTo(divTitle);
+  //   $('<div>').html(
+  //     result['potential_damage']['total'] + '&nbsp;' +
+  //       '<a href="#" data-toggle="tooltip" data-placement="left" title="'+
+  //         'Detail wil be appeared here' +
+  //       '"><i class="fa fa-info-circle"></i></a>'
+  //   ).appendTo(divTitle);
+  //
+  //   var divContent = $('<div class="collapse detail" id="potential-damage">')
+  //     .appendTo(liImage);
+  //   $('<div class="item"><div>Potential Image Damage</div><div> : </div><div>'+
+  //     result['potential_damage']['image'] + '&nbsp;' +
+  //       '<a href="#" data-toggle="tooltip" data-placement="right" title="'+
+  //         'Detail wil be appeared here' +
+  //       '"><i class="fa fa-info-circle"></i></a>' +
+  //     '</div></div>').appendTo(divContent);
+  //   $('<div class="item"><div>Potential Css Damage</div><div> : </div><div>'+
+  //     result['potential_damage']['css'] + '&nbsp;' +
+  //       '<a href="#" data-toggle="tooltip" data-placement="right" title="'+
+  //         'Detail wil be appeared here' +
+  //       '"><i class="fa fa-info-circle"></i></a>' +
+  //     '</div></div>').appendTo(divContent);
+  //
+  //   var liImage = $('<li>').appendTo(olImages);
+  //   var divTitle = $('<div class="title" data-toggle="collapse">')
+  //     .attr('data-target', '#actual-damage')
+  //     .appendTo(liImage);
+  //   $('<div style="width:50%">').html('Actual Damage').appendTo(divTitle);
+  //   $('<div>').html(
+  //     result['actual_damage']['total'] + '&nbsp;' +
+  //       '<a href="#" data-toggle="tooltip" data-placement="left" title="'+
+  //         'Detail wil be appeared here' +
+  //       '"><i class="fa fa-info-circle"></i></a>'
+  //   ).appendTo(divTitle);
+  //
+  //   var divContent = $('<div class="collapse detail" id="actual-damage">')
+  //     .appendTo(liImage);
+  //   $('<div class="item"><div>Actual Image Damage</div><div> : </div><div>'+
+  //     result['actual_damage']['image'] + '&nbsp;' +
+  //       '<a href="#" data-toggle="tooltip" data-placement="right" title="'+
+  //         'Detail wil be appeared here' +
+  //       '"><i class="fa fa-info-circle"></i></a>' +
+  //     '</div></div>').appendTo(divContent);
+  //   $('<div class="item"><div>Actual Css Damage</div><div> : </div><div>'+
+  //     result['actual_damage']['css'] + '&nbsp;' +
+  //       '<a href="#" data-toggle="tooltip" data-placement="right" title="'+
+  //         'Detail wil be appeared here' +
+  //       '"><i class="fa fa-info-circle"></i></a>' +
+  //     '</div></div>').appendTo(divContent);
+  //
+  //   var liImage = $('<li>').appendTo(olImages);
+  //   var divTitle = $('<div class="title" data-toggle="collapse">')
+  //     .attr('data-target', '#total-damage')
+  //     .appendTo(liImage);
+  //   $('<div style="width:50%">').html('Total Damage').appendTo(divTitle);
+  //   $('<div>').html(
+  //     result['total_damage'] + '&nbsp;' +
+  //       '<a href="#" data-toggle="tooltip" data-placement="left" title="'+
+  //         'Detail wil be appeared here' +
+  //       '"><i class="fa fa-info-circle"></i></a>'
+  //   ).appendTo(divTitle);
+  //
+  //   var divContent = $('<div class="collapse detail" id="total-damage">')
+  //     .appendTo(liImage);
+  // }
+
   function showImages(images) {
     var olImages = $('<ol class="result-list">').appendTo('#images .result');
-    
+
     images.forEach(function(image, idx) {
       var elId = 'image-' + idx;
 
@@ -448,10 +578,10 @@
       $('<div>').html(image['url']).appendTo(divTitle);
       $('<div>').html('status_code' in image ?
                        image['status_code'] : '').appendTo(divTitle);
-      
+
       var divContent = $('<div class="collapse detail">')
         .attr('id', elId).appendTo(liImage);
-      $('<div class="item"><div>Content-Type</div><div> : </div><div>'+ 
+      $('<div class="item"><div>Content-Type</div><div> : </div><div>'+
         image['content_type'] + '</div></div>').appendTo(divContent);
       $('<div class="item"><div>Coverage</div><div> : </div><div>'+
         (image['percentage_coverage']*100) + ' %' + '&nbsp;' +
@@ -460,15 +590,17 @@
           '"><i class="fa fa-info-circle"></i></a>' +
         '</div></div>').appendTo(divContent);
       $('<div class="item"><div>Potential Damage</div><div> : </div><div>'+
-        ('potential_damage' in image ? image['potential_damage'] : '-') + '&nbsp;' +
-          '<a href="#" data-toggle="tooltip" data-placement="right" title="'+
-            'Detail wil be appeared here' +
+        ('potential_damage' in image ? image['potential_damage']['total'] : '-') + '&nbsp;' +
+          '<a href="#" data-toggle="tooltip" data-placement="right" data-html="true" title="'+
+            'Location importance : ' + ('potential_damage' in image ? image['potential_damage']['location'] : '-') + '&lt;br/&gt;' +
+            'Size importance : ' + ('potential_damage' in image ? image['potential_damage']['size'] : '-') +
           '"><i class="fa fa-info-circle"></i></a>' +
         '</div></div>').appendTo(divContent);
       $('<div class="item"><div>Actual Damage</div><div> : </div><div>'+
-        ('actual_damage' in image ? image['actual_damage'] : '-') + '&nbsp;' +
-          '<a href="#" data-toggle="tooltip" data-placement="right" title="'+
-            'Detail wil be appeared here' +
+        ('actual_damage' in image ? image['actual_damage']['total'] : '-') + '&nbsp;' +
+          '<a href="#" data-toggle="tooltip" data-placement="right" data-html="true" title="'+
+            'Location importance : ' + ('actual_damage' in image ? image['actual_damage']['location'] : '-') + '&lt;br/&gt;' +
+            'Size importance : ' + ('actual_damage' in image ? image['actual_damage']['size'] : '-') +
           '"><i class="fa fa-info-circle"></i></a>' +
         '</div></div>').appendTo(divContent);
       var rectangles = [];
@@ -476,14 +608,14 @@
         rectangles.push('Left: ' + rect['left'] + ' px, Top: ' + rect['top'] +
           ' px, Width: ' + rect['width'] + ' px, Height: ' + rect['height'] + ' px');
       });
-      $('<div class="item"><div>Rectangles</div><div> : </div><div>'+ 
+      $('<div class="item"><div>Rectangles</div><div> : </div><div>'+
         rectangles.join('<br/>') +'</div></div>').appendTo(divContent);
     });
   }
-  
+
   function showStylesheets(csses) {
     var olImages = $('<ol class="result-list">').appendTo('#csses .result');
-    
+
     csses.forEach(function(css, idx) {
       var elId = 'css-' + idx;
 
@@ -495,31 +627,33 @@
       $('<div>').html(css['url']).appendTo(divTitle);
       $('<div>').html('status_code' in css ?
                        css['status_code'] : '').appendTo(divTitle);
-      
+
       var divContent = $('<div class="collapse detail">')
         .attr('id', elId)
         .appendTo(liImage);
       if(!css['rules_tag']) css['rules_tag'] = [];
-      $('<div class="item"><div>Rules Selector</div><div> : </div><div>'+ 
-          css['rules_tag'].join(', ') + 
+      $('<div class="item"><div>Rules Selector</div><div> : </div><div>'+
+          css['rules_tag'].join(', ') +
           ' <strong>(Total '+ css['rules_tag'].length +')</strong>' +
         '</div></div>').appendTo(divContent);
-      $('<div class="item"><div>Importance</div><div> : </div><div>'+ 
+      $('<div class="item"><div>Importance</div><div> : </div><div>'+
         css['importance'] + '&nbsp;' +
           '<a href="#" data-toggle="tooltip" data-placement="right" title="'+
             'There are ' + css['importance'] + ' element(s) affected by this rules' +
           '"><i class="fa fa-info-circle"></i></a>' +
         '</div></div>').appendTo(divContent);
       $('<div class="item"><div>Potential Damage</div><div> : </div><div>'+
-        ('potential_damage' in css ? css['potential_damage'] : '-') + '&nbsp;' +
-          '<a href="#" data-toggle="tooltip" data-placement="right" title="'+
-            'Detail wil be appeared here' +
+        ('potential_damage' in css ? css['potential_damage']['total'] : '-') + '&nbsp;' +
+          '<a href="#" data-toggle="tooltip" data-placement="right" data-html="true" title="'+
+            'Tag importance : ' + ('potential_damage' in css ? css['potential_damage']['tag'] : '-') + '&lt;br/&gt;' +
+            'Ratio importance : ' + ('potential_damage' in css ? css['potential_damage']['ratio'] : '-') +
           '"><i class="fa fa-info-circle"></i></a>' +
         '</div></div>').appendTo(divContent);
       $('<div class="item"><div>Actual Damage</div><div> : </div><div>'+
-        ('actual_damage' in css ? css['actual_damage'] : '-') + '&nbsp;' +
-          '<a href="#" data-toggle="tooltip" data-placement="right" title="'+
-            'Detail wil be appeared here' +
+        ('actual_damage' in css ? css['actual_damage']['total'] : '-') + '&nbsp;' +
+          '<a href="#" data-toggle="tooltip" data-placement="right" data-html="true" title="'+
+            'Tag importance : ' + ('actual_damage' in css ? css['actual_damage']['tag'] : '-') + '&lt;br/&gt;' +
+            'Ratio importance : ' + ('actual_damage' in css ? css['actual_damage']['ratio'] : '-') +
           '"><i class="fa fa-info-circle"></i></a>' +
         '</div></div>').appendTo(divContent);
     });
@@ -579,7 +713,7 @@
         $('#fresh-uri').attr('href', window.location.href + '&fresh=true')
           .html(window.location.href + '&fresh=true');
       }
-      
+
       // Show summary ==================================================================
       showSummary(result);
 
@@ -594,7 +728,7 @@
           showStylesheets(val);
         }
       }
-      
+
       // Show screenshot ===============================================================
       showScreenshot(uri);
 

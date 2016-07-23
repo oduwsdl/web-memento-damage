@@ -37,7 +37,7 @@ else {
     };
 
     // Use browser size 1024x768 (to be used on screenshot)
-    page.viewportSize = { width: 1024, height: 768 };
+    page.viewportSize = { width: 1024, height: 777 };
     
     // Resource is similiar with all listed in developer tools -> network tab -> refresh
     page.onResourceReceived = function (res) {
@@ -150,6 +150,12 @@ function processImages(url, resourceBasename) {
 
         for(var i=0; i<documentImages.length; i++) {
             var docImage = documentImages[i];
+            allImages[docImage['src']] = {};
+            allImages[docImage['src']]['rectangles'] = []
+        }
+
+        for(var i=0; i<documentImages.length; i++) {
+            var docImage = documentImages[i];
 
             // Calculate top left position
             var obj = docImage;
@@ -160,23 +166,14 @@ function processImages(url, resourceBasename) {
                     curtop += obj.offsetTop;
                 } while (obj = obj.offsetParent);
             }
-            
+
             rectangle = {
                 'width' : docImage['width'],
                 'height' : docImage['height'],
                 'top' : curtop,
                 'left' : curleft,
             }
-            
-            console.log(allImages.hasOwnProperty(docImage['src']))
-            if(! allImages.hasOwnProperty(docImage['src'])) {
-                allImages[docImage['src']] = {};
-            }
-            
-            if(! ('rectangles' in allImages[docImage['src']])) {
-                allImages[docImage['src']]['rectangles'] = []
-            }
-            
+
             allImages[docImage['src']]['rectangles'].push(rectangle);
         }
 
