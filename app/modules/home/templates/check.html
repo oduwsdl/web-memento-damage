@@ -84,15 +84,15 @@
     min-width: 300px;
   }
 
-  .result-list .detail {
+  .result .detail {
     margin-left: 20px;
   }
-  .result-list .detail .item {
+  .result .info .item {
     display: table-row;
   }
-  .result-list .detail .item div {
+  .result .info .item div {
     display: table-cell;
-    padding: 0 5px;
+    padding: 0 10px 0 0;
   }
 
   .log-line {
@@ -209,17 +209,22 @@
     min-width: 300px;
     width: 100%;
   }
-  .rwd-table tr {
-    border-bottom: 1px solid #ddd;
-  }
-  .rwd-table tr:first-child {
+  .rwd-table tr td, .rwd-table tr th {
     border-top: 1px solid #ddd;
+  }
+  .rwd-table tr:last-child td, .rwd-table tr:last-child th {
+    border-bottom: 1px solid #ddd;
   }
   .rwd-table th {
     display: none;
   }
   .rwd-table td {
     display: block;
+    text-align: left;
+    cursor: pointer;
+  }
+  .rwd-table .info td {
+    cursor: auto;
     text-align: left;
   }
   .rwd-table td:first-child {
@@ -240,13 +245,18 @@
   .rwd-table th, .rwd-table td {
     margin: .5em 1em;
   }
+  .rwd-table .title {
+    font-weight: bold;
+    overflow-x: hidden;
+    color: #5cb85c;
+  }
   h1 {
     font-weight: normal;
     letter-spacing: -1px;
     color: #34495E;
   }
 
-  @media (min-width: 600px) {
+  @media (min-width: 614px) {
     .rwd-table td:before {
       display: none;
     }
@@ -583,7 +593,13 @@
     tbody = '<tbody>';
     pdLocation = pdSize = adLocation = adSize = 0;
     images.forEach(function(image, idx) {
-      tbody += '<tr>'+
+      var rectangles = [];
+      image['rectangles'].forEach(function(rect) {
+        rectangles.push('Left: ' + rect['left'] + ' px, Top: ' + rect['top'] +
+          ' px, Width: ' + rect['width'] + ' px, Height: ' + rect['height'] + ' px');
+      });
+
+      tbody += '<tr class="title" data-toggle="collapse" data-target="#image-info-'+ idx +'">'+
         '<td data-th="No">'+ (idx+1) +'</td>'+
         '<td data-th="URI" style="text-align: left;">'+ image['url'] +'</td>'+
         '<td data-th="Status">'+ ('status_code' in image ? image['status_code'] : '') +'</td>'+
@@ -591,6 +607,14 @@
         '<td data-th="Size">' + ('potential_damage' in image ? image['potential_damage']['size'].toFixed(5) : '-') + '</td>'+
         '<td data-th="Location">' + ('actual_damage' in image ? image['actual_damage']['location'].toFixed(5) : '-') + '</td>'+
         '<td data-th="Size">' + ('actual_damage' in image ? image['actual_damage']['size'].toFixed(5) : '-') + '</td>'+
+      '</tr>' +
+      '<tr id="image-info-'+ idx +'" class="info collapse">'+
+        '<td style="border-top-width: 0px;"></td>'+
+        '<td colspan="15"><div>'+
+          '<div class="item"><div>Content-Type</div><div> : </div><div>'+ image['content_type'] + '</div></div>' +
+          '<div class="item"><div>Coverage</div><div> : </div><div>'+ (image['percentage_coverage']*100) + ' %' + '</div></div>' +
+          '<div class="item"><div>Rectangles</div><div> : </div><div>'+ rectangles.join('<br/>') +'</div></div>' +
+        '</div></td>'+
       '</tr>';
 
       pdLocation += ('potential_damage' in image ? image['potential_damage']['location'] : 0);
@@ -645,7 +669,9 @@
     tbody = '<tbody>';
     pdTag = pdRatio = adTag = adRatio = 0;
     csses.forEach(function(css, idx) {
-      tbody += '<tr>'+
+      if(!css['rules_tag']) css['rules_tag'] = [];
+
+      tbody += '<tr class="title" data-toggle="collapse" data-target="#css-info-'+ idx +'">'+
         '<td data-th="No">'+ (idx+1) +'</td>'+
         '<td data-th="URI" style="text-align:left;">'+ css['url'] +'</td>'+
         '<td data-th="Status">'+ ('status_code' in css ? css['status_code'] : '') +'</td>'+
@@ -653,6 +679,13 @@
         '<td data-th="Ratio">' + ('potential_damage' in css ? css['potential_damage']['ratio'].toFixed(5) : '-') + '</td>'+
         '<td data-th="Tag">' + ('actual_damage' in css ? css['actual_damage']['tag'].toFixed(5) : '-') + '</td>'+
         '<td data-th="Ratio">' + ('actual_damage' in css ? css['actual_damage']['ratio'].toFixed(5) : '-') + '</td>'+
+      '</tr>'+
+      '<tr id="css-info-'+ idx +'" class="info collapse">'+
+        '<td style="border-top-width: 0px;"></td>'+
+        '<td colspan="15"><div>'+
+          '<div class="item"><div>Rules Selector</div><div> : </div><div>'+ css['rules_tag'].join(', ') + ' <strong>(Total '+ css['rules_tag'].length +')</strong>' + '</div></div>' +
+          '<div class="item"><div>Importance</div><div> : </div><div>'+ css['importance'] + '</div></div>'
+        '</div></td>'+
       '</tr>';
 
       pdTag += ('potential_damage' in css ? css['potential_damage']['tag'] : 0)
@@ -677,7 +710,7 @@
           '<th colspan="4">'+ weight.toFixed(5) +'</th>'+
         '</tr>'+
         '<tr>'+
-          '<th colspan="3"></th>'+
+          '<th colspan="3">Damage</th>'+
           '<th colspan="2">'+ ((pdTag + pdRatio) * weight).toFixed(5) +'</th>'+
           '<th colspan="2">'+ ((adTag + adRatio) * weight).toFixed(5) +'</th>'+
         '</tr>'+
