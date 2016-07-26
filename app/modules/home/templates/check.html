@@ -502,28 +502,27 @@
     // Show Total Damage =======================================================
     var step1 = $('<div class="summary-step" id="summary-step1">').appendTo($('#damage-detail'));
 
-    $('<p>').html(
-      '$$Total Damage=\\frac{Actual Damage}{Potential Damage}$$'
-    ).appendTo(step1);
-
-    $('<p>').html(
-      '$$Total Damage=\\frac{'+ result['actual_damage']['total'] +'}{'+
-      result['potential_damage']['total'] +'}='+ result['total_damage'] +'$$'
+    $(
+      '<p>'+
+        '$$Total Damage=\\frac{Actual Damage}{Potential Damage}$$' +
+      '</p><p>'+
+      '$$Total Damage=\\frac{'+ result['actual_damage']['total'] +'}{'+ result['potential_damage']['total'] +'}='+ result['total_damage'] +'$$'
+      '</p>'
     ).appendTo(step1);
 
     // Show Potential Damage ===================================================
     var step2 = $('<div class="summary-step" id="summary-step2">').appendTo($('#damage-detail'));
 
-    $('<p>').html(
-      '$$Potential Damage = Images + Stylesheets$$'
-    ).appendTo(step2);
-    $('<p>').html(
-      '$$Potential Damage = '+ result['potential_damage']['image'] +
-      ' + '+ result['potential_damage']['css'] +' = '+ result['potential_damage']['total'] +'$$'
-    ).appendTo(step2);
-
-    $('<p>').html(
-      '$$Potential Damage of Images = \\sum_{i=0}^n (centrality importance + size importance); n = all images$$'
+    $(
+      '<p>'+
+        '$$Potential Damage = Potential Damage of Images + Potential Damage of Stylesheets$$' +
+      '</p>'+
+      '<p>'+
+      '$$Potential Damage = '+ result['potential_damage']['image'] + ' + '+ result['potential_damage']['css'] +' = '+ result['potential_damage']['total'] +'$$' +
+      '</p>' +
+      '<p>'+
+        '$$Potential Damage of Images = \\sum_{i=0}^n (centrality importance + size importance); n = all images$$' +
+      '</p>'
     ).appendTo(step2);
     $('<p>').html(
       'Detail of potential damage of images can be explored in tab <a href="#" class="img-ref">images</a>'
@@ -540,7 +539,7 @@
     var step3 = $('<div class="summary-step" id="summary-step3">').appendTo($('#damage-detail'));
 
     $('<p>').html(
-      '$$Actual Damage = Images + Stylesheets$$'
+      '$$Actual Damage = Potential Damage of Images + Potential Damage of Stylesheets$$'
     ).appendTo(step3);
     $('<p>').html(
       '$$Actual Damage = '+ result['actual_damage']['image'] +
