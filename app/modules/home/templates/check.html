@@ -506,58 +506,58 @@
       '<p>'+
         '$$Total Damage=\\frac{Actual Damage}{Potential Damage}$$' +
       '</p><p>'+
-      '$$Total Damage=\\frac{'+ result['actual_damage']['total'] +'}{'+ result['potential_damage']['total'] +'}='+ result['total_damage'] +'$$'
-      '</p>'
+      '$$Total Damage=\\frac{'+ result['actual_damage']['total'] +'}{'+ result['potential_damage']['total'] +'}='+ result['total_damage'] +'$$' +
+      '</p>'+
+      '<p><a href="#summary-step3" data-toggle="collapse" data-target="#summary-step3"><i class="fa fa-info-circle"></i> Detail of Actual Damage</p></a>'+
+      '<p><a href="#summary-step2" data-toggle="collapse" data-target="#summary-step2"><i class="fa fa-info-circle"></i> Detail of Potential Damage</p></a>'
     ).appendTo(step1);
 
     // Show Potential Damage ===================================================
-    var step2 = $('<div class="summary-step" id="summary-step2">').appendTo($('#damage-detail'));
+    var step2 = $('<div class="summary-step collapse" id="summary-step2">').appendTo($('#damage-detail'));
 
     $(
       '<p>'+
         '$$Potential Damage = Potential Damage of Images + Potential Damage of Stylesheets$$' +
       '</p>'+
       '<p>'+
-      '$$Potential Damage = '+ result['potential_damage']['image'] + ' + '+ result['potential_damage']['css'] +' = '+ result['potential_damage']['total'] +'$$' +
+        '$$Potential Damage = '+ result['potential_damage']['image'] + ' + '+ result['potential_damage']['css'] +' = '+ result['potential_damage']['total'] +'$$' +
       '</p>' +
       '<p>'+
         '$$Potential Damage of Images = \\sum_{i=0}^n (centrality importance + size importance); n = all images$$' +
+      '</p>' +
+      '<p>'+
+        'Detail of potential damage of images can be explored in tab <a href="#" class="img-ref">images</a>' +
       '</p>'
     ).appendTo(step2);
-    $('<p>').html(
-      'Detail of potential damage of images can be explored in tab <a href="#" class="img-ref">images</a>'
-    ).appendTo(step2);
 
-    $('<p>').html(
-      '$$Potential Damage of Stylesheets = Tag importance + Ratio importance$$'
-    ).appendTo(step2);
-    $('<p>').html(
-      'Detail of potential damage of stylesheets can be explored in tab <a href="#" class="css-ref">stylesheets</a>'
+    $(
+      '<p>'+
+        '$$Potential Damage of Stylesheets = Tag importance + Ratio importance$$'+
+      '</p>'+
+      '<p>'+
+        'Detail of potential damage of stylesheets can be explored in tab <a href="#" class="css-ref">stylesheets</a>'+
+      '</p>'
     ).appendTo(step2);
 
     // Show Actual Damage ======================================================
-    var step3 = $('<div class="summary-step" id="summary-step3">').appendTo($('#damage-detail'));
+    var step3 = $('<div class="summary-step collapse" id="summary-step3">').appendTo($('#damage-detail'));
 
-    $('<p>').html(
-      '$$Actual Damage = Potential Damage of Images + Potential Damage of Stylesheets$$'
-    ).appendTo(step3);
-    $('<p>').html(
-      '$$Actual Damage = '+ result['actual_damage']['image'] +
-      ' + '+ result['actual_damage']['css'] +' = '+ result['actual_damage']['total'] +'$$'
-    ).appendTo(step3);
-
-    $('<p>').html(
-      '$$Actual Damage of Images = \\sum_{i=0}^m (centrality importance + size importance); m = missing images$$'
-    ).appendTo(step3);
-    $('<p>').html(
-      'Detail of actual damage of images can be explored in tab <a href="#" class="img-ref">images</a>'
-    ).appendTo(step3);
-
-    $('<p>').html(
-      '$$Actual Damage of Stylesheets = Tag importance + Ratio importance$$'
-    ).appendTo(step3);
-    $('<p>').html(
-      'Detail of actual damage of stylesheets can be explored in tab <a href="#" class="css-ref">stylesheets</a>'
+    $(
+      '<p>'+
+        '$$Actual Damage = Actual Damage of Images + Actual Damage of Stylesheets$$'+
+      '</p>'+
+      '<p>'+
+        '$$Actual Damage = '+ result['actual_damage']['image'] + ' + '+ result['actual_damage']['css'] +' = '+ result['actual_damage']['total'] +'$$'+
+      '</p>'+
+      '<p>'+
+        '$$Actual Damage of Images = \\sum_{i=0}^m (centrality importance + size importance); m = missing images$$'+
+      '</p>'+
+      '<p>'+
+        '$$Actual Damage of Stylesheets = Tag importance + Ratio importance$$'+
+      '</p>'+
+      '<p>'+
+        'Detail of actual damage of stylesheets can be explored in tab <a href="#" class="css-ref">stylesheets</a>'+
+      '</p>'
     ).appendTo(step3);
 
     $('.img-ref').on('click', function() {
