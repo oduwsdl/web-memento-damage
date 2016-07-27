@@ -15,8 +15,8 @@ phantom.injectJs('mimetype.js')
 var starttime = Date.now()
 
 // If number of arguments after crawl.js is not 2, show message and exit phantomjs
-if (system.args.length != 5) {
-    console.log('Usage: phantomjs crawl.js <URI> <screenshot_file> <html_file> <log_file>');
+if (system.args.length < 5) {
+    console.log('Usage: phantomjs crawl.js <URI> <screenshot_file> <html_file> <log_file> [<blacklisted_uri_1> ... <blacklisted_uri_n>]');
     phantom.exit(1);
 }
 
@@ -27,8 +27,11 @@ else {
     screenshotFile = system.args[2];
     htmlFile = system.args[3];
     logFile = system.args[4];
-    
-    //outputDir = system.args[2];
+    // use 6th until n args as blacklisted URI
+    blacklistedURIs = []
+    for(var i=5; i<system.args.length; i++) {
+      blacklistedURIs.push(system.args[i]);
+    }
 
     // Set timeout on fetching resources to 30 seconds (can be changed)
     page.settings.resourceTimeout = 30000;
@@ -38,34 +41,44 @@ else {
 
     // Use browser size 1024x768 (to be used on screenshot)
     page.viewportSize = { width: 1024, height: 777 };
-    
+
     // Resource is similiar with all listed in developer tools -> network tab -> refresh
     page.onResourceReceived = function (res) {
         resUrl = res.url;
         console.log('Resource received', resUrl);
-        
-        // Save all network resources to variable
-        // res are sometimes duplicated, so only pushed if array hasnt contains this value
-        // use underscore.js to check whether value has been contained in networkResources key
-        headers = {}
-        res.headers.forEach(function(header) {
-            headers[header['name']] = header['value'];
+
+        // Check whether URI is blacklisted
+        isBlacklisted = false;
+        blacklistedURIs.forEach(function(bURI, idx) {
+          if(resUrl.indexOf(bURI) >= 0) {
+            isBlacklisted = true;
+          }
         });
-        
-        var resource = {
-            'url' : resUrl, 
-            'status_code' : res.status, 
-            'content_type' : res.status > 399 ? mimeType.lookup(resUrl) : res.contentType, 
-            'headers' : headers,             
-        }
-        
-        var networkResourcesKeys = Object.keys(networkResources);
-        if(! _.contains(networkResourcesKeys, resUrl)) {
-            networkResources[resUrl] = resource;
+
+        if(isBlacklisted == false) {
+          // Save all network resources to variable
+          // res are sometimes duplicated, so only pushed if array hasnt contains this value
+          // use underscore.js to check whether value has been contained in networkResources key
+          headers = {}
+          res.headers.forEach(function(header) {
+              headers[header['name']] = header['value'];
+          });
+
+          var resource = {
+              'url' : resUrl,
+              'status_code' : res.status,
+              'content_type' : res.status > 399 ? mimeType.lookup(resUrl) : res.contentType,
+              'headers' : headers,
+          }
+
+          var networkResourcesKeys = Object.keys(networkResources);
+          if(! _.contains(networkResourcesKeys, resUrl)) {
+              networkResources[resUrl] = resource;
+          }
         }
     };
 
-    // After 5 minutes not responding
+    // Kill crawl.js, after 5 minutes not responding
     window.setTimeout(function () {
         phantom.exit(1);
     }, 5 * 60 * 1000)
@@ -84,10 +97,10 @@ else {
             // Timeout in ms, means 200 ms
             window.setTimeout(function () {
                 processPage(url, screenshotFile, htmlFile, logFile);
-                
+
                 // Set finished time
                 var finishtime = Date.now()
-                
+
                 // Show message that crawl finished, and calculate executing time
                 console.log(JSON.stringify({'crawl-result' : {
                   'error' : false,
@@ -100,24 +113,24 @@ else {
             }, 200);
         }
     });
-    
+
 }
 
 function processPage(url, screenshotFile, htmlFile, resourceFile) {
     var hashedUrl = md5(url);
-    
+
     // Save screenshot
     page.render(screenshotFile);
     console.log('Screenshot is saved in', screenshotFile)
-    
+
     // Save html using fs.write
     // DOM selection or modification always be done inside page.evaluate
-    var html = page.evaluate(function() { 
+    var html = page.evaluate(function() {
         return document.body.parentElement.outerHTML;
     });
     fs.write(htmlFile, html, "w");
     console.log('HTML source of page is saved in', htmlFile)
-    
+
     // Save all resources
     // networkResources are sometimes duplicated
     // use filter as described in http://stackoverflow.com/questions/1960473/unique-values-in-an-array
@@ -179,11 +192,11 @@ function processImages(url, resourceBasename) {
 
         return allImages;
     });
-    
+
     var viewport_size = page.evaluate(function () {
         return [document.body.clientWidth, document.body.clientHeight];
     });
-    
+
     // Check images url == resource url, append position if same
     var networkImages = {};
     var docImageUrls = Object.keys(images);
@@ -214,7 +227,7 @@ function processImages(url, resourceBasename) {
         var value = networkImages[networkImagesKeys[r]];
         networkImagesValues.push(JSON.stringify(value));
     }
-    
+
     var resourceImageFile = resourceBasename + '.img.log'
     fs.write(resourceImageFile, networkImagesValues.join('\n'), "w");
     console.log('Network resource images is saved in', resourceImageFile)
@@ -291,7 +304,7 @@ function processCsses(url, resourceBasename) {
 
 function calculateImportance(rule) {
     var importance = 0;
-    
+
     if(rule == undefined) {
     } else if(rule.match(/^\..*/i)) {
         importance += page.evaluate(getNumElementsByClass, rule);
@@ -310,7 +323,7 @@ function calculateImportance(rule) {
     } else {
 
     }
-    
+
     return importance;
 }
 
