@@ -47,6 +47,14 @@ else {
         resUrl = res.url;
         console.log('Resource received', resUrl);
 
+        // Save all network resources to variable
+        // res are sometimes duplicated, so only pushed if array hasnt contains this value
+        // use underscore.js to check whether value has been contained in networkResources key
+        headers = {}
+        res.headers.forEach(function(header) {
+            headers[header['name']] = header['value'];
+        });
+
         // Check whether URI is blacklisted
         isBlacklisted = false;
         blacklistedURIs.forEach(function(bURI, idx) {
@@ -55,15 +63,13 @@ else {
           }
         });
 
-        if(isBlacklisted == false) {
-          // Save all network resources to variable
-          // res are sometimes duplicated, so only pushed if array hasnt contains this value
-          // use underscore.js to check whether value has been contained in networkResources key
-          headers = {}
-          res.headers.forEach(function(header) {
-              headers[header['name']] = header['value'];
-          });
+        // Auto-blacklist resource having header Link="<http://mementoweb.org/terms/donotnegotiate>; rel="type""
+        // Header above means that do not belong to memento
+        if(headers['Link'] == '<http://mementoweb.org/terms/donotnegotiate>; rel="type"') {
+          isBlacklisted = true;
+        }
 
+        if(isBlacklisted == false) {
           var resource = {
               'url' : resUrl,
               'status_code' : res.status,

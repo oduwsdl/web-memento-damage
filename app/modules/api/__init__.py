@@ -31,12 +31,6 @@ class API(Blueprint):
             self.application.settings.get('cache_dir'), 'html')
 
         self.blacklisted_uris = [
-            'https://web.archive.org/static/images/toolbar/wayback-toolbar-logo.png',
-            'https://web.archive.org/static/images/toolbar/wm_tb_nxt_off.png',
-            'https://web.archive.org/static/images/toolbar/wm_tb_prv_on.png',
-            'https://web.archive.org/static/images/toolbar/wm_tb_help.png',
-            'https://web.archive.org/web/jsp/graph.jsp',
-            'https://web.archive.org/static/images/toolbar/wm_tb_close.png',
             'https://analytics.archive.org/0.gif'
         ]
 
