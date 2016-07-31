@@ -27,11 +27,6 @@ else {
     screenshotFile = system.args[2];
     htmlFile = system.args[3];
     logFile = system.args[4];
-    // use 6th until n args as blacklisted URI
-    blacklistedURIs = []
-    for(var i=5; i<system.args.length; i++) {
-      blacklistedURIs.push(system.args[i]);
-    }
 
     // Set timeout on fetching resources to 30 seconds (can be changed)
     page.settings.resourceTimeout = 30000;
@@ -55,32 +50,16 @@ else {
             headers[header['name']] = header['value'];
         });
 
-        // Check whether URI is blacklisted
-        isBlacklisted = false;
-        blacklistedURIs.forEach(function(bURI, idx) {
-          if(resUrl.indexOf(bURI) >= 0) {
-            isBlacklisted = true;
-          }
-        });
-
-        // Auto-blacklist resource having header Link="<http://mementoweb.org/terms/donotnegotiate>; rel="type""
-        // Header above means that do not belong to memento
-        if(headers['Link'] == '<http://mementoweb.org/terms/donotnegotiate>; rel="type"') {
-          isBlacklisted = true;
+        var resource = {
+            'url' : resUrl,
+            'status_code' : res.status,
+            'content_type' : res.status > 399 ? mimeType.lookup(resUrl) : res.contentType,
+            'headers' : headers,
         }
 
-        if(isBlacklisted == false) {
-          var resource = {
-              'url' : resUrl,
-              'status_code' : res.status,
-              'content_type' : res.status > 399 ? mimeType.lookup(resUrl) : res.contentType,
-              'headers' : headers,
-          }
-
-          var networkResourcesKeys = Object.keys(networkResources);
-          if(! _.contains(networkResourcesKeys, resUrl)) {
-              networkResources[resUrl] = resource;
-          }
+        var networkResourcesKeys = Object.keys(networkResources);
+        if(! _.contains(networkResourcesKeys, resUrl)) {
+            networkResources[resUrl] = resource;
         }
     };
 

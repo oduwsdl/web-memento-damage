@@ -30,10 +30,6 @@ class API(Blueprint):
         self.html_dir = os.path.join(
             self.application.settings.get('cache_dir'), 'html')
 
-        self.blacklisted_uris = [
-            'https://analytics.archive.org/0.gif'
-        ]
-
         try:
             os.makedirs(self.screenshot_dir)
             os.makedirs(self.log_dir)
@@ -246,9 +242,9 @@ class API(Blueprint):
 
             # Crawl page with phantomjs crawl.js via arguments
             # Equivalent with console:
-            #   phantomjs crawl.js <screenshot> <html> <log> [<blacklisted_uri_1> ... <blacklisted_uri_n>]
+            #   phantomjs crawl.js <screenshot> <html> <log>
             cmd = Command(['phantomjs', '--ssl-protocol=any', crawljs_script,
-                           uri, screenshot_file, html_file, log_file] + self.blueprint.blacklisted_uris,
+                           uri, screenshot_file, html_file, log_file],
                           log_output)
             err_code = cmd.run(10 * 60, args=(page, ))
 
