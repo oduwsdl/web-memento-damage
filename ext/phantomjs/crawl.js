@@ -1,3 +1,15 @@
+if (!String.prototype.endsWith) {
+  String.prototype.endsWith = function(searchString, position) {
+      var subjectString = this.toString();
+      if (typeof position !== 'number' || !isFinite(position) || Math.floor(position) !== position || position > subjectString.length) {
+        position = subjectString.length;
+      }
+      position -= searchString.length;
+      var lastIndex = subjectString.indexOf(searchString, position);
+      return lastIndex !== -1 && lastIndex === position;
+  };
+}
+
 var system = require('system');
 var fs = require('fs');
 //var path = require('./path.js');
@@ -205,6 +217,12 @@ function processImages(url, resourceBasename) {
         }
     }
 
+    // Resolve redirection
+    // for(url in networkImages) {
+    //     finalURI = getFinalUri(url, networkResources);
+    //     networkImages[finalURI] = _.extend(networkImages[finalURI], networkImages[url]);
+    // }
+
     // Save all resource images
     var networkImagesValues = []
     var networkImagesKeys = Object.keys(networkImages);
@@ -217,6 +235,25 @@ function processImages(url, resourceBasename) {
     fs.write(resourceImageFile, networkImagesValues.join('\n'), "w");
     console.log('Network resource images is saved in', resourceImageFile)
 }
+
+// function getFinalUri(uri, networkResources) {
+//     allURIs = Object.keys(networkResources)
+//     if(networkResources[uri]['status_code'] == 302) {
+//         redirectURI = networkResources[uri]['headers']['Location'];
+//         allURIs.forEach(function(rURI, idx) {
+//             if(rURI.endsWith(redirectURI)) {
+//                 redirectURI = rURI;
+//             }
+//         })
+//
+//         return getFinalUri(redirectURI, networkResources);
+//     }
+//     else if(networkResources[uri]['status_code'] == 200) {
+//         return uri;
+//     }
+//
+//     return uri;
+// }
 
 function processCsses(url, resourceBasename) {
     var hashedUrl = md5(url);

@@ -3,6 +3,8 @@ Section 'Damage' =============================================================
 '''
 import math
 
+import jsonmerge as jsonmerge
+
 from PIL import Image
 
 
@@ -33,6 +35,7 @@ class SiteDamage:
 
         # Filter blacklisted uris
         self.filter_blacklisted_uris()
+        self.resolve_redirection()
 
         pct_cov = self.get_percentage_coverage()
         #print('Percentage COverage = {}'.format(pct_cov))
@@ -90,6 +93,78 @@ class SiteDamage:
                 tmp_csses_log.append(log)
 
         self.csses_log = tmp_csses_log
+
+    def resolve_redirection(self):
+        # Resolve redirection for image
+        images_log = {}
+        for log in self.images_log:
+            images_log[log['url']] = log
+
+        purified_images_log = {}
+        for log in self.images_log:
+            uri = log['url']
+
+            redirect_uris = []
+            self.follow_redirection(uri, images_log, redirect_uris)
+
+            original_uri, original_status = redirect_uris[0]
+            final_uri, final_status_code = redirect_uris[len(redirect_uris)-1]
+
+            if original_status == 302 and final_uri in images_log:
+                purified_images_log[final_uri] = images_log[final_uri]
+                # Add entries from original uri
+                purified_images_log[final_uri]['rectangles'] = \
+                    images_log[original_uri]['rectangles']
+                purified_images_log[final_uri]['viewport_size'] = \
+                    images_log[original_uri]['viewport_size']
+
+            elif original_uri not in purified_images_log:
+                purified_images_log[original_uri] = images_log[original_uri]
+
+        self.images_log = purified_images_log.values()
+
+        # Resolve redirection for css
+        csses_log = {}
+        for log in self.csses_log:
+            csses_log[log['url']] = log
+
+        purified_csses_log = {}
+        for log in self.csses_log:
+            uri = log['url']
+
+            redirect_uris = []
+            self.follow_redirection(uri, csses_log, redirect_uris)
+
+            original_uri, original_status = redirect_uris[0]
+            final_uri, final_status_code = redirect_uris[len(redirect_uris)-1]
+
+            if original_status == 302 and final_uri in csses_log:
+                purified_csses_log[final_uri] = csses_log[final_uri]
+                # Add entries from original uri
+                purified_csses_log[final_uri]['rules_tag'] = \
+                    csses_log[original_uri]['rules_tag']
+                purified_csses_log[final_uri]['importance'] = \
+                    csses_log[original_uri]['importance']
+
+            elif original_uri not in purified_csses_log:
+                purified_csses_log[original_uri] = csses_log[original_uri]
+
+        self.csses_log = purified_csses_log.values()
+
+    def follow_redirection(self, uri, logs, redirect_uris):
+        if uri in logs:
+            redirect_uris.append((uri, logs[uri]['status_code']
+                if 'status_code' in logs[uri] else ''))
+
+            if 'status_code' in logs[uri] and logs[uri]['status_code'] == 302:
+                redirect_uri = logs[uri]['headers']['Location']
+
+                for r_uri in logs.keys():
+                    if r_uri != uri and r_uri.endswith(redirect_uri):
+                        redirect_uri = r_uri
+                        break
+
+                self.follow_redirection(redirect_uri, logs, redirect_uris)
 
     def get_percentage_coverage(self):
         pct_images_coverage = 0.0
