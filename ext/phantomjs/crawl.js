@@ -1,13 +1,13 @@
 if (!String.prototype.endsWith) {
-  String.prototype.endsWith = function(searchString, position) {
-      var subjectString = this.toString();
-      if (typeof position !== 'number' || !isFinite(position) || Math.floor(position) !== position || position > subjectString.length) {
-        position = subjectString.length;
-      }
-      position -= searchString.length;
-      var lastIndex = subjectString.indexOf(searchString, position);
-      return lastIndex !== -1 && lastIndex === position;
-  };
+    String.prototype.endsWith = function(searchString, position) {
+        var subjectString = this.toString();
+        if (typeof position !== 'number' || !isFinite(position) || Math.floor(position) !== position || position > subjectString.length) {
+          position = subjectString.length;
+        }
+        position -= searchString.length;
+        var lastIndex = subjectString.indexOf(searchString, position);
+        return lastIndex !== -1 && lastIndex === position;
+    };
 }
 
 var system = require('system');
@@ -43,7 +43,7 @@ else {
     // Set timeout on fetching resources to 30 seconds (can be changed)
     page.settings.resourceTimeout = 30000;
     page.onResourceTimeout = function(e) {
-        console.log('Resource', e.url, 'timeout.', e.errorCode, e.errorString);
+        console.log('Resource ' + e.url + ' timeout. ' + e.errorCode + ' ' + e.errorString);
     };
 
     // Use browser size 1024x768 (to be used on screenshot)
@@ -52,7 +52,7 @@ else {
     // Resource is similiar with all listed in developer tools -> network tab -> refresh
     page.onResourceReceived = function (res) {
         resUrl = res.url;
-        console.log('Resource received', resUrl);
+        console.log('Resource received ' + resUrl);
 
         // Save all network resources to variable
         // res are sometimes duplicated, so only pushed if array hasnt contains this value
@@ -118,7 +118,7 @@ function processPage(url, screenshotFile, htmlFile, resourceFile) {
 
     // Save screenshot
     page.render(screenshotFile);
-    console.log('Screenshot is saved in', screenshotFile)
+    console.log('Screenshot is saved in ' + screenshotFile)
 
     // Save html using fs.write
     // DOM selection or modification always be done inside page.evaluate
@@ -126,7 +126,7 @@ function processPage(url, screenshotFile, htmlFile, resourceFile) {
         return document.body.parentElement.outerHTML;
     });
     fs.write(htmlFile, html, "w");
-    console.log('HTML source of page is saved in', htmlFile)
+    console.log('HTML source of page is saved in ' + htmlFile)
 
     // Save all resources
     // networkResources are sometimes duplicated
@@ -139,7 +139,7 @@ function processPage(url, screenshotFile, htmlFile, resourceFile) {
     }
 
     fs.write(resourceFile, networkResourcesValues.join('\n'), "w");
-    console.log('Network resources is saved in', resourceFile)
+    console.log('Network resources is saved in ' + resourceFile)
 
     // Split dir and filename
     var resourceBasename = resourceFile.replace('/.*//', '' ); //path.basename(resourceFile, '.log')
@@ -233,7 +233,7 @@ function processImages(url, resourceBasename) {
 
     var resourceImageFile = resourceBasename + '.img.log'
     fs.write(resourceImageFile, networkImagesValues.join('\n'), "w");
-    console.log('Network resource images is saved in', resourceImageFile)
+    console.log('Network resource images is saved in ' + resourceImageFile)
 }
 
 // function getFinalUri(uri, networkResources) {
@@ -321,7 +321,7 @@ function processCsses(url, resourceBasename) {
     }
 
     fs.write(resourceCssFile, networkCssValues.join('\n'), "wb");
-    console.log('Network resource csses is saved in', resourceCssFile)
+    console.log('Network resource csses is saved in ' + resourceCssFile)
 }
 
 function calculateImportance(rule) {
