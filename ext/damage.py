@@ -23,10 +23,11 @@ class SiteDamage:
         'https://analytics.archive.org/'
     ]
 
-    def __init__(self, images_log, csses_log, screenshot_file,
+    def __init__(self, logs, image_logs, css_logs, screenshot_file,
                  background_color = 'FFFFFF'):
-        self.images_log = images_log
-        self.csses_log = csses_log
+        self.logs = logs
+        self.image_logs = image_logs
+        self.css_logs = css_logs
         self.screenshot_file = os.path.abspath(screenshot_file)
         self.background_color = background_color
 
@@ -43,8 +44,8 @@ class SiteDamage:
 
     def filter_blacklisted_uris(self):
         # Filter images log
-        tmp_images_log = []
-        for log in self.images_log:
+        tmp_image_logs = []
+        for log in self.image_logs:
             is_blacklisted = False
 
             # Check whether uri is defined in blacklisted_uris
@@ -62,13 +63,13 @@ class SiteDamage:
 
             # If not blacklisted, put into temporary array
             if not is_blacklisted:
-                tmp_images_log.append(log)
+                tmp_image_logs.append(log)
 
-        self.images_log = tmp_images_log
+        self.image_logs = tmp_image_logs
 
         # Filter csses log
-        tmp_csses_log = []
-        for log in self.csses_log:
+        tmp_css_logs = []
+        for log in self.css_logs:
             is_blacklisted = False
 
             # Check whether uri is defined in blacklisted_uris
@@ -87,66 +88,72 @@ class SiteDamage:
 
             # If not blacklisted, put into temporary array
             if not is_blacklisted:
-                tmp_csses_log.append(log)
+                tmp_css_logs.append(log)
 
-        self.csses_log = tmp_csses_log
+        self.css_logs = tmp_css_logs
 
     def resolve_redirection(self):
+        logs = {}
+        for log in self.logs:
+            logs[log['url']] = log
+
         # Resolve redirection for image
         images_log = {}
-        for log in self.images_log:
+        for log in self.image_logs:
             images_log[log['url']] = log
 
-        purified_images_log = {}
-        for log in self.images_log:
+        purified_image_logs = {}
+        for log in self.image_logs:
             uri = log['url']
 
             redirect_uris = []
             self.follow_redirection(uri, images_log, redirect_uris)
 
-            original_uri, original_status = redirect_uris[0]
-            final_uri, final_status_code = redirect_uris[len(redirect_uris)-1]
+            if len(redirect_uris) > 0:
+                original_uri, original_status = redirect_uris[0]
+                final_uri, final_status_code = redirect_uris[len(redirect_uris)-1]
 
-            if original_status == 302 and final_uri in images_log:
-                purified_images_log[final_uri] = images_log[final_uri]
-                # Add entries from original uri
-                purified_images_log[final_uri]['rectangles'] = \
-                    images_log[original_uri]['rectangles']
-                purified_images_log[final_uri]['viewport_size'] = \
-                    images_log[original_uri]['viewport_size']
+                if original_status == 302 and final_uri in logs:
+                    purified_image_logs[final_uri] = logs[final_uri]
+                    # Add entries from original uri
+                    purified_image_logs[final_uri]['rectangles'] = \
+                        images_log[original_uri]['rectangles']
+                    purified_image_logs[final_uri]['viewport_size'] = \
+                        images_log[original_uri]['viewport_size']
 
-            elif original_uri not in purified_images_log:
-                purified_images_log[original_uri] = images_log[original_uri]
+                elif original_uri not in purified_image_logs:
+                    purified_image_logs[original_uri] = images_log[original_uri]
 
-        self.images_log = purified_images_log.values()
+        self.image_logs = purified_image_logs.values()
 
         # Resolve redirection for css
-        csses_log = {}
-        for log in self.csses_log:
-            csses_log[log['url']] = log
+        css_logs = {}
+        for log in self.css_logs:
+            css_logs[log['url']] = log
 
-        purified_csses_log = {}
-        for log in self.csses_log:
+        purified_css_logs = {}
+        for log in self.css_logs:
             uri = log['url']
 
             redirect_uris = []
-            self.follow_redirection(uri, csses_log, redirect_uris)
+            self.follow_redirection(uri, logs, redirect_uris)
 
-            original_uri, original_status = redirect_uris[0]
-            final_uri, final_status_code = redirect_uris[len(redirect_uris)-1]
+            if len(redirect_uris) > 0:
+                original_uri, original_status = redirect_uris[0]
+                final_uri, final_status_code = redirect_uris[len(redirect_uris)-1]
 
-            if original_status == 302 and final_uri in csses_log:
-                purified_csses_log[final_uri] = csses_log[final_uri]
-                # Add entries from original uri
-                purified_csses_log[final_uri]['rules_tag'] = \
-                    csses_log[original_uri]['rules_tag']
-                purified_csses_log[final_uri]['importance'] = \
-                    csses_log[original_uri]['importance']
+                if original_status == 302 and final_uri in logs:
+                    purified_css_logs[final_uri] = logs[final_uri]
+                    # Add entries from original uri
+                    purified_css_logs[final_uri]['rules_tag'] = \
+                        css_logs[original_uri]['rules_tag']
+                    purified_css_logs[final_uri]['importance'] = \
+                        css_logs[original_uri]['importance']
 
-            elif original_uri not in purified_csses_log:
-                purified_csses_log[original_uri] = csses_log[original_uri]
+                elif original_uri not in purified_css_logs:
+                    purified_css_logs[original_uri] = css_logs[original_uri]
 
-        self.csses_log = purified_csses_log.values()
+        self.css_logs = purified_css_logs.values()
 
     def follow_redirection(self, uri, logs, redirect_uris):
         if uri in logs:
@@ -165,7 +172,7 @@ class SiteDamage:
 
     def get_percentage_coverage(self):
         pct_images_coverage = 0.0
-        for idx, log in enumerate(self.images_log):
+        for idx, log in enumerate(self.image_logs):
             viewport_w, vieport_h = log['viewport_size']
             image_coverage  = 0
             for rect in log['rectangles']:
@@ -175,7 +182,7 @@ class SiteDamage:
 
             pct_image_coverage = float(image_coverage) / \
                                  float(viewport_w * vieport_h)
-            self.images_log[idx]['percentage_coverage'] = pct_image_coverage
+            self.image_logs[idx]['percentage_coverage'] = pct_image_coverage
 
             pct_images_coverage += pct_image_coverage
 
@@ -183,7 +190,7 @@ class SiteDamage:
 
     def find_missings(self):
         self.missing_imgs_log = []
-        for log in self.images_log:
+        for log in self.image_logs:
             if log['status_code'] > 399:
                 self.missing_imgs_log.append(log)
 
@@ -195,7 +202,7 @@ class SiteDamage:
         #             self.missing_csses_log.append(log)
 
         # Since all css set to 404 (missing)
-        self.missing_csses_log = self.csses_log
+        self.missing_csses_log = self.css_logs
 
     def calculate_all(self):
         self.calculate_potential_damage()
@@ -203,7 +210,7 @@ class SiteDamage:
 
     def calculate_potential_damage(self):
         total_images_damage = 0
-        for idx, log in enumerate(self.images_log):
+        for idx, log in enumerate(self.image_logs):
             image_damage = self.calculate_image_damage(log)
             # Based on measureMemento.pl line 463
             total_location_importance = 0
@@ -216,7 +223,7 @@ class SiteDamage:
 
             total_images_damage += total_image_damage
 
-            self.images_log[idx]['potential_damage'] = {
+            self.image_logs[idx]['potential_damage'] = {
                 'location' : total_location_importance,
                 'size' : total_size_importance,
                 'total' : total_image_damage
@@ -225,7 +232,7 @@ class SiteDamage:
                   .format(total_image_damage, log['url']))
 
         total_css_damage = 0
-        for idx, log in enumerate(self.csses_log):
+        for idx, log in enumerate(self.css_logs):
             tag_importance, ratio_importance, css_damage = \
                 self.calculate_css_damage(log, use_window_size=False, \
                                           is_potential=True)
@@ -233,7 +240,7 @@ class SiteDamage:
             # Based on measureMemento.pl line 468
             total_css_damage += css_damage
 
-            self.csses_log[idx]['potential_damage'] = {
+            self.css_logs[idx]['potential_damage'] = {
                 'tag'   : tag_importance,
                 'ratio' : ratio_importance,
                 'total' : css_damage
@@ -248,7 +255,7 @@ class SiteDamage:
 
     def calculate_actual_damage(self):
         total_images_damage = 0
-        for idx, log in enumerate(self.images_log):
+        for idx, log in enumerate(self.image_logs):
             if log['status_code'] > 399:
                 image_damage = self.calculate_image_damage(log)
                 # Based on measureMemento.pl line 463
@@ -262,7 +269,7 @@ class SiteDamage:
 
                 total_images_damage += total_image_damage
 
-                self.images_log[idx]['actual_damage'] = {
+                self.image_logs[idx]['actual_damage'] = {
                     'location' : total_location_importance,
                     'size' : total_size_importance,
                     'total' : total_image_damage
@@ -271,14 +278,14 @@ class SiteDamage:
                       .format(total_image_damage, log['url']))
 
         total_css_damage = 0
-        for idx, log in enumerate(self.csses_log):
+        for idx, log in enumerate(self.css_logs):
             tag_importance, ratio_importance, css_damage = \
                 self.calculate_css_damage(log, use_window_size=False)
 
             # Based on measureMemento.pl line 468
             total_css_damage += css_damage
 
-            self.csses_log[idx]['actual_damage'] = {
+            self.css_logs[idx]['actual_damage'] = {
                 'tag'   : tag_importance,
                 'ratio' : ratio_importance,
                 'total' : css_damage
@@ -439,26 +446,29 @@ if __name__ == "__main__":
     import json
 
     if len(sys.argv) > 0:
-        if len(sys.argv) < 4:
+        if len(sys.argv) < 5:
             print('Usage :')
-            print('python damage-old.py <images_log_file> <csses_log_file> '\
-                  '<screenshot_file> <background_color>')
+            print('python damage.py <logs_file> <image_logs_file> '\
+                  '<css_logs_file> <screenshot_file> <background_color>')
             exit()
 
         # Read arguments
-        images_log_file = sys.argv[1]
-        csses_log_file = sys.argv[2]
-        screenshot_file = sys.argv[3]
-        background_color = sys.argv[4] if len(sys.argv) >= 5 else 'FFFFFF'
+        log_file = sys.argv[1]
+        image_logs_file = sys.argv[2]
+        css_logs_file = sys.argv[3]
+        screenshot_file = sys.argv[4]
+        background_color = sys.argv[5] if len(sys.argv) >= 5 else 'FFFFFF'
 
         # Read log contents
-        images_log = [json.loads(log) for log in
-                      open(images_log_file).readlines()]
-        csses_log = [json.loads(log) for log in
-                      open(csses_log_file).readlines()]
+        logs = [json.loads(log) for log in
+                      open(log_file).readlines()]
+        image_logs = [json.loads(log) for log in
+                      open(image_logs_file).readlines()]
+        css_logs = [json.loads(log) for log in
+                    open(css_logs_file).readlines()]
 
         # Calculate site damage
-        damage = SiteDamage(images_log, csses_log, screenshot_file,
+        damage = SiteDamage(logs, image_logs, css_logs, screenshot_file,
                             background_color)
         damage.calculate_all()
         print('Potential Damage : {}'.format(damage.potential_damage))
@@ -474,8 +484,8 @@ if __name__ == "__main__":
             'image' : damage.image_weight,
             'text' : damage.text_weight
         }
-        result['images'] = damage.images_log
-        result['csses'] = damage.csses_log
+        result['images'] = damage.image_logs
+        result['csses'] = damage.css_logs
         result['potential_damage'] = {
             'total' : damage.potential_damage,
             'image' : damage.potential_image_damage,

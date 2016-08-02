@@ -166,7 +166,7 @@ class API(Blueprint):
             # Define damage-old.py location
             damage_py_script = os.path.join(
                 self.application.settings.get('base_dir'),
-                'ext', 'damage-old.py'
+                'ext', 'damage.py'
             )
 
             # Define arguments
@@ -254,8 +254,8 @@ class API(Blueprint):
                 #   python damage-old.py <img_log> <css_log> <screenshot_log> <bg>
                 python = sys.executable
 
-                cmd = Command([python, damage_py_script, images_log_file,
-                               csses_log_file, screenshot_file,
+                cmd = Command([python, damage_py_script, log_file,
+                               images_log_file, csses_log_file, screenshot_file,
                                page['background_color']],
                               log_output)
                 err_code = cmd.run(10 * 60)

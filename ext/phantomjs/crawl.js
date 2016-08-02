@@ -28,7 +28,7 @@ var starttime = Date.now()
 
 // If number of arguments after crawl.js is not 2, show message and exit phantomjs
 if (system.args.length < 5) {
-    console.log('Usage: phantomjs crawl.js <URI> <screenshot_file> <html_file> <log_file> [<blacklisted_uri_1> ... <blacklisted_uri_n>]');
+    console.log('Usage: phantomjs crawl.js <URI> <screenshot_file> <html_file> <log_file>');
     phantom.exit(1);
 }
 
@@ -52,7 +52,7 @@ else {
     // Resource is similiar with all listed in developer tools -> network tab -> refresh
     page.onResourceReceived = function (res) {
         resUrl = res.url;
-        console.log('Resource received ' + resUrl);
+        console.log('Resource received ' + resUrl + ' (' + res.status + ')');
 
         // Save all network resources to variable
         // res are sometimes duplicated, so only pushed if array hasnt contains this value
