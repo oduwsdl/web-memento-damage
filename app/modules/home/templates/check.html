@@ -256,6 +256,24 @@
     color: #34495E;
   }
 
+  @media (min-width: 615px) {
+    .rwd-table td[data-th="Status"] { max-width: 60px}
+    .rwd-table td[data-th="Location"] { max-width: 64px}
+    .rwd-table td[data-th="Size"] { max-width: 64px}
+    .rwd-table td[data-th="URI"] {
+      position: relative;
+      overflow: hidden;
+      white-space: nowrap;
+      max-width: 350px;
+    }
+    .rwd-table td[data-th="URI"] .left-ellipsis {
+      display: none;
+      background-color: rgb(255, 255, 255);
+      position: absolute;
+      left: 0px;
+    }
+  }
+
   @media (min-width: 614px) {
     .rwd-table td:before {
       display: none;
@@ -600,7 +618,10 @@
 
       tbody += '<tr class="title" data-toggle="collapse" data-target="#image-info-'+ idx +'">'+
         '<td data-th="No">'+ (idx+1) +'</td>'+
-        '<td data-th="URI" style="text-align: left;">'+ image['url'] +'</td>'+
+        '<td data-th="URI" style="text-align: left;">'+
+          '<span class="text" title="'+ image['url'] +'">'+ image['url'] +'</span>'+
+          '<span class="left-ellipsis">...</span>'+
+        '</td>'+
         '<td data-th="Status">'+ ('status_code' in image ? image['status_code'] : '') +'</td>'+
         '<td data-th="Location">' + ('potential_damage' in image ? image['potential_damage']['location'].toFixed(5) : '-') + '</td>'+
         '<td data-th="Size">' + ('potential_damage' in image ? image['potential_damage']['size'].toFixed(5) : '-') + '</td>'+
@@ -787,6 +808,8 @@
         }
       }
 
+      setTimeout(fixTable, 2000)
+
       // Show screenshot ===============================================================
       showScreenshot(uri);
 
@@ -799,7 +822,26 @@
 
       // Activate tooltip
       $('[data-toggle="tooltip"]').tooltip({container: 'body'});
+
+      // On window resize
+      $( window ).resize(function() {
+        fixTable()
+      });
     });
+
+    function fixTable() {
+      cols_uri = $('.rwd-table td[data-th="URI"]');
+      for (var i=0; i<cols_uri.length; i++) {
+        row = cols_uri[i]
+        $(row).find('span.text').css('float', '');
+        $(row).find('span.left-ellipsis').hide();
+
+        if (row.scrollWidth > row.offsetWidth) {
+          $(row).find('span.text').css('float', 'right');
+          $(row).find('span.left-ellipsis').show();
+        }
+      }
+    }
 
     // Show progress
     log = $('#log')

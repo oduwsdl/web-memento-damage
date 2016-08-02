@@ -441,7 +441,7 @@ if __name__ == "__main__":
     if len(sys.argv) > 0:
         if len(sys.argv) < 4:
             print('Usage :')
-            print('python damage.py <images_log_file> <csses_log_file> '\
+            print('python damage-old.py <images_log_file> <csses_log_file> '\
                   '<screenshot_file> <background_color>')
             exit()
 

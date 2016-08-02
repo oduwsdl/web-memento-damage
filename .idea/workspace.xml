@@ -2,9 +2,24 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="abb02a85-edb0-4070-84af-33ef9785e6b3" name="Default" comment="Styling Result">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/test/damage.py" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/odu/screenshot/1399aa10a87dec8d223ebaa2c2d57725.png" afterPath="$PROJECT_DIR$/test/odu/screenshot/1399aa10a87dec8d223ebaa2c2d57725.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/odu/screenshot/325160193767d70909dc276b2f530ff1.png" afterPath="$PROJECT_DIR$/test/odu/screenshot/325160193767d70909dc276b2f530ff1.png" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/modules/api/__init__.py" afterPath="$PROJECT_DIR$/app/modules/api/__init__.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/modules/home/templates/check.html" afterPath="$PROJECT_DIR$/app/modules/home/templates/check.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ext/damage.py" afterPath="$PROJECT_DIR$/ext/damage.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ext/phantomjs/crawl.js" afterPath="$PROJECT_DIR$/ext/phantomjs/crawl.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/odu/html/1399aa10a87dec8d223ebaa2c2d57725.html" afterPath="$PROJECT_DIR$/test/odu/html/1399aa10a87dec8d223ebaa2c2d57725.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/odu/html/325160193767d70909dc276b2f530ff1.html" afterPath="$PROJECT_DIR$/test/odu/html/325160193767d70909dc276b2f530ff1.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/odu/log/1399aa10a87dec8d223ebaa2c2d57725.crawl.log" afterPath="$PROJECT_DIR$/test/odu/log/1399aa10a87dec8d223ebaa2c2d57725.crawl.log" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/odu/log/1399aa10a87dec8d223ebaa2c2d57725.img.log" afterPath="$PROJECT_DIR$/test/odu/log/1399aa10a87dec8d223ebaa2c2d57725.img.log" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/odu/log/1399aa10a87dec8d223ebaa2c2d57725.log" afterPath="$PROJECT_DIR$/test/odu/log/1399aa10a87dec8d223ebaa2c2d57725.log" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/odu/log/325160193767d70909dc276b2f530ff1.crawl.log" afterPath="$PROJECT_DIR$/test/odu/log/325160193767d70909dc276b2f530ff1.crawl.log" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/odu/log/325160193767d70909dc276b2f530ff1.css.log" afterPath="$PROJECT_DIR$/test/odu/log/325160193767d70909dc276b2f530ff1.css.log" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/odu/log/325160193767d70909dc276b2f530ff1.img.log" afterPath="$PROJECT_DIR$/test/odu/log/325160193767d70909dc276b2f530ff1.img.log" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/odu/log/325160193767d70909dc276b2f530ff1.log" afterPath="$PROJECT_DIR$/test/odu/log/325160193767d70909dc276b2f530ff1.log" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/odu/result.csv" afterPath="$PROJECT_DIR$/test/odu/result.csv" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/test_uri.txt" afterPath="$PROJECT_DIR$/test/test_uri.txt" />
     </list>
     <ignored path="memento-pedia-tornado.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -25,13 +40,25 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="damage.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="damage.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ext/damage.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.120192304">
-              <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="60" column="41" selection-start-line="55" selection-start-column="12" selection-end-line="60" selection-end-column="41" />
               <folding>
                 <element signature="e#87#98#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="damage.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/test/damage.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.35096154">
+              <caret line="37" column="31" selection-start-line="37" selection-start-column="31" selection-end-line="37" selection-end-column="31" />
+              <folding>
+                <element signature="e#0#11#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -99,9 +126,11 @@
         <option value="$PROJECT_DIR$/app/templates/frontpage.html" />
         <option value="$PROJECT_DIR$/ext/tools.py" />
         <option value="$PROJECT_DIR$/ext/phantomjs/crawl.js" />
-        <option value="$PROJECT_DIR$/test/damage.py" />
         <option value="$PROJECT_DIR$/app/modules/api/__init__.py" />
         <option value="$PROJECT_DIR$/ext/damage.py" />
+        <option value="$PROJECT_DIR$/env-linux/lib/python2.7/site-packages/unicodecsv/py3.py" />
+        <option value="$PROJECT_DIR$/test/damage-old.py" />
+        <option value="$PROJECT_DIR$/test/damage.py" />
       </list>
     </option>
   </component>
@@ -158,6 +187,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -260,8 +291,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -515,11 +544,12 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="49" y="24" width="1317" height="744" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21490195" sideWeight="0.49356914" order="1" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22117648" sideWeight="0.49356914" order="1" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32923076" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3279743" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32515338" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3279743" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23450981" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -532,7 +562,6 @@
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31076923" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32615384" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
@@ -563,31 +592,6 @@
     <entry file="file://$PROJECT_DIR$/ext/damage.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#87#98#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/modules/api/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="30" column="63" selection-start-line="30" selection-start-column="63" selection-end-line="30" selection-end-column="63" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/damage.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ext/damage.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
           <caret line="356" column="28" selection-start-line="356" selection-start-column="16" selection-end-line="356" selection-end-column="28" />
           <folding>
             <element signature="e#87#98#0" expanded="true" />
@@ -607,13 +611,6 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="256" column="35" selection-start-line="256" selection-start-column="35" selection-end-line="256" selection-end-column="35" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/damage.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -876,13 +873,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ext/tools.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.096463025">
-          <caret line="5" column="8" selection-start-line="5" selection-start-column="8" selection-end-line="5" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/templates/frontpage.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.165">
@@ -904,28 +894,55 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test/damage.py">
+    <entry file="file://$PROJECT_DIR$/app/modules/api/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.1093248">
-          <caret line="80" column="76" selection-start-line="80" selection-start-column="76" selection-end-line="80" selection-end-column="76" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="30" column="63" selection-start-line="30" selection-start-column="63" selection-end-line="30" selection-end-column="63" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/test_uri.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/env-linux/lib/python2.7/site-packages/unicodecsv/py3.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33333334">
+          <caret line="37" column="6" selection-start-line="37" selection-start-column="6" selection-end-line="37" selection-end-column="6" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ext/damage.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.120192304">
-          <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="60" column="41" selection-start-line="55" selection-start-column="12" selection-end-line="60" selection-end-column="41" />
           <folding>
             <element signature="e#87#98#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/modules/api/__init__.py">
+    <entry file="file://$PROJECT_DIR$/ext/tools.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="30" column="63" selection-start-line="30" selection-start-column="63" selection-end-line="30" selection-end-column="63" />
+        <state vertical-scroll-proportion="0.21634616">
+          <caret line="10" column="28" selection-start-line="10" selection-start-column="28" selection-end-line="10" selection-end-column="28" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/damage.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.35096154">
+          <caret line="37" column="31" selection-start-line="37" selection-start-column="31" selection-end-line="37" selection-end-column="31" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

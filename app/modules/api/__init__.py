@@ -163,10 +163,10 @@ class API(Blueprint):
                 self.application.settings.get('base_dir'),
                 'ext', 'phantomjs', 'crawl.js'
             )
-            # Define damage.py location
+            # Define damage-old.py location
             damage_py_script = os.path.join(
                 self.application.settings.get('base_dir'),
-                'ext', 'damage.py'
+                'ext', 'damage-old.py'
             )
 
             # Define arguments
@@ -249,9 +249,9 @@ class API(Blueprint):
             err_code = cmd.run(10 * 60, args=(page, ))
 
             if err_code == 0:
-                # Calculate damage with damage.py via arguments
+                # Calculate damage with damage-old.py via arguments
                 # Equivalent with console:
-                #   python damage.py <img_log> <css_log> <screenshot_log> <bg>
+                #   python damage-old.py <img_log> <css_log> <screenshot_log> <bg>
                 python = sys.executable
 
                 cmd = Command([python, damage_py_script, images_log_file,
