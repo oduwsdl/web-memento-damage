@@ -360,82 +360,84 @@ class SiteDamage:
         ratio_importance = 0.0
         total_importance = 0.0
 
-        # Based on measureMemento.pl line 771
-        if rules_importance > 0:
-            tag_importance = tag_weight
+        if is_potential or (not is_potential and
+                            'status_code' in log and log['status_code'] > 399):
+            # Based on measureMemento.pl line 771
+            if rules_importance > 0:
+                tag_importance = tag_weight
 
-        # Based on measureMemento.pl line 777
-        if not is_potential:
-            # Code below is a subtitution for Justin's whitespace.pl
-            # Open screenshot file
-            im = Image.open(self.screenshot_file)
-            # Get all pixels
-            pix = im.load()
+            # Based on measureMemento.pl line 777
+            if not is_potential:
+                # Code below is a subtitution for Justin's whitespace.pl
+                # Open screenshot file
+                im = Image.open(self.screenshot_file)
+                # Get all pixels
+                pix = im.load()
 
-            # Use vieport_size (screenshot size) or default_window_size (
-            # 1024x768)
-            if not use_window_size:
-                window_size = im.size
+                # Use vieport_size (screenshot size) or default_window_size (
+                # 1024x768)
+                if not use_window_size:
+                    window_size = im.size
 
-            window_w, windows_h = window_size
+                window_w, windows_h = window_size
 
-            # Whiteguys is representation of pixels having same color with
-            # background color
-            whiteguys_col = {}
+                # Whiteguys is representation of pixels having same color with
+                # background color
+                whiteguys_col = {}
 
-            # Iterate over pixels in window size (e.g. 1024x768)
-            # And check whether having same color with background
-            for x in range(0,window_w):
-                whiteguys_col.setdefault(x, 0)
-                for y in range(0,windows_h):
-                    # Get RGBA color in each pixel
-                    #     (e.g. White -> (255,255,255,255))
-                    r_, g_, b_, a_ = pix[x,y]
-                    # Convert RGBA to Hex color
-                    #     (e.g. White -> FFFFFF)
-                    pix_hex = rgb2hex(r_, g_, b_)
+                # Iterate over pixels in window size (e.g. 1024x768)
+                # And check whether having same color with background
+                for x in range(0,window_w):
+                    whiteguys_col.setdefault(x, 0)
+                    for y in range(0,windows_h):
+                        # Get RGBA color in each pixel
+                        #     (e.g. White -> (255,255,255,255))
+                        r_, g_, b_, a_ = pix[x,y]
+                        # Convert RGBA to Hex color
+                        #     (e.g. White -> FFFFFF)
+                        pix_hex = rgb2hex(r_, g_, b_)
 
-                    if pix_hex.upper() == \
-                            self.background_color.upper():
-                        whiteguys_col[x] += 1
+                        if pix_hex.upper() == \
+                                self.background_color.upper():
+                            whiteguys_col[x] += 1
 
-            # divide width into 3 parts
-            # Justin use term : low, mid, and high for 1/3 left,
-            # 1/3 midlle, and 1/3 right
-            one_third = int(math.floor(window_w/3))
+                # divide width into 3 parts
+                # Justin use term : low, mid, and high for 1/3 left,
+                # 1/3 midlle, and 1/3 right
+                one_third = int(math.floor(window_w/3))
 
-            # calculate whiteguys in the 1/3 left
-            leftWhiteguys = 0
-            for c in range(0,one_third):
-                leftWhiteguys += whiteguys_col[c]
-            leftAvg = leftWhiteguys / one_third
+                # calculate whiteguys in the 1/3 left
+                leftWhiteguys = 0
+                for c in range(0,one_third):
+                    leftWhiteguys += whiteguys_col[c]
+                leftAvg = leftWhiteguys / one_third
 
-            # calculate whiteguys in the 1/3 center
-            centerWhiteguys = 0
-            for c in range(one_third,2*one_third):
-                centerWhiteguys += whiteguys_col[c]
-            centerAvg = centerWhiteguys / one_third
+                # calculate whiteguys in the 1/3 center
+                centerWhiteguys = 0
+                for c in range(one_third,2*one_third):
+                    centerWhiteguys += whiteguys_col[c]
+                centerAvg = centerWhiteguys / one_third
 
-            # calculate whiteguys in the 1/3 right
-            rightWhiteguys = 0
-            for c in range(2*one_third,window_w):
-                rightWhiteguys += whiteguys_col[c]
-            rightAvg = rightWhiteguys / one_third
+                # calculate whiteguys in the 1/3 right
+                rightWhiteguys = 0
+                for c in range(2*one_third,window_w):
+                    rightWhiteguys += whiteguys_col[c]
+                rightAvg = rightWhiteguys / one_third
 
-            # Based on measureMemento.pl line 803
-            if (leftAvg + centerAvg + rightAvg) == 0:
-                ratio_importance = 0.0
-            elif float(rightAvg) / (leftAvg+centerAvg+rightAvg) > \
-                    float(1)/3:
-                ratio_importance = float(rightAvg) / (
-                    leftAvg+centerAvg+rightAvg) * ratio_weight
+                # Based on measureMemento.pl line 803
+                if (leftAvg + centerAvg + rightAvg) == 0:
+                    ratio_importance = 0.0
+                elif float(rightAvg) / (leftAvg+centerAvg+rightAvg) > \
+                        float(1)/3:
+                    ratio_importance = float(rightAvg) / (
+                        leftAvg+centerAvg+rightAvg) * ratio_weight
+                else:
+                    ratio_importance = ratio_weight
+
+
+            # Based on measureMemento.pl line 819
             else:
                 ratio_importance = ratio_weight
-
-
-        # Based on measureMemento.pl line 819
-        else:
-            ratio_importance = ratio_weight
 
         total_importance = tag_importance + ratio_importance
         return (tag_importance, ratio_importance, total_importance)
