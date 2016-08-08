@@ -595,8 +595,8 @@
         '<tr>'+
           '<th colspan="2" rowspan="2">URI</th>'+
           '<th rowspan="2">Status</th>'+
-          '<th colspan="2">Potential Damage</th>'+
           '<th colspan="2">Actual Damage</th>'+
+          '<th colspan="2">Potential Damage</th>'+
         '</tr>'+
         '<tr>'+
           '<th>Location</th>'+
@@ -623,10 +623,10 @@
           '<span class="left-ellipsis">...</span>'+
         '</td>'+
         '<td data-th="Status">'+ ('status_code' in image ? image['status_code'] : '') +'</td>'+
-        '<td data-th="Location">' + ('potential_damage' in image ? image['potential_damage']['location'].toFixed(5) : '-') + '</td>'+
-        '<td data-th="Size">' + ('potential_damage' in image ? image['potential_damage']['size'].toFixed(5) : '-') + '</td>'+
         '<td data-th="Location">' + ('actual_damage' in image ? image['actual_damage']['location'].toFixed(5) : '-') + '</td>'+
         '<td data-th="Size">' + ('actual_damage' in image ? image['actual_damage']['size'].toFixed(5) : '-') + '</td>'+
+        '<td data-th="Location">' + ('potential_damage' in image ? image['potential_damage']['location'].toFixed(5) : '-') + '</td>'+
+        '<td data-th="Size">' + ('potential_damage' in image ? image['potential_damage']['size'].toFixed(5) : '-') + '</td>'+
       '</tr>' +
       '<tr id="image-info-'+ idx +'" class="info collapse">'+
         '<td style="border-top-width: 0px;"></td>'+
@@ -649,10 +649,10 @@
       '<thead>'+
         '<tr>'+
           '<th colspan="3">Total</th>'+
-          '<th>'+ pdLocation.toFixed(5) +'</th>'+
-          '<th>'+ pdSize.toFixed(5) +'</th>'+
           '<th>'+ adLocation.toFixed(5) +'</th>'+
           '<th>'+ adSize.toFixed(5) +'</th>'+
+          '<th>'+ pdLocation.toFixed(5) +'</th>'+
+          '<th>'+ pdSize.toFixed(5) +'</th>'+
         '</tr>'+
         '<tr>'+
           '<th colspan="3">Weight</th>'+
@@ -660,8 +660,8 @@
         '</tr>'+
         '<tr>'+
           '<th colspan="3">Damage</th>'+
-          '<th colspan="2">'+ ((pdLocation + pdSize) * weight).toFixed(5) +'</th>'+
           '<th colspan="2">'+ ((adLocation + adSize) * weight).toFixed(5) +'</th>'+
+          '<th colspan="2">'+ ((pdLocation + pdSize) * weight).toFixed(5) +'</th>'+
         '</tr>'+
       '</thead>'
     ).appendTo(table);
@@ -674,8 +674,8 @@
         '<tr>'+
           '<th colspan="2" rowspan="2">URI</th>'+
           '<th rowspan="2">Status</th>'+
-          '<th colspan="2">Potential Damage</th>'+
           '<th colspan="2">Actual Damage</th>'+
+          '<th colspan="2">Potential Damage</th>'+
         '</tr>'+
         '<tr>'+
           '<th>Tag</th>'+
@@ -695,10 +695,10 @@
         '<td data-th="No">'+ (idx+1) +'</td>'+
         '<td data-th="URI" style="text-align:left;">'+ css['url'] +'</td>'+
         '<td data-th="Status">'+ ('status_code' in css ? css['status_code'] : '') +'</td>'+
-        '<td data-th="Tag">' + ('potential_damage' in css ? css['potential_damage']['tag'].toFixed(5) : '-') + '</td>'+
-        '<td data-th="Ratio">' + ('potential_damage' in css ? css['potential_damage']['ratio'].toFixed(5) : '-') + '</td>'+
         '<td data-th="Tag">' + ('actual_damage' in css ? css['actual_damage']['tag'].toFixed(5) : '-') + '</td>'+
         '<td data-th="Ratio">' + ('actual_damage' in css ? css['actual_damage']['ratio'].toFixed(5) : '-') + '</td>'+
+        '<td data-th="Tag">' + ('potential_damage' in css ? css['potential_damage']['tag'].toFixed(5) : '-') + '</td>'+
+        '<td data-th="Ratio">' + ('potential_damage' in css ? css['potential_damage']['ratio'].toFixed(5) : '-') + '</td>'+
       '</tr>'+
       '<tr id="css-info-'+ idx +'" class="info collapse">'+
         '<td style="border-top-width: 0px;"></td>'+
@@ -720,10 +720,10 @@
       '<thead>'+
         '<tr>'+
           '<th colspan="3">Total</th>'+
-          '<th>'+ pdTag.toFixed(5) +'</th>'+
-          '<th>'+ pdRatio.toFixed(5) +'</th>'+
           '<th>'+ adTag.toFixed(5) +'</th>'+
           '<th>'+ adRatio.toFixed(5) +'</th>'+
+          '<th>'+ pdTag.toFixed(5) +'</th>'+
+          '<th>'+ pdRatio.toFixed(5) +'</th>'+
         '</tr>'+
         '<tr>'+
           '<th colspan="3">Weight</th>'+
@@ -731,8 +731,8 @@
         '</tr>'+
         '<tr>'+
           '<th colspan="3">Damage</th>'+
-          '<th colspan="2">'+ ((pdTag + pdRatio) * weight).toFixed(5) +'</th>'+
           '<th colspan="2">'+ ((adTag + adRatio) * weight).toFixed(5) +'</th>'+
+          '<th colspan="2">'+ ((pdTag + pdRatio) * weight).toFixed(5) +'</th>'+
         '</tr>'+
       '</thead>'
     ).appendTo(table);
