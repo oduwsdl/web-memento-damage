@@ -87,8 +87,9 @@ def do_calculation(uri, output_dir):
             page['background_color'] = json.loads(line)\
                                        ['background_color']
         if 'result' in line:
-            line = json.loads(line)
             try:
+                line = json.loads(line)
+
                 result = line['result']
                 result['error'] = False
                 result['is_archive'] = False
@@ -101,7 +102,7 @@ def do_calculation(uri, output_dir):
                 with open(damage_result_file, 'a+') as res:
                     res.write(','.join((uri, str(result['total_damage']))) +
                               '\n')
-            except KeyError:
+            except (ValueError, KeyError) as e:
                 pass
 
     # Crawl page with phantomjs crawl.js via arguments

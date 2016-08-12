@@ -193,28 +193,31 @@ class API(Blueprint):
             def log_output(out, page=None):
                 def write(line):
                     f.write(line + '\n')
-                    print(line)
+                    print('Debug: {}'.format(line))
 
                     if 'background_color' in line and page:
                         page['background_color'] = json.loads(line)\
                                                    ['background_color']
                     if 'result' in line:
-                        line = json.loads(line)
+                        try:
+                            line = json.loads(line)
 
-                        result = line['result']
-                        result['error'] = False
-                        result['is_archive'] = False
+                            result = line['result']
+                            result['error'] = False
+                            result['is_archive'] = False
 
-                        result = json.dumps(result)
+                            result = json.dumps(result)
 
-                        # Write result to db
-                        model.response_time = datetime.now()
-                        model.result = result
-                        database.session.add(model)
-                        database.session.commit()
+                            # Write result to db
+                            model.response_time = datetime.now()
+                            model.result = result
+                            database.session.add(model)
+                            database.session.commit()
 
-                        self.write(result)
-                        self.finish()
+                            self.write(result)
+                            self.finish()
+                        except (ValueError, KeyError) as e:
+                            pass
 
                 if out and hasattr(out, 'readline'):
                     for line in iter(out.readline, b''):
