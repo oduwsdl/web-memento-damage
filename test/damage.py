@@ -39,19 +39,19 @@ def do_calculation(uri, output_dir):
     )
 
     # Define arguments
-    screenshot_file = '{}.png'.format(os.path.join(
-        output_dir, 'screenshot', hashed_url))
-    html_file = '{}.html'.format(os.path.join(
-        output_dir, 'html', hashed_url))
-    log_file = '{}.log'.format(os.path.join(
-        output_dir, 'log', hashed_url))
-    images_log_file = '{}.img.log'.format(os.path.join(
-        output_dir, 'log', hashed_url))
-    csses_log_file = '{}.css.log'.format(os.path.join(
-        output_dir, 'log', hashed_url))
-    crawler_log_file = '{}.crawl.log'.format(os.path.join(
-        output_dir, 'log', hashed_url))
-    damage_result_file = '{}result.csv'.format(output_dir)
+    screenshot_file = os.path.join(output_dir, 'screenshot',
+                                   '{}.png'.format(hashed_url))
+    html_file = os.path.join(output_dir, 'html',
+                                   '{}.html'.format(hashed_url))
+    log_file = os.path.join(output_dir, 'log',
+                                   '{}.log'.format(hashed_url))
+    images_log_file = os.path.join(output_dir, 'log',
+                                   '{}.img.log'.format(hashed_url))
+    csses_log_file = os.path.join(output_dir, 'log',
+                                   '{}.css.log'.format(hashed_url))
+    crawler_log_file = os.path.join(output_dir, 'log',
+                                   '{}.crawl.log'.format(hashed_url))
+    damage_result_file = os.path.join(output_dir, 'result.csv')
 
     try:
         os.makedirs(os.path.join(output_dir, 'screenshot'))
@@ -139,6 +139,8 @@ if __name__ == "__main__":
 
     uri = sys.argv[1]
     output_dir = sys.argv[2]
+
+    output_dir = os.path.abspath(output_dir)
 
     if os.path.isfile(uri):
         with open(uri) as f:
