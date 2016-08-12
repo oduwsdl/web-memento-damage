@@ -84,8 +84,9 @@ def do_calculation(uri, output_dir):
         # print(line)
 
         if 'background_color' in line and page:
-            page['background_color'] = json.loads(line)\
-                                       ['background_color']
+            line = json.loads(line)
+            if line['background_color']:
+                page['background_color'] = line['background_color']
         if 'result' in line:
             try:
                 line = json.loads(line)
