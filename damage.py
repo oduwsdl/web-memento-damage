@@ -6,17 +6,27 @@ from ext.tools import Command
 
 basedir = os.path.abspath(os.path.dirname(os.path.abspath(__file__)))
 measure_memento_pl_script = os.path.join(basedir, 'measureMemento.pl')
+measure_memento_result_file = os.path.join(basedir, 'testing', 'result.csv')
 
-def log_output(out, write_fn):
+def log_output(out, uri, write_fn):
     if out and hasattr(out, 'readline'):
         for line in iter(out.readline, b''):
             line = line.strip()
-            write_fn(line)
+            write_fn(uri, line)
     else:
-        write_fn(out)
+        write_fn(uri, out)
 
-def write(line):
+def write(uri, line):
     print(line)
+
+    # Write result to file
+    if 'TOTAL, ' in line:
+        # Example: TOTAL, 0.153896757560811
+        results = line.split(',')
+        damage = float(results[1])
+
+        with open(measure_memento_result_file, 'a+') as res:
+            res.write(','.join((uri, str(damage))) + '\n')
 
 def do_calculation(uri, output_dir):
     print('=' * 75)
@@ -24,7 +34,7 @@ def do_calculation(uri, output_dir):
     print('=' * 75)
 
     cmd = Command(['perl', measure_memento_pl_script, uri], log_output)
-    err_code = cmd.run(10 * 60, args=(write, ))
+    err_code = cmd.run(10 * 60, args=(uri, write, ))
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
