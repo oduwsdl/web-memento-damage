@@ -371,6 +371,12 @@
           <li><a data-toggle="tab" href="#csses">
             <i class="tab-icon fa fa-circle-o-notch fa-spin"></i>&nbsp;Stylesheets</a>
           </li>
+          <li><a data-toggle="tab" href="#multimedias">
+            <i class="tab-icon fa fa-circle-o-notch fa-spin"></i>&nbsp;Multimedia</a>
+          </li>
+          <li><a data-toggle="tab" href="#text">
+            <i class="tab-icon fa fa-circle-o-notch fa-spin"></i>&nbsp;Text</a>
+          </li>
           <li><a data-toggle="tab" href="#screenshots">
             <i class="tab-icon fa fa-circle-o-notch fa-spin"></i>&nbsp;Screenshots</a>
           </li>
@@ -464,9 +470,6 @@
               </div>
             </h4>
             <div class="result"></div>
-            <!--<div class="notes alert alert-info" role="alert">
-              <div><strong>Techical Notes</strong></div>
-            </div>-->
           </div>
           <div class="tab-pane fade" id="csses">
             <h4 class="tab-title">List of Stylesheets
@@ -476,9 +479,19 @@
               </div>
             </h4>
             <div class="result"></div>
-            <!--<div class="notes alert alert-info" role="alert">
-              <div><strong>Techical Notes</strong></div>
-            </div>-->
+          </div>
+          <div class="tab-pane fade" id="multimedias">
+            <h4 class="tab-title">List of Multimedia
+              <div class="pull-right info">
+                <i class="fa fa-info-circle"></i>
+                Click on each item to see more detail
+              </div>
+            </h4>
+            <div class="result"></div>
+          </div>
+          <div class="tab-pane fade" id="text">
+            <h4 class="tab-title">Damage of Text Info</h4>
+            <div class="result"></div>
           </div>
           <div class="tab-pane fade" id="screenshots"></div>
           <div class="tab-pane fade" id="log">
@@ -535,25 +548,30 @@
 
     $(
       '<p>'+
-        '$$Potential Damage = Potential Damage of Images + Potential Damage of Stylesheets$$' +
+        '$$Potential Damage = Potential Damage(Images + Stylesheets + Multimedia + Text)$$' +
       '</p>'+
       '<p>'+
-        '$$Potential Damage = '+ result['potential_damage']['image'] + ' + '+ result['potential_damage']['css'] +' = '+ result['potential_damage']['total'] +'$$' +
+        '$$Potential Damage = '+ result['potential_damage']['image'] + ' + '+ result['potential_damage']['css'] +
+        ' + ' + result['potential_damage']['multimedia'] + ' + ' + result['potential_damage']['text'] +
+        ' = '+ result['potential_damage']['total'] +'$$' +
       '</p>' +
       '<p>'+
         '$$Potential Damage of Images = \\sum_{i=0}^n (centrality importance + size importance); n = all images$$' +
       '</p>' +
       '<p>'+
         'Detail of potential damage of images can be explored in tab <a href="#" class="img-ref">images</a>' +
-      '</p>'
-    ).appendTo(step2);
-
-    $(
+      '</p>' +
       '<p>'+
         '$$Potential Damage of Stylesheets = Tag importance + Ratio importance$$'+
       '</p>'+
       '<p>'+
         'Detail of potential damage of stylesheets can be explored in tab <a href="#" class="css-ref">stylesheets</a>'+
+      '</p>' +
+      '<p>'+
+        '$$Potential Damage of Multimedia = \\sum_{i=0}^n (centrality importance + size importance); n = all multimedia$$' +
+      '</p>' +
+      '<p>'+
+        'Detail of potential damage of multimedia can be explored in tab <a href="#" class="mlm-ref">multimedia</a>' +
       '</p>'
     ).appendTo(step2);
 
@@ -565,16 +583,27 @@
         '$$Actual Damage = Actual Damage of Images + Actual Damage of Stylesheets$$'+
       '</p>'+
       '<p>'+
-        '$$Actual Damage = '+ result['actual_damage']['image'] + ' + '+ result['actual_damage']['css'] +' = '+ result['actual_damage']['total'] +'$$'+
+        '$$Actual Damage = '+ result['actual_damage']['image'] + ' + '+ result['actual_damage']['css'] +
+        ' + ' + result['actual_damage']['multimedia'] + ' + ' + result['actual_damage']['text'] +
+        ' = '+ result['actual_damage']['total'] +'$$'+
       '</p>'+
       '<p>'+
         '$$Actual Damage of Images = \\sum_{i=0}^m (centrality importance + size importance); m = missing images$$'+
       '</p>'+
       '<p>'+
+        'Detail of actual damage of images can be explored in tab <a href="#" class="img-ref">images</a>' +
+      '</p>' +
+      '<p>'+
         '$$Actual Damage of Stylesheets = Tag importance + Ratio importance$$'+
       '</p>'+
       '<p>'+
         'Detail of actual damage of stylesheets can be explored in tab <a href="#" class="css-ref">stylesheets</a>'+
+      '</p>'+
+      '<p>'+
+        '$$Actual Damage of Multimedia = \\sum_{i=0}^n (centrality importance + size importance); n = all multimedia$$' +
+      '</p>' +
+      '<p>'+
+        'Detail of actual damage of multimedia can be explored in tab <a href="#" class="mlm-ref">multimedia</a>' +
       '</p>'
     ).appendTo(step3);
 
@@ -583,6 +612,9 @@
     });
     $('.css-ref').on('click', function() {
       $('.nav-tabs a[href="#csses"]').tab('show')
+    });
+    $('.mlm-ref').on('click', function() {
+      $('.nav-tabs a[href="#multimedias"]').tab('show')
     });
 
     MathJax.Hub.Queue(["Typeset",MathJax.Hub,"damage-detail"]);
@@ -738,6 +770,101 @@
     ).appendTo(table);
   }
 
+  function showMultimedias(multimedias, weight) {
+    var table = $('<table class="rwd-table">').appendTo('#multimedias .result');
+    $(
+      '<thead>'+
+        '<tr>'+
+          '<th colspan="2" rowspan="2">URI</th>'+
+          '<th rowspan="2">Status</th>'+
+          '<th colspan="2">Actual Damage</th>'+
+          '<th colspan="2">Potential Damage</th>'+
+        '</tr>'+
+        '<tr>'+
+          '<th>Location</th>'+
+          '<th>Size</th>'+
+          '<th>Location</th>'+
+          '<th>Size</th>'+
+        '</tr>'+
+      '</thead>'
+    ).appendTo(table);
+
+    tbody = '<tbody>';
+    pdLocation = pdSize = adLocation = adSize = 0;
+    multimedias.forEach(function(multimedia, idx) {
+      var rectangles = [];
+      multimedia['rectangles'].forEach(function(rect) {
+        rectangles.push('Left: ' + rect['left'] + ' px, Top: ' + rect['top'] +
+          ' px, Width: ' + rect['width'] + ' px, Height: ' + rect['height'] + ' px');
+      });
+
+      tbody += '<tr class="title" data-toggle="collapse" data-target="#multimedia-info-'+ idx +'">'+
+        '<td data-th="No">'+ (idx+1) +'</td>'+
+        '<td data-th="URI" style="text-align: left;">'+
+          '<span class="text" title="'+ multimedia['url'] +'">'+ multimedia['url'] +'</span>'+
+          '<span class="left-ellipsis">...</span>'+
+        '</td>'+
+        '<td data-th="Status">'+ ('status_code' in multimedia ? multimedia['status_code'] : '') +'</td>'+
+        '<td data-th="Location">' + ('actual_damage' in multimedia ? multimedia['actual_damage']['location'].toFixed(5) : '-') + '</td>'+
+        '<td data-th="Size">' + ('actual_damage' in multimedia ? multimedia['actual_damage']['size'].toFixed(5) : '-') + '</td>'+
+        '<td data-th="Location">' + ('potential_damage' in multimedia ? multimedia['potential_damage']['location'].toFixed(5) : '-') + '</td>'+
+        '<td data-th="Size">' + ('potential_damage' in multimedia ? multimedia['potential_damage']['size'].toFixed(5) : '-') + '</td>'+
+      '</tr>' +
+      '<tr id="multimedia-info-'+ idx +'" class="info collapse">'+
+        '<td style="border-top-width: 0px;"></td>'+
+        '<td colspan="15"><div>'+
+          '<div class="item"><div>Content-Type</div><div> : </div><div>'+ multimedia['content_type'] + '</div></div>' +
+          '<div class="item"><div>Coverage</div><div> : </div><div>'+ (multimedia['percentage_coverage']*100) + ' %' + '</div></div>' +
+          '<div class="item"><div>Rectangles</div><div> : </div><div>'+ rectangles.join('<br/>') +'</div></div>' +
+        '</div></td>'+
+      '</tr>';
+
+      pdLocation += ('potential_damage' in multimedia ? multimedia['potential_damage']['location'] : 0);
+      pdSize += ('potential_damage' in multimedia ? multimedia['potential_damage']['size'] : 0);
+      adLocation += ('actual_damage' in multimedia ? multimedia['actual_damage']['location'] : 0);
+      adSize += ('actual_damage' in multimedia ? multimedia['actual_damage']['size'] : 0);
+    });
+    tbody += '</tbody>';
+    $(tbody).appendTo(table);
+
+    $(
+      '<thead>'+
+        '<tr>'+
+          '<th colspan="3">Total</th>'+
+          '<th>'+ adLocation.toFixed(5) +'</th>'+
+          '<th>'+ adSize.toFixed(5) +'</th>'+
+          '<th>'+ pdLocation.toFixed(5) +'</th>'+
+          '<th>'+ pdSize.toFixed(5) +'</th>'+
+        '</tr>'+
+        '<tr>'+
+          '<th colspan="3">Weight</th>'+
+          '<th colspan="4">'+ weight.toFixed(5) +'</th>'+
+        '</tr>'+
+        '<tr>'+
+          '<th colspan="3">Damage</th>'+
+          '<th colspan="2">'+ ((adLocation + adSize) * weight).toFixed(5) +'</th>'+
+          '<th colspan="2">'+ ((pdLocation + pdSize) * weight).toFixed(5) +'</th>'+
+        '</tr>'+
+      '</thead>'
+    ).appendTo(table);
+  }
+
+  function showText(result) {
+    var table = $('<div class="info">').appendTo('#text .result');
+    $(
+      '<div class="item">' +
+        '<div>Num of Words</div><div>:</div><div>' + result['text']['num_words'] + '</div>' +
+      '</div><div class="item">' +
+        '<div>Num of Words per Image</div><div>:</div><div>' + result['text']['words_per_image'] + '</div>' +
+      '</div><div class="item">' +
+        '<div>Weight</div><div>:</div><div>' + result['weight']['text'] + '</div>' +
+      '</div><div class="item">' +
+        '<div>Damage</div><div>:</div><div>' + (result['text']['num_words'] /
+              result['text']['words_per_image'] * result['weight']['text']) + '</div>' +
+      '</div>'
+    ).appendTo(table);
+  }
+
   // If type is URI-M, hide tab mementos
   if('{{ type }}'.toUpperCase() != 'uri-r'.toUpperCase()) {
     $('.nav .uri-r').hide();
@@ -806,9 +933,15 @@
         else if(key == 'csses') {
           showStylesheets(val, result['weight']['css']);
         }
+        else if(key == 'multimedias') {
+          showMultimedias(val, result['weight']['multimedia']);
+        }
       }
 
-      setTimeout(fixTable, 2000)
+      // Show text =====================================================================
+      showText(result);
+
+      setTimeout(fixTable, 3000)
 
       // Show screenshot ===============================================================
       showScreenshot(uri);
@@ -817,6 +950,8 @@
       $('[href="#summary"] .tab-icon').attr('class', 'tab-icon fa fa-check-square-o');
       $('[href="#images"] .tab-icon').attr('class', 'tab-icon fa fa-check-square-o');
       $('[href="#csses"] .tab-icon').attr('class', 'tab-icon fa fa-check-square-o');
+      $('[href="#multimedias"] .tab-icon').attr('class', 'tab-icon fa fa-check-square-o');
+      $('[href="#text"] .tab-icon').attr('class', 'tab-icon fa fa-check-square-o');
       $('[href="#screenshots"] .tab-icon').attr('class', 'tab-icon fa fa-check-square-o');
       $('[href="#log"] .tab-icon').attr('class', 'tab-icon fa fa-check-square-o');
 
