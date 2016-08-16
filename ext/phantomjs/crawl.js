@@ -272,8 +272,6 @@ function processMultimedias(url, resourceBasename) {
         return allVideos;
     });
 
-    console.log('videos', JSON.stringify(videos));
-
     var viewport_size = page.evaluate(function () {
         return [document.body.clientWidth, document.body.clientHeight];
     });
@@ -300,8 +298,6 @@ function processMultimedias(url, resourceBasename) {
             }
         }
     }
-
-    console.log('networkVideos', JSON.stringify(networkVideos));
 
     // Save all resource images
     var networkVideosValues = []
