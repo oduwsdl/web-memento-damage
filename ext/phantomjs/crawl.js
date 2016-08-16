@@ -246,7 +246,7 @@ function processMultimedias(url, resourceBasename) {
             allVideos[docVideo['currentSrc']]['rectangles'] = []
         }
 
-        for(var i=0; i<documentImages.length; i++) {
+        for(var i=0; i<documentVideos.length; i++) {
             var docVideo = documentVideos[i];
 
             // Calculate top left position
@@ -270,7 +270,9 @@ function processMultimedias(url, resourceBasename) {
         }
 
         return allVideos;
-    }
+    });
+
+    console.log('videos', JSON.stringify(videos));
 
     var viewport_size = page.evaluate(function () {
         return [document.body.clientWidth, document.body.clientHeight];
@@ -298,6 +300,8 @@ function processMultimedias(url, resourceBasename) {
             }
         }
     }
+
+    console.log('networkVideos', JSON.stringify(networkVideos));
 
     // Save all resource images
     var networkVideosValues = []
