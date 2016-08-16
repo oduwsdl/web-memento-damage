@@ -4,6 +4,7 @@ Section 'Damage' =============================================================
 import math
 from PIL import Image
 from hashlib import md5
+import html2text
 
 
 def rgb2hex(r, g, b):
@@ -17,15 +18,16 @@ class SiteDamage:
     css_weight          = 0.05
     proportion          = 3.0/4.0
     image_weight        = proportion * (1-(multimedia_weight + css_weight))
-    text_weight         = 1 -(multimedia_weight + css_weight + image_weight)
+    text_weight         = 1.0 - (multimedia_weight + css_weight + image_weight)
     words_per_image     = 1000
 
     blacklisted_uris = [
         'https://analytics.archive.org/'
     ]
 
-    def __init__(self, logs, image_logs, css_logs, screenshot_file,
+    def __init__(self, text, logs, image_logs, css_logs, screenshot_file,
                  background_color = 'FFFFFF'):
+        self.text = text
         self.logs = logs
         self.image_logs = image_logs
         self.css_logs = css_logs
@@ -210,6 +212,7 @@ class SiteDamage:
         self.calculate_actual_damage()
 
     def calculate_potential_damage(self):
+        # Image
         total_images_damage = 0
         for idx, log in enumerate(self.image_logs):
             image_damage = self.calculate_image_damage(log)
@@ -232,6 +235,7 @@ class SiteDamage:
             print('Potential damage {} for {}'
                   .format(total_image_damage, log['url']))
 
+        # Css
         total_css_damage = 0
         for idx, log in enumerate(self.css_logs):
             tag_importance, ratio_importance, css_damage = \
@@ -248,13 +252,22 @@ class SiteDamage:
             }
             print('Potential damage {} for {}'.format(css_damage, log['url']))
 
+        # Text
+        words = self.text.split()
+        total_text_damage = float(len(words)) / self.words_per_image
+        print('Potential damage {} for {}'.format(total_text_damage, 'text'))
+
         # Based on measureMemento.pl line 555
         self.potential_image_damage = total_images_damage * self.image_weight
         self.potential_css_damage = total_css_damage * self.css_weight
+        self.potential_damage_text = total_text_damage * self.text_weight
+
         self.potential_damage = self.potential_image_damage + \
-                                self.potential_css_damage
+                                self.potential_css_damage + \
+                                self.potential_damage_text
 
     def calculate_actual_damage(self):
+        # Images
         total_images_damage = 0
         for idx, log in enumerate(self.image_logs):
             if log['status_code'] > 399:
@@ -278,6 +291,7 @@ class SiteDamage:
                 print('Actual damage {} for {}'
                       .format(total_image_damage, log['url']))
 
+        # Css
         total_css_damage = 0
         for idx, log in enumerate(self.css_logs):
             tag_importance, ratio_importance, css_damage = \
@@ -293,11 +307,15 @@ class SiteDamage:
             }
             print('Actual damage {} for {}'.format(css_damage, log['url']))
 
+        # Text
+        total_text_damage = 0
+        self.actual_damage_text = total_text_damage * self.text_weight
+
         # Based on measureMemento.pl line 555
         self.actual_image_damage = total_images_damage * self.image_weight
         self.actual_css_damage = total_css_damage * self.css_weight
         self.actual_damage = self.actual_image_damage + \
-                             self.actual_css_damage
+                             self.actual_css_damage + self.actual_damage_text
 
     def calculate_image_damage(self, log, size_weight=0.5,
                                centrality_weight=0.5):
@@ -461,6 +479,9 @@ if __name__ == "__main__":
 
         hashed_url = md5(uri).hexdigest()
 
+        # Resolve file path
+        html_file = os.path.join(output_dir, 'html',
+                                 '{}.html'.format(hashed_url))
         log_file = os.path.join(output_dir, 'log', '{}.log'.format(hashed_url))
         image_logs_file = os.path.join(output_dir, 'log',
                                        '{}.img.log'.format(hashed_url))
@@ -470,6 +491,7 @@ if __name__ == "__main__":
                                        '{}.png'.format(hashed_url))
 
         # Read log contents
+        text = html2text.html2text(html_file)
         logs = [json.loads(log) for log in
                       open(log_file).readlines()]
         image_logs = [json.loads(log) for log in
@@ -478,14 +500,9 @@ if __name__ == "__main__":
                     open(css_logs_file).readlines()]
 
         # Calculate site damage
-        damage = SiteDamage(logs, image_logs, css_logs, screenshot_file,
+        damage = SiteDamage(text, logs, image_logs, css_logs, screenshot_file,
                             background_color)
         damage.calculate_all()
-        print('Potential Damage : {}'.format(damage.potential_damage))
-        print('Actual Damage : {}'.format(damage.actual_damage))
-        print('Total Damage : {}'.format(
-            damage.actual_damage/damage.potential_damage if
-            damage.potential_damage != 0 else 0))
 
         result = {}
         result['uri'] = uri
@@ -501,14 +518,19 @@ if __name__ == "__main__":
             'total' : damage.potential_damage,
             'image' : damage.potential_image_damage,
             'css'   : damage.potential_css_damage,
+            'text'  : damage.potential_damage_text,
         }
         result['actual_damage'] = {
             'total' : damage.actual_damage,
             'image' : damage.actual_image_damage,
             'css'   : damage.actual_css_damage,
+            'text'  : damage.actual_damage_text,
         }
         result['total_damage'] = \
             damage.actual_damage/damage.potential_damage \
             if damage.potential_damage != 0 else 0
 
+        print('Potential Damage : {}'.format(result['potential_damage']['total']))
+        print('Actual Damage : {}'.format(result['actual_damage']['total']))
+        print('Total Damage : {}'.format(result['total_damage']))
         print(json.dumps({'result' : result}))

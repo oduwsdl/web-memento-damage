@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/../../justin_revision/.idea/justin_revision.iml" filepath="$PROJECT_DIR$/../../justin_revision/.idea/justin_revision.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/memento-pedia-tornado.iml" filepath="$PROJECT_DIR$/.idea/memento-pedia-tornado.iml" />
     </modules>
   </component>
