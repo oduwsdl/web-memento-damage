@@ -39,12 +39,8 @@ class SiteDamage:
         self.filter_blacklisted_uris()
         self.resolve_redirection()
 
-        pct_cov = self.get_percentage_coverage()
-        #print('Percentage COverage = {}'.format(pct_cov))
-
+        self.calculate_percentage_coverage()
         self.find_missings()
-        #print('Missing images = {}'.format(self.missing_imgs_log))
-        #print('Missing csses = {}'.format(self.missing_csses_log))
 
     def filter_blacklisted_uris(self):
         # Filter images log
@@ -174,8 +170,7 @@ class SiteDamage:
 
                 self.follow_redirection(redirect_uri, logs, redirect_uris)
 
-    def get_percentage_coverage(self):
-        pct_images_coverage = 0.0
+    def calculate_percentage_coverage(self):
         for idx, log in enumerate(self.image_logs):
             viewport_w, vieport_h = log['viewport_size']
             image_coverage  = 0
@@ -188,15 +183,28 @@ class SiteDamage:
                                  float(viewport_w * vieport_h)
             self.image_logs[idx]['percentage_coverage'] = pct_image_coverage
 
-            pct_images_coverage += pct_image_coverage
+        for idx, log in enumerate(self.mlm_logs):
+            viewport_w, vieport_h = log['viewport_size']
+            mlm_coverage  = 0
+            for rect in log['rectangles']:
+                w = rect['width']
+                h = rect['height']
+                mlm_coverage += (w * h)
 
-        return pct_images_coverage
+            pct_mlm_coverage = float(mlm_coverage) / \
+                                 float(viewport_w * vieport_h)
+            self.mlm_logs[idx]['percentage_coverage'] = pct_mlm_coverage
 
     def find_missings(self):
         self.missing_imgs_log = []
         for log in self.image_logs:
             if log['status_code'] > 399:
                 self.missing_imgs_log.append(log)
+
+        self.missing_mlms_log = []
+        for log in self.mlm_logs:
+            if log['status_code'] > 399:
+                self.missing_mlms_log.append(log)
 
         # self.missing_csses_log = []
         # for log in self.csses_log:
