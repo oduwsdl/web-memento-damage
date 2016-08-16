@@ -32,6 +32,7 @@ class SiteDamage:
         self.image_logs = image_logs
         self.css_logs = css_logs
         self.mlm_logs = mlm_logs
+        self.text_logs = {}
         self.screenshot_file = os.path.abspath(screenshot_file)
         self.background_color = background_color
 
@@ -285,8 +286,12 @@ class SiteDamage:
                   .format(total_mlm_damage, log['url']))
 
         # Text
-        words = self.text.split()
-        total_text_damage = float(len(words)) / self.words_per_image
+        num_words_of_text = len(self.text.split())
+        total_text_damage = float(num_words_of_text) / self.words_per_image
+
+        self.text_logs['num_words'] = num_words_of_text
+        self.text_logs['words_per_image'] = self.words_per_image
+
         print('Potential damage {} for {}'.format(total_text_damage, 'text'))
 
         # Based on measureMemento.pl line 555
@@ -582,6 +587,7 @@ if __name__ == "__main__":
         result['images'] = damage.image_logs
         result['csses'] = damage.css_logs
         result['multimedias'] = damage.mlm_logs
+        result['text'] = damage.text_logs
         result['potential_damage'] = {
             'total' : damage.potential_damage,
             'image' : damage.potential_image_damage,
