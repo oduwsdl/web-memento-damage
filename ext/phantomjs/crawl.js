@@ -146,6 +146,7 @@ function processPage(url, screenshotFile, htmlFile, resourceFile) {
     resourceBasename = resourceBasename.replace('.log', '');
 
     processImages(url, resourceBasename);
+    processMultimedias(url, resourceBasename);
     processCsses(url, resourceBasename);
 }
 
@@ -217,12 +218,6 @@ function processImages(url, resourceBasename) {
         }
     }
 
-    // Resolve redirection
-    // for(url in networkImages) {
-    //     finalURI = getFinalUri(url, networkResources);
-    //     networkImages[finalURI] = _.extend(networkImages[finalURI], networkImages[url]);
-    // }
-
     // Save all resource images
     var networkImagesValues = []
     var networkImagesKeys = Object.keys(networkImages);
@@ -236,24 +231,86 @@ function processImages(url, resourceBasename) {
     console.log('Network resource images is saved in ' + resourceImageFile)
 }
 
-// function getFinalUri(uri, networkResources) {
-//     allURIs = Object.keys(networkResources)
-//     if(networkResources[uri]['status_code'] == 302) {
-//         redirectURI = networkResources[uri]['headers']['Location'];
-//         allURIs.forEach(function(rURI, idx) {
-//             if(rURI.endsWith(redirectURI)) {
-//                 redirectURI = rURI;
-//             }
-//         })
-//
-//         return getFinalUri(redirectURI, networkResources);
-//     }
-//     else if(networkResources[uri]['status_code'] == 200) {
-//         return uri;
-//     }
-//
-//     return uri;
-// }
+function processMultimedias(url, resourceBasename) {
+    var hashedUrl = md5(url);
+
+    // Get videos using document.getElementsByTagName("video")
+    // document.getElementsByTagName("video") also can be execute in browser console
+    var videos = page.evaluate(function () {
+        var documentVideos =  document.getElementsByTagName("video");
+        var allVideos = {};
+
+        for(var i=0; i<documentVideos.length; i++) {
+            var docVideo = documentVideos[i];
+            allVideos[docVideo['currentSrc']] = {};
+            allVideos[docVideo['currentSrc']]['rectangles'] = []
+        }
+
+        for(var i=0; i<documentImages.length; i++) {
+            var docVideo = documentVideos[i];
+
+            // Calculate top left position
+            var obj = docVideo;
+            var curleft = 0, curtop = 0;
+            if (obj.offsetParent) {
+                do {
+                    curleft += obj.offsetLeft;
+                    curtop += obj.offsetTop;
+                } while (obj = obj.offsetParent);
+            }
+
+            rectangle = {
+                'width' : docVideo['clientWidth'],
+                'height' : docVideo['clientHeight'],
+                'top' : curtop,
+                'left' : curleft,
+            }
+
+            allVideos[docVideo['currentSrc']]['rectangles'].push(rectangle);
+        }
+
+        return allVideos;
+    }
+
+    var viewport_size = page.evaluate(function () {
+        return [document.body.clientWidth, document.body.clientHeight];
+    });
+
+    // Check images url == resource url, append position if same
+    var networkVideos = {};
+    var docVideoUrls = Object.keys(videos);
+    for(url in networkResources) {
+        if(networkResources[url]['content_type']) {
+            if(networkResources[url]['content_type'].indexOf('video/') == 0) {
+                networkVideos[url] = networkResources[url];
+                docVideoUrls.forEach(function(dvUrl, idx) {
+                    if(url.indexOf(dvUrl) >= 0) {
+                        networkVideos[url] = _.extend(networkVideos[url], videos[dvUrl]);
+                    }
+                });
+
+                if(! ('rectangles' in networkVideos[url])) {
+                    networkVideos[url]['rectangles'] = []
+                }
+
+                networkVideos[url]['url'] = url;
+                networkVideos[url]['viewport_size'] = viewport_size;
+            }
+        }
+    }
+
+    // Save all resource images
+    var networkVideosValues = []
+    var networkVideosKeys = Object.keys(networkVideos);
+    for(r=0; r<networkVideosKeys.length; r++) {
+        var value = networkVideos[networkVideosKeys[r]];
+        networkVideosValues.push(JSON.stringify(value));
+    }
+
+    var resourceVideoFile = resourceBasename + '.vid.log'
+    fs.write(resourceVideoFile, networkVideosValues.join('\n'), "w");
+    console.log('Network resource videos is saved in ' + resourceVideoFile)
+}
 
 function processCsses(url, resourceBasename) {
     var hashedUrl = md5(url);
