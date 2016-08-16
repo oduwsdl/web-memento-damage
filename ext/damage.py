@@ -1,6 +1,7 @@
 '''
 Section 'Damage' =============================================================
 '''
+import io
 import math
 from PIL import Image
 from hashlib import md5
@@ -561,7 +562,13 @@ if __name__ == "__main__":
                                        '{}.png'.format(hashed_url))
 
         # Read log contents
-        text = html2text.html2text(html_file)
+        h = html2text.HTML2Text()
+        h.ignore_links = True
+        text = h.handle(u' '.join([
+            line.strip() for line in io.open(html_file, "r",
+                                    encoding="utf-8").readlines()
+        ]))
+
         logs = [json.loads(log) for log in
                       open(log_file).readlines()]
         image_logs = [json.loads(log) for log in
