@@ -25,12 +25,13 @@ class SiteDamage:
         'https://analytics.archive.org/'
     ]
 
-    def __init__(self, text, logs, image_logs, css_logs, screenshot_file,
-                 background_color = 'FFFFFF'):
+    def __init__(self, text, logs, image_logs, css_logs, mlm_logs,
+                 screenshot_file, background_color = 'FFFFFF'):
         self.text = text
         self.logs = logs
         self.image_logs = image_logs
         self.css_logs = css_logs
+        self.mlm_logs = mlm_logs
         self.screenshot_file = os.path.abspath(screenshot_file)
         self.background_color = background_color
 
@@ -252,6 +253,29 @@ class SiteDamage:
             }
             print('Potential damage {} for {}'.format(css_damage, log['url']))
 
+        # Multimedia
+        total_mlms_damage = 0
+        for idx, log in enumerate(self.mlm_logs):
+            css_damage = self.calculate_image_damage(log)
+            # Based on measureMemento.pl line 463
+            total_location_importance = 0
+            total_size_importance = 0
+            total_mlm_damage = 0
+            for location_importance, size_importance, damage in css_damage:
+                total_location_importance += location_importance
+                total_size_importance += size_importance
+                total_mlm_damage += damage
+
+            total_mlms_damage += total_mlm_damage
+
+            self.multimedia_logs[idx]['potential_damage'] = {
+                'location' : total_location_importance,
+                'size' : total_size_importance,
+                'total' : total_mlm_damage
+            }
+            print('Potential damage {} for {}'
+                  .format(total_mlm_damage, log['url']))
+
         # Text
         words = self.text.split()
         total_text_damage = float(len(words)) / self.words_per_image
@@ -260,10 +284,13 @@ class SiteDamage:
         # Based on measureMemento.pl line 555
         self.potential_image_damage = total_images_damage * self.image_weight
         self.potential_css_damage = total_css_damage * self.css_weight
+        self.potential_multimedia_damage = total_mlms_damage * \
+                                           self.multimedia_weight
         self.potential_damage_text = total_text_damage * self.text_weight
 
         self.potential_damage = self.potential_image_damage + \
                                 self.potential_css_damage + \
+                                self.potential_multimedia_damage + \
                                 self.potential_damage_text
 
     def calculate_actual_damage(self):
@@ -307,6 +334,30 @@ class SiteDamage:
             }
             print('Actual damage {} for {}'.format(css_damage, log['url']))
 
+        # Multimedia
+        total_mlms_damage = 0
+        for idx, log in enumerate(self.mlm_logs):
+            if log['status_code'] > 399:
+                mlm_damage = self.calculate_image_damage(log)
+                # Based on measureMemento.pl line 463
+                total_location_importance = 0
+                total_size_importance = 0
+                total_mlm_damage = 0
+                for location_importance, size_importance, damage in mlm_damage:
+                    total_location_importance += location_importance
+                    total_size_importance += size_importance
+                    total_mlm_damage += damage
+
+                total_mlms_damage += total_mlm_damage
+
+                self.image_logs[idx]['actual_damage'] = {
+                    'location' : total_location_importance,
+                    'size' : total_size_importance,
+                    'total' : total_mlm_damage
+                }
+                print('Actual damage {} for {}'
+                      .format(total_mlm_damage, log['url']))
+
         # Text
         total_text_damage = 0
         self.actual_damage_text = total_text_damage * self.text_weight
@@ -314,8 +365,12 @@ class SiteDamage:
         # Based on measureMemento.pl line 555
         self.actual_image_damage = total_images_damage * self.image_weight
         self.actual_css_damage = total_css_damage * self.css_weight
+        self.actual_multimedia_damage = total_mlms_damage * \
+                                           self.multimedia_weight
         self.actual_damage = self.actual_image_damage + \
-                             self.actual_css_damage + self.actual_damage_text
+                             self.actual_css_damage + \
+                             self.actual_multimedia_damage + \
+                             self.actual_damage_text
 
     def calculate_image_damage(self, log, size_weight=0.5,
                                centrality_weight=0.5):
@@ -487,6 +542,8 @@ if __name__ == "__main__":
                                        '{}.img.log'.format(hashed_url))
         css_logs_file = os.path.join(output_dir, 'log',
                                      '{}.css.log'.format(hashed_url))
+        mlm_logs_file = os.path.join(output_dir, 'log',
+                                     '{}.vid.log'.format(hashed_url))
         screenshot_file = os.path.join(output_dir, 'screenshot',
                                        '{}.png'.format(hashed_url))
 
@@ -498,10 +555,12 @@ if __name__ == "__main__":
                       open(image_logs_file).readlines()]
         css_logs = [json.loads(log) for log in
                     open(css_logs_file).readlines()]
+        mlm_logs = [json.loads(log) for log in
+                    open(mlm_logs_file).readlines()]
 
         # Calculate site damage
-        damage = SiteDamage(text, logs, image_logs, css_logs, screenshot_file,
-                            background_color)
+        damage = SiteDamage(text, logs, image_logs, css_logs, mlm_logs,
+                            screenshot_file, background_color)
         damage.calculate_all()
 
         result = {}
@@ -514,16 +573,19 @@ if __name__ == "__main__":
         }
         result['images'] = damage.image_logs
         result['csses'] = damage.css_logs
+        result['multimedias'] = damage.mlm_logs
         result['potential_damage'] = {
             'total' : damage.potential_damage,
             'image' : damage.potential_image_damage,
             'css'   : damage.potential_css_damage,
+            'multimedia' : damage.potential_multimedia_damage,
             'text'  : damage.potential_damage_text,
         }
         result['actual_damage'] = {
             'total' : damage.actual_damage,
             'image' : damage.actual_image_damage,
             'css'   : damage.actual_css_damage,
+            'multimedia' : damage.actual_multimedia_damage,
             'text'  : damage.actual_damage_text,
         }
         result['total_damage'] = \
