@@ -23,6 +23,7 @@ class API(Blueprint):
     def __init__(self, *args, **settings):
         Blueprint.__init__(self, url_prefix='/api', *args, **settings)
 
+        self.cache_dir = self.application.settings.get('cache_dir')
         self.screenshot_dir = os.path.join(
             self.application.settings.get('cache_dir'), 'screenshot')
         self.log_dir = os.path.join(
@@ -253,15 +254,16 @@ class API(Blueprint):
             err_code = cmd.run(10 * 60, args=(page, ))
 
             if err_code == 0:
-                # Calculate damage with damage-old.py via arguments
-                # Equivalent with console:
-                #   python damage-old.py <img_log> <css_log> <screenshot_log> <bg>
                 python = sys.executable
 
-                cmd = Command([python, damage_py_script, log_file,
-                               images_log_file, csses_log_file, screenshot_file,
+                # Calculate damage with damage-old.py via arguments
+                # Equivalent with console:
+                #   python damage.py <uri> <cache_dir> <bg>
+                cmd = Command([python, damage_py_script, uri,
+                               self.blueprint.cache_dir,
                                page['background_color']],
                               log_output)
+
                 err_code = cmd.run(10 * 60)
                 if err_code != 0:
                     result_error()

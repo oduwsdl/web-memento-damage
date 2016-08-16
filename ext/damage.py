@@ -3,6 +3,7 @@ Section 'Damage' =============================================================
 '''
 import math
 from PIL import Image
+from hashlib import md5
 
 
 def rgb2hex(r, g, b):
@@ -448,18 +449,25 @@ if __name__ == "__main__":
     import json
 
     if len(sys.argv) > 0:
-        if len(sys.argv) < 5:
+        if len(sys.argv) < 3:
             print('Usage :')
-            print('python damage.py <logs_file> <image_logs_file> '\
-                  '<css_logs_file> <screenshot_file> <background_color>')
+            print('python damage.py <uri> <cache_dir> <background_color>')
             exit()
 
         # Read arguments
-        log_file = sys.argv[1]
-        image_logs_file = sys.argv[2]
-        css_logs_file = sys.argv[3]
-        screenshot_file = sys.argv[4]
-        background_color = sys.argv[5] if len(sys.argv) >= 5 else 'FFFFFF'
+        uri = sys.argv[1]
+        output_dir = sys.argv[2]
+        background_color = sys.argv[3] if len(sys.argv) >= 3 else 'FFFFFF'
+
+        hashed_url = md5(uri).hexdigest()
+
+        log_file = os.path.join(output_dir, 'log', '{}.log'.format(hashed_url))
+        image_logs_file = os.path.join(output_dir, 'log',
+                                       '{}.img.log'.format(hashed_url))
+        css_logs_file = os.path.join(output_dir, 'log',
+                                     '{}.css.log'.format(hashed_url))
+        screenshot_file = os.path.join(output_dir, 'screenshot',
+                                       '{}.png'.format(hashed_url))
 
         # Read log contents
         logs = [json.loads(log) for log in
@@ -480,6 +488,7 @@ if __name__ == "__main__":
             damage.potential_damage != 0 else 0))
 
         result = {}
+        result['uri'] = uri
         result['weight'] = {
             'multimedia' : damage.multimedia_weight,
             'css' : damage.css_weight,
