@@ -249,8 +249,7 @@ class API(Blueprint):
             # Equivalent with console:
             #   phantomjs crawl.js <screenshot> <html> <log>
             cmd = Command(['phantomjs', '--ssl-protocol=any', crawljs_script,
-                           uri, screenshot_file, html_file, log_file],
-                          log_output)
+                           uri, self.blueprint.cache_dir], log_output)
             err_code = cmd.run(10 * 60, args=(page, ))
 
             if err_code == 0:

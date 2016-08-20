@@ -27,14 +27,14 @@ class SiteDamage:
     ]
 
     def __init__(self, text, logs, image_logs, css_logs, mlm_logs,
-                 screenshot_file, background_color = 'FFFFFF'):
+                 screenshot_dir, background_color ='FFFFFF'):
         self.text = text
         self.logs = logs
         self.image_logs = image_logs
         self.css_logs = css_logs
         self.mlm_logs = mlm_logs
         self.text_logs = {}
-        self.screenshot_file = os.path.abspath(screenshot_file)
+        self.screenshot_dir = os.path.abspath(screenshot_dir)
         self.background_color = background_color
 
         # Filter blacklisted uris
@@ -160,7 +160,7 @@ class SiteDamage:
     def follow_redirection(self, uri, logs, redirect_uris):
         if uri in logs:
             redirect_uris.append((uri, logs[uri]['status_code']
-                if 'status_code' in logs[uri] else ''))
+                if 'status_code' in logs[uri] else None))
 
             if 'status_code' in logs[uri] and logs[uri]['status_code'] == 302:
                 redirect_uri = logs[uri]['headers']['Location']
@@ -171,6 +171,8 @@ class SiteDamage:
                         break
 
                 self.follow_redirection(redirect_uri, logs, redirect_uris)
+        elif uri:
+            redirect_uris.append((uri, None))
 
     def calculate_percentage_coverage(self):
         for idx, log in enumerate(self.image_logs):
@@ -375,6 +377,7 @@ class SiteDamage:
         # Text
         total_text_damage = 0
         self.actual_damage_text = total_text_damage * self.text_weight
+        print('Actual damage {} for {}'.format(self.actual_damage_text, 'text'))
 
         # Based on measureMemento.pl line 555
         self.actual_image_damage = total_images_damage * self.image_weight
@@ -448,8 +451,7 @@ class SiteDamage:
         ratio_importance = 0.0
         total_importance = 0.0
 
-        if is_potential or (not is_potential and
-                            'status_code' in log and log['status_code'] > 399):
+        if True:
             # Based on measureMemento.pl line 771
             if rules_importance > 0:
                 tag_importance = tag_weight
@@ -458,7 +460,9 @@ class SiteDamage:
             if not is_potential:
                 # Code below is a subtitution for Justin's whitespace.pl
                 # Open screenshot file
-                im = Image.open(self.screenshot_file)
+                screenshot_file = os.path.join(self.screenshot_dir,
+                                               '{}.png'.format(log['hash']))
+                im = Image.open(screenshot_file)
                 # Get all pixels
                 pix = im.load()
 
@@ -558,8 +562,7 @@ if __name__ == "__main__":
                                      '{}.css.log'.format(hashed_url))
         mlm_logs_file = os.path.join(output_dir, 'log',
                                      '{}.vid.log'.format(hashed_url))
-        screenshot_file = os.path.join(output_dir, 'screenshot',
-                                       '{}.png'.format(hashed_url))
+        screenshot_dir = os.path.join(output_dir, 'screenshot', hashed_url)
 
         # Read log contents
         h = html2text.HTML2Text()
@@ -580,7 +583,7 @@ if __name__ == "__main__":
 
         # Calculate site damage
         damage = SiteDamage(text, logs, image_logs, css_logs, mlm_logs,
-                            screenshot_file, background_color)
+                            screenshot_dir, background_color)
         damage.calculate_all()
 
         result = {}

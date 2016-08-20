@@ -81,7 +81,7 @@ def do_calculation(uri, output_dir):
 
         # [Verbose]
         # If you want verbose stdout, uncomment the line below
-        # print(line)
+        print(line)
 
         if 'background_color' in line and page:
             line = json.loads(line)
