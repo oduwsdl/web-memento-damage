@@ -29,8 +29,8 @@ phantom.injectJs('mimetype.js')
 var starttime = Date.now()
 
 // If number of arguments after crawl.js is not 2, show message and exit phantomjs
-if (system.args.length < 5) {
-    console.log('Usage: phantomjs crawl.js <URI> <screenshot_file> <html_file> <log_file>');
+if (system.args.length < 3) {
+    console.log('Usage: phantomjs crawl.js <URI> <output_dir>');
     phantom.exit(1);
 }
 
@@ -38,9 +38,7 @@ if (system.args.length < 5) {
 else {
     // use 1st param after crawl.js as URL input and 2nd param as output
     url = system.args[1];
-    screenshotFile = system.args[2];
-    htmlFile = system.args[3];
-    logFile = system.args[4];
+    outputDir = system.args[2];
 
     // Set timeout on fetching resources to 30 seconds (can be changed)
     page.settings.resourceTimeout = 30000;
@@ -95,7 +93,7 @@ else {
             // Use setTimeout to delay process
             // Timeout in ms, means 200 ms
             window.setTimeout(function () {
-                processPage(url, screenshotFile, htmlFile, logFile);
+                processPage(url, outputDir);
 
                 // Set finished time
                 var finishtime = Date.now()
@@ -115,20 +113,18 @@ else {
 
 }
 
-function processPage(url, screenshotFile, htmlFile, resourceFile) {
-    var hashedUrl = md5(url);
+function processPage(url, outputDir) {
+    processNetworkResources(url, outputDir);
+    processHtml(url, outputDir);
+    processScreenshots(url, outputDir);
+    processImages(url, outputDir);
+    processMultimedias(url, outputDir);
+    processCsses(url, outputDir);
+}
 
-    // Save screenshot
-    page.render(screenshotFile);
-    console.log('Screenshot is saved in ' + screenshotFile)
-
-    // Save html using fs.write
-    // DOM selection or modification always be done inside page.evaluate
-    var html = page.evaluate(function() {
-        return document.body.parentElement.outerHTML;
-    });
-    fs.write(htmlFile, html, "w");
-    console.log('HTML source of page is saved in ' + htmlFile)
+function processNetworkResources(url, outputDir) {
+    hashedUrl = md5(url);
+    resourceFile = outputDir + '/log/' + hashedUrl + '.log';
 
     // Save all resources
     // networkResources are sometimes duplicated
@@ -142,18 +138,64 @@ function processPage(url, screenshotFile, htmlFile, resourceFile) {
 
     fs.write(resourceFile, networkResourcesValues.join('\n'), "w");
     console.log('Network resources is saved in ' + resourceFile)
-
-    // Split dir and filename
-    var resourceBasename = resourceFile.replace('/.*//', '' ); //path.basename(resourceFile, '.log')
-    resourceBasename = resourceBasename.replace('.log', '');
-
-    processImages(url, resourceBasename);
-    processMultimedias(url, resourceBasename);
-    processCsses(url, resourceBasename);
 }
 
-function processImages(url, resourceBasename) {
+function processHtml(url, outputDir) {
+    hashedUrl = md5(url);
+    htmlFile = outputDir + '/html/' + hashedUrl + '.html';
+
+    // Save html using fs.write
+    // DOM selection or modification always be done inside page.evaluate
+    var html = page.evaluate(function() {
+        return document.body.parentElement.outerHTML;
+    });
+    fs.write(htmlFile, html, "w");
+    console.log('HTML source of page is saved in ' + htmlFile)
+}
+
+function processScreenshots(url, outputDir) {
+    hashedUrl = md5(url);
+    screenshotDir = outputDir + '/screenshot/' + hashedUrl;
+    screenshotFile = screenshotDir + '.png';
+
+    // Save screenshot
+    page.render(screenshotFile);
+    console.log('Screenshot is saved in ' + screenshotFile)
+
+    // Save screenshot for each css lost (simmulation)
+    var outerHTMLCsses = page.evaluate(function() {
+        outerHTMLCsses = [];
+        docCsses = $('style, link[rel="stylesheet"]');
+        for(var c=0; c<docCsses.length; c++) {
+            outerHTMLCsses.push(docCsses[c].outerHTML);
+        }
+
+        return outerHTMLCsses;
+    });
+
+    outerHTMLCsses.forEach(function(outerHTMLCss, idx) {
+        hashedCss = md5(outerHTMLCss);
+        screenshotFile = screenshotDir + '/' + hashedCss + '.png';
+
+        // Remove css
+        page.evaluate(function(idx) {
+            $('style, link[rel="stylesheet"]')[idx].remove();
+        }, idx);
+
+        // Save screenshot
+        page.render(screenshotFile);
+        console.log('Screenshot is saved in ' + screenshotFile);
+
+        // Put css back
+        page.evaluate(function(outerHTMLCss) {
+            $(outerHTMLCss).appendTo($('head'));
+        }, outerHTMLCss);
+    });
+}
+
+function processImages(url, outputDir) {
     var hashedUrl = md5(url);
+    resourceImageFile = outputDir + '/log/' + hashedUrl + '.img.log';
 
     // Get images using document.images
     // document.images also can be execute in browser console
@@ -228,13 +270,13 @@ function processImages(url, resourceBasename) {
         networkImagesValues.push(JSON.stringify(value));
     }
 
-    var resourceImageFile = resourceBasename + '.img.log'
     fs.write(resourceImageFile, networkImagesValues.join('\n'), "w");
     console.log('Network resource images is saved in ' + resourceImageFile)
 }
 
-function processMultimedias(url, resourceBasename) {
+function processMultimedias(url, outputDir) {
     var hashedUrl = md5(url);
+    resourceVideoFile = outputDir + '/log/' + hashedUrl + '.vid.log';
 
     // Get videos using document.getElementsByTagName("video")
     // document.getElementsByTagName("video") also can be execute in browser console
@@ -309,13 +351,13 @@ function processMultimedias(url, resourceBasename) {
         networkVideosValues.push(JSON.stringify(value));
     }
 
-    var resourceVideoFile = resourceBasename + '.vid.log'
     fs.write(resourceVideoFile, networkVideosValues.join('\n'), "w");
     console.log('Network resource videos is saved in ' + resourceVideoFile)
 }
 
 function processCsses(url, resourceBasename) {
     var hashedUrl = md5(url);
+    resourceCssFile = outputDir + '/log/' + hashedUrl + '.css.log';
 
     var csses = page.evaluate(function () {
         // Get all stylesheets. This command also can be run in browser console document.styleSheets
@@ -338,6 +380,7 @@ function processCsses(url, resourceBasename) {
             var jsonCss = {
                 'url' : docCss['href'] || '[INTERNAL]',
                 'rules_tag' : rules_tag,
+                'hash' : docCss.ownerNode.outerHTML,
             };
 
             allCsses.push(jsonCss);
@@ -351,6 +394,8 @@ function processCsses(url, resourceBasename) {
     var networkResourcesKeys = Object.keys(networkResources);
     for(var i=0; i<csses.length; i++) {
         var css = csses[i];
+
+        if('hash' in css) css['hash'] = md5(css['hash']);
 
         idx = _.indexOf(networkResourcesKeys, css['url']);
         if(idx >= 0) {
@@ -372,8 +417,6 @@ function processCsses(url, resourceBasename) {
 
     // Save all resource csses
     // var resourceCssFile = path.join(resourceDir, resourceBasename + '.css.log');
-    var resourceCssFile = resourceBasename + '.css.log'
-
     networkCssValues = []
     for(r=0; r<networkCsses.length; r++) {
         networkCssValues.push(JSON.stringify(networkCsses[r]));
