@@ -16,6 +16,8 @@ var fs = require('fs');
 var page = require('webpage').create();
 var networkResources = {}
 
+// Import md5 from JQuery to easy select
+phantom.injectJs('jquery-3.1.0.min.js')
 // Import md5 from CryptoJS to hash URI
 phantom.injectJs('md5.js')
 // Import underscore.js to make array unique
