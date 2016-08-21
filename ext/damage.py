@@ -280,7 +280,7 @@ class SiteDamage:
 
             total_mlms_damage += total_mlm_damage
 
-            self.multimedia_logs[idx]['potential_damage'] = {
+            self.mlm_logs[idx]['potential_damage'] = {
                 'location' : total_location_importance,
                 'size' : total_size_importance,
                 'total' : total_mlm_damage
@@ -366,7 +366,7 @@ class SiteDamage:
 
                 total_mlms_damage += total_mlm_damage
 
-                self.image_logs[idx]['actual_damage'] = {
+                self.mlm_logs[idx]['actual_damage'] = {
                     'location' : total_location_importance,
                     'size' : total_size_importance,
                     'total' : total_mlm_damage

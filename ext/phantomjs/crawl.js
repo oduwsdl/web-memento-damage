@@ -16,8 +16,6 @@ var fs = require('fs');
 var page = require('webpage').create();
 var networkResources = {}
 
-// Import md5 from JQuery to easy select
-phantom.injectJs('jquery-3.1.0.min.js')
 // Import md5 from CryptoJS to hash URI
 phantom.injectJs('md5.js')
 // Import underscore.js to make array unique
@@ -93,20 +91,22 @@ else {
             // Use setTimeout to delay process
             // Timeout in ms, means 200 ms
             window.setTimeout(function () {
-                processPage(url, outputDir);
+                if (page.injectJs('jquery-3.1.0.min.js')) {
+                    processPage(url, outputDir);
 
-                // Set finished time
-                var finishtime = Date.now()
+                    // Set finished time
+                    var finishtime = Date.now()
 
-                // Show message that crawl finished, and calculate executing time
-                console.log(JSON.stringify({'crawl-result' : {
-                  'error' : false,
-                  'message' : 'Crawl finished in ' + (finishtime - starttime) + ' miliseconds'
-                }}));
+                    // Show message that crawl finished, and calculate executing time
+                    console.log(JSON.stringify({'crawl-result' : {
+                      'error' : false,
+                      'message' : 'Crawl finished in ' + (finishtime - starttime) + ' miliseconds'
+                    }}));
 
-                // Show bgcolor
-                console.log(JSON.stringify({'background_color' : getBackgroundColor()}));
-                phantom.exit();
+                    // Show bgcolor
+                    console.log(JSON.stringify({'background_color' : getBackgroundColor()}));
+                    phantom.exit();
+                }
             }, 200);
         }
     });
@@ -165,13 +165,14 @@ function processScreenshots(url, outputDir) {
     // Save screenshot for each css lost (simmulation)
     var outerHTMLCsses = page.evaluate(function() {
         outerHTMLCsses = [];
+
         docCsses = $('style, link[rel="stylesheet"]');
         for(var c=0; c<docCsses.length; c++) {
             outerHTMLCsses.push(docCsses[c].outerHTML);
         }
 
         return outerHTMLCsses;
-    });
+    }) || [];
 
     outerHTMLCsses.forEach(function(outerHTMLCss, idx) {
         hashedCss = md5(outerHTMLCss);
