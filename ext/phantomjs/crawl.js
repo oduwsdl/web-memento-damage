@@ -380,7 +380,7 @@ function processCsses(url, resourceBasename) {
             // Create json containing url and rules
             var jsonCss = {
                 'url' : docCss['href'] || '[INTERNAL]',
-                'rules_tag' : rules_tag,
+                'rules_tag' : rules_tag || [],
                 'hash' : docCss.ownerNode.outerHTML,
             };
 
@@ -404,16 +404,18 @@ function processCsses(url, resourceBasename) {
             css = _.extend(css, networkCss);
         }
 
+        var importance = 0;
         if('rules_tag' in css) {
-            var importance = 0;
             for(var r=0; r<css['rules_tag'].length; r++) {
                 var rule = css['rules_tag'][r];
                 importance += calculateImportance(rule);
             }
-            css['importance'] = importance;
-
-            networkCsses.push(css);
+        } else {
+            css['rules_tag'] = []
         }
+
+        css['importance'] = importance;
+        networkCsses.push(css);
     }
 
     // Save all resource csses
