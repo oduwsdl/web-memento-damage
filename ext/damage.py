@@ -100,41 +100,21 @@ class SiteDamage:
             logs[log['url']] = log
 
         # Resolve redirection for image
-        images_log = {}
-        for log in self.image_logs:
-            images_log[log['url']] = log
+        self.image_logs = self.purify_logs(self.image_logs, logs)
 
-        purified_image_logs = {}
-        for log in self.image_logs:
-            uri = log['url']
-
-            redirect_uris = []
-            self.follow_redirection(uri, images_log, redirect_uris)
-
-            if len(redirect_uris) > 0:
-                original_uri, original_status = redirect_uris[0]
-                final_uri, final_status_code = redirect_uris[len(redirect_uris)-1]
-
-                if original_status == 302 and final_uri in logs:
-                    purified_image_logs[final_uri] = logs[final_uri]
-                    # Add entries from original uri
-                    purified_image_logs[final_uri]['rectangles'] = \
-                        images_log[original_uri]['rectangles']
-                    purified_image_logs[final_uri]['viewport_size'] = \
-                        images_log[original_uri]['viewport_size']
-
-                elif original_uri not in purified_image_logs:
-                    purified_image_logs[original_uri] = images_log[original_uri]
-
-        self.image_logs = purified_image_logs.values()
+        # Resolve redirection for multimedia
+        self.mlm_logs = self.purify_logs(self.mlm_logs, logs)
 
         # Resolve redirection for css
-        css_logs = {}
-        for log in self.css_logs:
-            css_logs[log['url']] = log
+        self.css_logs = self.purify_logs(self.css_logs, logs)
 
-        purified_css_logs = {}
-        for log in self.css_logs:
+    def purify_logs(self, source_logs, logs):
+        log_obj = {}
+        for log in source_logs:
+            log_obj[log['url']] = log
+
+        final_uris = []
+        for log in source_logs:
             uri = log['url']
 
             redirect_uris = []
@@ -144,18 +124,15 @@ class SiteDamage:
                 original_uri, original_status = redirect_uris[0]
                 final_uri, final_status_code = redirect_uris[len(redirect_uris)-1]
 
-                if original_status == 302 and final_uri in logs:
-                    purified_css_logs[final_uri] = logs[final_uri]
-                    # Add entries from original uri
-                    purified_css_logs[final_uri]['rules_tag'] = \
-                        css_logs[original_uri]['rules_tag']
-                    purified_css_logs[final_uri]['importance'] = \
-                        css_logs[original_uri]['importance']
+                if original_uri != final_uri:
+                    log_obj[original_uri]['url'] = final_uri
+                    log_obj[original_uri]['status_code'] = final_status_code
+                    final_uris.append(final_uri)
 
-                elif original_uri not in purified_css_logs:
-                    purified_css_logs[original_uri] = css_logs[original_uri]
+        for uri in final_uris:
+            log_obj.pop(uri, 0)
 
-        self.css_logs = purified_css_logs.values()
+        return log_obj.values()
 
     def follow_redirection(self, uri, logs, redirect_uris):
         if uri in logs:
