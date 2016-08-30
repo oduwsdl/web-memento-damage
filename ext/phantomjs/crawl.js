@@ -91,7 +91,7 @@ else {
             // Use setTimeout to delay process
             // Timeout in ms, means 200 ms
             window.setTimeout(function () {
-                if (page.injectJs('jquery-3.1.0.min.js')) {
+                if (page.injectJs('jquery-3.1.0.min.js') && page.injectJs('underscore.js')) {
                     processPage(url, outputDir);
 
                     // Set finished time
@@ -201,8 +201,16 @@ function processImages(url, outputDir) {
     // Get images using document.images
     // document.images also can be execute in browser console
     var images = page.evaluate(function () {
-        var documentImages =  document.images;
         var allImages = {};
+        var documentImages = [];
+
+        var images = document.images;
+        for(var i=0; i<images.length; i++) documentImages.push(images[i]);
+        var frames = window.frames;
+        for(var f=0; f<frames.length; f++) {
+            images = frames[f].document.images;
+            for(var i=0; i<images.length; i++) documentImages.push(images[i]);
+        }
 
         for(var i=0; i<documentImages.length; i++) {
             var docImage = documentImages[i];
