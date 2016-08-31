@@ -116,10 +116,10 @@ else {
 function processPage(url, outputDir) {
     processNetworkResources(url, outputDir);
     processHtml(url, outputDir);
-    processScreenshots(url, outputDir);
     processImages(url, outputDir);
     processMultimedias(url, outputDir);
     processCsses(url, outputDir);
+    processScreenshots(url, outputDir);
 }
 
 function processNetworkResources(url, outputDir) {
@@ -151,47 +151,6 @@ function processHtml(url, outputDir) {
     });
     fs.write(htmlFile, html, "w");
     console.log('HTML source of page is saved in ' + htmlFile)
-}
-
-function processScreenshots(url, outputDir) {
-    hashedUrl = md5(url);
-    screenshotDir = outputDir + '/screenshot/' + hashedUrl;
-    screenshotFile = screenshotDir + '.png';
-
-    // Save screenshot
-    page.render(screenshotFile);
-    console.log('Screenshot is saved in ' + screenshotFile)
-
-    // Save screenshot for each css lost (simmulation)
-    var outerHTMLCsses = page.evaluate(function() {
-        outerHTMLCsses = [];
-
-        docCsses = $('style, link[rel="stylesheet"]');
-        for(var c=0; c<docCsses.length; c++) {
-            outerHTMLCsses.push(docCsses[c].outerHTML);
-        }
-
-        return outerHTMLCsses;
-    }) || [];
-
-    outerHTMLCsses.forEach(function(outerHTMLCss, idx) {
-        hashedCss = md5(outerHTMLCss);
-        screenshotFile = screenshotDir + '/' + hashedCss + '.png';
-
-        // Remove css
-        page.evaluate(function(idx) {
-            $('style, link[rel="stylesheet"]')[idx].remove();
-        }, idx);
-
-        // Save screenshot
-        page.render(screenshotFile);
-        console.log('Screenshot is saved in ' + screenshotFile);
-
-        // Put css back
-        page.evaluate(function(outerHTMLCss) {
-            $(outerHTMLCss).appendTo($('head'));
-        }, outerHTMLCss);
-    });
 }
 
 function processImages(url, outputDir) {
@@ -369,13 +328,7 @@ function processCsses(url, resourceBasename) {
     resourceCssFile = outputDir + '/log/' + hashedUrl + '.css.log';
 
     var csses = page.evaluate(function () {
-        // Get all stylesheets. This command also can be run in browser console document.styleSheets
-        var documentCsses = document.styleSheets;
-        var allCsses = []
-
-        for(var c=0; c<documentCsses.length; c++) {
-            var docCss = documentCsses[c];
-
+        function serialize(docCss, frameId) {
             // For each stylesheet, get its rules
             var rules = docCss.cssRules || [];
             // For each rule, get selectorText
@@ -390,9 +343,21 @@ function processCsses(url, resourceBasename) {
                 'url' : docCss['href'] || '[INTERNAL]',
                 'rules_tag' : rules_tag || [],
                 'hash' : docCss.ownerNode.outerHTML,
+                'frame' : frameId,
             };
 
-            allCsses.push(jsonCss);
+            return jsonCss;
+        }
+
+        var allCsses = [];
+
+        var tmpCsses = document.styleSheets;
+        for(t=0; t<tmpCsses.length; t++) allCsses.push(serialize(tmpCsses[t], -1));
+
+        var tmpFrames = window.frames;
+        for(f=0; f<tmpFrames.length; f++) {
+            tmpCsses = tmpFrames[f].document.styleSheets;
+            for(t=0; t<tmpCsses.length; t++) allCsses.push(serialize(tmpCsses[t], f));
         }
 
         return allCsses;
@@ -435,6 +400,69 @@ function processCsses(url, resourceBasename) {
 
     fs.write(resourceCssFile, networkCssValues.join('\n'), "wb");
     console.log('Network resource csses is saved in ' + resourceCssFile)
+}
+
+function processScreenshots(url, outputDir) {
+    hashedUrl = md5(url);
+    screenshotDir = outputDir + '/screenshot/' + hashedUrl;
+    screenshotFile = screenshotDir + '.png';
+
+    // Save screenshot
+    page.render(screenshotFile);
+    console.log('Screenshot is saved in ' + screenshotFile)
+
+    // Save screenshot for each css lost (simmulation)
+    var outerHTMLCsses = page.evaluate(function() {
+        outerHTMLCsses = [];
+
+        docCsses = $('style, link[rel="stylesheet"]');
+        for(var c=0; c<docCsses.length; c++) {
+            outerHTMLCsses.push({'frame' : -1, 'idx' : c, 'html' : docCsses[c].outerHTML});
+        }
+
+        frames = $('frame, iframe').contents();
+        for(f=0; f<frames.length; f++) {
+            docCsses = $(frames[f]).find('style, link[rel="stylesheet"]');
+            for(var c=0; c<docCsses.length; c++) {
+                outerHTMLCsses.push({'frame' : f, 'idx' : c, 'html' : docCsses[c].outerHTML});
+            }
+        }
+
+        return outerHTMLCsses;
+    }) || [];
+
+    outerHTMLCsses.forEach(function(outerHTMLCss) {
+        hashedCss = md5(outerHTMLCss['html']);
+        screenshotFile = screenshotDir + '/' + hashedCss + '.png';
+
+        // Remove css
+        page.evaluate(function(outerHTMLCss) {
+            if(outerHTMLCss['frame'] >= 0) {
+              frames = $('frame, iframe').contents();
+              for(f=0; f<frames.length; f++) {
+                  $(frames[f]).find('style, link[rel="stylesheet"]')[outerHTMLCss['idx']].remove();
+              }
+            } else {
+                $('style, link[rel="stylesheet"]')[outerHTMLCss['idx']].remove();
+            }
+        }, outerHTMLCss);
+
+        // Save screenshot
+        page.render(screenshotFile);
+        console.log('Screenshot is saved in ' + screenshotFile);
+
+        // Put css back
+        page.evaluate(function(outerHTMLCss) {
+            if(outerHTMLCss['frame'] >= 0) {
+              frames = $('frame, iframe');
+              for(f=0; f<frames.length; f++) {
+                  $(outerHTMLCss['html']).appendTo($('head'));
+              }
+            } else {
+                $(outerHTMLCss['html']).appendTo($(frames[f]).find('head'));
+            }
+        }, outerHTMLCss);
+    });
 }
 
 function calculateImportance(rule) {
