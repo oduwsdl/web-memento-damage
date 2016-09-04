@@ -180,6 +180,12 @@ function processImages(url, outputDir) {
         for(var i=0; i<documentImages.length; i++) {
             var docImage = documentImages[i];
 
+            // Calculate vieport size
+            allImages[docImage['src']]['viewport_size'] = [
+                docImage.ownerDocument.body.clientWidth,
+                docImage.ownerDocument.body.clientHeight
+            ];
+
             // Calculate top left position
             var obj = docImage;
             var curleft = 0, curtop = 0;
@@ -203,10 +209,6 @@ function processImages(url, outputDir) {
         return allImages;
     });
 
-    var viewport_size = page.evaluate(function () {
-        return [document.body.clientWidth, document.body.clientHeight];
-    });
-
     // Check images url == resource url, append position if same
     var networkImages = {};
     var docImageUrls = Object.keys(images);
@@ -220,12 +222,15 @@ function processImages(url, outputDir) {
                     }
                 });
 
+                if(! ('viewport_size' in networkImages[url])) {
+                    networkImages[url]['viewport_size'] = [10,10]
+                }
+
                 if(! ('rectangles' in networkImages[url])) {
                     networkImages[url]['rectangles'] = []
                 }
 
                 networkImages[url]['url'] = url;
-                networkImages[url]['viewport_size'] = viewport_size;
             }
         }
     }
