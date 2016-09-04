@@ -194,13 +194,26 @@ sub findMissing($)
 		$uris[$i] = trim($uris[$i]);
 		my @splat = split(", ", $uris[$i]);
 		my $responseCode = trim($splat[$#splat]);
+    my $u = trim($splat[0]);
 
 		#print "Response: $responseCode\n";
 
 		if($responseCode > 399)
 		{
-			unless($uris[$i] eq "http://web.archive.org/static/css/styles.css")
-			{
+      unless(
+        index($u, "web.archive.org/static/css/banner-styles.css") > -1 ||
+        index($u, "web.archive.org/static/js/analytics.js") > -1 ||
+        index($u, "web.archive.org/static/js/disclaim-element.js") > -1 ||
+        index($u, "web.archive.org/static/js/graph-calc.js") > -1 ||
+        index($u, "web.archive.org/static/images/toolbar/wm_tb_prv_on.png") > -1 ||
+        index($u, "web.archive.org/static/images/toolbar/wayback-toolbar-logo.png") > -1 ||
+        index($u, "web.archive.org/web/jsp/graph.jsp") > -1 ||
+        index($u, "web.archive.org/static/images/toolbar/wm_tb_nxt_off.png") > -1 ||
+        index($u, "web.archive.org/static/images/toolbar/wm_tb_close.png") > -1 ||
+        index($u, "web.archive.org/static/images/toolbar/wm_tb_help.png") > -1 ||
+        index($u, "analytics.archive.org") > -1 ||
+        index($u, "[INTERNAL]") > -1
+      ) {
 				#print "Found Missing $uris[$i]\n";
 				push(@missingStuff, $uris[$i]);
 			}
@@ -208,7 +221,6 @@ sub findMissing($)
 	}
 	return @missingStuff;
 }
-
 
 #usage: "$toSave", $MMweight, $CSSweight, $IMGweight, $TXTweight
 sub findPotentialDamage($)
@@ -238,8 +250,20 @@ sub findPotentialDamage($)
 		my @splat = split(", ", $uris[$i]);
 		my $u = trim($splat[0]);
 
-		unless($uris[$i] eq "http://web.archive.org/static/css/styles.css")
-		{
+    unless(
+      index($u, "web.archive.org/static/css/banner-styles.css") > -1 ||
+      index($u, "web.archive.org/static/js/analytics.js") > -1 ||
+      index($u, "web.archive.org/static/js/disclaim-element.js") > -1 ||
+      index($u, "web.archive.org/static/js/graph-calc.js") > -1 ||
+      index($u, "web.archive.org/static/images/toolbar/wm_tb_prv_on.png") > -1 ||
+      index($u, "web.archive.org/static/images/toolbar/wayback-toolbar-logo.png") > -1 ||
+      index($u, "web.archive.org/web/jsp/graph.jsp") > -1 ||
+      index($u, "web.archive.org/static/images/toolbar/wm_tb_nxt_off.png") > -1 ||
+      index($u, "web.archive.org/static/images/toolbar/wm_tb_close.png") > -1 ||
+      index($u, "web.archive.org/static/images/toolbar/wm_tb_help.png") > -1 ||
+      index($u, "analytics.archive.org") > -1 ||
+      index($u, "[INTERNAL]") > -1
+    ) {
 			$damages{$u} = findImportance($uris[$i], "$_[0].png",
 				$_[1], $_[2], $_[3], $_[4], $isPotential);
 		}
