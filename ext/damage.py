@@ -594,7 +594,11 @@ if __name__ == "__main__":
             'text'  : damage.actual_damage_text,
         }
 
-        if logs_obj[uri]['status_code'] != 200:
+        redirect_uris = []
+        damage.follow_redirection(uri, logs_obj, redirect_uris)
+        final_uri, final_status_code = redirect_uris[len(redirect_uris)-1]
+
+        if final_status_code != 200:
             result['total_damage'] = 1
         elif damage.potential_damage != 0:
             result['total_damage'] = damage.actual_damage/damage.potential_damage

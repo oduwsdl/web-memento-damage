@@ -183,7 +183,6 @@ function processImages(url, outputDir) {
 
         var images = document.images;
         for(var i=0; i<images.length; i++) documentImages.push(images[i]);
-        console.log(documentImages)
         var frames = window.frames;
         for(var f=0; f<frames.length; f++) {
             images = frames[f].document.images;

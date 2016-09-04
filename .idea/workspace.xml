@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="abb02a85-edb0-4070-84af-33ef9785e6b3" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ext/damage.py" afterPath="$PROJECT_DIR$/ext/damage.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ext/phantomjs/crawl.js" afterPath="$PROJECT_DIR$/ext/phantomjs/crawl.js" />
     </list>
     <ignored path="memento-pedia-tornado.iws" />
@@ -34,11 +35,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="damage.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="damage.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ext/damage.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-8.361111">
-              <caret line="594" column="9" selection-start-line="593" selection-start-column="48" selection-end-line="594" selection-end-column="9" />
+            <state vertical-scroll-proportion="0.51365185">
+              <caret line="598" column="74" selection-start-line="598" selection-start-column="74" selection-end-line="598" selection-end-column="74" />
               <folding>
                 <element signature="e#87#96#0" expanded="true" />
               </folding>
@@ -58,11 +59,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="crawl.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="crawl.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ext/phantomjs/crawl.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.45498392">
-              <caret line="63" column="25" selection-start-line="63" selection-start-column="9" selection-end-line="63" selection-end-column="25" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="535" column="55" selection-start-line="535" selection-start-column="55" selection-end-line="535" selection-end-column="55" />
               <folding />
             </state>
           </provider>
@@ -122,9 +123,9 @@
         <option value="$PROJECT_DIR$/env-linux/lib/python2.7/site-packages/unicodecsv/py3.py" />
         <option value="$PROJECT_DIR$/test/damage-old.py" />
         <option value="$PROJECT_DIR$/app/modules/api/__init__.py" />
-        <option value="$PROJECT_DIR$/ext/damage.py" />
-        <option value="$PROJECT_DIR$/ext/phantomjs/crawl.js" />
         <option value="$PROJECT_DIR$/test/damage.py" />
+        <option value="$PROJECT_DIR$/ext/phantomjs/crawl.js" />
+        <option value="$PROJECT_DIR$/ext/damage.py" />
       </list>
     </option>
   </component>
@@ -615,7 +616,13 @@
       <option name="project" value="LOCAL" />
       <updated>1472972826490</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Add onError and onConsoleMessage">
+      <created>1472977010968</created>
+      <option name="number" value="00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1472977010968</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TodoView">
@@ -634,7 +641,7 @@
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24392156" sideWeight="0.4876923" order="1" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32923076" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3279743" sideWeight="0.5" order="11" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3276923" sideWeight="0.5" order="11" side_tool="true" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32615384" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3276923" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30461538" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -668,7 +675,8 @@
     <MESSAGE value="Fix Justin Code" />
     <MESSAGE value="Use documentOwner size for each image viewport" />
     <MESSAGE value="Set damage to 1 if URI status is not 200" />
-    <option name="LAST_COMMIT_MESSAGE" value="Set damage to 1 if URI status is not 200" />
+    <MESSAGE value="Add onError and onConsoleMessage" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add onError and onConsoleMessage" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -989,13 +997,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ext/damage.py">
+    <entry file="file://$PROJECT_DIR$/ext/phantomjs/crawl.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-8.361111">
-          <caret line="594" column="9" selection-start-line="593" selection-start-column="48" selection-end-line="594" selection-end-column="9" />
-          <folding>
-            <element signature="e#87#96#0" expanded="true" />
-          </folding>
+        <state vertical-scroll-proportion="0.0">
+          <caret line="535" column="55" selection-start-line="535" selection-start-column="55" selection-end-line="535" selection-end-column="55" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1009,11 +1015,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ext/phantomjs/crawl.js">
+    <entry file="file://$PROJECT_DIR$/ext/damage.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.45498392">
-          <caret line="63" column="25" selection-start-line="63" selection-start-column="9" selection-end-line="63" selection-end-column="25" />
-          <folding />
+        <state vertical-scroll-proportion="0.51365185">
+          <caret line="598" column="74" selection-start-line="598" selection-start-column="74" selection-end-line="598" selection-end-column="74" />
+          <folding>
+            <element signature="e#87#96#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
