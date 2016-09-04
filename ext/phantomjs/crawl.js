@@ -16,6 +16,7 @@ var fs = require('fs');
 var page = require('webpage').create();
 var networkResources = {}
 
+page.settings.webSecurityEnabled = false;
 // Import md5 from CryptoJS to hash URI
 phantom.injectJs('md5.js')
 // Import underscore.js to make array unique
@@ -46,6 +47,23 @@ else {
 
     // Use browser size 1024x768 (to be used on screenshot)
     page.viewportSize = { width: 1024, height: 777 };
+
+    // Set error handler
+    page.onError = function(msg, trace) {
+        var msgStack = ['PHANTOM ERROR: ' + msg];
+        if (trace && trace.length) {
+        msgStack.push('TRACE:');
+        trace.forEach(function(t) {
+        msgStack.push(' -> ' + (t.file || t.sourceURL) + ': ' + t.line + (t.function ? ' (in function ' + t.function +')' : ''));
+        });
+        }
+        console.error(msgStack.join('\n'));
+    };
+
+    // Set console to debug
+    page.onConsoleMessage = function(msg, lineNum, sourceId) {
+        console.log('CONSOLE: ' + msg + ' (from line #' + lineNum + ' in "' + sourceId + '")');
+    };
 
     // Resource is similiar with all listed in developer tools -> network tab -> refresh
     page.onResourceReceived = function (res) {
@@ -165,6 +183,7 @@ function processImages(url, outputDir) {
 
         var images = document.images;
         for(var i=0; i<images.length; i++) documentImages.push(images[i]);
+        console.log(documentImages)
         var frames = window.frames;
         for(var f=0; f<frames.length; f++) {
             images = frames[f].document.images;
