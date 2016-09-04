@@ -558,6 +558,10 @@ if __name__ == "__main__":
         mlm_logs = [json.loads(log) for log in
                     open(mlm_logs_file).readlines()]
 
+        logs_obj = {}
+        for log in logs:
+            logs_obj[log['url']] = log
+
         # Calculate site damage
         damage = SiteDamage(text, logs, image_logs, css_logs, mlm_logs,
                             screenshot_dir, background_color)
@@ -589,9 +593,13 @@ if __name__ == "__main__":
             'multimedia' : damage.actual_multimedia_damage,
             'text'  : damage.actual_damage_text,
         }
-        result['total_damage'] = \
-            damage.actual_damage/damage.potential_damage \
-            if damage.potential_damage != 0 else 0
+
+        if logs_obj[uri]['status_code'] != 200:
+            result['total_damage'] = 1
+        elif damage.potential_damage != 0:
+            result['total_damage'] = damage.actual_damage/damage.potential_damage
+        else:
+            result['total_damage'] = 0
 
         print('Potential Damage : {}'.format(result['potential_damage']['total']))
         print('Actual Damage : {}'.format(result['actual_damage']['total']))
