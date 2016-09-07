@@ -1,5 +1,6 @@
 import errno
 import json
+from urlparse import urlparse
 
 import os
 from ext.blueprint import Blueprint, RequestHandler
@@ -30,6 +31,11 @@ class Memento(Blueprint):
             url = self.get_query_argument('url')
             type = self.get_query_argument('type', 'URI-M')
             fresh = self.get_query_argument('fresh', 'false')
+
+            if not urlparse(url).scheme:
+                self.redirect('/memento/check?url=http://{}&type={}&fresh={}'.format(
+                    url, type, fresh
+                ))
 
             self.render(".check.html", url=url, type=type, fresh=fresh)
 
