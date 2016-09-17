@@ -63,7 +63,7 @@ class Blueprint(object):
         else:
             self.settings['template_path'] = os.path.join(os.path.abspath(
                             os.path.dirname(inspect.getfile(self.__class__))),
-                            "templates")
+                            "templates", self.application.config['theme'])
 
         if static_path:
             self.settings['static_path'] = static_path

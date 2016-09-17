@@ -1,10 +1,8 @@
-import errno
-import json
+import inspect
 from urlparse import urlparse
 
 import os
 from ext.blueprint import Blueprint, RequestHandler
-from ext.memento import MementoWeb
 from tornado import web
 
 
@@ -38,16 +36,3 @@ class Memento(Blueprint):
                 ))
 
             self.render(".check.html", url=url, type=type, fresh=fresh)
-
-    class GetUriM(RequestHandler):
-        route = ['/memento/mementos']
-
-        @web.asynchronous
-        def get(self, *args, **kwargs):
-            url = self.get_query_argument('uri-r')
-            m = MementoWeb(url)
-            memento_urls = m.find()
-
-            self.write(json.dumps(memento_urls))
-            self.finish()
-
