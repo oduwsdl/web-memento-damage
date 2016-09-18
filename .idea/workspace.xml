@@ -1,12 +1,119 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="abb02a85-edb0-4070-84af-33ef9785e6b3" name="Default" comment="Start templating">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/modules/api/templates/hierapolis/index.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/modules/home/templates/hierapolis/check.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/modules/home/templates/hierapolis/index.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/templates/hierapolis.html" />
+    <list default="true" id="abb02a85-edb0-4070-84af-33ef9785e6b3" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/static/assets/font-awesome-4.6.3/fonts/FontAwesome.otf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/static/assets/font-awesome-4.6.3/fonts/fontawesome-webfont.eot" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/static/assets/font-awesome-4.6.3/fonts/fontawesome-webfont.ttf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/static/assets/font-awesome-4.6.3/fonts/fontawesome-webfont.woff" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/static/assets/font-awesome-4.6.3/fonts/fontawesome-webfont.woff2" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/static/assets/templatevamp/font/FontAwesome.otf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/static/assets/templatevamp/font/fontawesome-webfont.eot" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/static/assets/templatevamp/font/fontawesome-webfont.svgz" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/static/assets/templatevamp/font/fontawesome-webfont.ttf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/static/assets/templatevamp/font/fontawesome-webfont.woff" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/static/assets/templatevamp/font/fontawesome-webfontd41d.eot" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/static/assets/templatevamp/img/body-bg.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/static/assets/templatevamp/img/icons-sa7c41345d9.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/static/assets/templatevamp/img/message_avatar1.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/static/assets/templatevamp/img/message_avatar2.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/static/assets/templatevamp/img/signin/check.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/static/assets/templatevamp/img/signin/fb_btn.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/static/assets/templatevamp/img/signin/password.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/static/assets/templatevamp/img/signin/twitter_btn.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/static/assets/templatevamp/img/signin/user.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/static/assets/templatevamp/js/guidely/guidely-number.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/modules/api/templates/templatevamp/index.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/modules/home/templates/templatevamp/_csses.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/modules/home/templates/templatevamp/_images.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/modules/home/templates/templatevamp/_log.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/modules/home/templates/templatevamp/_multimedias.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/modules/home/templates/templatevamp/_screenshots.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/modules/home/templates/templatevamp/_summary.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/modules/home/templates/templatevamp/_text.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/modules/home/templates/templatevamp/check.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/modules/home/templates/templatevamp/index.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/static/assets/font-awesome-4.6.3/HELP-US-OUT.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/static/assets/font-awesome-4.6.3/css/font-awesome.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/static/assets/font-awesome-4.6.3/css/font-awesome.min.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/static/assets/font-awesome-4.6.3/fonts/fontawesome-webfont.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/static/assets/font-awesome-4.6.3/less/animated.less" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/static/assets/font-awesome-4.6.3/less/bordered-pulled.less" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/static/assets/font-awesome-4.6.3/less/core.less" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/static/assets/font-awesome-4.6.3/less/fixed-width.less" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/static/assets/font-awesome-4.6.3/less/font-awesome.less" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/static/assets/font-awesome-4.6.3/less/icons.less" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/static/assets/font-awesome-4.6.3/less/larger.less" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/static/assets/font-awesome-4.6.3/less/list.less" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/static/assets/font-awesome-4.6.3/less/mixins.less" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/static/assets/font-awesome-4.6.3/less/path.less" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/static/assets/font-awesome-4.6.3/less/rotated-flipped.less" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/static/assets/font-awesome-4.6.3/less/screen-reader.less" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/static/assets/font-awesome-4.6.3/less/stacked.less" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/static/assets/font-awesome-4.6.3/less/variables.less" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/static/assets/font-awesome-4.6.3/scss/_animated.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/static/assets/font-awesome-4.6.3/scss/_bordered-pulled.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/static/assets/font-awesome-4.6.3/scss/_core.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/static/assets/font-awesome-4.6.3/scss/_fixed-width.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/static/assets/font-awesome-4.6.3/scss/_icons.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/static/assets/font-awesome-4.6.3/scss/_larger.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/static/assets/font-awesome-4.6.3/scss/_list.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/static/assets/font-awesome-4.6.3/scss/_mixins.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/static/assets/font-awesome-4.6.3/scss/_path.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/static/assets/font-awesome-4.6.3/scss/_rotated-flipped.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/static/assets/font-awesome-4.6.3/scss/_screen-reader.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/static/assets/font-awesome-4.6.3/scss/_stacked.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/static/assets/font-awesome-4.6.3/scss/_variables.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/static/assets/font-awesome-4.6.3/scss/font-awesome.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/static/assets/hierapolis/sidebar.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/static/assets/hierapolis/sidebar.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/static/assets/hierapolis/style.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/static/assets/highlight.js/highlightjs-line-numbers.min.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/static/assets/templatevamp/css/base-admin-responsive.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/static/assets/templatevamp/css/bootstrap-responsive.min.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/static/assets/templatevamp/css/bootstrap.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/static/assets/templatevamp/css/bootstrap.min.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/static/assets/templatevamp/css/font-awesome-ie7.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/static/assets/templatevamp/css/font-awesome-ie7.min.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/static/assets/templatevamp/css/font-awesome.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/static/assets/templatevamp/css/font-awesome.min.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/static/assets/templatevamp/css/pages/dashboard.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/static/assets/templatevamp/css/pages/faq.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/static/assets/templatevamp/css/pages/plans.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/static/assets/templatevamp/css/pages/reports.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/static/assets/templatevamp/css/pages/signin.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/static/assets/templatevamp/css/style.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/static/assets/templatevamp/css/widget.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/static/assets/templatevamp/font/fontawesome-webfont.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/static/assets/templatevamp/img/glyphicons-halflings-white.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/static/assets/templatevamp/img/glyphicons-halflings.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/static/assets/templatevamp/js/base.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/static/assets/templatevamp/js/bootstrap.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/static/assets/templatevamp/js/chart.min.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/static/assets/templatevamp/js/charts/area.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/static/assets/templatevamp/js/charts/bar.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/static/assets/templatevamp/js/charts/donut.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/static/assets/templatevamp/js/charts/line.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/static/assets/templatevamp/js/charts/pie.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/static/assets/templatevamp/js/excanvas.min.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/static/assets/templatevamp/js/faq.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/static/assets/templatevamp/js/full-calendar/fullcalendar.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/static/assets/templatevamp/js/full-calendar/fullcalendar.min.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/static/assets/templatevamp/js/guidely/guidely.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/static/assets/templatevamp/js/guidely/guidely.min.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/static/assets/templatevamp/js/jquery-1.7.2.min.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/static/assets/templatevamp/js/signin.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/templates/templatevamp.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test/urim1.csv" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test/urim2.csv" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/memento-pedia-tornado.iml" afterPath="$PROJECT_DIR$/.idea/memento-pedia-tornado.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/modules/api/templates/hierapolis/index.html" afterPath="$PROJECT_DIR$/app/modules/api/templates/hierapolis/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/modules/home/templates/dashgumfree/index.html" afterPath="$PROJECT_DIR$/app/modules/home/templates/dashgumfree/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/modules/home/templates/hierapolis/check.html" afterPath="$PROJECT_DIR$/app/modules/home/templates/hierapolis/check.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/templates/hierapolis.html" afterPath="$PROJECT_DIR$/app/templates/hierapolis.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config.py" afterPath="$PROJECT_DIR$/config.py" />
     </list>
     <ignored path="memento-pedia-tornado.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -27,11 +134,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/modules/home/templates/dashgumfree/index.html">
+      <file leaf-file-name="__init__.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/modules/api/__init__.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.4264214">
-              <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.4893617">
+              <caret line="51" column="14" selection-start-line="51" selection-start-column="14" selection-end-line="51" selection-end-column="14" />
               <folding />
             </state>
           </provider>
@@ -97,14 +204,14 @@
         <option value="$PROJECT_DIR$/app/modules/home/templates/hierapolis/index.html" />
         <option value="$PROJECT_DIR$/app/modules/home/templates/hierapolis/check.html" />
         <option value="$PROJECT_DIR$/app/modules/api/templates/hierapolis/index.html" />
+        <option value="$PROJECT_DIR$/app/static/assets/hierapolis/style.css" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="49" />
-    <option name="y" value="24" />
-    <option name="width" value="1317" />
-    <option name="height" value="744" />
+    <option name="y" value="30" />
+    <option name="width" value="1366" />
+    <option name="height" value="738" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -249,6 +356,72 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="static" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web-memento-damage" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web-memento-damage" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="static" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="assets" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web-memento-damage" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web-memento-damage" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="static" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="assets" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="hierapolis" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web-memento-damage" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web-memento-damage" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="modules" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -272,6 +445,32 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="home" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web-memento-damage" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web-memento-damage" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="modules" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="home" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="templates" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -383,7 +582,33 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="hierapolis" />
+              <option name="myItemId" value="templatevamp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web-memento-damage" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web-memento-damage" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="modules" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="api" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="templates" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -419,13 +644,13 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
       <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/env-linux/bin/python" />
-    <property name="settings.editor.selected.configurable" value="editor.preferences.appearance" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file:///media/DATA/ERIKA/Summer Work/MementoPediaProject/memento-pedia-tornado/tornado_blueprint/request_handler.py" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
@@ -506,6 +731,17 @@
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/ext/crawl_selenium.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="BashConfigurationType" factoryName="Bash">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="INTERPRETER_PATH" value="/bin/bash" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="PARAMETERS" value="" />
+      <module name="" />
+      <envs />
       <method />
     </configuration>
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
@@ -630,9 +866,10 @@
       <option name="USE_KEYWORD" value="false" />
       <method />
     </configuration>
-    <list size="2">
-      <item index="0" class="java.lang.String" itemvalue="Python.start" />
-      <item index="1" class="java.lang.String" itemvalue="Python.selenium" />
+    <list size="3">
+      <item index="0" class="java.lang.String" itemvalue="Bash.xvfb-start.sh" />
+      <item index="1" class="java.lang.String" itemvalue="Python.start" />
+      <item index="2" class="java.lang.String" itemvalue="Python.selenium" />
     </list>
     <recent_temporary>
       <list size="2">
@@ -709,7 +946,13 @@
       <option name="project" value="LOCAL" />
       <updated>1474079875711</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Create new theme">
+      <created>1474080039100</created>
+      <option name="number" value="00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1474080039100</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TodoView">
@@ -722,27 +965,27 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="49" y="24" width="1317" height="744" extended-state="6" />
+    <frame x="0" y="30" width="1366" height="738" extended-state="6" />
     <editor active="false" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24627452" sideWeight="0.4876923" order="1" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2128788" sideWeight="0.4876923" order="1" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32923076" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3276923" sideWeight="0.5" order="11" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3246154" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32615384" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3276923" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30461538" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19764706" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17727272" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3276923" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.19843137" sideWeight="0.5123077" order="0" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3035413" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3246154" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -766,7 +1009,8 @@
     <MESSAGE value="Check Final Status Code Before Process Total Damage" />
     <MESSAGE value="Autocomplete schema URI" />
     <MESSAGE value="Start templating" />
-    <option name="LAST_COMMIT_MESSAGE" value="Start templating" />
+    <MESSAGE value="Create new theme" />
+    <option name="LAST_COMMIT_MESSAGE" value="Create new theme" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -775,27 +1019,10 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/templates/dashgumfree.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="95" column="50" selection-start-line="95" selection-start-column="50" selection-end-line="95" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/modules/api/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="221" column="21" selection-start-line="221" selection-start-column="21" selection-end-line="221" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ext/damage.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#87#96#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -920,26 +1147,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/test/damage.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="2.652733">
+        <state vertical-scroll-proportion="0.0">
           <caret line="110" column="51" selection-start-line="110" selection-start-column="51" selection-end-line="110" selection-end-column="51" />
-          <folding>
-            <element signature="e#0#11#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ext/phantomjs/crawl.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="12.901929">
+        <state vertical-scroll-proportion="0.0">
           <caret line="535" column="55" selection-start-line="535" selection-start-column="55" selection-end-line="535" selection-end-column="55" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/templates/dashgumfree.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.9565217">
-          <caret line="78" column="14" selection-start-line="78" selection-start-column="14" selection-end-line="78" selection-end-column="14" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -947,9 +1163,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#26#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -957,9 +1170,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#10#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -967,7 +1177,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="51" column="31" selection-start-line="51" selection-start-column="31" selection-end-line="51" selection-end-column="31" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -975,23 +1184,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ext/damage.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.2250804">
+        <state vertical-scroll-proportion="0.0">
           <caret line="269" column="28" selection-start-line="269" selection-start-column="28" selection-end-line="269" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ext/tools.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.2652733">
-          <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -999,97 +1198,70 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="72" column="8" selection-start-line="72" selection-start-column="8" selection-end-line="72" selection-end-column="8" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/env-linux/lib/python2.7/site-packages/tornado/web.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33279744">
+        <state vertical-scroll-proportion="0.0">
           <caret line="696" column="8" selection-start-line="696" selection-start-column="8" selection-end-line="696" selection-end-column="8" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ext/blueprint/template_loader.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.73472667">
-          <caret line="87" column="0" selection-start-line="87" selection-start-column="0" selection-end-line="87" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/lib/python2.7/inspect.py">
-      <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <caret line="87" column="0" selection-start-line="87" selection-start-column="0" selection-end-line="87" selection-end-column="0" />
         </state>
       </provider>
     </entry>
+    <entry file="file:///usr/lib/python2.7/inspect.py" />
     <entry file="file://$PROJECT_DIR$/app/modules/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.096463025">
+        <state vertical-scroll-proportion="0.0">
           <caret line="13" column="55" selection-start-line="13" selection-start-column="55" selection-end-line="13" selection-end-column="55" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ext/blueprint/blueprint.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5016077">
+        <state vertical-scroll-proportion="0.0">
           <caret line="65" column="64" selection-start-line="65" selection-start-column="64" selection-end-line="65" selection-end-column="64" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/modules/home/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.2170418">
+        <state vertical-scroll-proportion="0.0">
           <caret line="9" column="42" selection-start-line="9" selection-start-column="42" selection-end-line="9" selection-end-column="42" />
-          <folding>
-            <element signature="e#0#14#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/modules/api/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.096463025">
-          <caret line="23" column="42" selection-start-line="23" selection-start-column="42" selection-end-line="23" selection-end-column="42" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/config.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.40996784">
+        <state vertical-scroll-proportion="0.0">
           <caret line="18" column="34" selection-start-line="18" selection-start-column="34" selection-end-line="18" selection-end-column="34" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/modules/home/templates/dashgumfree/check.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.050167225">
+        <state vertical-scroll-proportion="0.0">
           <caret line="2" column="29" selection-start-line="2" selection-start-column="17" selection-end-line="2" selection-end-column="29" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/modules/home/templates/hierapolis/check.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.050167225">
+        <state vertical-scroll-proportion="0.0">
           <caret line="2" column="29" selection-start-line="2" selection-start-column="29" selection-end-line="2" selection-end-column="29" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1097,30 +1269,62 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="22" selection-start-line="0" selection-start-column="22" selection-end-line="0" selection-end-column="22" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/modules/api/templates/dashgumfree/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.050167225">
+        <state vertical-scroll-proportion="0.0">
           <caret line="2" column="20" selection-start-line="2" selection-start-column="17" selection-end-line="2" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/modules/api/templates/hierapolis/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.050167225">
-          <caret line="2" column="20" selection-start-line="2" selection-start-column="20" selection-end-line="2" selection-end-column="20" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/modules/home/templates/dashgumfree/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4264214">
-          <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="11" column="21" selection-start-line="11" selection-start-column="21" selection-end-line="11" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/templates/hierapolis.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/static/assets/hierapolis/style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="118831" selection-start-line="0" selection-start-column="118831" selection-end-line="0" selection-end-column="118831" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ext/tools.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.31914893">
+          <caret line="13" column="0" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/templates/dashgumfree.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.027777778">
+          <caret line="30" column="26" selection-start-line="30" selection-start-column="26" selection-end-line="30" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/modules/api/templates/templatevamp/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/modules/api/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.4893617">
+          <caret line="51" column="14" selection-start-line="51" selection-start-column="14" selection-end-line="51" selection-end-column="14" />
           <folding />
         </state>
       </provider>

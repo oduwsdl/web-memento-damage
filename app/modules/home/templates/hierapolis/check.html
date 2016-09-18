@@ -1,9 +1,56 @@
 {% extends 'hierapolis.html' %}
-
 {% block title %}Check Damage{% end %}
 
-{% block head %}{% end %}
+{% block head %}
+  <link href="{{ static_url('assets/hierapolis/sidebar.css') }}" rel="stylesheet">
+{% end %}
 
-{% block content %}{% end %}
+{% block content %}
+<div id="wrapper">
+  <!-- Sidebar -->
+  <div id="sidebar-wrapper">
+    <ul class="sidebar-nav nav-pills nav-stacked" id="menu">
+      <li class="active">
+        <a href="#"><span class="fa-stack fa-lg pull-left"><i class="fa fa-dashboard fa-stack-1x "></i></span> Summary</a>
+      </li>
+      <li>
+        <a href="#"><span class="fa-stack fa-lg pull-left"><i class="fa fa-flag fa-stack-1x "></i></span> Image</a>
+      </li>
+      <li>
+        <a href="#"><span class="fa-stack fa-lg pull-left"><i class="fa fa-cloud-download fa-stack-1x "></i></span>Stylesheet</a>
+      </li>
+      <li>
+        <a href="#"> <span class="fa-stack fa-lg pull-left"><i class="fa fa-cart-plus fa-stack-1x "></i></span>Multimedia</a>
+      </li>
+      <li>
+        <a href="#"><span class="fa-stack fa-lg pull-left"><i class="fa fa-youtube-play fa-stack-1x "></i></span>Text</a>
+      </li>
+      <li>
+        <a href="#"><span class="fa-stack fa-lg pull-left"><i class="fa fa-wrench fa-stack-1x "></i></span>Screenshot</a>
+      </li>
+      <li>
+        <a href="#"><span class="fa-stack fa-lg pull-left"><i class="fa fa-server fa-stack-1x "></i></span>Log</a>
+      </li>
+    </ul>
+  </div>
+  <!-- /#sidebar-wrapper -->
+  <!-- Page Content -->
+  <div id="page-content-wrapper">
+    <div class="container-fluid xyz">
+      <div class="row">
+        <div class="col-lg-12">
+          <h1>Simple Sidebar With Bootstrap 3 by <a href="http://seegatesite.com/create-simple-cool-sidebar-menu-with-bootstrap-3/" >Seegatesite.com</a></h1>
+          <p>This sidebar is adopted from start bootstrap simple sidebar startboostrap.com, which I modified slightly to be more cool. For tutorials and how to create it , you can read from my site here <a href="http://seegatesite.com/create-simple-cool-sidebar-menu-with-bootstrap-3/">create cool simple sidebar menu with boostrap 3</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /#page-content-wrapper -->
+</div>
+<!-- /#wrapper -->
 
-{% block tail %}{% end %}
+{% end %}
+
+{% block tail %}
+  <script src="{{ static_url('assets/hierapolis/sidebar.js') }}"></script>
+{% end %}

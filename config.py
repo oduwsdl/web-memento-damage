@@ -16,8 +16,7 @@ static_path             = os.path.join(base_dir, 'app', 'static')
 static_handler_class    = StaticFileHandler
 
 # Theme
-theme                   = 'hierapolis'
+theme                   = 'templatevamp'
 
 # Database settings (default to sqlite)
 database_uri            = 'sqlite:///' + os.path.join(base_dir, 'app.db')
-
