@@ -160,8 +160,11 @@ class SiteDamage:
                 h = rect['height']
                 image_coverage += (w * h)
 
-            pct_image_coverage = float(image_coverage) / \
-                                 float(viewport_w * vieport_h)
+            if float(viewport_w * vieport_h) > 0:
+                pct_image_coverage = float(image_coverage) / \
+                                     float(viewport_w * vieport_h)
+            else: pct_image_coverage = 0.0
+
             self.image_logs[idx]['percentage_coverage'] = pct_image_coverage
 
         for idx, log in enumerate(self.mlm_logs):
@@ -394,7 +397,10 @@ class SiteDamage:
             if (y + h) > middle_y and y < middle_y:
                 location_importance += centrality_weight / 2;
 
-            prop = float(w * h) / (viewport_w * viewport_h)
+            if viewport_w * viewport_h > 0:
+                prop = float(w * h) / (viewport_w * viewport_h)
+            else: prop = 0
+
             size_importance = prop * size_weight
 
             importance = location_importance + size_importance
@@ -598,7 +604,7 @@ if __name__ == "__main__":
         damage.follow_redirection(uri, logs_obj, redirect_uris)
         final_uri, final_status_code = redirect_uris[len(redirect_uris)-1]
 
-        if final_status_code != 200:
+        if final_status_code and final_status_code != 200:
             result['total_damage'] = 1
         elif damage.potential_damage != 0:
             result['total_damage'] = damage.actual_damage/damage.potential_damage

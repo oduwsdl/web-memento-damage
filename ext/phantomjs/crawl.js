@@ -91,13 +91,7 @@ else {
         }
     };
 
-    // Kill crawl.js, after 5 minutes not responding
-    window.setTimeout(function () {
-        phantom.exit(1);
-    }, 5 * 60 * 1000)
-
-    // Open URI
-    page.open(url, function (status) {
+    page.onLoadFinished =  function (status) {
         if (status !== 'success') {
             console.log(JSON.stringify({'crawl-result' : {
               'error' : true,
@@ -111,6 +105,8 @@ else {
             window.setTimeout(function () {
                 if (page.injectJs('jquery-3.1.0.min.js') && page.injectJs('underscore.js')) {
                     processPage(url, outputDir);
+                    // Show bgcolor
+                    console.log(JSON.stringify({'background_color' : getBackgroundColor()}));
 
                     // Set finished time
                     var finishtime = Date.now()
@@ -121,13 +117,19 @@ else {
                       'message' : 'Crawl finished in ' + (finishtime - starttime) + ' miliseconds'
                     }}));
 
-                    // Show bgcolor
-                    console.log(JSON.stringify({'background_color' : getBackgroundColor()}));
                     phantom.exit();
                 }
-            }, 200);
+            }, 5000);
         }
-    });
+    }
+
+    // Kill crawl.js, after 5 minutes not responding
+    window.setTimeout(function () {
+        phantom.exit(1);
+    }, 5 * 60 * 1000);
+
+    // Open URI
+    page.open(url);
 
 }
 
@@ -379,7 +381,10 @@ function processCsses(url, resourceBasename) {
 
         var tmpFrames = window.frames;
         for(f=0; f<tmpFrames.length; f++) {
-            tmpCsses = tmpFrames[f].document.styleSheets;
+            var tmpDocument = tmpFrames[f].document;
+            if(tmpDocument == undefined) tmpDocument = tmpFrames[f];
+
+            tmpCsses = tmpDocument.styleSheets;
             for(t=0; t<tmpCsses.length; t++) allCsses.push(serialize(tmpCsses[t], f));
         }
 
@@ -426,6 +431,86 @@ function processCsses(url, resourceBasename) {
 }
 
 function processScreenshots(url, outputDir) {
+    hashedUrl = md5(url);
+    screenshotDir = outputDir + '/screenshot/' + hashedUrl;
+    screenshotFile = screenshotDir + '.png';
+
+    // Save screenshot
+    page.render(screenshotFile);
+    console.log('Screenshot is saved in ' + screenshotFile);
+
+    var outerHTMLCsses = page.evaluate(function() {
+        outerHTMLCsses = [];
+
+        var tmpCsses = document.styleSheets;
+        for(t=0; t<tmpCsses.length; t++) {
+            outerHTMLCsses.push({'frame' : -1, 'idx' : t, 'html' : tmpCsses[t].ownerNode.outerHTML});
+        }
+
+        var tmpFrames = window.frames;
+        for(f=0; f<tmpFrames.length; f++) {
+            var tmpDocument = tmpFrames[f].document;
+            if(tmpDocument == undefined) tmpDocument = tmpFrames[f];
+
+            tmpCsses = tmpDocument.styleSheets;
+            for(t=0; t<tmpCsses.length; t++) {
+                outerHTMLCsses.push({'frame' : f, 'idx' : t, 'html' : tmpCsses[t].ownerNode.outerHTML});
+            }
+        }
+
+        return outerHTMLCsses;
+    }) || [];
+
+    outerHTMLCsses.forEach(function(outerHTMLCss) {
+        hashedCss = md5(outerHTMLCss['html']);
+        screenshotFile = screenshotDir + '/' + hashedCss + '.png';
+
+        // Remove css
+        var removed = page.evaluate(function(outerHTMLCss) {
+            if(outerHTMLCss['frame'] >= 0) {
+                var tmpFrame = window.frames[outerHTMLCss['frame']];
+                var tmpDocument = tmpFrame.document;
+                if(tmpDocument == undefined) tmpDocument = tmpFrame;
+            } else {
+                var tmpDocument = document;
+            }
+
+            var tmpCss = tmpDocument.styleSheets[outerHTMLCss['idx']];
+            if(tmpCss) {
+                var tmpCssOwner = tmpCss.ownerNode;
+                tmpCssOwner.parentElement.removeChild(tmpCssOwner);
+                return true;
+            }
+
+            return false
+        }, outerHTMLCss);
+
+        // Save screenshot
+        page.render(screenshotFile);
+        console.log('Screenshot is saved in ' + screenshotFile);
+
+        // Put css back
+        if(removed) {
+            page.evaluate(function(outerHTMLCss) {
+                if(outerHTMLCss['frame'] >= 0) {
+                    var tmpFrame = window.frames[outerHTMLCss['frame']];
+                    var tmpDocument = tmpFrame.document;
+                    if(tmpDocument == undefined) tmpDocument = tmpFrame;
+                } else {
+                    var tmpDocument = document;
+                }
+
+                var parentEl = tmpDocument.getElementsByTagName('head')[0];
+                var parentInnerHTML = parentEl.innerHTML;
+                parentInnerHTML += outerHTMLCss;
+
+                parentEl.innerHTML = parentInnerHTML;
+            }, outerHTMLCss);
+        }
+    });
+}
+
+function processScreenshotsOld(url, outputDir) {
     hashedUrl = md5(url);
     screenshotDir = outputDir + '/screenshot/' + hashedUrl;
     screenshotFile = screenshotDir + '.png';
