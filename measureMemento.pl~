@@ -58,7 +58,7 @@ my $toSave = "./testing/theOutFile";
 if($urim)
 {
 	my $pjsCmd = "phantomjs ./rasterize.js "
-			. "$urim "
+			. "\"$urim\" "
 			. "$toSave.png "
 			. "$toSave.html "
 			. "$toSave.404";
@@ -801,7 +801,7 @@ sub findCssImportance($)
 
 	if($isPotential == 0)
 	{
-		$cmd = "perl ./whitespace.pl $urim $thePng";
+		$cmd = "perl ./whitespace.pl $thePng";
 		print "Running...$cmd\n";
 		my @returnVals = RunCmd($cmd, 300);
 		#print "DONE!\n";

@@ -10,26 +10,28 @@ my $USEVIEWPORT = 1;
 my $XLIM = 1024;
 my $YLIM = 777;
 
-print "Finding..." . $ARGV[0] . "\n";
-my $bgColor = getBGcolor($ARGV[0]);
-print "BG Color: $bgColor\n\n";
-
 my($image, $x);
-$image = Image::Magick->new;
-$x = $image->Read($ARGV[1]);
 
-($width, $height, $size, $format) = $image->Ping($ARGV[1]);
+  $image = Image::Magick->new;
+  $x = $image->Read($ARGV[0]);
+
+  print "Finding..." . $ARGV[0] . "\n";
+  my $bgColor = getBGcolor($ARGV[0]);
+
+  print "BG Color: $bgColor\n\n";
+
+($width, $height, $size, $format) = $image->Ping($ARGV[0]);
 
 print "W x H: " . $width . " x " . $height . "\n\n";
 
 #$width = 500;
 #$height = 500;
 
-my $pxFile = $ARGV[1] . ".img.txt";
+my $pxFile = $ARGV[0] . ".img.txt";
 
 print "Getting pixels...\n";
-#my $cmd = "cat \"$ARGV[1]\" | convert - -gravity center txt:- > $pxFile";
-my $cmd = "cat \"$ARGV[1]\" | convert - -gravity center txt:- > $pxFile";
+#my $cmd = "cat \"$ARGV[0]\" | convert - -gravity center txt:- > $pxFile";
+my $cmd = "cat \"$ARGV[0]\" | convert - -gravity center txt:- > $pxFile";
 
 print "Doing: $cmd\n";
 
@@ -231,8 +233,17 @@ sub getBGcolor($)
 {
 	my $rgb = new Color::Rgb(rgb_txt=>'rgb.txt');
 	my $uri = trim($ARGV[0]);
-	
-	my $cmd = "phantomjs ./bgcolor.js $uri";
+	$uri =~ s/\.png/\.html/i;
+	if($uri =~ /^http:\/\//i)
+	{
+	}
+	else
+	{
+		$uri =~ s/\.*\///;
+		$uri = "http://www.cs.odu.edu/~jbrunelle/wsdl/positiontest/testing/theOutFile.png";
+		#$uri = "http://justinhome2/mementoImportance/$uri";
+	}
+	my $cmd = "phantomjs --local-to-remote-url-access=yes ./bgcolor.js \"$uri\"";
 
 	my $bg = "";
  	eval {
