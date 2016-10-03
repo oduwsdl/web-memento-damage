@@ -8,6 +8,7 @@ phantomjs --local-to-remote-url-access=yes rasterize.js "http://192.168.1.7/meme
 "./csjunk.png" "./csjunk.html" "./csjunk.missing"
 /**/
 
+var system = require('system');
 var fs = require('fs');
 var server = require('webserver').create();
 var theresources = [];
@@ -15,11 +16,11 @@ var theresources = [];
 var page = require('webpage').create(),
     address, output, size;
 
-if (phantom.args.length < 1 || phantom.args.length > 1) {
+if (system.args.length < 2 || system.args.length > 2) {
     console.log('Usage: rasterize.js URL filename logFile');
     phantom.exit();
 } else {
-    address = phantom.args[0];
+    address = system.args[1];
     page.viewportSize = { width: 1024, height: 777 }; 
     //page.viewportSize = { width: 600, height: 600 };
 
@@ -28,28 +29,27 @@ if (phantom.args.length < 1 || phantom.args.length > 1) {
 
 
     page.open(address, function (status) {
-
         if (status !== 'success') {
             console.log('Unable to load the address!');
         } else {
             window.setTimeout(function () {
-                page.render(output);
-
-		var pageContent = page.evaluate(function() { 
-		    var content = document.body.parentElement.outerHTML; 
-		    return content;
-		    //console.log("content written");
-		});
+//                 page.render(output);
+// 
+// 		        var pageContent = page.evaluate(function() { 
+// 		            var content = document.body.parentElement.outerHTML; 
+// 		            return content;
+// 		            //console.log("content written");
+// 		        });
 
 		
-		//console.log("opening...\n\n");
-		var bgCol = page.evaluate(function ()
-		{	
-			var theColor = document.body.style.backgroundColor;
-			return theColor;
-		});
-		console.log(bgCol + "\n");
-		phantom.exit();
+		        //console.log("opening...\n\n");
+		        var bgCol = page.evaluate(function ()
+		        {	
+			        var theColor = window.getComputedStyle(document.body)['backgroundColor'];
+			        return theColor;
+		        }) || 'FFFFFF';
+		        console.log(bgCol + "\n");
+		        phantom.exit();
 
             }, 200);
         }

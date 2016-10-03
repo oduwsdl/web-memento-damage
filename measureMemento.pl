@@ -20,7 +20,7 @@ my $TXTweight = 1 -($MMweight + $CSSweight + $IMGweight);
 my $wordsPerImg = 1000;
 
 ##where our phantomjs command lives
-my $pjs = "/var/www/phantomjs/bin/phantomjs";
+my $pjs = "phantomjs";
 
 
 if($#ARGV < 0)
@@ -57,7 +57,7 @@ my $toSave = "./testing/theOutFile";
 
 if($urim)
 {
-	my $pjsCmd = "/var/www/phantomjs/bin/phantomjs ./memDamageDistro/rasterize.js "
+	my $pjsCmd = "phantomjs ./rasterize.js "
 			. "\"$urim\" "
 			. "$toSave.png "
 			. "$toSave.html "
@@ -65,6 +65,7 @@ if($urim)
 	my $pjsTimeout = 180; 		##seconds
 
 	##1)
+	print "=======================================================================\n";
 	print "Running $pjsCmd...\n";
 	my @returnedStuff = RunCmd($pjsCmd, $pjsTimeout);
 	#print "Done!\n\n\n";
@@ -776,7 +777,7 @@ sub findCssImportance($)
 
 	if($isPotential == 0)
 	{
-		$cmd = "perl ./memDamageDistro/whitespace.pl $thePng";
+		$cmd = "perl ./whitespace.pl $thePng";
 		print "Running...$cmd\n";
 		my @returnVals = RunCmd($cmd, 300);
 		#print "DONE!\n";

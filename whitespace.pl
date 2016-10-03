@@ -231,19 +231,20 @@ else
 
 sub getBGcolor($)
 {
-	my $rgb = new Color::Rgb(rgb_txt=>'/etc/X11/rgb.txt');
+	my $rgb = new Color::Rgb(rgb_txt=>'rgb.txt');
 	my $uri = trim($ARGV[0]);
 	$uri =~ s/\.png/\.html/i;
-	if($uri =~ /^http:\/\//i)
-	{
-	}
-	else
-	{
-		$uri =~ s/\.*\///;
-		$uri = "http://www.cs.odu.edu/~jbrunelle/wsdl/positiontest/testing/theOutFile.png";
-		#$uri = "http://justinhome2/mementoImportance/$uri";
-	}
-	my $cmd = "/var/www/phantomjs/bin/phantomjs --local-to-remote-url-access=yes ./memDamageDistro/bgcolor.js \"$uri\"";
+# 	if($uri =~ /^http:\/\//i)
+# 	{
+# 	}
+# 	else
+# 	{
+# 		$uri =~ s/\.*\///;
+# 		$uri = "http://www.cs.odu.edu/~jbrunelle/wsdl/positiontest/testing/theOutFile.png";
+# 		#$uri = "http://justinhome2/mementoImportance/$uri";
+# 	}
+	my $cmd = "phantomjs --local-to-remote-url-access=yes ./bgcolor.js \"$uri\"";
+	print "Running $cmd\n";
 
 	my $bg = "";
  	eval {

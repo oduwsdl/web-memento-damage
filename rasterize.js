@@ -8,6 +8,7 @@ phantomjs --local-to-remote-url-access=yes rasterize.js "http://192.168.1.7/meme
 "./csjunk.png" "./csjunk.html" "./csjunk.missing"
 /**/
 
+var system = require('system');
 var fs = require('fs');
 var server = require('webserver').create();
 var theresources = [];
@@ -26,18 +27,18 @@ page.onResourceTimeout = function(e) {
   phantom.exit(1);
 };
 
-if (phantom.args.length < 3 || phantom.args.length > 4) {
+if (system.args.length < 4 || system.args.length > 5) {
     console.log('Usage: rasterize.js URL png html logFile');
     phantom.exit();
 } else {
-    address = phantom.args[0];
-    output = phantom.args[1];
-    logLoc = phantom.args[3];
+    address = system.args[1];
+    output = system.args[2];
+    logLoc = system.args[4];
     page.viewportSize = { width: 1024, height: 777 }; 
     //page.viewportSize = { width: 600, height: 600 };
 
 	//create the file
-	fs.write(phantom.args[3], "", "w");
+	fs.write(system.args[4], "", "w");
 
 
 
@@ -45,7 +46,7 @@ if (phantom.args.length < 3 || phantom.args.length > 4) {
 	page.onResourceRequested = function (req) {
 		theresources[req.id] = req.url;
 		//var logentry = 'requested: ' + JSON.stringify(req, undefined, 4);
-		//fs.write(phantom.args[3], logentry, "a");
+		//fs.write(system.args[3], logentry, "a");
 		    //console.log(theresources[req.id]);
 
 		//console.log('requested: ' + JSON.stringify(req, undefined, 4));
@@ -78,7 +79,7 @@ if (phantom.args.length < 3 || phantom.args.length > 4) {
 			index++;
 		}
 
-		//fs.write(phantom.args[3], res.url + ", " + res.status + "\n", "a");
+		//fs.write(system.args[4], res.url + ", " + res.status + "\n", "a");
 
 		//console.log(res.status);
 		/**/
@@ -130,14 +131,14 @@ if (phantom.args.length < 3 || phantom.args.length > 4) {
 			if(!(theInfo == ""))
 			{
 				//console.log(myurl + ", img, " + theInfo + "[" + sizeArr + "]" + "\n");
-				fs.write(phantom.args[3], myurl + ", img, " + theInfo + ", " + "[" + sizeArr + "]" + ", " + mycode + "\n", "a");
+				fs.write(system.args[4], myurl + ", img, " + theInfo + ", " + "[" + sizeArr + "]" + ", " + mycode + "\n", "a");
 			}
 			else
 			{
 				if(myurl.endsWith(".png") || myurl.endsWith(".jpeg") || myurl.endsWith(".jpg")
 					|| myurl.endsWith(".bmp") || myurl.endsWith(".tiff"))
 				{
-					fs.write(phantom.args[3], myurl + ", img, " + "[-1,-1], [-1,-1]" + ", " + "[" + sizeArr + "]" + ", " + mycode + "\n", "a");
+					fs.write(system.args[4], myurl + ", img, " + "[-1,-1], [-1,-1]" + ", " + "[" + sizeArr + "]" + ", " + mycode + "\n", "a");
 				}
 				else if((myurl.endsWith(".css")))
 				{
@@ -166,19 +167,19 @@ if (phantom.args.length < 3 || phantom.args.length > 4) {
 
 					if(!(theInfo2 == ""))
 					{
-						fs.write(phantom.args[3], myurl + ", multimedia, " + theInfo2 
+						fs.write(system.args[4], myurl + ", multimedia, " + theInfo2 
 							+ ", " + "[" + sizeArr + "]" + ", " + mycode + "\n", "a");
 					}
 					else
 					{
-						fs.write(phantom.args[3], myurl + ", multimedia, " 
+						fs.write(system.args[4], myurl + ", multimedia, " 
 							+ "[-1,-1], [-1,-1]" + ", " + "[" + sizeArr + "]" 
 							+ ", " + mycode + "\n", "a");
 					}
 				}
 				else
 				{
-					fs.write(phantom.args[3], myurl + ", other, " + mycode + "\n", "a");					
+					fs.write(system.args[4], myurl + ", other, " + mycode + "\n", "a");					
 				}
 			}
 			
@@ -233,22 +234,22 @@ if (phantom.args.length < 3 || phantom.args.length > 4) {
 		{
 			var importance = searchCSS(pageContent, i);
 			console.log("CSS importance " + sheetNames[i] + ": " + importance + "\n\n");
-			fs.write(phantom.args[3], sheetNames[i] + ", " + importance + ", 404\n", "a");
+			fs.write(system.args[4], sheetNames[i] + ", " + importance + ", 404\n", "a");
 			totalImp += importance;
 		}
-		    fs.write(phantom.args[2], pageContent, "w");
+		    fs.write(system.args[3], pageContent, "w");
 		    //console.log(pageContent);
 
-		fs.write("/home/jbrunelle/public_html/wsdl/damage_revist/dataFiles/tagNums.csv", myurl + ", " + totalImp + "\n", "a");
+		fs.write("./dataFiles/tagNums.csv", myurl + ", " + totalImp + "\n", "a");
 
 		/**
-		fs.write(phantom.args[3], "", "w");
+		fs.write(system.args[4], "", "w");
 		theresources.forEach(function (key, val) {
 			//console.log(val + ', ' + key);
-			fs.write(phantom.args[3], val + ", " + key + "\n", "a");
+			fs.write(system.args[4], val + ", " + key + "\n", "a");
 		});
 		/**/
-		//fs.write(phantom.args[3], theresources[res.id], "a");
+		//fs.write(system.args[4], theresources[res.id], "a");
                 phantom.exit();
             }, 200);
         }
