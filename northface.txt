@@ -1,0 +1,276 @@
+Initial Weights: 0.05, 0.3375, 0.1125, 0.5
+Finding importance of http://web.archive.org/static/images/toolbar/wayback-toolbar-logo.png, img, [110,39], [18,10], [1008,9610], 200
+Pixel Proportion: 0.000442867053168822 = (110 * 39)/(1008 * 9610)
+for size importance 0.000221433526584411 = (0.000442867053168822) * 0.5
+Total importance (size + location) => 0.000221433526584411 = (0.000221433526584411 + 0);
+
+Finding importance of http://web.archive.org/static/images/toolbar/wm_tb_nxt_on.png, img, [14,16], [858,29], [1008,9610], 200
+Pixel Proportion: 2.31240605850387e-05 = (14 * 16)/(1008 * 9610)
+for size importance 1.15620302925194e-05 = (2.31240605850387e-05) * 0.5
+Total importance (size + location) => 1.15620302925194e-05 = (1.15620302925194e-05 + 0);
+
+Finding importance of http://web.archive.org/static/images/toolbar/wm_tb_prv_on.png, img, [14,16], [790,29], [1008,9610], 200
+Pixel Proportion: 2.31240605850387e-05 = (14 * 16)/(1008 * 9610)
+for size importance 1.15620302925194e-05 = (2.31240605850387e-05) * 0.5
+Total importance (size + location) => 1.15620302925194e-05 = (1.15620302925194e-05 + 0);
+
+Finding importance of http://web.archive.org/static/images/toolbar/transp-red-pixel.png, img, [2,27], [], [1008,9610], 200
+Pixel Proportion: 5.57455031960755e-06 = (2 * 27)/(1008 * 9610)
+for size importance 2.78727515980378e-06 = (5.57455031960755e-06) * 0.5
+Total importance (size + location) => 2.78727515980378e-06 = (2.78727515980378e-06 + 0);
+
+Finding importance of http://web.archive.org/web/20110101183107im_/http://cdn.thenorthface.com/wcsstore/ConsumerDirectStorefrontAssetStore/images/en_US/global/theNorthFaceLogo.png, img, [66,66], [8,133], [1008,9610], 403
+Pixel Proportion: 0.000449680392448342 = (66 * 66)/(1008 * 9610)
+for size importance 0.000224840196224171 = (0.000449680392448342) * 0.5
+Total importance (size + location) => 0.000224840196224171 = (0.000224840196224171 + 0);
+
+Finding importance of http://web.archive.org/web/20110101183107im_/http://cdn.thenorthface.com/wcsstore/TNF_STORE_US_ECOM/Attachment/mens_denali.jpg, img, [379,108], [48,1522], [1008,9610], 302
+Pixel Proportion: 0.00422550914226252 = (379 * 108)/(1008 * 9610)
+for size importance 0.00211275457113126 = (0.00422550914226252) * 0.5
+Total importance (size + location) => 0.00211275457113126 = (0.00211275457113126 + 0);
+
+Finding importance of http://web.archive.org/web/20110101183107im_/http://cdn.thenorthface.com/wcsstore/TNF_STORE_US_ECOM/Attachment/womens_denali2.jpg, img, [379,108], [48,2958], [1008,9610], 302
+Pixel Proportion: 0.00422550914226252 = (379 * 108)/(1008 * 9610)
+for size importance 0.00211275457113126 = (0.00422550914226252) * 0.5
+Total importance (size + location) => 0.00211275457113126 = (0.00211275457113126 + 0);
+
+Finding importance of http://web.archive.org/web/20110101183107im_/http://cdn.thenorthface.com/wcsstore/TNF_STORE_US_ECOM/Attachment/toddlers.jpg, img, [379,108], [48,3785], [1008,9610], 302
+Pixel Proportion: 0.00422550914226252 = (379 * 108)/(1008 * 9610)
+for size importance 0.00211275457113126 = (0.00422550914226252) * 0.5
+Total importance (size + location) => 0.00211275457113126 = (0.00211275457113126 + 0);
+
+Finding importance of http://web.archive.org/web/20110101183107im_/http://cdn.thenorthface.com/wcsstore/TNF_STORE_US_ECOM/Attachment/recon_pack.jpg, img, [379,108], [48,4948], [1008,9610], 302
+Pixel Proportion: 0.00422550914226252 = (379 * 108)/(1008 * 9610)
+for size importance 0.00211275457113126 = (0.00422550914226252) * 0.5
+Total importance (size + location) => 0.00211275457113126 = (0.00211275457113126 + 0);
+
+Finding importance of http://web.archive.org/web/20110101183107im_/http://cdn.thenorthface.com/wcsstore/TNF_STORE_US_ECOM/Attachment/navBanner_EC_running_club_v2_773x108.jpg, img, [773,108], [48,5610], [1008,9610], 302
+overlaps middle at x; 0.5/2 added to get 0.25
+Pixel Proportion: 0.00861825479411328 = (773 * 108)/(1008 * 9610)
+for size importance 0.00430912739705664 = (0.00861825479411328) * 0.5
+Total importance (size + location) => 0.254309127397057 = (0.00430912739705664 + 0.25);
+
+Finding importance of http://web.archive.org/web/20110101183107im_/http://cdn.thenorthface.com/wcsstore/TNF_STORE_US_ECOM/Attachment/navBanner_blog_v2_773x108.jpg, img, [773,108], [48,6124], [1008,9610], 302
+overlaps middle at x; 0.5/2 added to get 0.25
+Pixel Proportion: 0.00861825479411328 = (773 * 108)/(1008 * 9610)
+for size importance 0.00430912739705664 = (0.00861825479411328) * 0.5
+Total importance (size + location) => 0.254309127397057 = (0.00430912739705664 + 0.25);
+
+Finding importance of http://web.archive.org/static/images/toolbar/transp-yellow-pixel.png, img, [25,27], [], [1008,9610], 200
+Pixel Proportion: 6.96818789950944e-05 = (25 * 27)/(1008 * 9610)
+for size importance 3.48409394975472e-05 = (6.96818789950944e-05) * 0.5
+Total importance (size + location) => 3.48409394975472e-05 = (3.48409394975472e-05 + 0);
+
+Finding importance of http://web.archive.org/web/20110101183107im_/http://cdn.thenorthface.com/wcsstore/TNF_STORE_US_ECOM/images/catalog/featuredExpedition_0710.png, img, [114,66], [88,6628], [1008,9610], 403
+Pixel Proportion: 0.000776720677865319 = (114 * 66)/(1008 * 9610)
+for size importance 0.000388360338932659 = (0.000776720677865319) * 0.5
+Total importance (size + location) => 0.000388360338932659 = (0.000388360338932659 + 0);
+
+Finding importance of http://web.archive.org/web/20110101183107im_/http://cdn.thenorthface.com/wcsstore/ConsumerDirectStorefrontAssetStore/images/en_US/global/nav/level2_iconVideo-zwei.gif, img, [32,24], [88,6836], [1008,9610], 403
+Pixel Proportion: 7.92824934344185e-05 = (32 * 24)/(1008 * 9610)
+for size importance 3.96412467172093e-05 = (7.92824934344185e-05) * 0.5
+Total importance (size + location) => 3.96412467172093e-05 = (3.96412467172093e-05 + 0);
+
+Finding importance of http://web.archive.org/web/20110101183107im_/http://cdn.thenorthface.com/wcsstore/ConsumerDirectStorefrontAssetStore/images/en_US/global/nav/level2_iconCalendar-zwei.gif, img, [32,24], [88,6865], [1008,9610], 403
+Pixel Proportion: 7.92824934344185e-05 = (32 * 24)/(1008 * 9610)
+for size importance 3.96412467172093e-05 = (7.92824934344185e-05) * 0.5
+Total importance (size + location) => 3.96412467172093e-05 = (3.96412467172093e-05 + 0);
+
+Finding importance of http://web.archive.org/web/20110101183107im_/http://cdn.thenorthface.com/wcsstore/TNF_STORE_US_ECOM/images/catalog/featuredSustainable_0710.png, img, [114,66], [88,7229], [1008,9610], 403
+Pixel Proportion: 0.000776720677865319 = (114 * 66)/(1008 * 9610)
+for size importance 0.000388360338932659 = (0.000776720677865319) * 0.5
+Total importance (size + location) => 0.000388360338932659 = (0.000388360338932659 + 0);
+
+Finding importance of http://web.archive.org/web/20110101183107im_/http://cdn.thenorthface.com/wcsstore/TNF_STORE_US_ECOM/Attachment/jan1_WelcomeToMyOffice_1380x1380_bg.jpg, img, [1,1], [8,85], [1008,9610], 302
+Pixel Proportion: 1.03232413326066e-07 = (1 * 1)/(1008 * 9610)
+for size importance 5.16162066630329e-08 = (1.03232413326066e-07) * 0.5
+Total importance (size + location) => 5.16162066630329e-08 = (5.16162066630329e-08 + 0);
+
+Finding importance of http://web.archive.org/web/20110101183107im_/http://www.thenorthface.com/brand/homepage/na/images/swfReplacementHome.jpg, img, [899,663], [8,7765], [1008,9610], 302
+overlaps middle at x; 0.5/2 added to get 0.25
+Pixel Proportion: 0.0615303379416283 = (899 * 663)/(1008 * 9610)
+for size importance 0.0307651689708141 = (0.0615303379416283) * 0.5
+Total importance (size + location) => 0.280765168970814 = (0.0307651689708141 + 0.25);
+
+Finding importance of http://web.archive.org/web/20110101183107im_/http://cdn.thenorthface.com/wcsstore/TNF_STORE_US_ECOM/images/catalog/featuredTech_0710.png, img, [114,66], [88,7063], [1008,9610], 403
+Pixel Proportion: 0.000776720677865319 = (114 * 66)/(1008 * 9610)
+for size importance 0.000388360338932659 = (0.000776720677865319) * 0.5
+Total importance (size + location) => 0.000388360338932659 = (0.000388360338932659 + 0);
+
+Finding importance of http://web.archive.org/web/20101231162710im_/http://cdn.thenorthface.com/wcsstore/TNF_STORE_US_ECOM/Attachment/mens_denali.jpg, img, [-1,-1], [-1,-1], [1008,9610], 302
+Pixel Proportion: 1.03232413326066e-07 = (-1 * -1)/(1008 * 9610)
+for size importance 5.16162066630329e-08 = (1.03232413326066e-07) * 0.5
+Total importance (size + location) => 5.16162066630329e-08 = (5.16162066630329e-08 + 0);
+
+Finding importance of http://web.archive.org/web/20101231162808im_/http://cdn.thenorthface.com/wcsstore/TNF_STORE_US_ECOM/Attachment/recon_pack.jpg, img, [-1,-1], [-1,-1], [1008,9610], 200
+Pixel Proportion: 1.03232413326066e-07 = (-1 * -1)/(1008 * 9610)
+for size importance 5.16162066630329e-08 = (1.03232413326066e-07) * 0.5
+Total importance (size + location) => 5.16162066630329e-08 = (5.16162066630329e-08 + 0);
+
+Finding importance of http://web.archive.org/web/20101231162717im_/http://cdn.thenorthface.com/wcsstore/TNF_STORE_US_ECOM/Attachment/womens_denali2.jpg, img, [-1,-1], [-1,-1], [1008,9610], 200
+Pixel Proportion: 1.03232413326066e-07 = (-1 * -1)/(1008 * 9610)
+for size importance 5.16162066630329e-08 = (1.03232413326066e-07) * 0.5
+Total importance (size + location) => 5.16162066630329e-08 = (5.16162066630329e-08 + 0);
+
+Finding importance of http://web.archive.org/web/20101231162824im_/http://cdn.thenorthface.com/wcsstore/TNF_STORE_US_ECOM/Attachment/navBanner_EC_running_club_v2_773x108.jpg, img, [-1,-1], [-1,-1], [1008,9610], 200
+Pixel Proportion: 1.03232413326066e-07 = (-1 * -1)/(1008 * 9610)
+for size importance 5.16162066630329e-08 = (1.03232413326066e-07) * 0.5
+Total importance (size + location) => 5.16162066630329e-08 = (5.16162066630329e-08 + 0);
+
+Finding importance of http://web.archive.org/web/20101231162626im_/http://cdn.thenorthface.com/wcsstore/TNF_STORE_US_ECOM/Attachment/jan1_WelcomeToMyOffice_1380x1380_bg.jpg, img, [-1,-1], [-1,-1], [1008,9610], 302
+Pixel Proportion: 1.03232413326066e-07 = (-1 * -1)/(1008 * 9610)
+for size importance 5.16162066630329e-08 = (1.03232413326066e-07) * 0.5
+Total importance (size + location) => 5.16162066630329e-08 = (5.16162066630329e-08 + 0);
+
+Finding importance of http://web.archive.org/web/20101231162835im_/http://cdn.thenorthface.com/wcsstore/TNF_STORE_US_ECOM/Attachment/navBanner_blog_v2_773x108.jpg, img, [-1,-1], [-1,-1], [1008,9610], 200
+Pixel Proportion: 1.03232413326066e-07 = (-1 * -1)/(1008 * 9610)
+for size importance 5.16162066630329e-08 = (1.03232413326066e-07) * 0.5
+Total importance (size + location) => 5.16162066630329e-08 = (5.16162066630329e-08 + 0);
+
+Finding importance of http://web.archive.org/static/images/toolbar/wm_tb_bk_trns.png, img, [-1,-1], [-1,-1], [1008,9610], 200
+Pixel Proportion: 1.03232413326066e-07 = (-1 * -1)/(1008 * 9610)
+for size importance 5.16162066630329e-08 = (1.03232413326066e-07) * 0.5
+Total importance (size + location) => 5.16162066630329e-08 = (5.16162066630329e-08 + 0);
+
+Finding importance of http://web.archive.org/static/images/toolbar/wm_tb_help.png, img, [-1,-1], [-1,-1], [1008,9610], 200
+Pixel Proportion: 1.03232413326066e-07 = (-1 * -1)/(1008 * 9610)
+for size importance 5.16162066630329e-08 = (1.03232413326066e-07) * 0.5
+Total importance (size + location) => 5.16162066630329e-08 = (5.16162066630329e-08 + 0);
+
+Finding importance of http://web.archive.org/static/images/toolbar/wm_tb_close.png, img, [-1,-1], [-1,-1], [1008,9610], 200
+Pixel Proportion: 1.03232413326066e-07 = (-1 * -1)/(1008 * 9610)
+for size importance 5.16162066630329e-08 = (1.03232413326066e-07) * 0.5
+Total importance (size + location) => 5.16162066630329e-08 = (5.16162066630329e-08 + 0);
+
+Finding importance of http://web.archive.org/web/20101231162726im_/http://cdn.thenorthface.com/wcsstore/TNF_STORE_US_ECOM/Attachment/toddlers.jpg, img, [-1,-1], [-1,-1], [1008,9610], 200
+Pixel Proportion: 1.03232413326066e-07 = (-1 * -1)/(1008 * 9610)
+for size importance 5.16162066630329e-08 = (1.03232413326066e-07) * 0.5
+Total importance (size + location) => 5.16162066630329e-08 = (5.16162066630329e-08 + 0);
+
+Finding importance of http://web.archive.org/web/20101231135111im_/http://www.thenorthface.com/brand/homepage/na/images/swfReplacementHome.jpg, img, [-1,-1], [-1,-1], [1008,9610], 200
+Pixel Proportion: 1.03232413326066e-07 = (-1 * -1)/(1008 * 9610)
+for size importance 5.16162066630329e-08 = (1.03232413326066e-07) * 0.5
+Total importance (size + location) => 5.16162066630329e-08 = (5.16162066630329e-08 + 0);
+
+Potential Damage http://data.coremetrics.com/cm?ci=90217892&st=1390874725770&vn1=4.3.1&ec=utf-8&vn2=e4.0&pi=THE%20NORTH%20FACE%20-%20HOME%20PAGE&ul=http%3A//web.archive.org/web/20110101183107/http%3A//www.thenorthface.com/catalog/index.html&cjen=1&cjuid=&cjsid=&cjvf=&tid=6&cg=Home%20Page&pc=Y&pv11=207&rnd=1390883940259&jv=1.5&je=n&sw=1024&sh=768&pd=32&tz=5 ==> [5.16162066630329e-08, img]
+Potential Damage http://analytics.archive.org/0.gif?server_ms=340&service=wb&server_name=wwwb-app12.us.archive.org&loadtime=7973&timediff=-5&locale=en-US&referrer=-&version=2&count=9 ==> [0.5, css]
+Potential Damage http://web.archive.org/web/20101231162710im_/http://cdn.thenorthface.com/wcsstore/TNF_STORE_US_ECOM/Attachment/mens_denali.jpg ==> [5.16162066630329e-08, img]
+Potential Damage http://web.archive.org/web/20110101183107js_/http://cdn.thenorthface.com/wcsstore/ConsumerDirectStorefrontAssetStore/javascript/search/headerSearch.js?t=20101230 ==> [1, js]
+Potential Damage http://web.archive.org/web/20110101183107/http://www.thenorthface.com/catalog/index.html ==> []
+Potential Damage http://web.archive.org/web/20101231162726im_/http://cdn.thenorthface.com/wcsstore/TNF_STORE_US_ECOM/Attachment/toddlers.jpg ==> [5.16162066630329e-08, img]
+Potential Damage http://web.archive.org/web/20110101183107im_/http://cdn.thenorthface.com/wcsstore/TNF_STORE_US_ECOM/images/catalog/featuredExpedition_0710.png ==> [0.000388360338932659, img]
+Potential Damage http://bs.serving-sys.com/BurstingPipe/ActivityServer.bs?cn=as&ActivityID=27918&rnd=316564.6411944181 ==> [5.16162066630329e-08, img]
+Potential Damage http://web.archive.org/web/20110101183107im_/http://cdn.thenorthface.com/wcsstore/ConsumerDirectStorefrontAssetStore/images/en_US/global/theNorthFaceLogo.png ==> [0.000224840196224171, img]
+Potential Damage http://web.archive.org/web/20101231162710/http://ak1.abmr.net/is/cdn.thenorthface.com?U=/wcsstore/TNF_STORE_US_ECOM/Attachment/mens_denali.jpg&V=3-67xdRFy4IhEBxOG45PDLM63jYqHNNGnJdlgJyp2GOrA+aF0oZSPK24VaOQ%2fk%2fMAE&I=02D47F636F65DBF&D=thenorthface.com&01AD=1& ==> [5.16162066630329e-08, img]
+Potential Damage http://web.archive.org/web/20110101183107im_/http://cdn.thenorthface.com/wcsstore/TNF_STORE_US_ECOM/Attachment/jan1_WelcomeToMyOffice_1380x1380_bg.jpg ==> [5.16162066630329e-08, img]
+Potential Damage http://web.archive.org/web/20110101183107im_/http://cdn.thenorthface.com/wcsstore/TNF_STORE_US_ECOM/Attachment/womens_denali2.jpg ==> [0.00211275457113126, img]
+Potential Damage http://web.archive.org/web/20101231162824im_/http://cdn.thenorthface.com/wcsstore/TNF_STORE_US_ECOM/Attachment/navBanner_EC_running_club_v2_773x108.jpg ==> [5.16162066630329e-08, img]
+Potential Damage http://web.archive.org/static/images/toolbar/wm_tb_nxt_on.png ==> [1.15620302925194e-05, img]
+Potential Damage http://web.archive.org/web/20110101183107js_/http://cdn.thenorthface.com/wcsstore/ConsumerDirectStorefrontAssetStore/javascript/survey/northface_webiq.js?t=20101230 ==> [1, js]
+Potential Damage http://web.archive.org/web/20110101183107js_/http://cdn.thenorthface.com/wcsstore/ConsumerDirectStorefrontAssetStore/javascript/global.js?t=20101230 ==> [1, js]
+Potential Damage http://web.archive.org/web/20110101183107cs_/http://cdn.thenorthface.com/wcsstore/ConsumerDirectStorefrontAssetStore/css/en_US/print.css?t=20101230 ==> [0.5, css]
+Potential Damage http://web.archive.org/web/20110101183107im_/http://cdn.thenorthface.com/wcsstore/TNF_STORE_US_ECOM/Attachment/recon_pack.jpg ==> [0.00211275457113126, img]
+Potential Damage http://web.archive.org/web/20101231183317/http://ak1.abmr.net/is/cdn.thenorthface.com?U=/wcsstore/TNF_STORE_US_ECOM/Attachment/mens_denali.jpg&V=3-67xdRFy4IhEBxOG45PDLM63jYqHNNGnJdlgJyp2GOrA+aF0oZSPK24VaOQ%2fk%2fMAE&I=02D47F636F65DBF&D=thenorthface.com&01AD=1& ==> [1, js]
+Potential Damage http://web.archive.org/static/images/toolbar/wm_tb_bk_trns.png ==> [5.16162066630329e-08, img]
+Potential Damage http://web.archive.org/static/js/analytics.js ==> [1, js]
+Potential Damage http://www.google.com/ads/user-lists/1055366290/?label=Sr8UCLK9ngEQkrme9wM&fmt=1&bg=666666&num=1&ct_cookie_present=false&cv=6&url=http%3A%2F%2Fweb.archive.org%2Fweb%2F20110101183107%2Fhttp%3A%2F%2Fwww.thenorthface.com%2Fcatalog%2Findex.html&random=3510362947 ==> [1, js]
+Potential Damage http://cdn.thenorthface.com/wcsstore/ConsumerDirectStorefrontAssetStore/javascript/coremetrics/cmdatatagutils.js ==> [1, js]
+Potential Damage http://web.archive.org/web/20110101183107/https://vms.boldchat.com/aid/303292010053200/bc.vms2/vms.js ==> [1, js]
+Potential Damage http://web.archive.org/web/20101231162626im_/http://cdn.thenorthface.com/wcsstore/TNF_STORE_US_ECOM/Attachment/jan1_WelcomeToMyOffice_1380x1380_bg.jpg ==> [5.16162066630329e-08, img]
+Potential Damage http://web.archive.org/web/20101231162717im_/http://cdn.thenorthface.com/wcsstore/TNF_STORE_US_ECOM/Attachment/womens_denali2.jpg ==> [5.16162066630329e-08, img]
+Potential Damage http://web.archive.org/web/jsp/graph.jsp?graphdata=475_27_1996:-1:000000000000_1997:-1:000000000000_1998:-1:000000000000_1999:-1:000000000000_2000:-1:000000000000_2001:-1:000000000000_2002:-1:000000000000_2003:-1:000000000000_2004:-1:000000000000_2005:-1:000000000000_2006:-1:000000000000_2007:-1:000000000000_2008:-1:00000007e968_2009:-1:161000000000_2010:-1:020000002358_2011:0:9f2736387985_2012:-1:233413037b00_2013:-1:101031032100_2014:-1:000000000000 ==> [1, js]
+Potential Damage [INTERNAL] ==> [0.5, css]
+Potential Damage http://web.archive.org/static/jflot/jquery.min.js ==> [1, js]
+Potential Damage http://web.archive.org/web/20110101183107js_/http://cdn.thenorthface.com/wcsstore/ConsumerDirectStorefrontAssetStore/javascript/homepageAndLocale/home.js?t=20101230 ==> [1, js]
+Potential Damage http://web.archive.org/web/20110101183107cs_/http://cdn.thenorthface.com/wcsstore/ConsumerDirectStorefrontAssetStore/css/en_US/screen.css?t=20101230 ==> [0.5, css]
+Potential Damage http://web.archive.org/web/20101231162808im_/http://cdn.thenorthface.com/wcsstore/TNF_STORE_US_ECOM/Attachment/recon_pack.jpg ==> [5.16162066630329e-08, img]
+Potential Damage http://web.archive.org/static/images/toolbar/transp-yellow-pixel.png ==> [3.48409394975472e-05, img]
+Potential Damage http://web.archive.org/static/images/toolbar/wm_tb_prv_on.png ==> [1.15620302925194e-05, img]
+Potential Damage txt ==> [28.437, txt]
+Potential Damage http://web.archive.org/web/20110101183107im_/http://cdn.thenorthface.com/wcsstore/ConsumerDirectStorefrontAssetStore/images/en_US/global/nav/level2_iconVideo-zwei.gif ==> [3.96412467172093e-05, img]
+Potential Damage http://web.archive.org/web/20110101183107im_/http://cdn.thenorthface.com/wcsstore/ConsumerDirectStorefrontAssetStore/images/en_US/global/nav/level2_iconCalendar-zwei.gif ==> [3.96412467172093e-05, img]
+Potential Damage http://web.archive.org/web/20110101183107im_/http://www.thenorthface.com/brand/homepage/na/images/swfReplacementHome.jpg ==> [0.280765168970814, img]
+Potential Damage http://web.archive.org/static/js/graph-calc.js ==> [1, js]
+Potential Damage http://web.archive.org/static/images/toolbar/wm_tb_close.png ==> [5.16162066630329e-08, img]
+Potential Damage http://web.archive.org/web/20110101183107im_/http://cdn.thenorthface.com/wcsstore/TNF_STORE_US_ECOM/images/catalog/featuredTech_0710.png ==> [0.000388360338932659, img]
+Potential Damage http://web.archive.org/web/20101231135111im_/http://www.thenorthface.com/brand/homepage/na/images/swfReplacementHome.jpg ==> [5.16162066630329e-08, img]
+Potential Damage http://web.archive.org/static/images/toolbar/transp-red-pixel.png ==> [2.78727515980378e-06, img]
+Potential Damage http://web.archive.org/static/css/banner-styles.css ==> [0.5, css]
+Potential Damage http://web.archive.org/static/images/toolbar/wm_tb_help.png ==> [5.16162066630329e-08, img]
+Potential Damage http://web.archive.org/web/20110101183107im_/http://cdn.thenorthface.com/wcsstore/TNF_STORE_US_ECOM/Attachment/navBanner_EC_running_club_v2_773x108.jpg ==> [0.254309127397057, img]
+Potential Damage http://www.googleadservices.com/pagead/conversion/1055366290/?random=1390874731874&cv=6&fst=1390874731874&num=1&fmt=1&value=0&label=Sr8UCLK9ngEQkrme9wM&bg=666666&hl=en&guid=ON&u_h=768&u_w=1024&u_ah=768&u_aw=1024&u_cd=32&u_his=1&u_tz=-300&u_java=false&u_nplug=0&u_nmime=0&url=http%3A//web.archive.org/web/20110101183107/http%3A//www.thenorthface.com/catalog/index.html ==> [1, js]
+Potential Damage http://web.archive.org/web/20110101183107im_/http://cdn.thenorthface.com/wcsstore/TNF_STORE_US_ECOM/Attachment/navBanner_blog_v2_773x108.jpg ==> [0.254309127397057, img]
+Potential Damage http://cdn.thenorthface.com/wcsstore/ConsumerDirectStorefrontAssetStore/javascript/coremetrics/eluminate.js ==> [1, js]
+Potential Damage http://web.archive.org/web/20101231162835im_/http://cdn.thenorthface.com/wcsstore/TNF_STORE_US_ECOM/Attachment/navBanner_blog_v2_773x108.jpg ==> [5.16162066630329e-08, img]
+Potential Damage http://web.archive.org/static/js/disclaim-element.js ==> [1, js]
+Potential Damage http://web.archive.org/web/20110101183107im_/http://cdn.thenorthface.com/wcsstore/TNF_STORE_US_ECOM/images/catalog/featuredSustainable_0710.png ==> [0.000388360338932659, img]
+Potential Damage http://web.archive.org/web/20110101183107js_/https://www.googleadservices.com/pagead/conversion.js ==> [1, js]
+Potential Damage http://web.archive.org/static/images/toolbar/wayback-toolbar-logo.png ==> [0.000221433526584411, img]
+Potential Damage http://web.archive.org/web/20110101124815js_/https://www.googleadservices.com/pagead/conversion.js ==> [1, js]
+Potential Damage http://web.archive.org/web/20110101183107im_/http://cdn.thenorthface.com/wcsstore/TNF_STORE_US_ECOM/Attachment/mens_denali.jpg ==> [0.00211275457113126, img]
+Potential Damage http://googleads.g.doubleclick.net/pagead/viewthroughconversion/1055366290/?random=1637087664&cv=6&fst=1390874731874&num=1&fmt=1&value=0&label=Sr8UCLK9ngEQkrme9wM&bg=666666&hl=en&guid=ON&u_h=768&u_w=1024&u_ah=768&u_aw=1024&u_cd=32&u_his=1&u_tz=-300&u_java=false&u_nplug=0&u_nmime=0&url=http%3A//web.archive.org/web/20110101183107/http%3A//www.thenorthface.com/catalog/index.html&ctc_id=CAIVAgAAAB0CAAAA&ct_cookie_present=false&convclickts=0 ==> [1, js]
+Potential Damage http://web.archive.org/web/20101231183301/http://ak1.abmr.net/is/cdn.thenorthface.com?U=/wcsstore/TNF_STORE_US_ECOM/Attachment/jan1_WelcomeToMyOffice_1380x1380_bg.jpg&V=3-upcsxuyK55RCQvbexcRwB7waz2cR+cTT6WnK9JcNZjBzcozTos9ggfGpMmYkzg0a&I=92A1096C231F620&D=thenorthface.com&01AD=1& ==> [1, js]
+Potential Damage http://web.archive.org/web/20101231162626/http://ak1.abmr.net/is/cdn.thenorthface.com?U=/wcsstore/TNF_STORE_US_ECOM/Attachment/jan1_WelcomeToMyOffice_1380x1380_bg.jpg&V=3-upcsxuyK55RCQvbexcRwB7waz2cR+cTT6WnK9JcNZjBzcozTos9ggfGpMmYkzg0a&I=92A1096C231F620&D=thenorthface.com&01AD=1& ==> [5.16162066630329e-08, img]
+Potential Damage http://web.archive.org/web/20110101183107im_/http://cdn.thenorthface.com/wcsstore/TNF_STORE_US_ECOM/Attachment/toddlers.jpg ==> [0.00211275457113126, img]
+
+calculated total damage:
+CSS: 0.125 = 2.5 * 0.05;
+MM: 0 = 0 * 0.5;
+IMG: 0.269860496878252 = 0.799586657417043 * 0.3375;
+
+POTENTIAL TOTAL:  3.59402299687825 = 0.269860496878252 + 0.125 + 0 + 3.1991625
+
+Potential DONE
+
+Finding importance of http://web.archive.org/web/20110101183107im_/http://cdn.thenorthface.com/wcsstore/ConsumerDirectStorefrontAssetStore/images/en_US/global/theNorthFaceLogo.png, img, [66,66], [8,133], [1008,9610], 403
+Pixel Proportion: 0.000449680392448342 = (66 * 66)/(1008 * 9610)
+for size importance 0.000224840196224171 = (0.000449680392448342) * 0.5
+Total importance (size + location) => 0.000224840196224171 = (0.000224840196224171 + 0);
+
+Finding importance of http://web.archive.org/web/20110101183107im_/http://cdn.thenorthface.com/wcsstore/TNF_STORE_US_ECOM/images/catalog/featuredExpedition_0710.png, img, [114,66], [88,6628], [1008,9610], 403
+Pixel Proportion: 0.000776720677865319 = (114 * 66)/(1008 * 9610)
+for size importance 0.000388360338932659 = (0.000776720677865319) * 0.5
+Total importance (size + location) => 0.000388360338932659 = (0.000388360338932659 + 0);
+
+Finding importance of http://web.archive.org/web/20110101183107im_/http://cdn.thenorthface.com/wcsstore/ConsumerDirectStorefrontAssetStore/images/en_US/global/nav/level2_iconVideo-zwei.gif, img, [32,24], [88,6836], [1008,9610], 403
+Pixel Proportion: 7.92824934344185e-05 = (32 * 24)/(1008 * 9610)
+for size importance 3.96412467172093e-05 = (7.92824934344185e-05) * 0.5
+Total importance (size + location) => 3.96412467172093e-05 = (3.96412467172093e-05 + 0);
+
+Finding importance of http://web.archive.org/web/20110101183107im_/http://cdn.thenorthface.com/wcsstore/ConsumerDirectStorefrontAssetStore/images/en_US/global/nav/level2_iconCalendar-zwei.gif, img, [32,24], [88,6865], [1008,9610], 403
+Pixel Proportion: 7.92824934344185e-05 = (32 * 24)/(1008 * 9610)
+for size importance 3.96412467172093e-05 = (7.92824934344185e-05) * 0.5
+Total importance (size + location) => 3.96412467172093e-05 = (3.96412467172093e-05 + 0);
+
+Finding importance of http://web.archive.org/web/20110101183107im_/http://cdn.thenorthface.com/wcsstore/TNF_STORE_US_ECOM/images/catalog/featuredSustainable_0710.png, img, [114,66], [88,7229], [1008,9610], 403
+Pixel Proportion: 0.000776720677865319 = (114 * 66)/(1008 * 9610)
+for size importance 0.000388360338932659 = (0.000776720677865319) * 0.5
+Total importance (size + location) => 0.000388360338932659 = (0.000388360338932659 + 0);
+
+Finding importance of http://web.archive.org/web/20110101183107im_/http://cdn.thenorthface.com/wcsstore/TNF_STORE_US_ECOM/images/catalog/featuredTech_0710.png, img, [114,66], [88,7063], [1008,9610], 403
+Pixel Proportion: 0.000776720677865319 = (114 * 66)/(1008 * 9610)
+for size importance 0.000388360338932659 = (0.000776720677865319) * 0.5
+Total importance (size + location) => 0.000388360338932659 = (0.000388360338932659 + 0);
+
+ACTUAL TOTAL:  0.000495856250929091 = 0.000495856250929091 + 0 + 0
+
+MEMENTO TOTAL: 0.000137966910996337 = 0.000495856250929091/3.59402299687825;
+
+
+http://web.archive.org/web/20110101183107js_/http://cdn.thenorthface.com/wcsstore/ConsumerDirectStorefrontAssetStore/javascript/search/headerSearch.js?t=20101230, [1, js]
+http://web.archive.org/web/20110101183107im_/http://cdn.thenorthface.com/wcsstore/ConsumerDirectStorefrontAssetStore/images/en_US/global/nav/level2_iconVideo-zwei.gif, [3.96412467172093e-05, img]
+http://web.archive.org/web/20110101183107im_/http://cdn.thenorthface.com/wcsstore/ConsumerDirectStorefrontAssetStore/images/en_US/global/nav/level2_iconCalendar-zwei.gif, [3.96412467172093e-05, img]
+PCT_MISSING, 0.278688524590164
+http://web.archive.org/web/20110101183107im_/http://cdn.thenorthface.com/wcsstore/TNF_STORE_US_ECOM/images/catalog/featuredExpedition_0710.png, [0.000388360338932659, img]
+http://web.archive.org/web/20110101183107im_/http://cdn.thenorthface.com/wcsstore/ConsumerDirectStorefrontAssetStore/images/en_US/global/theNorthFaceLogo.png, [0.000224840196224171, img]
+http://web.archive.org/web/20110101183107im_/http://cdn.thenorthface.com/wcsstore/TNF_STORE_US_ECOM/images/catalog/featuredTech_0710.png, [0.000388360338932659, img]
+http://web.archive.org/web/20110101183107js_/http://cdn.thenorthface.com/wcsstore/ConsumerDirectStorefrontAssetStore/javascript/survey/northface_webiq.js?t=20101230, [1, js]
+http://web.archive.org/web/20110101183107js_/http://cdn.thenorthface.com/wcsstore/ConsumerDirectStorefrontAssetStore/javascript/global.js?t=20101230, [1, js]
+http://web.archive.org/static/css/banner-styles.css, [0, css]
+http://web.archive.org/web/20110101183107cs_/http://cdn.thenorthface.com/wcsstore/ConsumerDirectStorefrontAssetStore/css/en_US/print.css?t=20101230, [0, css]
+http://web.archive.org/web/20110101183107/https://vms.boldchat.com/aid/303292010053200/bc.vms2/vms.js, [1, js]
+http://web.archive.org/web/20110101183107im_/http://cdn.thenorthface.com/wcsstore/TNF_STORE_US_ECOM/images/catalog/featuredSustainable_0710.png, [0.000388360338932659, img]
+TOTAL, 0.000137966910996337
+[INTERNAL], [0, css]
+http://web.archive.org/web/20110101183107cs_/http://cdn.thenorthface.com/wcsstore/ConsumerDirectStorefrontAssetStore/css/en_US/screen.css?t=20101230, [0, css]
+http://web.archive.org/web/20110101183107js_/http://cdn.thenorthface.com/wcsstore/ConsumerDirectStorefrontAssetStore/javascript/homepageAndLocale/home.js?t=20101230, [1, js]

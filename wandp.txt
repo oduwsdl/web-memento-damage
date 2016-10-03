@@ -1,0 +1,424 @@
+Initial Weights: 0.05, 0.3375, 0.1125, 0.5
+Finding importance of http://web.archive.org/static/images/toolbar/transp-yellow-pixel.png, img, [25,27], [], [1024,777], 200
+Pixel Proportion: 0.000848365106177606 = (25 * 27)/(1024 * 777)
+for size importance 0.000424182553088803 = (0.000848365106177606) * 0.5
+Total importance (size + location) => 0.000424182553088803 = (0.000424182553088803 + 0);
+
+Finding importance of http://web.archive.org/static/images/toolbar/wm_tb_prv_on.png, img, [14,16], [782,31], [1024,777], 200
+Pixel Proportion: 0.000281531531531532 = (14 * 16)/(1024 * 777)
+for size importance 0.000140765765765766 = (0.000281531531531532) * 0.5
+Total importance (size + location) => 0.000140765765765766 = (0.000140765765765766 + 0);
+
+Finding importance of http://web.archive.org/static/images/toolbar/wm_tb_nxt_on.png, img, [14,16], [850,31], [1024,777], 200
+Pixel Proportion: 0.000281531531531532 = (14 * 16)/(1024 * 777)
+for size importance 0.000140765765765766 = (0.000281531531531532) * 0.5
+Total importance (size + location) => 0.000140765765765766 = (0.000140765765765766 + 0);
+
+Finding importance of http://web.archive.org/static/images/toolbar/transp-red-pixel.png, img, [2,27], [], [1024,777], 200
+Pixel Proportion: 6.78692084942085e-05 = (2 * 27)/(1024 * 777)
+for size importance 3.39346042471042e-05 = (6.78692084942085e-05) * 0.5
+Total importance (size + location) => 3.39346042471042e-05 = (3.39346042471042e-05 + 0);
+
+Finding importance of http://web.archive.org/static/images/toolbar/wayback-toolbar-logo.png, img, [110,39], [10,10], [1024,777], 200
+Pixel Proportion: 0.00539183156370656 = (110 * 39)/(1024 * 777)
+for size importance 0.00269591578185328 = (0.00539183156370656) * 0.5
+Total importance (size + location) => 0.00269591578185328 = (0.00269591578185328 + 0);
+
+Finding importance of http://web.archive.org/web/20050131170702im_/http://wandp.american.edu/images/index/index_03.gif, img, [296,27], [296,70], [1024,777], 302
+overlaps middle at x; 0.5/2 added to get 0.25
+Pixel Proportion: 0.0100446428571429 = (296 * 27)/(1024 * 777)
+for size importance 0.00502232142857143 = (0.0100446428571429) * 0.5
+Total importance (size + location) => 0.255022321428571 = (0.00502232142857143 + 0.25);
+
+Finding importance of http://web.archive.org/web/20050131170702im_/http://wandp.american.edu/images/index/index_02.gif, img, [241,27], [55,70], [1024,777], 302
+Pixel Proportion: 0.00817823962355212 = (241 * 27)/(1024 * 777)
+for size importance 0.00408911981177606 = (0.00817823962355212) * 0.5
+Total importance (size + location) => 0.00408911981177606 = (0.00408911981177606 + 0);
+
+Finding importance of http://web.archive.org/web/20050131170702im_/http://wandp.american.edu/images/index/index_04.gif, img, [31,27], [592,70], [1024,777], 302
+Pixel Proportion: 0.00105197273166023 = (31 * 27)/(1024 * 777)
+for size importance 0.000525986365830116 = (0.00105197273166023) * 0.5
+Total importance (size + location) => 0.000525986365830116 = (0.000525986365830116 + 0);
+
+Finding importance of http://web.archive.org/web/20050131170702im_/http://wandp.american.edu/images/index/index_01.gif, img, [55,57], [0,70], [1024,777], 302
+Pixel Proportion: 0.0039401846042471 = (55 * 57)/(1024 * 777)
+for size importance 0.00197009230212355 = (0.0039401846042471) * 0.5
+Total importance (size + location) => 0.00197009230212355 = (0.00197009230212355 + 0);
+
+Finding importance of http://web.archive.org/web/20050131170702im_/http://wandp.american.edu/images/index/index_05.gif, img, [175,27], [623,70], [1024,777], 302
+Pixel Proportion: 0.00593855574324324 = (175 * 27)/(1024 * 777)
+for size importance 0.00296927787162162 = (0.00593855574324324) * 0.5
+Total importance (size + location) => 0.00296927787162162 = (0.00296927787162162 + 0);
+
+Finding importance of http://web.archive.org/web/20050131170702im_/http://wandp.american.edu/images/index/background.gif, img, [2,600], [798,71], [1024,777], 302
+Pixel Proportion: 0.00150820463320463 = (2 * 600)/(1024 * 777)
+for size importance 0.000754102316602317 = (0.00150820463320463) * 0.5
+Total importance (size + location) => 0.000754102316602317 = (0.000754102316602317 + 0);
+
+Finding importance of http://web.archive.org/web/20050131170702im_/http://wandp.american.edu/images/index/index_10.gif, img, [175,106], [623,97], [1024,777], 302
+Pixel Proportion: 0.023314329954955 = (175 * 106)/(1024 * 777)
+for size importance 0.0116571649774775 = (0.023314329954955) * 0.5
+Total importance (size + location) => 0.0116571649774775 = (0.0116571649774775 + 0);
+
+Finding importance of http://web.archive.org/web/20050131170702im_/http://wandp.american.edu/images/index/index_08.gif, img, [457,106], [135,97], [1024,777], 302
+overlaps middle at x; 0.5/2 added to get 0.25
+Pixel Proportion: 0.0608837073680824 = (457 * 106)/(1024 * 777)
+for size importance 0.0304418536840412 = (0.0608837073680824) * 0.5
+Total importance (size + location) => 0.280441853684041 = (0.0304418536840412 + 0.25);
+
+Finding importance of http://web.archive.org/web/20050131170702im_/http://wandp.american.edu/images/index/index_06.gif, img, [80,30], [55,97], [1024,777], 302
+Pixel Proportion: 0.00301640926640927 = (80 * 30)/(1024 * 777)
+for size importance 0.00150820463320463 = (0.00301640926640927) * 0.5
+Total importance (size + location) => 0.00150820463320463 = (0.00150820463320463 + 0);
+
+Finding importance of http://web.archive.org/web/20050131170702im_/http://wandp.american.edu/images/index/index_09.gif, img, [31,106], [592,97], [1024,777], 302
+Pixel Proportion: 0.00412996702059202 = (31 * 106)/(1024 * 777)
+for size importance 0.00206498351029601 = (0.00412996702059202) * 0.5
+Total importance (size + location) => 0.00206498351029601 = (0.00206498351029601 + 0);
+
+Finding importance of http://web.archive.org/web/20050131170702im_/http://wandp.american.edu/images/index/index_11.gif, img, [457,80], [135,203], [1024,777], 302
+overlaps middle at x; 0.5/2 added to get 0.25
+Pixel Proportion: 0.0459499678249678 = (457 * 80)/(1024 * 777)
+for size importance 0.0229749839124839 = (0.0459499678249678) * 0.5
+Total importance (size + location) => 0.272974983912484 = (0.0229749839124839 + 0.25);
+
+Finding importance of http://web.archive.org/web/20050131170702im_/http://wandp.american.edu/images/index/nav_01.gif, img, [135,25], [0,203], [1024,777], 302
+Pixel Proportion: 0.00424182553088803 = (135 * 25)/(1024 * 777)
+for size importance 0.00212091276544402 = (0.00424182553088803) * 0.5
+Total importance (size + location) => 0.00212091276544402 = (0.00212091276544402 + 0);
+
+Finding importance of http://web.archive.org/web/20050131170702im_/http://wandp.american.edu/images/index/spacer.gif, img, [1,27], [800,70], [1024,777], 302
+Pixel Proportion: 3.39346042471042e-05 = (1 * 27)/(1024 * 777)
+for size importance 1.69673021235521e-05 = (3.39346042471042e-05) * 0.5
+Total importance (size + location) => 1.69673021235521e-05 = (1.69673021235521e-05 + 0);
+
+Finding importance of http://web.archive.org/web/20050131170702im_/http://wandp.american.edu/images/index/index_07.gif, img, [135,76], [0,127], [1024,777], 302
+Pixel Proportion: 0.0128951496138996 = (135 * 76)/(1024 * 777)
+for size importance 0.00644757480694981 = (0.0128951496138996) * 0.5
+Total importance (size + location) => 0.00644757480694981 = (0.00644757480694981 + 0);
+
+Finding importance of http://web.archive.org/web/20050131170702im_/http://wandp.american.edu/images/index/index_12.gif, img, [31,80], [592,203], [1024,777], 302
+Pixel Proportion: 0.00311695624195624 = (31 * 80)/(1024 * 777)
+for size importance 0.00155847812097812 = (0.00311695624195624) * 0.5
+Total importance (size + location) => 0.00155847812097812 = (0.00155847812097812 + 0);
+
+Finding importance of http://web.archive.org/web/20050131170702im_/http://wandp.american.edu/images/index/nav_02.gif, img, [135,55], [0,228], [1024,777], 302
+Pixel Proportion: 0.00933201616795367 = (135 * 55)/(1024 * 777)
+for size importance 0.00466600808397683 = (0.00933201616795367) * 0.5
+Total importance (size + location) => 0.00466600808397683 = (0.00466600808397683 + 0);
+
+Finding importance of http://web.archive.org/web/20050131170702im_/http://wandp.american.edu/images/index/nav_03.gif, img, [135,55], [0,283], [1024,777], 302
+Pixel Proportion: 0.00933201616795367 = (135 * 55)/(1024 * 777)
+for size importance 0.00466600808397683 = (0.00933201616795367) * 0.5
+Total importance (size + location) => 0.00466600808397683 = (0.00466600808397683 + 0);
+
+Finding importance of http://web.archive.org/web/20050131170702im_/http://wandp.american.edu/images/index/index_13.gif, img, [161,108], [135,283], [1024,777], 302
+Pixel Proportion: 0.0218538851351351 = (161 * 108)/(1024 * 777)
+for size importance 0.0109269425675676 = (0.0218538851351351) * 0.5
+Total importance (size + location) => 0.0109269425675676 = (0.0109269425675676 + 0);
+
+Finding importance of http://web.archive.org/web/20050131170702im_/http://wandp.american.edu/images/index/index_16.gif, img, [31,108], [592,283], [1024,777], 302
+Pixel Proportion: 0.00420789092664093 = (31 * 108)/(1024 * 777)
+for size importance 0.00210394546332046 = (0.00420789092664093) * 0.5
+Total importance (size + location) => 0.00210394546332046 = (0.00210394546332046 + 0);
+
+Finding importance of http://web.archive.org/web/20050131170702im_/http://wandp.american.edu/images/index/index_14.gif, img, [139,108], [296,283], [1024,777], 302
+Pixel Proportion: 0.01886763996139 = (139 * 108)/(1024 * 777)
+for size importance 0.00943381998069498 = (0.01886763996139) * 0.5
+Total importance (size + location) => 0.00943381998069498 = (0.00943381998069498 + 0);
+
+Finding importance of http://web.archive.org/web/20050131170702im_/http://wandp.american.edu/images/index/nav_04.gif, img, [135,25], [0,338], [1024,777], 302
+Pixel Proportion: 0.00424182553088803 = (135 * 25)/(1024 * 777)
+for size importance 0.00212091276544402 = (0.00424182553088803) * 0.5
+Total importance (size + location) => 0.00212091276544402 = (0.00212091276544402 + 0);
+
+Finding importance of http://web.archive.org/web/20050131170702im_/http://wandp.american.edu/images/index/index_15.gif, img, [157,108], [435,283], [1024,777], 302
+overlaps middle at x; 0.5/2 added to get 0.25
+Pixel Proportion: 0.0213109314671815 = (157 * 108)/(1024 * 777)
+for size importance 0.0106554657335907 = (0.0213109314671815) * 0.5
+Total importance (size + location) => 0.260655465733591 = (0.0106554657335907 + 0.25);
+
+Finding importance of http://web.archive.org/web/20050131170702im_/http://wandp.american.edu/images/index/index_18.gif, img, [161,106], [135,391], [1024,777], 302
+Pixel Proportion: 0.0214491835585586 = (161 * 106)/(1024 * 777)
+for size importance 0.0107245917792793 = (0.0214491835585586) * 0.5
+Total importance (size + location) => 0.0107245917792793 = (0.0107245917792793 + 0);
+
+Finding importance of http://web.archive.org/web/20050131170702im_/http://wandp.american.edu/images/index/index_19.gif, img, [139,106], [296,391], [1024,777], 302
+Pixel Proportion: 0.0185182392213642 = (139 * 106)/(1024 * 777)
+for size importance 0.00925911961068211 = (0.0185182392213642) * 0.5
+Total importance (size + location) => 0.00925911961068211 = (0.00925911961068211 + 0);
+
+Finding importance of http://web.archive.org/web/20050131170702im_/http://wandp.american.edu/images/index/nav_05.gif, img, [135,34], [0,363], [1024,777], 302
+Pixel Proportion: 0.00576888272200772 = (135 * 34)/(1024 * 777)
+for size importance 0.00288444136100386 = (0.00576888272200772) * 0.5
+Total importance (size + location) => 0.00288444136100386 = (0.00288444136100386 + 0);
+
+Finding importance of http://web.archive.org/web/20050131170702im_/http://wandp.american.edu/images/index/index_20.gif, img, [157,106], [435,391], [1024,777], 302
+overlaps middle at x; 0.5/2 added to get 0.25
+Pixel Proportion: 0.0209162845881596 = (157 * 106)/(1024 * 777)
+for size importance 0.0104581422940798 = (0.0209162845881596) * 0.5
+Total importance (size + location) => 0.26045814229408 = (0.0104581422940798 + 0.25);
+
+Finding importance of http://web.archive.org/web/20050131170702im_/http://wandp.american.edu/images/index/nav_06.gif, img, [135,25], [0,397], [1024,777], 302
+Pixel Proportion: 0.00424182553088803 = (135 * 25)/(1024 * 777)
+for size importance 0.00212091276544402 = (0.00424182553088803) * 0.5
+Total importance (size + location) => 0.00212091276544402 = (0.00212091276544402 + 0);
+
+Finding importance of http://web.archive.org/web/20050131170702im_/http://wandp.american.edu/images/index/index_21.gif, img, [31,106], [592,391], [1024,777], 302
+Pixel Proportion: 0.00412996702059202 = (31 * 106)/(1024 * 777)
+for size importance 0.00206498351029601 = (0.00412996702059202) * 0.5
+Total importance (size + location) => 0.00206498351029601 = (0.00206498351029601 + 0);
+
+Finding importance of http://web.archive.org/web/20050131170702im_/http://wandp.american.edu/images/index/index_17.gif, img, [135,50], [0,447], [1024,777], 302
+Pixel Proportion: 0.00848365106177606 = (135 * 50)/(1024 * 777)
+for size importance 0.00424182553088803 = (0.00848365106177606) * 0.5
+Total importance (size + location) => 0.00424182553088803 = (0.00424182553088803 + 0);
+
+Finding importance of http://web.archive.org/web/20050131170702im_/http://wandp.american.edu/images/index/nav_07.gif, img, [135,25], [0,422], [1024,777], 302
+Pixel Proportion: 0.00424182553088803 = (135 * 25)/(1024 * 777)
+for size importance 0.00212091276544402 = (0.00424182553088803) * 0.5
+Total importance (size + location) => 0.00212091276544402 = (0.00212091276544402 + 0);
+
+Finding importance of http://web.archive.org/web/20050131170702im_/http://wandp.american.edu/images/index/index_23.gif, img, [161,106], [135,497], [1024,777], 302
+Pixel Proportion: 0.0214491835585586 = (161 * 106)/(1024 * 777)
+for size importance 0.0107245917792793 = (0.0214491835585586) * 0.5
+Total importance (size + location) => 0.0107245917792793 = (0.0107245917792793 + 0);
+
+Finding importance of http://web.archive.org/web/20050131170702im_/http://wandp.american.edu/images/index/index_22.gif, img, [135,106], [0,497], [1024,777], 302
+Pixel Proportion: 0.0179853402509653 = (135 * 106)/(1024 * 777)
+for size importance 0.00899267012548263 = (0.0179853402509653) * 0.5
+Total importance (size + location) => 0.00899267012548263 = (0.00899267012548263 + 0);
+
+Finding importance of http://web.archive.org/web/20050131170702im_/http://wandp.american.edu/images/index/index_24.gif, img, [139,106], [296,497], [1024,777], 302
+Pixel Proportion: 0.0185182392213642 = (139 * 106)/(1024 * 777)
+for size importance 0.00925911961068211 = (0.0185182392213642) * 0.5
+Total importance (size + location) => 0.00925911961068211 = (0.00925911961068211 + 0);
+
+Finding importance of http://web.archive.org/web/20050131170702im_/http://wandp.american.edu/images/index/index_25.gif, img, [157,106], [435,497], [1024,777], 302
+overlaps middle at x; 0.5/2 added to get 0.25
+Pixel Proportion: 0.0209162845881596 = (157 * 106)/(1024 * 777)
+for size importance 0.0104581422940798 = (0.0209162845881596) * 0.5
+Total importance (size + location) => 0.26045814229408 = (0.0104581422940798 + 0.25);
+
+Finding importance of http://web.archive.org/web/20050131170702im_/http://wandp.american.edu/images/index/index_26.gif, img, [31,65], [592,497], [1024,777], 302
+Pixel Proportion: 0.00253252694658945 = (31 * 65)/(1024 * 777)
+for size importance 0.00126626347329472 = (0.00253252694658945) * 0.5
+Total importance (size + location) => 0.00126626347329472 = (0.00126626347329472 + 0);
+
+Finding importance of http://web.archive.org/web/20050131170702im_/http://wandp.american.edu/images/index/index_27.gif, img, [31,41], [592,562], [1024,777], 302
+Pixel Proportion: 0.00159744007400257 = (31 * 41)/(1024 * 777)
+for size importance 0.000798720037001287 = (0.00159744007400257) * 0.5
+Total importance (size + location) => 0.000798720037001287 = (0.000798720037001287 + 0);
+
+Finding importance of http://web.archive.org/web/20050131170702im_/http://wandp.american.edu/images/index/index_29.gif, img, [135,2], [0,603], [1024,777], 302
+Pixel Proportion: 0.000339346042471042 = (135 * 2)/(1024 * 777)
+for size importance 0.000169673021235521 = (0.000339346042471042) * 0.5
+Total importance (size + location) => 0.000169673021235521 = (0.000169673021235521 + 0);
+
+Finding importance of http://web.archive.org/web/20050131170702im_/http://wandp.american.edu/images/index/index_30.gif, img, [161,2], [135,603], [1024,777], 302
+Pixel Proportion: 0.000404701576576577 = (161 * 2)/(1024 * 777)
+for size importance 0.000202350788288288 = (0.000404701576576577) * 0.5
+Total importance (size + location) => 0.000202350788288288 = (0.000202350788288288 + 0);
+
+Finding importance of http://web.archive.org/web/20050131170702im_/http://wandp.american.edu/images/index/index_31.gif, img, [139,2], [296,603], [1024,777], 302
+Pixel Proportion: 0.00034940074002574 = (139 * 2)/(1024 * 777)
+for size importance 0.00017470037001287 = (0.00034940074002574) * 0.5
+Total importance (size + location) => 0.00017470037001287 = (0.00017470037001287 + 0);
+
+Finding importance of http://web.archive.org/web/20050131170702im_/http://wandp.american.edu/images/index/index_32.gif, img, [157,2], [435,603], [1024,777], 302
+overlaps middle at x; 0.5/2 added to get 0.25
+Pixel Proportion: 0.000394646879021879 = (157 * 2)/(1024 * 777)
+for size importance 0.00019732343951094 = (0.000394646879021879) * 0.5
+Total importance (size + location) => 0.250197323439511 = (0.00019732343951094 + 0.25);
+
+Finding importance of http://web.archive.org/static/images/toolbar/wm_tb_bk_trns.png, img, [-1,-1], [-1,-1], [1024,777], 200
+Pixel Proportion: 1.25683719433719e-06 = (-1 * -1)/(1024 * 777)
+for size importance 6.28418597168597e-07 = (1.25683719433719e-06) * 0.5
+Total importance (size + location) => 6.28418597168597e-07 = (6.28418597168597e-07 + 0);
+
+Finding importance of http://web.archive.org/web/20050131170702im_/http://wandp.american.edu/images/index/index_33.gif, img, [31,2], [592,603], [1024,777], 302
+Pixel Proportion: 7.7923906048906e-05 = (31 * 2)/(1024 * 777)
+for size importance 3.8961953024453e-05 = (7.7923906048906e-05) * 0.5
+Total importance (size + location) => 3.8961953024453e-05 = (3.8961953024453e-05 + 0);
+
+Finding importance of http://web.archive.org/web/20050131170702im_/http://wandp.american.edu/images/index/index_34.gif, img, [175,2], [623,603], [1024,777], 302
+Pixel Proportion: 0.000439893018018018 = (175 * 2)/(1024 * 777)
+for size importance 0.000219946509009009 = (0.000439893018018018) * 0.5
+Total importance (size + location) => 0.000219946509009009 = (0.000219946509009009 + 0);
+
+Finding importance of http://web.archive.org/static/images/toolbar/wm_tb_close.png, img, [-1,-1], [-1,-1], [1024,777], 200
+Pixel Proportion: 1.25683719433719e-06 = (-1 * -1)/(1024 * 777)
+for size importance 6.28418597168597e-07 = (1.25683719433719e-06) * 0.5
+Total importance (size + location) => 6.28418597168597e-07 = (6.28418597168597e-07 + 0);
+
+Finding importance of http://web.archive.org/static/images/toolbar/wm_tb_help.png, img, [-1,-1], [-1,-1], [1024,777], 200
+Pixel Proportion: 1.25683719433719e-06 = (-1 * -1)/(1024 * 777)
+for size importance 6.28418597168597e-07 = (1.25683719433719e-06) * 0.5
+Total importance (size + location) => 6.28418597168597e-07 = (6.28418597168597e-07 + 0);
+
+Potential Damage http://web.archive.org/web/20130821161531im_/http://wandp.american.edu/images/index/index_21.gif ==> [0.00126626347329472, img]
+Potential Damage http://web.archive.org/web/20050131170702im_/http://wandp.american.edu/images/index/index_22.gif ==> [0.00899267012548263, img]
+Potential Damage http://web.archive.org/web/20050131170702/http://wandp.american.edu/ ==> []
+Potential Damage http://web.archive.org/web/20050131170702im_/http://wandp.american.edu/images/index/index_15.gif ==> [0.260655465733591, img]
+Potential Damage http://web.archive.org/web/20050131170702im_/http://wandp.american.edu/images/index/index_07.gif ==> [0.00644757480694981, img]
+Potential Damage http://web.archive.org/web/20040911085830/http://wandp.american.edu/images/index/nav_02_over.gif ==> [6.28418597168597e-07, img]
+Potential Damage http://web.archive.org/web/20130821161530im_/http://wandp.american.edu/images/index/index_19.gif ==> [0.00126626347329472, img]
+Potential Damage http://web.archive.org/web/jsp/graph.jsp?graphdata=475_27_1996:-1:000000000000_1997:-1:000000000000_1998:-1:000000000000_1999:-1:000000000000_2000:-1:000000000000_2001:-1:000000000000_2002:-1:000000000000_2003:-1:000000000000_2004:-1:000000002010_2005:0:121000000101_2006:-1:0002021214a5_2007:-1:721212122210_2008:-1:211111411001_2009:-1:102001001001_2010:-1:100002010102_2011:-1:010001322201_2012:-1:112020101010_2013:-1:020200011000_2014:-1:000000000000 ==> [1, js]
+Potential Damage http://web.archive.org/web/20130821161530im_/http://wandp.american.edu/images/index/index_08.gif ==> [0.00126626347329472, img]
+Potential Damage http://web.archive.org/web/20040911151200im_/http://wandp.american.edu/images/index/nav_07.gif ==> [0.00126626347329472, img]
+Potential Damage http://web.archive.org/web/20130821161533im_/http://wandp.american.edu/images/index/index_27.gif ==> [6.28418597168597e-07, img]
+Potential Damage http://web.archive.org/web/20130821161530/http://www.american.edu/spa/wpi ==> [6.28418597168597e-07, img]
+Potential Damage http://web.archive.org/web/20130821161533/http://www.american.edu/spa/wpi ==> [6.28418597168597e-07, img]
+Potential Damage http://web.archive.org/web/20050131170702/http://wandp.american.edu/images/index/menu/leadership/wlp.gif ==> [6.28418597168597e-07, img]
+Potential Damage http://web.archive.org/web/20040911113301im_/http://wandp.american.edu/images/index/nav_05.gif ==> [0.00126626347329472, img]
+Potential Damage http://web.archive.org/web/20130821161536/http://wandp.american.edu/images/index/menu/academics/certprogram.gif ==> [6.28418597168597e-07, img]
+Potential Damage http://web.archive.org/web/20130821161529im_/http://wandp.american.edu/images/index/index_11.gif ==> [0.00126626347329472, img]
+Potential Damage http://web.archive.org/web/20130821161530im_/http://wandp.american.edu/images/index/index_14.gif ==> [0.00126626347329472, img]
+Potential Damage http://web.archive.org/static/images/toolbar/wm_tb_close.png ==> [6.28418597168597e-07, img]
+Potential Damage http://web.archive.org/static/images/toolbar/transp-red-pixel.png ==> [3.39346042471042e-05, img]
+Potential Damage http://web.archive.org/web/20050206211907js_/http://wandp.american.edu/code/java/email.js ==> [1, js]
+Potential Damage http://web.archive.org/web/20050131170702im_/http://wandp.american.edu/images/index/index_02.gif ==> [0.00408911981177606, img]
+Potential Damage http://web.archive.org/web/20130821161530im_/http://wandp.american.edu/images/index/index_13.gif ==> [0.00126626347329472, img]
+Potential Damage http://web.archive.org/web/20130821161530im_/http://wandp.american.edu/images/index/index_16.gif ==> [0.00126626347329472, img]
+Potential Damage http://web.archive.org/web/20050131170702im_/http://wandp.american.edu/images/index/index_12.gif ==> [0.00155847812097812, img]
+Potential Damage http://web.archive.org/web/20050131170702im_/http://wandp.american.edu/images/index/index_27.gif ==> [0.000798720037001287, img]
+Potential Damage http://web.archive.org/web/20130821161536/http://wandp.american.edu/images/index/menu/menu_up.gif ==> [6.28418597168597e-07, img]
+Potential Damage http://web.archive.org/web/20130821161533im_/http://wandp.american.edu/images/index/index_30.gif ==> [6.28418597168597e-07, img]
+Potential Damage http://web.archive.org/web/20050131170702/http://wandp.american.edu/images/index/nav_02_over.gif ==> [6.28418597168597e-07, img]
+Potential Damage http://web.archive.org/web/20050131170702/http://wandp.american.edu/images/index/menu/academics/fall03.gif ==> [6.28418597168597e-07, img]
+Potential Damage http://web.archive.org/web/20050131170702im_/http://wandp.american.edu/images/index/index_19.gif ==> [0.00925911961068211, img]
+Potential Damage http://web.archive.org/web/20130828220253/http://www.american.edu/spa/wpi/ ==> [6.28418597168597e-07, img]
+Potential Damage http://web.archive.org/web/20040911100456im_/http://wandp.american.edu/images/index/nav_03.gif ==> [0.00126626347329472, img]
+Potential Damage http://web.archive.org/web/20040911113542im_/http://wandp.american.edu/images/index/index_01.gif ==> [0.00126626347329472, img]
+Potential Damage http://web.archive.org/web/20130828220242/http://www.american.edu/spa/wpi ==> [6.28418597168597e-07, img]
+Potential Damage http://web.archive.org/web/20050131170702im_/http://wandp.american.edu/images/index/nav_06.gif ==> [0.00212091276544402, img]
+Potential Damage http://web.archive.org/web/20050131170702im_/http://wandp.american.edu/images/index/nav_04.gif ==> [0.00212091276544402, img]
+Potential Damage http://web.archive.org/web/20050131170702/http://wandp.american.edu/images/index/menu/menu_over.gif ==> [6.28418597168597e-07, img]
+Potential Damage http://web.archive.org/web/20130821161531/http://www.american.edu/spa/wpi ==> [6.28418597168597e-07, img]
+Potential Damage http://web.archive.org/web/20130821161531im_/http://wandp.american.edu/images/index/index_24.gif ==> [0.000202350788288288, img]
+Potential Damage http://web.archive.org/web/20050131170702im_/http://wandp.american.edu/images/index/index_24.gif ==> [0.00925911961068211, img]
+Potential Damage http://web.archive.org/web/20040911191035im_/http://wandp.american.edu/images/index/index_06.gif ==> [0.00126626347329472, img]
+Potential Damage http://web.archive.org/web/20040911115707/http://wandp.american.edu/images/index/nav_05_over.gif ==> [6.28418597168597e-07, img]
+Potential Damage http://web.archive.org/web/20050131170702/http://wandp.american.edu/images/index/menu/menu_up.gif ==> [6.28418597168597e-07, img]
+Potential Damage http://web.archive.org/static/js/analytics.js ==> [1, js]
+Potential Damage http://web.archive.org/web/20130821161537/http://wandp.american.edu/images/index/menu/leadership/newlead.gif ==> [6.28418597168597e-07, img]
+Potential Damage http://web.archive.org/web/20050131170702im_/http://wandp.american.edu/images/index/index_31.gif ==> [0.00017470037001287, img]
+Potential Damage http://web.archive.org/web/20130821161531im_/http://wandp.american.edu/images/index/index_26.gif ==> [0.000202350788288288, img]
+Potential Damage http://web.archive.org/web/20050131170702im_/http://wandp.american.edu/images/index/index_25.gif ==> [0.26045814229408, img]
+Potential Damage http://web.archive.org/web/20050131170702im_/http://wandp.american.edu/images/index/index_34.gif ==> [0.000219946509009009, img]
+Potential Damage http://web.archive.org/web/20050923075153/http://www.american.edu/oconnor/wandp/images/index/background.gif ==> [0.00126626347329472, img]
+Potential Damage [INTERNAL] ==> [0.5, css]
+Potential Damage http://web.archive.org/web/20050131170702/http://wandp.american.edu/images/index/menu/leadership/newlead.gif ==> [6.28418597168597e-07, img]
+Potential Damage http://web.archive.org/static/jflot/jquery.min.js ==> [1, js]
+Potential Damage http://web.archive.org/web/20050131170702im_/http://wandp.american.edu/images/index/index_06.gif ==> [0.00150820463320463, img]
+Potential Damage http://web.archive.org/web/20130821161536/http://wandp.american.edu/images/index/menu/academics/fall03.gif ==> [6.28418597168597e-07, img]
+Potential Damage http://web.archive.org/web/20130821161529/http://www.american.edu/spa/wpi ==> [6.28418597168597e-07, img]
+Potential Damage http://web.archive.org/web/20130821161530im_/http://wandp.american.edu/images/index/index_09.gif ==> [0.00126626347329472, img]
+Potential Damage http://web.archive.org/web/20130821161533im_/http://wandp.american.edu/images/index/index_33.gif ==> [6.28418597168597e-07, img]
+Potential Damage http://web.archive.org/web/20040911190855im_/http://wandp.american.edu/images/index/index_05.gif ==> [0.00126626347329472, img]
+Potential Damage http://web.archive.org/web/20050131170702im_/http://wandp.american.edu/images/index/index_14.gif ==> [0.00943381998069498, img]
+Potential Damage http://web.archive.org/web/20130821161531im_/http://wandp.american.edu/images/index/index_23.gif ==> [0.00126626347329472, img]
+Potential Damage http://web.archive.org/web/20050131170702im_/http://wandp.american.edu/images/index/index_21.gif ==> [0.00206498351029601, img]
+Potential Damage http://web.archive.org/web/20050131170702im_/http://wandp.american.edu/images/index/index_33.gif ==> [3.8961953024453e-05, img]
+Potential Damage http://web.archive.org/web/20050131170702im_/http://wandp.american.edu/images/index/index_05.gif ==> [0.00296927787162162, img]
+Potential Damage http://web.archive.org/web/20050131170702im_/http://wandp.american.edu/images/index/index_16.gif ==> [0.00210394546332046, img]
+Potential Damage http://web.archive.org/web/20050131170702im_/http://wandp.american.edu/images/index/nav_02.gif ==> [0.00466600808397683, img]
+Potential Damage http://web.archive.org/web/20050131170702/http://wandp.american.edu/images/index/menu/leadership/ywlb.gif ==> [6.28418597168597e-07, img]
+Potential Damage http://web.archive.org/web/20050131170702/http://wandp.american.edu/images/index/nav_03_over.gif ==> [6.28418597168597e-07, img]
+Potential Damage http://web.archive.org/web/20130821161528im_/http://wandp.american.edu/images/index/index_10.gif ==> [0.00126626347329472, img]
+Potential Damage http://web.archive.org/web/20130821161536/http://wandp.american.edu/images/index/menu/academics/spring03.gif ==> [6.28418597168597e-07, img]
+Potential Damage http://web.archive.org/static/images/toolbar/wayback-toolbar-logo.png ==> [0.00269591578185328, img]
+Potential Damage http://web.archive.org/web/20050131170702im_/http://wandp.american.edu/images/index/index_09.gif ==> [0.00206498351029601, img]
+Potential Damage http://web.archive.org/web/20050131170702im_/http://wandp.american.edu/images/index/index_03.gif ==> [0.255022321428571, img]
+Potential Damage http://web.archive.org/web/20050131170702im_/http://wandp.american.edu/images/index/index_20.gif ==> [0.26045814229408, img]
+Potential Damage http://web.archive.org/web/20050131170702/http://wandp.american.edu/images/index/nav_01_over.gif ==> [6.28418597168597e-07, img]
+Potential Damage http://web.archive.org/web/20130821161530im_/http://wandp.american.edu/images/index/nav_01.gif ==> [0.00126626347329472, img]
+Potential Damage http://web.archive.org/web/20050131170702im_/http://wandp.american.edu/images/index/nav_07.gif ==> [0.00212091276544402, img]
+Potential Damage http://web.archive.org/web/20050131170702im_/http://wandp.american.edu/images/index/index_08.gif ==> [0.280441853684041, img]
+Potential Damage http://web.archive.org/web/20050131170702im_/http://wandp.american.edu/images/index/index_13.gif ==> [0.0109269425675676, img]
+Potential Damage http://web.archive.org/web/20040911111547im_/http://wandp.american.edu/images/index/background.gif ==> [0.00126626347329472, img]
+Potential Damage http://web.archive.org/web/20130821161530im_/http://wandp.american.edu/images/index/index_12.gif ==> [0.00126626347329472, img]
+Potential Damage http://web.archive.org/web/20130821161537/http://wandp.american.edu/images/index/menu/leadership/ywlb.gif ==> [6.28418597168597e-07, img]
+Potential Damage http://web.archive.org/static/images/toolbar/wm_tb_bk_trns.png ==> [6.28418597168597e-07, img]
+Potential Damage http://web.archive.org/web/20130821161537/http://wandp.american.edu/images/index/menu/leadership/wlp.gif ==> [6.28418597168597e-07, img]
+Potential Damage http://web.archive.org/web/20130821161536/http://wandp.american.edu/images/index/menu/aboutus/newsletter.gif ==> [6.28418597168597e-07, img]
+Potential Damage http://analytics.archive.org/0.gif?server_ms=437&service=wb&server_name=wwwb-app18.us.archive.org&loadtime=15882&timediff=-5&locale=en-US&referrer=-&version=2&count=9 ==> [6.28418597168597e-07, img]
+Potential Damage http://web.archive.org/web/20050131170702im_/http://wandp.american.edu/images/index/index_17.gif ==> [0.00424182553088803, img]
+Potential Damage http://web.archive.org/web/20050131170702cs_/http://wandp.american.edu/code/css/style.css ==> [0.5, css]
+Potential Damage http://web.archive.org/web/20130821161531im_/http://wandp.american.edu/images/index/index_22.gif ==> [0.00126626347329472, img]
+Potential Damage http://web.archive.org/web/20040911112426/http://wandp.american.edu/images/index/nav_04_over.gif ==> [6.28418597168597e-07, img]
+Potential Damage http://web.archive.org/static/images/toolbar/transp-yellow-pixel.png ==> [0.000424182553088803, img]
+Potential Damage http://web.archive.org/static/images/toolbar/wm_tb_prv_on.png ==> [0.000140765765765766, img]
+Potential Damage http://web.archive.org/web/20130821161533im_/http://wandp.american.edu/images/index/index_32.gif ==> [6.28418597168597e-07, img]
+Potential Damage http://web.archive.org/web/20050131170702im_/http://wandp.american.edu/images/index/index_18.gif ==> [0.0107245917792793, img]
+Potential Damage http://web.archive.org/web/20050131170702/http://wandp.american.edu/images/index/menu/academics/spring03.gif ==> [6.28418597168597e-07, img]
+Potential Damage http://web.archive.org/web/20050131170702im_/http://wandp.american.edu/images/index/index_32.gif ==> [0.250197323439511, img]
+Potential Damage txt ==> [2.206, txt]
+Potential Damage http://web.archive.org/static/js/graph-calc.js ==> [1, js]
+Potential Damage http://web.archive.org/web/20040911120649im_/http://wandp.american.edu/images/index/nav_06.gif ==> [0.00126626347329472, img]
+Potential Damage http://web.archive.org/web/20040911115749im_/http://wandp.american.edu/images/index/index_02.gif ==> [0.00126626347329472, img]
+Potential Damage http://web.archive.org/static/css/banner-styles.css ==> [0.5, css]
+Potential Damage http://web.archive.org/web/20050131170702/http://wandp.american.edu/images/index/menu/aboutus/who.gif ==> [6.28418597168597e-07, img]
+Potential Damage http://web.archive.org/web/20050131170702im_/http://wandp.american.edu/images/index/index_23.gif ==> [0.0107245917792793, img]
+Potential Damage http://web.archive.org/static/images/toolbar/wm_tb_help.png ==> [6.28418597168597e-07, img]
+Potential Damage http://web.archive.org/web/20050131170702js_/http://wandp.american.edu/code/java/rollover.js ==> [1, js]
+Potential Damage http://web.archive.org/web/20050206211255/http://www.american.edu/oconnor/wandp/images/index/background.gif ==> [0.00269591578185328, img]
+Potential Damage http://web.archive.org/web/20050131170702im_/http://wandp.american.edu/images/index/index_30.gif ==> [0.000202350788288288, img]
+Potential Damage http://web.archive.org/web/20050131170702im_/http://wandp.american.edu/images/index/spacer.gif ==> [1.69673021235521e-05, img]
+Potential Damage http://web.archive.org/web/20130821161530im_/http://wandp.american.edu/images/index/index_15.gif ==> [0.00126626347329472, img]
+Potential Damage http://web.archive.org/web/20050131170702/http://wandp.american.edu/images/index/nav_05_over.gif ==> [6.28418597168597e-07, img]
+Potential Damage http://web.archive.org/web/20130821161528/http://www.american.edu/spa/wpi ==> [6.28418597168597e-07, img]
+Potential Damage http://web.archive.org/web/20040911194008im_/http://wandp.american.edu/images/index/index_07.gif ==> [0.00126626347329472, img]
+Potential Damage http://web.archive.org/web/20130821161537/http://wandp.american.edu/images/index/menu/menu_over.gif ==> [6.28418597168597e-07, img]
+Potential Damage http://web.archive.org/web/20050131170702im_/http://wandp.american.edu/images/index/background.gif ==> [0.000754102316602317, img]
+Potential Damage http://web.archive.org/web/20040911105636/http://wandp.american.edu/images/index/nav_03_over.gif ==> [6.28418597168597e-07, img]
+Potential Damage http://web.archive.org/web/20040911150254im_/http://wandp.american.edu/images/index/index_04.gif ==> [0.00126626347329472, img]
+Potential Damage http://web.archive.org/web/20130821161530im_/http://wandp.american.edu/images/index/index_18.gif ==> [0.00126626347329472, img]
+Potential Damage http://web.archive.org/web/20130821161533im_/http://wandp.american.edu/images/index/index_34.gif ==> [6.28418597168597e-07, img]
+Potential Damage http://web.archive.org/web/20130821161531im_/http://wandp.american.edu/images/index/index_17.gif ==> [0.00126626347329472, img]
+Potential Damage http://web.archive.org/web/20050131170702im_/http://wandp.american.edu/images/index/index_11.gif ==> [0.272974983912484, img]
+Potential Damage http://web.archive.org/static/images/toolbar/wm_tb_nxt_on.png ==> [0.000140765765765766, img]
+Potential Damage http://web.archive.org/web/20050131170702im_/http://wandp.american.edu/images/index/nav_05.gif ==> [0.00288444136100386, img]
+Potential Damage http://web.archive.org/web/20050131170702im_/http://wandp.american.edu/images/index/index_26.gif ==> [0.00126626347329472, img]
+Potential Damage http://web.archive.org/web/20130821161531im_/http://wandp.american.edu/images/index/index_25.gif ==> [0.000202350788288288, img]
+Potential Damage http://web.archive.org/web/20130821161536/http://wandp.american.edu/images/index/nav_01_over.gif ==> [6.28418597168597e-07, img]
+Potential Damage http://web.archive.org/web/20050206212608js_/http://wandp.american.edu/code/java/rollover.js ==> [1, js]
+Potential Damage http://web.archive.org/web/20050131170702im_/http://wandp.american.edu/images/index/index_01.gif ==> [0.00197009230212355, img]
+Potential Damage http://web.archive.org/web/20050131170702/http://wandp.american.edu/images/index/menu/academics/certprogram.gif ==> [6.28418597168597e-07, img]
+Potential Damage http://web.archive.org/web/20040911190819im_/http://wandp.american.edu/images/index/spacer.gif ==> [0.00126626347329472, img]
+Potential Damage http://web.archive.org/web/20130821161533im_/http://wandp.american.edu/images/index/index_31.gif ==> [6.28418597168597e-07, img]
+Potential Damage http://web.archive.org/web/20050131170702im_/http://wandp.american.edu/images/index/nav_03.gif ==> [0.00466600808397683, img]
+Potential Damage http://web.archive.org/web/20050131170702im_/http://wandp.american.edu/images/index/index_29.gif ==> [0.000169673021235521, img]
+Potential Damage http://web.archive.org/web/20050131170702im_/http://wandp.american.edu/images/index/index_10.gif ==> [0.0116571649774775, img]
+Potential Damage http://web.archive.org/web/20050131170702im_/http://wandp.american.edu/images/index/nav_01.gif ==> [0.00212091276544402, img]
+Potential Damage http://web.archive.org/web/20040911111211im_/http://wandp.american.edu/images/index/nav_04.gif ==> [0.00126626347329472, img]
+Potential Damage http://web.archive.org/web/20130821161530im_/http://wandp.american.edu/images/index/nav_02.gif ==> [0.00126626347329472, img]
+Potential Damage http://web.archive.org/web/20130821161533im_/http://wandp.american.edu/images/index/index_29.gif ==> [6.28418597168597e-07, img]
+Potential Damage http://web.archive.org/web/20050131170702/http://wandp.american.edu/images/index/menu/aboutus/newsletter.gif ==> [6.28418597168597e-07, img]
+Potential Damage http://web.archive.org/web/20050131170702js_/http://wandp.american.edu/code/java/email.js ==> [1, js]
+Potential Damage http://web.archive.org/web/20130821161536/http://wandp.american.edu/images/index/menu/aboutus/who.gif ==> [6.28418597168597e-07, img]
+Potential Damage http://web.archive.org/web/20040911121312im_/http://wandp.american.edu/images/index/index_03.gif ==> [0.00126626347329472, img]
+Potential Damage http://web.archive.org/web/20050131170702im_/http://wandp.american.edu/images/index/index_04.gif ==> [0.000525986365830116, img]
+Potential Damage http://web.archive.org/static/js/disclaim-element.js ==> [1, js]
+Potential Damage http://web.archive.org/web/20130821161530im_/http://wandp.american.edu/images/index/index_20.gif ==> [0.00126626347329472, img]
+Potential Damage http://web.archive.org/web/20050131170702/http://wandp.american.edu/images/index/nav_04_over.gif ==> [6.28418597168597e-07, img]
+
+calculated total damage:
+CSS: 0.075 = 1.5 * 0.05;
+MM: 0 = 0 * 0.5;
+IMG: 0.682974419906793 = 2.02362791083494 * 0.3375;
+
+POTENTIAL TOTAL:  1.00614941990679 = 0.682974419906793 + 0.075 + 0 + 0.248175
+
+Potential DONE
+
+ACTUAL TOTAL:  0.075 = 0 + 0.075 + 0
+
+MEMENTO TOTAL: 0.0745416123252825 = 0.075/1.00614941990679;
+
+
+http://web.archive.org/web/20050131170702cs_/http://wandp.american.edu/code/css/style.css, [0.5, css]
+TOTAL, 0.0745416123252825
+[INTERNAL], [0.5, css]
+http://web.archive.org/static/css/banner-styles.css, [0.5, css]
+PCT_MISSING, 0.0206896551724138
