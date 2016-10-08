@@ -8,6 +8,7 @@ use HTML::TokeParser::Simple;
 ###example from *.404 files:
 #http://www.cs.odu.edu/files/spacer.gif, img, [1,1], [127,7], [1024,777], 200
 
+my @results;
 
 my $USE_LEFTOVERS = 0;
 
@@ -65,7 +66,6 @@ if($urim)
 	my $pjsTimeout = 180; 		##seconds
 
 	##1)
-	print "=======================================================================\n";
 	print "Running $pjsCmd...\n";
 	my @returnedStuff = RunCmd($pjsCmd, $pjsTimeout);
 	#print "Done!\n\n\n";
@@ -95,7 +95,7 @@ if($urim)
 			$potentialDamage);
 
 	#print "\n\nGenerating report...\n\n";
-	printReport(\%actualDamages);	
+	printReport(\%results);	
 	
 }##end unless urim
 
@@ -200,8 +200,19 @@ sub findMissing($)
 
 		if($responseCode > 399)
 		{
-			unless($uris[$i] eq "http://web.archive.org/static/css/styles.css")
-			{
+			unless(
+				index($u, "web.archive.org/static/css/banner-styles.css") > -1 ||
+				index($u, "web.archive.org/static/js/analytics.js") > -1 ||
+				index($u, "web.archive.org/static/js/disclaim-element.js") > -1 ||
+				index($u, "web.archive.org/static/js/graph-calc.js") > -1 ||
+				index($u, "web.archive.org/static/images/toolbar/wm_tb_prv_on.png") > -1 ||
+				index($u, "web.archive.org/static/images/toolbar/wayback-toolbar-logo.png") > -1 ||
+				index($u, "web.archive.org/web/jsp/graph.jsp") > -1 ||
+				index($u, "web.archive.org/static/images/toolbar/wm_tb_nxt_off.png") > -1 ||
+				index($u, "web.archive.org/static/images/toolbar/wm_tb_close.png") > -1 ||
+				index($u, "web.archive.org/static/images/toolbar/wm_tb_help.png") > -1 ||
+				index($u, "analytics.archive.org") > -1
+			) {
 				#print "Found Missing $uris[$i]\n";
 				push(@missingStuff, $uris[$i]);
 			}
@@ -239,9 +250,21 @@ sub findPotentialDamage($)
 		my @splat = split(", ", $uris[$i]);
 		my $u = trim($splat[0]);
 		
-		unless($uris[$i] eq "http://web.archive.org/static/css/styles.css")
-		{
-			$damages{$u} = findImportance($uris[$i], "$_[0].png", 
+		unless(
+		  index($u, "web.archive.org/static/css/banner-styles.css") > -1 ||
+		  index($u, "web.archive.org/static/js/analytics.js") > -1 ||
+		  index($u, "web.archive.org/static/js/disclaim-element.js") > -1 ||
+		  index($u, "web.archive.org/static/js/graph-calc.js") > -1 ||
+		  index($u, "web.archive.org/static/images/toolbar/wm_tb_prv_on.png") > -1 ||
+		  index($u, "web.archive.org/static/images/toolbar/wayback-toolbar-logo.png") > -1 ||
+		  index($u, "web.archive.org/web/jsp/graph.jsp") > -1 ||
+		  index($u, "web.archive.org/static/images/toolbar/wm_tb_nxt_off.png") > -1 ||
+		  index($u, "web.archive.org/static/images/toolbar/wm_tb_close.png") > -1 ||
+		  index($u, "web.archive.org/static/images/toolbar/wm_tb_help.png") > -1 ||
+		  index($u, "analytics.archive.org") > -1 ||
+		  index($u, "[INTERNAL]") > -1
+		) {
+			$damages{$u} = findImportance($uris[$i], "$_[0].png",
 				$_[1], $_[2], $_[3], $_[4], $isPotential);
 		}
 		## find importance now returns this: <value, type> such as "0.98, img"
@@ -265,9 +288,12 @@ sub findPotentialDamage($)
         my $numResTxt = 0;
 
 
+	my @imgs;
+	my @csses;
+	my @mlms;
 	while(my ($key, $value) = each(%damages))
 	{
-		#print "Potential Damage $key ==> $value\n";
+		# print "Potential Damage $key ==> $value\n";
 		##value is "0.98, img"
 		my @splat = split(/, /, $value);
 
@@ -283,16 +309,19 @@ sub findPotentialDamage($)
 
 		if($splat[1] eq "img")
 		{
+			push @imgs, [$key, $splat[0]];
 			$totalImg += $splat[0];
 			$numResImg++;
 		}
 		elsif($splat[1] eq "css")
 		{
+			push @csses, [$key, $splat[0]];
 			$totalCss += $splat[0];
 			$numResCss++;
 		}
 		elsif($splat[1] eq "multimedia")
 		{
+			push @mlms, [$key, $splat[0]];
 			$totalMM += $splat[0];
 			$numResMM++;
 		}
@@ -382,6 +411,15 @@ sub findPotentialDamage($)
 	#print "POTENTIAL TOTAL:  $total = $finalImg + $finalCss + $finalMM + $finalTXT\n\n";
 	#print "Calculated Weights: $CSSweight, $IMGweight, $TXTweight, $MMweight\n";
 
+	push @results, [0, "-> potential = " . $total];
+	push @results, [1, "-> image = " . $finalImg];
+	for($i=0; $i<$#imgs; $i=$i+1) { push @results, [2, "-> " . $imgs[$i][0] . " = " . $imgs[$i][1]]; }
+	push @results, [1, "-> css = " . $finalCss];
+	for($i=0; $i<$#csses; $i=$i+1) { push @results, [2, "-> " . $csses[$i][0] . " = " . $csses[$i][1]]; }
+	push @results, [1, "-> multimedia = " . $finalMM];
+	for($i=0; $i<$#mlms; $i=$i+1) { push @results, [2, "-> " . $mlms[$i][0] . " = " . $mlms[$i][1]]; }
+	push @results, [1, "-> text = " . $finalTXT];
+
 	###do the accumulators and parsing stuff to get a normalized value.
 
 	return $total;
@@ -416,9 +454,28 @@ sub findActualDamage($)
 		$uris[$i] = trim($uris[$i]);
 		my @splat = split(", ", $uris[$i]);
 		my $u = trim($splat[0]);
-		
-		$damages{$u} = findImportance($uris[$i], "$_[0].png", 
-			$_[1], $_[2], $_[3], $_[4], $isPotential);
+
+		unless(
+		  index($u, "web.archive.org/static/css/banner-styles.css") > -1 ||
+		  index($u, "web.archive.org/static/js/analytics.js") > -1 ||
+		  index($u, "web.archive.org/static/js/disclaim-element.js") > -1 ||
+		  index($u, "web.archive.org/static/js/graph-calc.js") > -1 ||
+		  index($u, "web.archive.org/static/images/toolbar/wm_tb_prv_on.png") > -1 ||
+		  index($u, "web.archive.org/static/images/toolbar/wm_tb_nxt_on.png") > -1 ||
+		  index($u, "web.archive.org/static/images/toolbar/wayback-toolbar-logo.png") > -1 ||
+		  index($u, "web.archive.org/web/jsp/graph.jsp") > -1 ||
+		  index($u, "web.archive.org/static/images/toolbar/wm_tb_nxt_off.png") > -1 ||
+		  index($u, "web.archive.org/static/images/toolbar/wm_tb_close.png") > -1 ||
+		  index($u, "web.archive.org/static/images/toolbar/wm_tb_help.png") > -1 ||
+		  index($u, "analytics.archive.org") > -1 ||
+		  index($u, "[INTERNAL]") > -1
+		) {
+			$damages{$u} = findImportance($uris[$i], "$_[0].png", 
+				$_[1], $_[2], $_[3], $_[4], $isPotential);
+		}
+#		
+#		$damages{$u} = findImportance($uris[$i], "$_[0].png", 
+#			$_[1], $_[2], $_[3], $_[4], $isPotential);
 		## find importance now returns this: <value, type> such as "0.98, img"
 	}
 
@@ -444,7 +501,9 @@ sub findActualDamage($)
 	my $totalTxt = 0;
         my $numResTxt = 0;
 
-
+	my @imgs;
+	my @csses;
+	my @mlms;
 	while(my ($key, $value) = each(%damages))
 	{
 	        #print "ACTUAL Damage $key ==> $value\n";
@@ -463,16 +522,19 @@ sub findActualDamage($)
 
 		if($splat[1] eq "img")
 		{
+			push @imgs, [$key, $splat[0]];
 			$totalImg += $splat[0];
 			$numResImg++;
 		}
 		elsif($splat[1] eq "css")
 		{
+			push @csses, [$key, $splat[0]];
 			$totalCss += $splat[0];
 			$numResCss++;
 		}
 		elsif($splat[1] eq "multimedia")
 		{
+			push @mlms, [$key, $splat[0]];
 			$totalMM += $splat[0];
 			$numResMM++;
 		}
@@ -483,13 +545,13 @@ sub findActualDamage($)
 		}
 	}
 
-	##iff nothing's missing
-	if(($numResImg + $numResCss + $numResMM + $numResTxt) <= 0)
-	{
-		#print "$numResImg + $numResCss + $numResMM + $numResTxt == 0\n\n";
-		$damages{"TOTAL"} = 0;
-		return %damages;
-	}
+#	##iff nothing's missing
+#	if(($numResImg + $numResCss + $numResMM + $numResTxt) <= 0)
+#	{
+#		#print "$numResImg + $numResCss + $numResMM + $numResTxt == 0\n\n";
+#		$damages{"TOTAL"} = 0;
+#		return %damages;
+#	}
 
 	#print " = $totalImg/$numResImg * $IMGweight;\n";
 
@@ -557,9 +619,23 @@ sub findActualDamage($)
 	$finalMM = $totalMM * $MMweight;
 	$finalImg = $totalImg * $IMGweight;
 
-	$total = $finalImg + $finalCss + $finalMM;
+	$final = $finalImg + $finalCss + $finalMM;
 
-	$damages{"TOTAL"} = $total/$potentialDamage;
+	$total = $final/$potentialDamage;
+
+	$damages{"TOTAL"} = $total;
+
+	push @results, [0, "-> actual = " . $final];
+	push @results, [1, "-> image = " . $finalImg];
+	for($i=0; $i<$#imgs; $i=$i+1) { push @results, [2, "-> " . $imgs[$i][0] . " = " . $imgs[$i][1]]; }
+	push @results, [1, "-> css = " . $finalCss];
+	for($i=0; $i<$#csses; $i=$i+1) { push @results, [2, "-> " . $csses[$i][0] . " = " . $csses[$i][1]]; }
+	push @results, [1, "-> multimedia = " . $finalMM];
+	for($i=0; $i<$#mlms; $i=$i+1) { push @results, [2, "-> " . $mlms[$i][0] . " = " . $mlms[$i][1]]; }
+	push @results, [1, "-> text = " . 0];
+
+	push @results, [0, "-> total = " . $total];
+	push @results, [0, "-> dummy"];
 	#print "ACTUAL TOTAL:  $total = $finalImg + $finalCss + $finalMM\n\n";
 	#print "MEMENTO TOTAL: " . $damages{"TOTAL"} . " = $total/$potentialDamage;\n\n\n";
 
@@ -571,11 +647,23 @@ sub findActualDamage($)
 #usage: $potentialDamage, @actualDamage
 sub printReport
 {
-	my $damages = shift;
-	foreach (keys %{$damages})
-	{
-		print $_, ", ", $damages->{$_}, "\n";
+	#my $damages = shift;
+	#foreach (keys %{$damages})
+	#{
+	#	print $_, ", ", $damages->{$_}, "\n";
+	#}
+
+	open(my $fh, '>', "$toSave.result");
+	my $results = shift;
+	for($a=0; $a < $#results; $a=$a+1) {
+		for( $b = 0; $b < $results[$a][0]; $b = $b + 1 ){
+			print "   ";
+			print $fh "   ";
+		}
+		print $results[$a][1], "\n";
+		print $fh $results[$a][1], "\n";
 	}
+	close $fh;
 }
 
 sub findTxtImportance($)
@@ -768,6 +856,8 @@ sub findCssImportance($)
 	}
 
 	$importance = 0;
+
+	print "Processing CSS : $fileName -> $code, $isPotential\n";
 
 	if($missedTags > 0)
 	{

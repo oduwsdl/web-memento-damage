@@ -30,12 +30,9 @@ print "W x H: " . $width . " x " . $height . "\n\n";
 my $pxFile = $ARGV[0] . ".img.txt";
 
 print "Getting pixels...\n";
-#my $cmd = "cat \"$ARGV[0]\" | convert - -gravity center txt:- > $pxFile";
 my $cmd = "cat \"$ARGV[0]\" | convert - -gravity center txt:- > $pxFile";
-
 print "Doing: $cmd\n";
 
-#if(!(-e $pxFile))
 if(1 == 1)
 {
 	my $jnk = `$cmd`;
