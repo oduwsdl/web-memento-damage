@@ -23,7 +23,8 @@ class SiteDamage:
     words_per_image     = 1000
 
     blacklisted_uris = [
-        'https://analytics.archive.org/'
+        'https://analytics.archive.org/',
+        '[INTERNAL]'
     ]
 
     def __init__(self, text, logs, image_logs, css_logs, mlm_logs,
@@ -445,6 +446,7 @@ class SiteDamage:
                 # Open screenshot file
                 screenshot_file = os.path.join(self.screenshot_dir,
                                                '{}.png'.format(log['hash']))
+                #screenshot_file = '{}.png'.format(self.screenshot_dir)
                 im = Image.open(screenshot_file)
                 # Get all pixels
                 pix = im.load()
