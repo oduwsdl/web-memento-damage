@@ -214,6 +214,7 @@
 <script src="{{ static_url('assets/js/md5.js') }}"></script>
 <script type="text/javascript">
   $('input[name=url]').val('{{ url }}');
+  $('#url').html('{{ url }}').attr('title', '{{ url }}');
   $('select[name=type]').val('{{ type }}');
 
   function toggleChevron(e) {
@@ -225,84 +226,31 @@
   function showScreenshot(uri) {
     $('<img>').attr('src', '/api/damage/screenshot/' + encodeURIComponent(uri))
       .appendTo($('#screenshots .row'));
+
+    $('#summary .thumb').attr('src', '/api/damage/screenshot/' + encodeURIComponent(uri));
   }
 
   function showSummary(result) {
-    $('<h2 class="total-damage text-center">Total Damage is ' +
-        '<u data-toggle="collapse" data-target="#summary-step-1">' + result['total_damage'] + '</u></h2>')
-      .appendTo('#summary .result .inner-result');
+    // Append Total Damage
+    $('<h2 class="total-damage text-center">Damage = ' +
+        '<u>' + result['total_damage'].toFixed(5) + '</u></h2>')
+      .appendTo('#summary .result');
 
-    // Show Total Damage =======================================================
-    $(
-      '<p>'+
-        '$$Total Damage=\\frac{Actual Damage}{Potential Damage}$$' +
-      '</p><p>'+
-      '$$Total Damage=\\frac{'+ result['actual_damage']['total'] +'}{'+ result['potential_damage']['total'] +'}='+ result['total_damage'] +'$$' +
-      '</p>'+
-      '<p><a href="#summary-step-2" data-toggle="collapse" data-target="#summary-step-2"><i class="fa fa-info-circle"></i> Detail of Actual Damage</p></a>'+
-      '<p><a href="#summary-step-3" data-toggle="collapse" data-target="#summary-step-3"><i class="fa fa-info-circle"></i> Detail of Potential Damage</p></a>'
-    ).appendTo($('#summary-step-1 .text'));
+    // Append Actual Damage and Detail
+    $('.actual-damage-total').html(result['actual_damage']['total'].toFixed(5));
+    $('.actual-damage-image').html(result['actual_damage']['image'].toFixed(5));
+    $('.actual-damage-css').html(result['actual_damage']['css'].toFixed(5));
+    $('.actual-damage-multimedia').html(result['actual_damage']['multimedia'].toFixed(5));
+    $('.actual-damage-text').html(0.00000);
 
-    // Show Potential Damage ===================================================
-    $(
-      '<p>'+
-        '$$Potential Damage = Potential Damage(Images + Stylesheets + Multimedia + Text)$$' +
-      '</p>'+
-      '<p>'+
-        '$$Potential Damage = '+ result['potential_damage']['image'] + ' + '+ result['potential_damage']['css'] +
-        ' + ' + result['potential_damage']['multimedia'] + ' + ' + result['potential_damage']['text'] +
-        ' = '+ result['potential_damage']['total'] +'$$' +
-      '</p>' +
-      '<p>'+
-        '$$Potential Damage of Images = \\sum_{i=0}^n (centrality importance + size importance); n = all images$$' +
-      '</p>' +
-      '<p>'+
-        'Detail of potential damage of images can be explored in tab <a href="#" class="img-ref">images</a>' +
-      '</p>' +
-      '<p>'+
-        '$$Potential Damage of Stylesheets = Tag importance + Ratio importance$$'+
-      '</p>'+
-      '<p>'+
-        'Detail of potential damage of stylesheets can be explored in tab <a href="#" class="css-ref">stylesheets</a>'+
-      '</p>' +
-      '<p>'+
-        '$$Potential Damage of Multimedia = \\sum_{i=0}^n (centrality importance + size importance); n = all multimedia$$' +
-      '</p>' +
-      '<p>'+
-        'Detail of potential damage of multimedia can be explored in tab <a href="#" class="mlm-ref">multimedia</a>' +
-      '</p>'
-    ).appendTo($('#summary-step-3 .text'));
+    // Append Potential Damage and Detail
+    $('.potential-damage-total').html(result['potential_damage']['total'].toFixed(5));
+    $('.potential-damage-image').html(result['potential_damage']['image'].toFixed(5));
+    $('.potential-damage-css').html(result['potential_damage']['css'].toFixed(5));
+    $('.potential-damage-multimedia').html(result['potential_damage']['multimedia'].toFixed(5));
+    $('.potential-damage-text').html(result['potential_damage']['text'].toFixed(5));
 
-    // Show Actual Damage ======================================================
-    $(
-      '<p>'+
-        '$$Actual Damage = Actual Damage of Images + Actual Damage of Stylesheets$$'+
-      '</p>'+
-      '<p>'+
-        '$$Actual Damage = '+ result['actual_damage']['image'] + ' + '+ result['actual_damage']['css'] +
-        ' + ' + result['actual_damage']['multimedia'] + ' + ' + result['actual_damage']['text'] +
-        ' = '+ result['actual_damage']['total'] +'$$'+
-      '</p>'+
-      '<p>'+
-        '$$Actual Damage of Images = \\sum_{i=0}^m (centrality importance + size importance); m = missing images$$'+
-      '</p>'+
-      '<p>'+
-        'Detail of actual damage of images can be explored in tab <a href="#" class="img-ref">images</a>' +
-      '</p>' +
-      '<p>'+
-        '$$Actual Damage of Stylesheets = Tag importance + Ratio importance$$'+
-      '</p>'+
-      '<p>'+
-        'Detail of actual damage of stylesheets can be explored in tab <a href="#" class="css-ref">stylesheets</a>'+
-      '</p>'+
-      '<p>'+
-        '$$Actual Damage of Multimedia = \\sum_{i=0}^n (centrality importance + size importance); n = all multimedia$$' +
-      '</p>' +
-      '<p>'+
-        'Detail of actual damage of multimedia can be explored in tab <a href="#" class="mlm-ref">multimedia</a>' +
-      '</p>'
-    ).appendTo($('#summary-step-2 .text'));
-
+    // On value clicked
     $('.img-ref').on('click', function() {
       $('a[data-toggle="tab"][href="#images"]').tab('show')
     });
@@ -311,6 +259,9 @@
     });
     $('.mlm-ref').on('click', function() {
       $('a[data-toggle="tab"][href="#multimedias"]').tab('show')
+    });
+    $('.text-ref').on('click', function() {
+      $('a[data-toggle="tab"][href="#text"]').tab('show')
     });
 
     MathJax.Hub.Queue(["Typeset",MathJax.Hub,"damage-detail"]);

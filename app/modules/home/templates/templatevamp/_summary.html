@@ -1,11 +1,24 @@
 <style>
-  .total-damage u {
+  u {
     color: #5b0021 !important;
     border-bottom: 1px dotted #000;
     text-decoration: none;
     cursor: help;
   }
+  .title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 20px;
+  }
+  .result h2 {
+    margin: 40px 0 50px;
+  }
 </style>
+
+<div class="col-sm-10 col-sm-offset-1 text-center">
+  <h3 class="title">Damage of <span id="url"></span></h3>
+</div>
 
 <div class="col-sm-12">
   <div id="alert-is-archive" style="display:none" class="alert alert-warning" role="alert">
@@ -16,85 +29,104 @@
   </div>
 </div>
 
-<div class="span12">
-  <div class="widget">
-    <div class="widget-header"><i class="fa fa-check-square-o"></i>
-      <h3>Result</h3>
-    </div>
-    <!-- /widget-header -->
-    <div class="widget-content">
-      <div class="result">
-        <div class="inner-result"></div>
-      </div>
-      <div style="margin-top: 20px;">
-        <div class="summary-step collapse" id="summary-step-1">
-          <div class="message_wrap">
-            <div class="info">Total Damage</div>
-            <div class="text"></div>
-          </div>
-        </div>
-        <div class="summary-step collapse" id="summary-step-2">
-          <div class="message_wrap"></span>
-            <div class="info">Actual Damage</div>
-            <div class="text"></div>
-          </div>
-        </div>
-        <div class="summary-step collapse" id="summary-step-3">
-          <div class="message_wrap"></span>
-            <div class="info">Potential Damage</div>
-            <div class="text"></div>
-          </div>
-        </div>
+<div class="col-sm-12">
+  <div class="col-sm-5">
+    <div class="frame">
+      <div class="aspect"></div>
+      <div class="inner">
+          <img class="thumb">
       </div>
     </div>
   </div>
 
-  <div class="widget">
-    <div class="widget-header"><i class="fa fa-check-square-o"></i>
-      <h3>Techical Notes</h3>
+  <div class="col-sm-7">
+    <div class="col-sm-12 result"></div>
+    <div class="col-sm-6">
+      <div class="widget">
+        <div class="widget-header"><i class="fa fa-check-square-o"></i>
+          <h3>Actual Damage</h3>
+        </div>
+        <div class="widget-content">
+          <div>Actual Damage = <span class="actual-damage-total"><i class="fa fa-spinner fa-pulse"></i></span></div>
+          <ul>
+            <li>Images = <u class="actual-damage-image img-ref"><i class="fa fa-spinner fa-pulse"></i></u></li>
+            <li>Sylesheets = <u class="actual-damage-css css-ref"><i class="fa fa-spinner fa-pulse"></i></u></li>
+            <li>Multimedia = <u class="actual-damage-multimedia mlm-ref"><i class="fa fa-spinner fa-pulse"></i></u></li>
+            <li>Text = <u class="actual-damage-text text-ref"><i class="fa fa-spinner fa-pulse"></i></u></li>
+          </ul>
+        </div>
+      </div>
     </div>
-    <!-- /widget-header -->
-    <div class="widget-content">
-      <h6 class="bigstats">Actual Damage</h6>
-      <div class="cf">
-        Actual damage is the real damage that happens to your URI.
-        It is computed by list all embedded resources (image, css,
-        javascript, and multimedia), identify which of them are missing,
-        find their importance, and add the importance value together to
-        get the actual damage.
-      </div>
-      <h6 class="bigstats">Potential Damage</h6>
-      <div class="cf">
-        Potential damage is the damage that could happen if all embedded
-        resources are missing. It is calculated by exactly the same way
-        as actual damage.
-      </div>
-      <h6 class="bigstats">Total Damage</h6>
-      <div class="cf">
-        Total damage is the ratio between actual damage and potential
-        damage. It ranges from <code>0</code> - <code>1</code>.
-        The value of <code>1</code> means your URI is <code>100%</code>
-        damaged.<br/>
-        Total damage is computed by using this formula:<br/>
-        $Total Damage=\frac{Actual Damage}{Potential Damage}$
-      </div>
-      <h6 class="bigstats">What constitute the damage value?</h6>
-      <div class="cf">
-        <p>
-          There are 5 components which are considered when computing damage:
-        </p>
-        <ol>
-          <li>Image</li>
-          <li>Css</li>
-          <li>Javascript</li>
-          <li>Multimedia</li>
-          <li>Text</li>
-        </ol>
-        <p>
-          We added together the important values from the embedded resources
-          to get the value of damaged.
-        </p>
+
+    <div class="col-sm-6">
+      <div class="widget">
+        <div class="widget-header"><i class="fa fa-check-square-o"></i>
+          <h3>Potential Damage</h3>
+        </div>
+        <div class="widget-content">
+          <div>Potential Damage = <span class="potential-damage-total"><i class="fa fa-spinner fa-pulse"></i></span></div>
+          <ul>
+            <li>Images = <u class="potential-damage-image img-ref"><i class="fa fa-spinner fa-pulse"></i></u></li>
+            <li>Sylesheets = <u class="potential-damage-css css-ref"><i class="fa fa-spinner fa-pulse"></i></u></li>
+            <li>Multimedia = <u class="potential-damage-multimedia mlm-ref"><i class="fa fa-spinner fa-pulse"></i></u></li>
+            <li>Text = <u class="potential-damage-text text-ref"><i class="fa fa-spinner fa-pulse"></i></u></li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
 </div>
+
+
+<!--<div class="col-sm-10 col-sm-offset-1">-->
+  <!--<div class="col-sm-6">-->
+    <!--<div class="frame">-->
+      <!--<div class="aspect"></div>-->
+      <!--<div class="inner">-->
+          <!--<img class="thumb">-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</div>-->
+
+  <!--<div class="col-sm-6">-->
+    <!--<div class="frame" style="border: 0px;">-->
+      <!--<div class="aspect"></div>-->
+      <!--<div class="inner result" style="background-color: transparent;"></div>-->
+    <!--</div>-->
+  <!--</div>-->
+<!--</div>-->
+
+<!--<div class="col-sm-10 col-sm-offset-1">-->
+  <!--<div class="col-sm-6">-->
+    <!--<div class="widget">-->
+      <!--<div class="widget-header"><i class="fa fa-check-square-o"></i>-->
+        <!--<h3>Actual Damage</h3>-->
+      <!--</div>-->
+      <!--<div class="widget-content">-->
+        <!--<div>Actual Damage = <span class="actual-damage-total"><i class="fa fa-spinner fa-pulse"></i></span></div>-->
+        <!--<ul>-->
+          <!--<li>Images = <u class="actual-damage-image img-ref"><i class="fa fa-spinner fa-pulse"></i></u></li>-->
+          <!--<li>Sylesheets = <u class="actual-damage-css css-ref"><i class="fa fa-spinner fa-pulse"></i></u></li>-->
+          <!--<li>Multimedia = <u class="actual-damage-multimedia mlm-ref"><i class="fa fa-spinner fa-pulse"></i></u></li>-->
+        <!--</ul>-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</div>-->
+
+  <!--<div class="col-sm-6">-->
+    <!--<div class="widget">-->
+      <!--<div class="widget-header"><i class="fa fa-check-square-o"></i>-->
+        <!--<h3>Potential Damage</h3>-->
+      <!--</div>-->
+      <!--<div class="widget-content">-->
+        <!--<div>Potential Damage = <span class="potential-damage-total"><i class="fa fa-spinner fa-pulse"></i></span></div>-->
+        <!--<ul>-->
+          <!--<li>Images = <u class="potential-damage-image img-ref"><i class="fa fa-spinner fa-pulse"></i></u></li>-->
+          <!--<li>Sylesheets = <u class="potential-damage-css css-ref"><i class="fa fa-spinner fa-pulse"></i></u></li>-->
+          <!--<li>Multimedia = <u class="potential-damage-multimedia mlm-ref"><i class="fa fa-spinner fa-pulse"></i></u></li>-->
+          <!--<li>Text = <u class="potential-damage-text text-ref"><i class="fa fa-spinner fa-pulse"></i></u></li>-->
+        <!--</ul>-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</div>-->
+<!--</div>-->
