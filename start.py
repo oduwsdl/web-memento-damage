@@ -1,3 +1,5 @@
+#!/bin/python
+
 import sys
 
 from app import application
