@@ -1,4 +1,4 @@
-from app import database
+from web import database
 from sqlalchemy import Column, Integer, String, DateTime, Text
 
 

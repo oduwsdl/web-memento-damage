@@ -11,8 +11,8 @@ import sys
 
 import os
 from PIL import Image
-from app import database
-from app.models.models import MementoModel
+from web import database
+from web.models.models import MementoModel
 from ext.blueprint import Blueprint, RequestHandler
 from ext.tools import Command
 from sqlalchemy import desc

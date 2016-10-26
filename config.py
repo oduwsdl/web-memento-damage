@@ -11,8 +11,8 @@ base_dir                = os.path.abspath(os.path.dirname(__file__))
 cache_dir               = os.path.join(base_dir, 'cache')
 
 # Application settings
-template_path           = os.path.join(base_dir, 'app', 'templates')
-static_path             = os.path.join(base_dir, 'app', 'static')
+template_path           = os.path.join(base_dir, 'web', 'templates')
+static_path             = os.path.join(base_dir, 'web', 'static')
 static_handler_class    = StaticFileHandler
 
 # Theme
