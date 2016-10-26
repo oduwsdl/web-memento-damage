@@ -8,12 +8,6 @@
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web-memento-damage.conf" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Dockerfile" afterPath="$PROJECT_DIR$/Dockerfile" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ext/damage.py" afterPath="$PROJECT_DIR$/ext/damage.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ext/phantomjs/crawl.js" afterPath="$PROJECT_DIR$/ext/phantomjs/crawl.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/modules/api/__init__.py" afterPath="$PROJECT_DIR$/web/modules/api/__init__.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/modules/home/templates/templatevamp/_summary.html" afterPath="$PROJECT_DIR$/web/modules/home/templates/templatevamp/_summary.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/modules/home/templates/templatevamp/check.html" afterPath="$PROJECT_DIR$/web/modules/home/templates/templatevamp/check.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/modules/home/templates/templatevamp/index.html" afterPath="$PROJECT_DIR$/web/modules/home/templates/templatevamp/index.html" />
     </list>
     <ignored path="memento-pedia-tornado.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -609,7 +603,14 @@
       <option name="project" value="LOCAL" />
       <updated>1477464759467</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="Remove Simulation, Add calculation time, Fix UI">
+      <created>1477492148190</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1477492148190</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TodoView">
@@ -697,7 +698,9 @@
     <MESSAGE value="add nightmarejs library" />
     <MESSAGE value="Change project structure" />
     <MESSAGE value="Fix User Interface" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix User Interface" />
+    <MESSAGE value="Remove Simulation, Add calculation time, Fix UI" />
+    <option name="LAST_COMMIT_MESSAGE" value="Remove Simulation, Add calculation time, Fix UI" />
+    <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1055,9 +1058,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="318">
           <caret line="216" column="68" selection-start-line="216" selection-start-column="68" selection-end-line="216" selection-end-column="68" />
-          <folding>
-            <element signature="e#0#14#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
