@@ -133,7 +133,7 @@ def do_calculation(uri, output_dir):
 if __name__ == "__main__":
     if len(sys.argv) != 3:
         print('Usage :')
-        print('python test/damage.py <uri or csv> <output_dir>')
+        print('python cli/damage.py <uri or csv> <output_dir>')
         exit()
 
     uri = sys.argv[1]
