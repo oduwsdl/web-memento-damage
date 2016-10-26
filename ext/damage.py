@@ -3,9 +3,10 @@ Section 'Damage' =============================================================
 '''
 import io
 import math
-from PIL import Image
 from hashlib import md5
+
 import html2text
+from PIL import Image
 
 
 def rgb2hex(r, g, b):
@@ -444,9 +445,9 @@ class SiteDamage:
             if not is_potential:
                 # Code below is a subtitution for Justin's whitespace.pl
                 # Open screenshot file
-                screenshot_file = os.path.join(self.screenshot_dir,
-                                               '{}.png'.format(log['hash']))
-                #screenshot_file = '{}.png'.format(self.screenshot_dir)
+                # screenshot_file = os.path.join(self.screenshot_dir,
+                #                                '{}.png'.format(log['hash']))
+                screenshot_file = '{}.png'.format(self.screenshot_dir)
                 im = Image.open(screenshot_file)
                 # Get all pixels
                 pix = im.load()

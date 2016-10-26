@@ -1,23 +1,20 @@
-import inspect
-import json
-from datetime import datetime
-
 import errno
-
 import io
+import json
+import os
+import sys
+from datetime import datetime
+from hashlib import md5
 from urlparse import urlparse
 
-import sys
-
-import os
 from PIL import Image
-from web import database
-from web.models.models import MementoModel
-from ext.blueprint import Blueprint, RequestHandler
-from ext.tools import Command
 from sqlalchemy import desc
 from tornado import web
-from hashlib import md5
+
+from ext.blueprint import Blueprint, RequestHandler
+from ext.tools import Command
+from web import database
+from web.models.models import MementoModel
 
 
 class API(Blueprint):
@@ -118,6 +115,8 @@ class API(Blueprint):
 
         @web.asynchronous
         def get(self, uri, fresh="false"):
+            self.start_time = datetime.now()
+
             # since all query string arguments are in unicode, cast fresh to
             # boolean
             if fresh.lower() == 'true': fresh = True
@@ -136,9 +135,12 @@ class API(Blueprint):
                     result = last_calculation.result
                     time = last_calculation.response_time
 
+                    self.end_time = datetime.now()
+
                     result = json.loads(result)
                     result['is_archive'] = True
                     result['archive_time'] = time.isoformat()
+                    result['calculation_time'] = (self.end_time - self.start_time).seconds
 
                     self.write(result)
                     self.finish()
@@ -203,11 +205,14 @@ class API(Blueprint):
                             page['background_color'] = line['background_color']
                     if 'result' in line:
                         try:
+                            self.end_time = datetime.now()
                             line = json.loads(line)
 
                             result = line['result']
                             result['error'] = False
                             result['is_archive'] = False
+                            result['calculation_time'] = (self.end_time - self.start_time)\
+                                .seconds
 
                             result = json.dumps(result)
 

@@ -2,309 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="abb02a85-edb0-4070-84af-33ef9785e6b3" name="Default" comment="Fix User Interface">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/test/filteredURI-Rs.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/test/pilot_results_run4.csv" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/test/pilot_results_run4_filtered.csv" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/test/pilot_results_run4_uris.csv" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/test/test_uri.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/test/urim1.csv" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/test/urim2.csv" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/test/uris.txt" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/__init__.py" afterPath="$PROJECT_DIR$/web/__init__.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/models/__init__.py" afterPath="$PROJECT_DIR$/web/modules/__init__.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/models/models.py" afterPath="$PROJECT_DIR$/web/models/models.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/modules/__init__.py" afterPath="$PROJECT_DIR$/web/models/__init__.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/modules/api/__init__.py" afterPath="$PROJECT_DIR$/web/modules/api/__init__.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/modules/api/templates/dashgumfree/index.html" afterPath="$PROJECT_DIR$/web/modules/api/templates/dashgumfree/index.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/modules/api/templates/hierapolis/index.html" afterPath="$PROJECT_DIR$/web/modules/api/templates/hierapolis/index.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/modules/api/templates/templatevamp/index.html" afterPath="$PROJECT_DIR$/web/modules/api/templates/templatevamp/index.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/modules/home/__init__.py" afterPath="$PROJECT_DIR$/web/modules/home/__init__.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/modules/home/templates/dashgumfree/check.html" afterPath="$PROJECT_DIR$/web/modules/home/templates/dashgumfree/check.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/modules/home/templates/dashgumfree/index.html" afterPath="$PROJECT_DIR$/web/modules/home/templates/dashgumfree/index.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/modules/home/templates/hierapolis/check.html" afterPath="$PROJECT_DIR$/web/modules/home/templates/hierapolis/check.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/modules/home/templates/hierapolis/index.html" afterPath="$PROJECT_DIR$/web/modules/home/templates/hierapolis/index.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/modules/home/templates/templatevamp/_csses.html" afterPath="$PROJECT_DIR$/web/modules/home/templates/templatevamp/_csses.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/modules/home/templates/templatevamp/_images.html" afterPath="$PROJECT_DIR$/web/modules/home/templates/templatevamp/_images.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/modules/home/templates/templatevamp/_log.html" afterPath="$PROJECT_DIR$/web/modules/home/templates/templatevamp/_log.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/modules/home/templates/templatevamp/_multimedias.html" afterPath="$PROJECT_DIR$/web/modules/home/templates/templatevamp/_multimedias.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/modules/home/templates/templatevamp/_screenshots.html" afterPath="$PROJECT_DIR$/web/modules/home/templates/templatevamp/_screenshots.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/modules/home/templates/templatevamp/_summary.html" afterPath="$PROJECT_DIR$/web/modules/home/templates/templatevamp/_summary.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/modules/home/templates/templatevamp/_summary_old.html" afterPath="$PROJECT_DIR$/web/modules/home/templates/templatevamp/_summary_old.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/modules/home/templates/templatevamp/_text.html" afterPath="$PROJECT_DIR$/web/modules/home/templates/templatevamp/_text.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/modules/home/templates/templatevamp/check.html" afterPath="$PROJECT_DIR$/web/modules/home/templates/templatevamp/check.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/modules/home/templates/templatevamp/index.html" afterPath="$PROJECT_DIR$/web/modules/home/templates/templatevamp/index.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/bootstrapValidator/bootstrap.min.js" afterPath="$PROJECT_DIR$/web/static/assets/bootstrapValidator/bootstrap.min.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/bootstrapValidator/formValidation.min.css" afterPath="$PROJECT_DIR$/web/static/assets/bootstrapValidator/formValidation.min.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/bootstrapValidator/formValidation.min.js" afterPath="$PROJECT_DIR$/web/static/assets/bootstrapValidator/formValidation.min.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/checkbox-awesome/build.css" afterPath="$PROJECT_DIR$/web/static/assets/checkbox-awesome/build.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/css/animate.min.css" afterPath="$PROJECT_DIR$/web/static/assets/css/animate.min.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/css/bootstrap-theme.min.css" afterPath="$PROJECT_DIR$/web/static/assets/css/bootstrap-theme.min.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/css/bootstrap.min.css" afterPath="$PROJECT_DIR$/web/static/assets/css/bootstrap.min.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/css/font-awesome.min.css" afterPath="$PROJECT_DIR$/web/static/assets/css/font-awesome.min.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/css/index.html" afterPath="$PROJECT_DIR$/web/static/assets/media/index.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/css/magnific-popup.css" afterPath="$PROJECT_DIR$/web/static/assets/css/magnific-popup.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/css/owl.carousel.css" afterPath="$PROJECT_DIR$/web/static/assets/css/owl.carousel.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/css/responsive.css" afterPath="$PROJECT_DIR$/web/static/assets/css/responsive.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/css/retina.css" afterPath="$PROJECT_DIR$/web/static/assets/css/retina.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/css/style.css" afterPath="$PROJECT_DIR$/web/static/assets/css/style.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/dashgumfree_v2/style.css" afterPath="$PROJECT_DIR$/web/static/assets/dashgumfree_v2/style.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/font-awesome-4.6.3/HELP-US-OUT.txt" afterPath="$PROJECT_DIR$/web/static/assets/font-awesome-4.6.3/HELP-US-OUT.txt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/font-awesome-4.6.3/css/font-awesome.css" afterPath="$PROJECT_DIR$/web/static/assets/templatevamp/css/font-awesome.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/font-awesome-4.6.3/css/font-awesome.min.css" afterPath="$PROJECT_DIR$/web/static/assets/font-awesome-4.6.3/css/font-awesome.min.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/font-awesome-4.6.3/fonts/FontAwesome.otf" afterPath="$PROJECT_DIR$/web/static/assets/font-awesome-4.6.3/fonts/FontAwesome.otf" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/font-awesome-4.6.3/fonts/fontawesome-webfont.eot" afterPath="$PROJECT_DIR$/web/static/assets/font-awesome-4.6.3/fonts/fontawesome-webfont.eot" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/font-awesome-4.6.3/fonts/fontawesome-webfont.svg" afterPath="$PROJECT_DIR$/web/static/assets/font-awesome-4.6.3/fonts/fontawesome-webfont.svg" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/font-awesome-4.6.3/fonts/fontawesome-webfont.ttf" afterPath="$PROJECT_DIR$/web/static/assets/font-awesome-4.6.3/fonts/fontawesome-webfont.ttf" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/font-awesome-4.6.3/fonts/fontawesome-webfont.woff" afterPath="$PROJECT_DIR$/web/static/assets/font-awesome-4.6.3/fonts/fontawesome-webfont.woff" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/font-awesome-4.6.3/fonts/fontawesome-webfont.woff2" afterPath="$PROJECT_DIR$/web/static/assets/font-awesome-4.6.3/fonts/fontawesome-webfont.woff2" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/font-awesome-4.6.3/less/animated.less" afterPath="$PROJECT_DIR$/web/static/assets/font-awesome-4.6.3/less/animated.less" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/font-awesome-4.6.3/less/bordered-pulled.less" afterPath="$PROJECT_DIR$/web/static/assets/font-awesome-4.6.3/less/bordered-pulled.less" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/font-awesome-4.6.3/less/core.less" afterPath="$PROJECT_DIR$/web/static/assets/font-awesome-4.6.3/less/core.less" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/font-awesome-4.6.3/less/fixed-width.less" afterPath="$PROJECT_DIR$/web/static/assets/font-awesome-4.6.3/less/fixed-width.less" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/font-awesome-4.6.3/less/font-awesome.less" afterPath="$PROJECT_DIR$/web/static/assets/font-awesome-4.6.3/less/font-awesome.less" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/font-awesome-4.6.3/less/icons.less" afterPath="$PROJECT_DIR$/web/static/assets/font-awesome-4.6.3/less/icons.less" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/font-awesome-4.6.3/less/larger.less" afterPath="$PROJECT_DIR$/web/static/assets/font-awesome-4.6.3/less/larger.less" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/font-awesome-4.6.3/less/list.less" afterPath="$PROJECT_DIR$/web/static/assets/font-awesome-4.6.3/less/list.less" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/font-awesome-4.6.3/less/mixins.less" afterPath="$PROJECT_DIR$/web/static/assets/font-awesome-4.6.3/less/mixins.less" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/font-awesome-4.6.3/less/path.less" afterPath="$PROJECT_DIR$/web/static/assets/font-awesome-4.6.3/less/path.less" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/font-awesome-4.6.3/less/rotated-flipped.less" afterPath="$PROJECT_DIR$/web/static/assets/font-awesome-4.6.3/less/rotated-flipped.less" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/font-awesome-4.6.3/less/screen-reader.less" afterPath="$PROJECT_DIR$/web/static/assets/font-awesome-4.6.3/less/screen-reader.less" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/font-awesome-4.6.3/less/stacked.less" afterPath="$PROJECT_DIR$/web/static/assets/font-awesome-4.6.3/less/stacked.less" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/font-awesome-4.6.3/less/variables.less" afterPath="$PROJECT_DIR$/web/static/assets/font-awesome-4.6.3/less/variables.less" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/font-awesome-4.6.3/scss/_animated.scss" afterPath="$PROJECT_DIR$/web/static/assets/font-awesome-4.6.3/scss/_animated.scss" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/font-awesome-4.6.3/scss/_bordered-pulled.scss" afterPath="$PROJECT_DIR$/web/static/assets/font-awesome-4.6.3/scss/_bordered-pulled.scss" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/font-awesome-4.6.3/scss/_core.scss" afterPath="$PROJECT_DIR$/web/static/assets/font-awesome-4.6.3/scss/_core.scss" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/font-awesome-4.6.3/scss/_fixed-width.scss" afterPath="$PROJECT_DIR$/web/static/assets/font-awesome-4.6.3/scss/_fixed-width.scss" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/font-awesome-4.6.3/scss/_icons.scss" afterPath="$PROJECT_DIR$/web/static/assets/font-awesome-4.6.3/scss/_icons.scss" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/font-awesome-4.6.3/scss/_larger.scss" afterPath="$PROJECT_DIR$/web/static/assets/font-awesome-4.6.3/scss/_larger.scss" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/font-awesome-4.6.3/scss/_list.scss" afterPath="$PROJECT_DIR$/web/static/assets/font-awesome-4.6.3/scss/_list.scss" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/font-awesome-4.6.3/scss/_mixins.scss" afterPath="$PROJECT_DIR$/web/static/assets/font-awesome-4.6.3/scss/_mixins.scss" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/font-awesome-4.6.3/scss/_path.scss" afterPath="$PROJECT_DIR$/web/static/assets/font-awesome-4.6.3/scss/_path.scss" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/font-awesome-4.6.3/scss/_rotated-flipped.scss" afterPath="$PROJECT_DIR$/web/static/assets/font-awesome-4.6.3/scss/_rotated-flipped.scss" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/font-awesome-4.6.3/scss/_screen-reader.scss" afterPath="$PROJECT_DIR$/web/static/assets/font-awesome-4.6.3/scss/_screen-reader.scss" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/font-awesome-4.6.3/scss/_stacked.scss" afterPath="$PROJECT_DIR$/web/static/assets/font-awesome-4.6.3/scss/_stacked.scss" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/font-awesome-4.6.3/scss/_variables.scss" afterPath="$PROJECT_DIR$/web/static/assets/font-awesome-4.6.3/scss/_variables.scss" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/font-awesome-4.6.3/scss/font-awesome.scss" afterPath="$PROJECT_DIR$/web/static/assets/font-awesome-4.6.3/scss/font-awesome.scss" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/fonts/FontAwesome.otf" afterPath="$PROJECT_DIR$/web/static/assets/fonts/FontAwesome.otf" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/fonts/fontawesome-webfont.eot" afterPath="$PROJECT_DIR$/web/static/assets/fonts/fontawesome-webfont.eot" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/fonts/fontawesome-webfont.svg" afterPath="$PROJECT_DIR$/web/static/assets/fonts/fontawesome-webfont.svg" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/fonts/fontawesome-webfont.ttf" afterPath="$PROJECT_DIR$/web/static/assets/fonts/fontawesome-webfont.ttf" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/fonts/fontawesome-webfont.woff" afterPath="$PROJECT_DIR$/web/static/assets/fonts/fontawesome-webfont.woff" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/fonts/fontawesome-webfont.woff2" afterPath="$PROJECT_DIR$/web/static/assets/fonts/fontawesome-webfont.woff2" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/fonts/glyphicons-halflings-regular.eot" afterPath="$PROJECT_DIR$/web/static/assets/fonts/glyphicons-halflings-regular.eot" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/fonts/glyphicons-halflings-regular.svg" afterPath="$PROJECT_DIR$/web/static/assets/fonts/glyphicons-halflings-regular.svg" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/fonts/glyphicons-halflings-regular.ttf" afterPath="$PROJECT_DIR$/web/static/assets/fonts/glyphicons-halflings-regular.ttf" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/fonts/glyphicons-halflings-regular.woff" afterPath="$PROJECT_DIR$/web/static/assets/fonts/glyphicons-halflings-regular.woff" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/fonts/glyphicons-halflings-regular.woff2" afterPath="$PROJECT_DIR$/web/static/assets/fonts/glyphicons-halflings-regular.woff2" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/hierapolis/sidebar.css" afterPath="$PROJECT_DIR$/web/static/assets/hierapolis/sidebar.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/hierapolis/sidebar.js" afterPath="$PROJECT_DIR$/web/static/assets/hierapolis/sidebar.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/hierapolis/style.css" afterPath="$PROJECT_DIR$/web/static/assets/hierapolis/style.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/highlight.js/CHANGES.md" afterPath="$PROJECT_DIR$/web/static/assets/highlight.js/CHANGES.md" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/highlight.js/LICENSE" afterPath="$PROJECT_DIR$/web/static/assets/highlight.js/LICENSE" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/highlight.js/README.md" afterPath="$PROJECT_DIR$/web/static/assets/highlight.js/README.md" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/highlight.js/README.ru.md" afterPath="$PROJECT_DIR$/web/static/assets/highlight.js/README.ru.md" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/highlight.js/highlight.pack.js" afterPath="$PROJECT_DIR$/web/static/assets/highlight.js/highlight.pack.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/highlight.js/highlightjs-line-numbers.min.js" afterPath="$PROJECT_DIR$/web/static/assets/highlight.js/highlightjs-line-numbers.min.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/highlight.js/styles/agate.css" afterPath="$PROJECT_DIR$/web/static/assets/highlight.js/styles/agate.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/highlight.js/styles/androidstudio.css" afterPath="$PROJECT_DIR$/web/static/assets/highlight.js/styles/androidstudio.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/highlight.js/styles/arduino-light.css" afterPath="$PROJECT_DIR$/web/static/assets/highlight.js/styles/arduino-light.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/highlight.js/styles/arta.css" afterPath="$PROJECT_DIR$/web/static/assets/highlight.js/styles/arta.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/highlight.js/styles/ascetic.css" afterPath="$PROJECT_DIR$/web/static/assets/highlight.js/styles/ascetic.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/highlight.js/styles/atelier-cave-dark.css" afterPath="$PROJECT_DIR$/web/static/assets/highlight.js/styles/atelier-cave-dark.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/highlight.js/styles/atelier-cave-light.css" afterPath="$PROJECT_DIR$/web/static/assets/highlight.js/styles/atelier-cave-light.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/highlight.js/styles/atelier-dune-dark.css" afterPath="$PROJECT_DIR$/web/static/assets/highlight.js/styles/atelier-dune-dark.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/highlight.js/styles/atelier-dune-light.css" afterPath="$PROJECT_DIR$/web/static/assets/highlight.js/styles/atelier-dune-light.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/highlight.js/styles/atelier-estuary-dark.css" afterPath="$PROJECT_DIR$/web/static/assets/highlight.js/styles/atelier-estuary-dark.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/highlight.js/styles/atelier-estuary-light.css" afterPath="$PROJECT_DIR$/web/static/assets/highlight.js/styles/atelier-estuary-light.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/highlight.js/styles/atelier-forest-dark.css" afterPath="$PROJECT_DIR$/web/static/assets/highlight.js/styles/atelier-forest-dark.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/highlight.js/styles/atelier-forest-light.css" afterPath="$PROJECT_DIR$/web/static/assets/highlight.js/styles/atelier-forest-light.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/highlight.js/styles/atelier-heath-dark.css" afterPath="$PROJECT_DIR$/web/static/assets/highlight.js/styles/atelier-heath-dark.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/highlight.js/styles/atelier-heath-light.css" afterPath="$PROJECT_DIR$/web/static/assets/highlight.js/styles/atelier-heath-light.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/highlight.js/styles/atelier-lakeside-dark.css" afterPath="$PROJECT_DIR$/web/static/assets/highlight.js/styles/atelier-lakeside-dark.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/highlight.js/styles/atelier-lakeside-light.css" afterPath="$PROJECT_DIR$/web/static/assets/highlight.js/styles/atelier-lakeside-light.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/highlight.js/styles/atelier-plateau-dark.css" afterPath="$PROJECT_DIR$/web/static/assets/highlight.js/styles/atelier-plateau-dark.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/highlight.js/styles/atelier-plateau-light.css" afterPath="$PROJECT_DIR$/web/static/assets/highlight.js/styles/atelier-plateau-light.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/highlight.js/styles/atelier-savanna-dark.css" afterPath="$PROJECT_DIR$/web/static/assets/highlight.js/styles/atelier-savanna-dark.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/highlight.js/styles/atelier-savanna-light.css" afterPath="$PROJECT_DIR$/web/static/assets/highlight.js/styles/atelier-savanna-light.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/highlight.js/styles/atelier-seaside-dark.css" afterPath="$PROJECT_DIR$/web/static/assets/highlight.js/styles/atelier-seaside-dark.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/highlight.js/styles/atelier-seaside-light.css" afterPath="$PROJECT_DIR$/web/static/assets/highlight.js/styles/atelier-seaside-light.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/highlight.js/styles/atelier-sulphurpool-dark.css" afterPath="$PROJECT_DIR$/web/static/assets/highlight.js/styles/atelier-sulphurpool-dark.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/highlight.js/styles/atelier-sulphurpool-light.css" afterPath="$PROJECT_DIR$/web/static/assets/highlight.js/styles/atelier-sulphurpool-light.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/highlight.js/styles/brown-paper.css" afterPath="$PROJECT_DIR$/web/static/assets/highlight.js/styles/brown-paper.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/highlight.js/styles/brown-papersq.png" afterPath="$PROJECT_DIR$/web/static/assets/highlight.js/styles/brown-papersq.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/highlight.js/styles/codepen-embed.css" afterPath="$PROJECT_DIR$/web/static/assets/highlight.js/styles/codepen-embed.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/highlight.js/styles/color-brewer.css" afterPath="$PROJECT_DIR$/web/static/assets/highlight.js/styles/color-brewer.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/highlight.js/styles/dark.css" afterPath="$PROJECT_DIR$/web/static/assets/highlight.js/styles/dark.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/highlight.js/styles/darkula.css" afterPath="$PROJECT_DIR$/web/static/assets/highlight.js/styles/darkula.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/highlight.js/styles/default.css" afterPath="$PROJECT_DIR$/web/static/assets/highlight.js/styles/default.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/highlight.js/styles/docco.css" afterPath="$PROJECT_DIR$/web/static/assets/highlight.js/styles/docco.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/highlight.js/styles/dracula.css" afterPath="$PROJECT_DIR$/web/static/assets/highlight.js/styles/dracula.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/highlight.js/styles/far.css" afterPath="$PROJECT_DIR$/web/static/assets/highlight.js/styles/far.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/highlight.js/styles/foundation.css" afterPath="$PROJECT_DIR$/web/static/assets/highlight.js/styles/foundation.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/highlight.js/styles/github-gist.css" afterPath="$PROJECT_DIR$/web/static/assets/highlight.js/styles/github-gist.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/highlight.js/styles/github.css" afterPath="$PROJECT_DIR$/web/static/assets/highlight.js/styles/github.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/highlight.js/styles/googlecode.css" afterPath="$PROJECT_DIR$/web/static/assets/highlight.js/styles/googlecode.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/highlight.js/styles/grayscale.css" afterPath="$PROJECT_DIR$/web/static/assets/highlight.js/styles/grayscale.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/highlight.js/styles/gruvbox-dark.css" afterPath="$PROJECT_DIR$/web/static/assets/highlight.js/styles/gruvbox-dark.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/highlight.js/styles/gruvbox-light.css" afterPath="$PROJECT_DIR$/web/static/assets/highlight.js/styles/gruvbox-light.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/highlight.js/styles/hopscotch.css" afterPath="$PROJECT_DIR$/web/static/assets/highlight.js/styles/hopscotch.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/highlight.js/styles/hybrid.css" afterPath="$PROJECT_DIR$/web/static/assets/highlight.js/styles/hybrid.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/highlight.js/styles/idea.css" afterPath="$PROJECT_DIR$/web/static/assets/highlight.js/styles/idea.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/highlight.js/styles/ir-black.css" afterPath="$PROJECT_DIR$/web/static/assets/highlight.js/styles/ir-black.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/highlight.js/styles/kimbie.dark.css" afterPath="$PROJECT_DIR$/web/static/assets/highlight.js/styles/kimbie.dark.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/highlight.js/styles/kimbie.light.css" afterPath="$PROJECT_DIR$/web/static/assets/highlight.js/styles/kimbie.light.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/highlight.js/styles/magula.css" afterPath="$PROJECT_DIR$/web/static/assets/highlight.js/styles/magula.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/highlight.js/styles/mono-blue.css" afterPath="$PROJECT_DIR$/web/static/assets/highlight.js/styles/mono-blue.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/highlight.js/styles/monokai-sublime.css" afterPath="$PROJECT_DIR$/web/static/assets/highlight.js/styles/monokai-sublime.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/highlight.js/styles/monokai.css" afterPath="$PROJECT_DIR$/web/static/assets/highlight.js/styles/monokai.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/highlight.js/styles/obsidian.css" afterPath="$PROJECT_DIR$/web/static/assets/highlight.js/styles/obsidian.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/highlight.js/styles/paraiso-dark.css" afterPath="$PROJECT_DIR$/web/static/assets/highlight.js/styles/paraiso-dark.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/highlight.js/styles/paraiso-light.css" afterPath="$PROJECT_DIR$/web/static/assets/highlight.js/styles/paraiso-light.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/highlight.js/styles/pojoaque.css" afterPath="$PROJECT_DIR$/web/static/assets/highlight.js/styles/pojoaque.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/highlight.js/styles/pojoaque.jpg" afterPath="$PROJECT_DIR$/web/static/assets/highlight.js/styles/pojoaque.jpg" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/highlight.js/styles/purebasic.css" afterPath="$PROJECT_DIR$/web/static/assets/highlight.js/styles/purebasic.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/highlight.js/styles/qtcreator_dark.css" afterPath="$PROJECT_DIR$/web/static/assets/highlight.js/styles/qtcreator_dark.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/highlight.js/styles/qtcreator_light.css" afterPath="$PROJECT_DIR$/web/static/assets/highlight.js/styles/qtcreator_light.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/highlight.js/styles/railscasts.css" afterPath="$PROJECT_DIR$/web/static/assets/highlight.js/styles/railscasts.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/highlight.js/styles/rainbow.css" afterPath="$PROJECT_DIR$/web/static/assets/highlight.js/styles/rainbow.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/highlight.js/styles/school-book.css" afterPath="$PROJECT_DIR$/web/static/assets/highlight.js/styles/school-book.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/highlight.js/styles/school-book.png" afterPath="$PROJECT_DIR$/web/static/assets/highlight.js/styles/school-book.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/highlight.js/styles/solarized-dark.css" afterPath="$PROJECT_DIR$/web/static/assets/highlight.js/styles/solarized-dark.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/highlight.js/styles/solarized-light.css" afterPath="$PROJECT_DIR$/web/static/assets/highlight.js/styles/solarized-light.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/highlight.js/styles/sunburst.css" afterPath="$PROJECT_DIR$/web/static/assets/highlight.js/styles/sunburst.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/highlight.js/styles/tomorrow-night-blue.css" afterPath="$PROJECT_DIR$/web/static/assets/highlight.js/styles/tomorrow-night-blue.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/highlight.js/styles/tomorrow-night-bright.css" afterPath="$PROJECT_DIR$/web/static/assets/highlight.js/styles/tomorrow-night-bright.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/highlight.js/styles/tomorrow-night-eighties.css" afterPath="$PROJECT_DIR$/web/static/assets/highlight.js/styles/tomorrow-night-eighties.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/highlight.js/styles/tomorrow-night.css" afterPath="$PROJECT_DIR$/web/static/assets/highlight.js/styles/tomorrow-night.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/highlight.js/styles/tomorrow.css" afterPath="$PROJECT_DIR$/web/static/assets/highlight.js/styles/tomorrow.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/highlight.js/styles/vs.css" afterPath="$PROJECT_DIR$/web/static/assets/highlight.js/styles/vs.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/highlight.js/styles/xcode.css" afterPath="$PROJECT_DIR$/web/static/assets/highlight.js/styles/xcode.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/highlight.js/styles/xt256.css" afterPath="$PROJECT_DIR$/web/static/assets/highlight.js/styles/xt256.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/highlight.js/styles/zenburn.css" afterPath="$PROJECT_DIR$/web/static/assets/highlight.js/styles/zenburn.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/img/select-icons.png" afterPath="$PROJECT_DIR$/web/static/assets/img/select-icons.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/index.html" afterPath="$PROJECT_DIR$/web/static/assets/js/index.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/js/bootstrap.min.js" afterPath="$PROJECT_DIR$/web/static/assets/js/bootstrap.min.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/js/functions.js" afterPath="$PROJECT_DIR$/web/static/assets/js/functions.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/js/gmap3.js" afterPath="$PROJECT_DIR$/web/static/assets/js/gmap3.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/js/index.html" afterPath="$PROJECT_DIR$/web/static/assets/index.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/js/jquery-1.11.2.min.js" afterPath="$PROJECT_DIR$/web/static/assets/js/jquery-1.11.2.min.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/js/jquery-2.1.0.min.js" afterPath="$PROJECT_DIR$/web/static/assets/js/jquery-2.1.0.min.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/js/jquery-2.1.0.min.map" afterPath="$PROJECT_DIR$/web/static/assets/js/jquery-2.1.0.min.map" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/js/jquery-ui-1.11.4.js" afterPath="$PROJECT_DIR$/web/static/assets/js/jquery-ui-1.11.4.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/js/jquery.ajaxchimp.min.js" afterPath="$PROJECT_DIR$/web/static/assets/js/jquery.ajaxchimp.min.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/js/jquery.fitvids.js" afterPath="$PROJECT_DIR$/web/static/assets/js/jquery.fitvids.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/js/jquery.history.js" afterPath="$PROJECT_DIR$/web/static/assets/js/jquery.history.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/js/jquery.magnific-popup.min.js" afterPath="$PROJECT_DIR$/web/static/assets/js/jquery.magnific-popup.min.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/js/md5.js" afterPath="$PROJECT_DIR$/web/static/assets/js/md5.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/js/modernizr-2.8.3.min.js" afterPath="$PROJECT_DIR$/web/static/assets/js/modernizr-2.8.3.min.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/js/plugins.js" afterPath="$PROJECT_DIR$/web/static/assets/js/plugins.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/js/wow.min.js" afterPath="$PROJECT_DIR$/web/static/assets/js/wow.min.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/media/index.html" afterPath="$PROJECT_DIR$/web/static/assets/css/index.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/media/justin_bieber_eenie_meenie.mp3" afterPath="$PROJECT_DIR$/web/static/assets/media/justin_bieber_eenie_meenie.mp3" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/media/justin_bieber_eenie_meenie.ogg" afterPath="$PROJECT_DIR$/web/static/assets/media/justin_bieber_eenie_meenie.ogg" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/selectize/selectize.bootstrap3.css" afterPath="$PROJECT_DIR$/web/static/assets/selectize/selectize.bootstrap3.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/selectize/selectize.css" afterPath="$PROJECT_DIR$/web/static/assets/selectize/selectize.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/selectize/selectize.min.js" afterPath="$PROJECT_DIR$/web/static/assets/selectize/selectize.min.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/style.css" afterPath="$PROJECT_DIR$/web/static/assets/style.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/templatevamp/css/base-admin-responsive.css" afterPath="$PROJECT_DIR$/web/static/assets/templatevamp/css/base-admin-responsive.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/templatevamp/css/bootstrap-responsive.min.css" afterPath="$PROJECT_DIR$/web/static/assets/templatevamp/css/bootstrap-responsive.min.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/templatevamp/css/bootstrap.css" afterPath="$PROJECT_DIR$/web/static/assets/templatevamp/css/bootstrap.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/templatevamp/css/bootstrap.min.css" afterPath="$PROJECT_DIR$/web/static/assets/templatevamp/css/bootstrap.min.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/templatevamp/css/font-awesome-ie7.css" afterPath="$PROJECT_DIR$/web/static/assets/templatevamp/css/font-awesome-ie7.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/templatevamp/css/font-awesome-ie7.min.css" afterPath="$PROJECT_DIR$/web/static/assets/templatevamp/css/font-awesome-ie7.min.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/templatevamp/css/font-awesome.css" afterPath="$PROJECT_DIR$/web/static/assets/font-awesome-4.6.3/css/font-awesome.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/templatevamp/css/font-awesome.min.css" afterPath="$PROJECT_DIR$/web/static/assets/templatevamp/css/font-awesome.min.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/templatevamp/css/pages/dashboard.css" afterPath="$PROJECT_DIR$/web/static/assets/templatevamp/css/pages/dashboard.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/templatevamp/css/pages/faq.css" afterPath="$PROJECT_DIR$/web/static/assets/templatevamp/css/pages/faq.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/templatevamp/css/pages/plans.css" afterPath="$PROJECT_DIR$/web/static/assets/templatevamp/css/pages/plans.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/templatevamp/css/pages/reports.css" afterPath="$PROJECT_DIR$/web/static/assets/templatevamp/css/pages/reports.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/templatevamp/css/pages/signin.css" afterPath="$PROJECT_DIR$/web/static/assets/templatevamp/css/pages/signin.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/templatevamp/css/style.css" afterPath="$PROJECT_DIR$/web/static/assets/templatevamp/css/style.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/templatevamp/css/widget.css" afterPath="$PROJECT_DIR$/web/static/assets/templatevamp/css/widget.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/templatevamp/font/FontAwesome.otf" afterPath="$PROJECT_DIR$/web/static/assets/templatevamp/font/FontAwesome.otf" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/templatevamp/font/fontawesome-webfont.eot" afterPath="$PROJECT_DIR$/web/static/assets/templatevamp/font/fontawesome-webfont.eot" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/templatevamp/font/fontawesome-webfont.svg" afterPath="$PROJECT_DIR$/web/static/assets/templatevamp/font/fontawesome-webfont.svg" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/templatevamp/font/fontawesome-webfont.svgz" afterPath="$PROJECT_DIR$/web/static/assets/templatevamp/font/fontawesome-webfont.svgz" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/templatevamp/font/fontawesome-webfont.ttf" afterPath="$PROJECT_DIR$/web/static/assets/templatevamp/font/fontawesome-webfont.ttf" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/templatevamp/font/fontawesome-webfont.woff" afterPath="$PROJECT_DIR$/web/static/assets/templatevamp/font/fontawesome-webfont.woff" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/templatevamp/font/fontawesome-webfontd41d.eot" afterPath="$PROJECT_DIR$/web/static/assets/templatevamp/font/fontawesome-webfontd41d.eot" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/templatevamp/img/body-bg.png" afterPath="$PROJECT_DIR$/web/static/assets/templatevamp/img/body-bg.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/templatevamp/img/glyphicons-halflings-white.html" afterPath="$PROJECT_DIR$/web/static/assets/templatevamp/img/glyphicons-halflings-white.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/templatevamp/img/glyphicons-halflings.html" afterPath="$PROJECT_DIR$/web/static/assets/templatevamp/img/glyphicons-halflings.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/templatevamp/img/icons-sa7c41345d9.png" afterPath="$PROJECT_DIR$/web/static/assets/templatevamp/img/icons-sa7c41345d9.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/templatevamp/img/message_avatar1.png" afterPath="$PROJECT_DIR$/web/static/assets/templatevamp/img/message_avatar1.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/templatevamp/img/message_avatar2.png" afterPath="$PROJECT_DIR$/web/static/assets/templatevamp/img/message_avatar2.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/templatevamp/img/signin/check.png" afterPath="$PROJECT_DIR$/web/static/assets/templatevamp/img/signin/check.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/templatevamp/img/signin/fb_btn.png" afterPath="$PROJECT_DIR$/web/static/assets/templatevamp/img/signin/fb_btn.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/templatevamp/img/signin/password.png" afterPath="$PROJECT_DIR$/web/static/assets/templatevamp/img/signin/password.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/templatevamp/img/signin/twitter_btn.png" afterPath="$PROJECT_DIR$/web/static/assets/templatevamp/img/signin/twitter_btn.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/templatevamp/img/signin/user.png" afterPath="$PROJECT_DIR$/web/static/assets/templatevamp/img/signin/user.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/templatevamp/js/base.js" afterPath="$PROJECT_DIR$/web/static/assets/templatevamp/js/base.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/templatevamp/js/bootstrap.js" afterPath="$PROJECT_DIR$/web/static/assets/templatevamp/js/bootstrap.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/templatevamp/js/chart.min.js" afterPath="$PROJECT_DIR$/web/static/assets/templatevamp/js/chart.min.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/templatevamp/js/charts/area.js" afterPath="$PROJECT_DIR$/web/static/assets/templatevamp/js/charts/area.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/templatevamp/js/charts/bar.js" afterPath="$PROJECT_DIR$/web/static/assets/templatevamp/js/charts/bar.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/templatevamp/js/charts/donut.js" afterPath="$PROJECT_DIR$/web/static/assets/templatevamp/js/charts/donut.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/templatevamp/js/charts/line.js" afterPath="$PROJECT_DIR$/web/static/assets/templatevamp/js/charts/line.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/templatevamp/js/charts/pie.js" afterPath="$PROJECT_DIR$/web/static/assets/templatevamp/js/charts/pie.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/templatevamp/js/excanvas.min.js" afterPath="$PROJECT_DIR$/web/static/assets/templatevamp/js/excanvas.min.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/templatevamp/js/faq.js" afterPath="$PROJECT_DIR$/web/static/assets/templatevamp/js/faq.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/templatevamp/js/full-calendar/fullcalendar.css" afterPath="$PROJECT_DIR$/web/static/assets/templatevamp/js/full-calendar/fullcalendar.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/templatevamp/js/full-calendar/fullcalendar.min.js" afterPath="$PROJECT_DIR$/web/static/assets/templatevamp/js/full-calendar/fullcalendar.min.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/templatevamp/js/guidely/guidely-number.png" afterPath="$PROJECT_DIR$/web/static/assets/templatevamp/js/guidely/guidely-number.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/templatevamp/js/guidely/guidely.css" afterPath="$PROJECT_DIR$/web/static/assets/templatevamp/js/guidely/guidely.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/templatevamp/js/guidely/guidely.min.js" afterPath="$PROJECT_DIR$/web/static/assets/templatevamp/js/guidely/guidely.min.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/templatevamp/js/jquery-1.7.2.min.js" afterPath="$PROJECT_DIR$/web/static/assets/templatevamp/js/jquery-1.7.2.min.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/templatevamp/js/signin.js" afterPath="$PROJECT_DIR$/web/static/assets/templatevamp/js/signin.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/typeahead.js/bloodhound.js" afterPath="$PROJECT_DIR$/web/static/assets/typeahead.js/bloodhound.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/typeahead.js/bloodhound.min.js" afterPath="$PROJECT_DIR$/web/static/assets/typeahead.js/bloodhound.min.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/typeahead.js/bootstrap-typeahead.js" afterPath="$PROJECT_DIR$/web/static/assets/typeahead.js/bootstrap-typeahead.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/typeahead.js/bootstrap-typeahead.min.js" afterPath="$PROJECT_DIR$/web/static/assets/typeahead.js/bootstrap-typeahead.min.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/typeahead.js/typeahead.bundle.js" afterPath="$PROJECT_DIR$/web/static/assets/typeahead.js/typeahead.bundle.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/typeahead.js/typeahead.bundle.min.js" afterPath="$PROJECT_DIR$/web/static/assets/typeahead.js/typeahead.bundle.min.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/typeahead.js/typeahead.jquery.js" afterPath="$PROJECT_DIR$/web/static/assets/typeahead.js/typeahead.jquery.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/typeahead.js/typeahead.jquery.min.js" afterPath="$PROJECT_DIR$/web/static/assets/typeahead.js/typeahead.jquery.min.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/x-bootstrap-wizard/gsdk-base.css" afterPath="$PROJECT_DIR$/web/static/assets/x-bootstrap-wizard/gsdk-base.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/x-bootstrap-wizard/jquery.bootstrap.wizard.js" afterPath="$PROJECT_DIR$/web/static/assets/x-bootstrap-wizard/jquery.bootstrap.wizard.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/x-bootstrap-wizard/jquery.validate.min.js" afterPath="$PROJECT_DIR$/web/static/assets/x-bootstrap-wizard/jquery.validate.min.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/assets/x-bootstrap-wizard/wizard.js" afterPath="$PROJECT_DIR$/web/static/assets/x-bootstrap-wizard/wizard.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/images/author/1.jpg" afterPath="$PROJECT_DIR$/web/static/images/author/1.jpg" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/images/background/1.jpg" afterPath="$PROJECT_DIR$/web/static/images/background/1.jpg" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/images/blog-single/1.jpg" afterPath="$PROJECT_DIR$/web/static/images/blog-single/1.jpg" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/images/blog/1.jpg" afterPath="$PROJECT_DIR$/web/static/images/blog/1.jpg" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/images/blog/2.jpg" afterPath="$PROJECT_DIR$/web/static/images/blog/2.jpg" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/images/blog/3.jpg" afterPath="$PROJECT_DIR$/web/static/images/blog/3.jpg" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/images/blog/4.jpg" afterPath="$PROJECT_DIR$/web/static/images/blog/4.jpg" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/images/comment/1.jpg" afterPath="$PROJECT_DIR$/web/static/images/comment/1.jpg" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/images/comment/2.jpg" afterPath="$PROJECT_DIR$/web/static/images/comment/2.jpg" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/images/comment/3.jpg" afterPath="$PROJECT_DIR$/web/static/images/comment/3.jpg" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/images/comment/4.jpg" afterPath="$PROJECT_DIR$/web/static/images/comment/4.jpg" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/images/logo.png" afterPath="$PROJECT_DIR$/web/static/images/logo.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/images/mapicon.png" afterPath="$PROJECT_DIR$/web/static/images/mapicon.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/images/portfolio/1.jpg" afterPath="$PROJECT_DIR$/web/static/images/portfolio/1.jpg" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/images/portfolio/2.jpg" afterPath="$PROJECT_DIR$/web/static/images/portfolio/2.jpg" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/images/portfolio/3.jpg" afterPath="$PROJECT_DIR$/web/static/images/portfolio/3.jpg" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/images/portfolio/4.jpg" afterPath="$PROJECT_DIR$/web/static/images/portfolio/4.jpg" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/images/screenshots/archive-org-web.png" afterPath="$PROJECT_DIR$/web/static/images/screenshots/archive-org-web.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/images/screenshots/https-web-archive-org-web-http-alguard-state-al-us.png" afterPath="$PROJECT_DIR$/web/static/images/screenshots/https-web-archive-org-web-http-alguard-state-al-us.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/images/screenshots/https-web-archive-org-web-http-clarkjolley-com.png" afterPath="$PROJECT_DIR$/web/static/images/screenshots/https-web-archive-org-web-http-clarkjolley-com.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/images/services/1.jpg" afterPath="$PROJECT_DIR$/web/static/images/services/1.jpg" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/images/services/2.jpg" afterPath="$PROJECT_DIR$/web/static/images/services/2.jpg" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/images/services/3.jpg" afterPath="$PROJECT_DIR$/web/static/images/services/3.jpg" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/images/services/4.jpg" afterPath="$PROJECT_DIR$/web/static/images/services/4.jpg" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/images/slider/1.jpg" afterPath="$PROJECT_DIR$/web/static/images/slider/1.jpg" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/static/images/slider/2.jpg" afterPath="$PROJECT_DIR$/web/static/images/slider/2.jpg" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/templates/dashgumfree.html" afterPath="$PROJECT_DIR$/web/templates/dashgumfree.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/templates/hierapolis.html" afterPath="$PROJECT_DIR$/web/templates/hierapolis.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/templates/templatevamp.html" afterPath="$PROJECT_DIR$/web/templates/templatevamp.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/test/__init__.py" afterPath="$PROJECT_DIR$/cli/__init__.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/test/damage.py" afterPath="$PROJECT_DIR$/cli/damage.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.dockerignore" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/start-display.sh" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/start-server.sh" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web-memento-damage.conf" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Dockerfile" afterPath="$PROJECT_DIR$/Dockerfile" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config.py" afterPath="$PROJECT_DIR$/config.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/start.py" afterPath="$PROJECT_DIR$/start.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/start.sh" afterPath="$PROJECT_DIR$/start.sh" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xvfb-start.sh" afterPath="$PROJECT_DIR$/xvfb-start.sh" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ext/damage.py" afterPath="$PROJECT_DIR$/ext/damage.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ext/phantomjs/crawl.js" afterPath="$PROJECT_DIR$/ext/phantomjs/crawl.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/modules/api/__init__.py" afterPath="$PROJECT_DIR$/web/modules/api/__init__.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/modules/home/templates/templatevamp/_summary.html" afterPath="$PROJECT_DIR$/web/modules/home/templates/templatevamp/_summary.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/modules/home/templates/templatevamp/check.html" afterPath="$PROJECT_DIR$/web/modules/home/templates/templatevamp/check.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/modules/home/templates/templatevamp/index.html" afterPath="$PROJECT_DIR$/web/modules/home/templates/templatevamp/index.html" />
     </list>
     <ignored path="memento-pedia-tornado.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -345,12 +54,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/env-linux/local/lib/python2.7/site-packages/tornado/web.py" />
-        <option value="$PROJECT_DIR$/tornado_blueprint/request_handler.py" />
-        <option value="$PROJECT_DIR$/app/modules/dashboard/__init__.py" />
-        <option value="$PROJECT_DIR$/app/modules/settings/__init__.py" />
-        <option value="$PROJECT_DIR$/tornado_blueprint/application.py" />
-        <option value="$PROJECT_DIR$/env-linux/lib/python2.7/site-packages/tornado/web.py" />
         <option value="$PROJECT_DIR$/tornado_blueprint/blueprint.py" />
         <option value="$PROJECT_DIR$/lib/multithreaded_crawl.py" />
         <option value="$PROJECT_DIR$/test_uri.txt" />
@@ -380,8 +83,6 @@
         <option value="$PROJECT_DIR$/app/static/assets/templatevamp/css/style.css" />
         <option value="$PROJECT_DIR$/ext/selenium/crawl.py" />
         <option value="$PROJECT_DIR$/ext/selenium/__init__.py" />
-        <option value="$PROJECT_DIR$/ext/phantomjs/crawl.js" />
-        <option value="$PROJECT_DIR$/ext/damage.py" />
         <option value="$PROJECT_DIR$/app/templates/templatevamp.html" />
         <option value="$PROJECT_DIR$/app/modules/home/templates/templatevamp/index.html" />
         <option value="$PROJECT_DIR$/start.py" />
@@ -391,11 +92,19 @@
         <option value="$PROJECT_DIR$/start.sh" />
         <option value="$PROJECT_DIR$/web-memento-damage" />
         <option value="$PROJECT_DIR$/web-memento-damage.conf" />
-        <option value="$PROJECT_DIR$/start-nginx.sh" />
         <option value="$PROJECT_DIR$/xvfb-start.sh" />
-        <option value="$PROJECT_DIR$/Dockerfile" />
         <option value="$PROJECT_DIR$/web/__init__.py" />
         <option value="$PROJECT_DIR$/config.py" />
+        <option value="$PROJECT_DIR$/cli/damage.py" />
+        <option value="$PROJECT_DIR$/start-nginx.sh" />
+        <option value="$PROJECT_DIR$/start-display.sh" />
+        <option value="$PROJECT_DIR$/web/modules/home/templates/templatevamp/index.html" />
+        <option value="$PROJECT_DIR$/ext/damage.py" />
+        <option value="$PROJECT_DIR$/ext/phantomjs/crawl.js" />
+        <option value="$PROJECT_DIR$/web/modules/api/__init__.py" />
+        <option value="$PROJECT_DIR$/web/modules/home/templates/templatevamp/check.html" />
+        <option value="$PROJECT_DIR$/web/modules/home/templates/templatevamp/_summary.html" />
+        <option value="$PROJECT_DIR$/Dockerfile" />
       </list>
     </option>
   </component>
@@ -886,7 +595,21 @@
       <option name="project" value="LOCAL" />
       <updated>1476882571145</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="Change project structure">
+      <created>1477464638264</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1477464638265</updated>
+    </task>
+    <task id="LOCAL-00021" summary="Fix User Interface">
+      <created>1477464759467</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1477464759467</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TodoView">
@@ -972,6 +695,7 @@
     <MESSAGE value="Blacklist INTERNAL" />
     <MESSAGE value="add resolution in xvfb-start" />
     <MESSAGE value="add nightmarejs library" />
+    <MESSAGE value="Change project structure" />
     <MESSAGE value="Fix User Interface" />
     <option name="LAST_COMMIT_MESSAGE" value="Fix User Interface" />
   </component>
@@ -982,15 +706,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file:///usr/lib/python2.7/HTMLParser.py" />
-    <entry file="file://$APPLICATION_HOME_DIR$/helpers/python-skeletons/io.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="296" column="8" selection-start-line="296" selection-start-column="8" selection-end-line="296" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../justin_revision/measureMemento.pl" />
     <entry file="file://$PROJECT_DIR$/ext/blueprint/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1167,31 +882,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ext/phantomjs/crawl.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="52" column="49" selection-start-line="52" selection-start-column="49" selection-end-line="52" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/modules/home/templates/templatevamp/_summary_old.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="240">
           <caret line="16" column="6" selection-start-line="9" selection-start-column="0" selection-end-line="16" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/modules/home/templates/templatevamp/_summary.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="19" column="35" selection-start-line="19" selection-start-column="35" selection-end-line="19" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/modules/home/templates/templatevamp/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="495">
-          <caret line="162" column="43" selection-start-line="162" selection-start-column="18" selection-end-line="162" selection-end-column="43" />
         </state>
       </provider>
     </entry>
@@ -1202,31 +896,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/modules/home/templates/templatevamp/check.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="344">
-          <caret line="685" column="35" selection-start-line="685" selection-start-column="35" selection-end-line="685" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ext/damage.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="451" column="31" selection-start-line="451" selection-start-column="31" selection-end-line="451" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.dockerignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -1242,14 +915,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
           <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/start-nginx.sh">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="18" column="4" selection-start-line="18" selection-start-column="4" selection-end-line="18" selection-end-column="4" />
           <folding />
         </state>
       </provider>
@@ -1272,34 +937,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/modules/home/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/modules/api/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="24" column="47" selection-start-line="24" selection-start-column="47" selection-end-line="24" selection-end-column="47" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/config.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="195">
           <caret line="14" column="53" selection-start-line="14" selection-start-column="53" selection-end-line="14" selection-end-column="53" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Dockerfile">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="5" column="12" selection-start-line="5" selection-start-column="12" selection-end-line="5" selection-end-column="12" />
           <folding />
         </state>
       </provider>
@@ -1314,14 +955,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/xvfb-start.sh">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="69" selection-start-line="4" selection-start-column="69" selection-end-line="4" selection-end-column="69" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/cli/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1330,10 +963,127 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/.dockerignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/xvfb-start.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="34" selection-start-line="4" selection-start-column="27" selection-end-line="4" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/cli/damage.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="273">
+          <caret line="135" column="25" selection-start-line="135" selection-start-column="25" selection-end-line="135" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/start-server.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" column="22" selection-start-line="10" selection-start-column="22" selection-end-line="10" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/start-display.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="11" column="4" selection-start-line="11" selection-start-column="4" selection-end-line="11" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/modules/home/templates/templatevamp/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="337">
+          <caret line="44" column="24" selection-start-line="44" selection-start-column="24" selection-end-line="44" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ext/damage.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="134">
+          <caret line="449" column="48" selection-start-line="449" selection-start-column="48" selection-end-line="449" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/modules/home/templates/templatevamp/_text.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ext/phantomjs/crawl.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="511" column="24" selection-start-line="511" selection-start-column="24" selection-end-line="511" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/modules/home/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/.PyCharm2016.2/system/python_stubs/-1499784599/datetime.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="196">
+          <caret line="162" column="6" selection-start-line="162" selection-start-column="6" selection-end-line="162" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/modules/api/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="318">
+          <caret line="216" column="68" selection-start-line="216" selection-start-column="68" selection-end-line="216" selection-end-column="68" />
+          <folding>
+            <element signature="e#0#14#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/modules/home/templates/templatevamp/check.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="145">
+          <caret line="714" column="26" selection-start-line="714" selection-start-column="10" selection-end-line="714" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/modules/home/templates/templatevamp/_summary.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="23" column="74" selection-start-line="23" selection-start-column="74" selection-end-line="23" selection-end-column="74" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#div#1;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#div#2;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Dockerfile">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="468">
+          <caret line="35" column="16" selection-start-line="35" selection-start-column="16" selection-end-line="35" selection-end-column="16" />
           <folding />
         </state>
       </provider>

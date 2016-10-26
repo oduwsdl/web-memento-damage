@@ -40,7 +40,7 @@ else {
     outputDir = system.args[2];
 
     // Set timeout on fetching resources to 30 seconds (can be changed)
-    page.settings.resourceTimeout = 30000;
+    page.settings.resourceTimeout = 300000;
     page.onResourceTimeout = function(e) {
         console.log('Resource ' + e.url + ' timeout. ' + e.errorCode + ' ' + e.errorString);
     };
@@ -104,6 +104,15 @@ else {
             // Timeout in ms, means 200 ms
             window.setTimeout(function () {
                 if (page.injectJs('jquery-3.1.0.min.js') && page.injectJs('underscore.js')) {
+                    // Calculate bgcolor
+                    var bgcolor = getBackgroundColor();
+                    // If bgcolor == 000000 -> change it to white
+                    if(bgcolor == '000000') {
+                        page.evaluate(function() {
+                            document.body.style.backgroundColor = '#ffffff';
+                        });
+                    }
+
                     processPage(url, outputDir);
                     // Show bgcolor
                     console.log(JSON.stringify({'background_color' : getBackgroundColor()}));
@@ -183,11 +192,14 @@ function processImages(url, outputDir) {
         var allImages = {};
         var documentImages = [];
 
-        var images = document.images;
+        var images = document.images || [];
         for(var i=0; i<images.length; i++) documentImages.push(images[i]);
         var frames = window.frames;
         for(var f=0; f<frames.length; f++) {
-            images = frames[f].document.images;
+            var tmpDocument = frames[f].document;
+            if(tmpDocument == undefined) tmpDocument = frames[f];
+
+            images = tmpDocument.images || [];
             for(var i=0; i<images.length; i++) documentImages.push(images[i]);
         }
 
@@ -376,7 +388,7 @@ function processCsses(url, resourceBasename) {
 
         var allCsses = [];
 
-        var tmpCsses = document.styleSheets;
+        var tmpCsses = document.styleSheets || [];
         for(t=0; t<tmpCsses.length; t++) allCsses.push(serialize(tmpCsses[t], -1));
 
         var tmpFrames = window.frames;
@@ -384,7 +396,7 @@ function processCsses(url, resourceBasename) {
             var tmpDocument = tmpFrames[f].document;
             if(tmpDocument == undefined) tmpDocument = tmpFrames[f];
 
-            tmpCsses = tmpDocument.styleSheets;
+            tmpCsses = tmpDocument.styleSheets || [];
             for(t=0; t<tmpCsses.length; t++) allCsses.push(serialize(tmpCsses[t], f));
         }
 
@@ -439,6 +451,7 @@ function processScreenshots(url, outputDir) {
     page.render(screenshotFile);
     console.log('Screenshot is saved in ' + screenshotFile);
 
+    /**
     var outerHTMLCsses = page.evaluate(function() {
         outerHTMLCsses = [];
 
@@ -508,69 +521,7 @@ function processScreenshots(url, outputDir) {
             }, outerHTMLCss);
         }
     });
-}
-
-function processScreenshotsOld(url, outputDir) {
-    hashedUrl = md5(url);
-    screenshotDir = outputDir + '/screenshot/' + hashedUrl;
-    screenshotFile = screenshotDir + '.png';
-
-    // Save screenshot
-    page.render(screenshotFile);
-    console.log('Screenshot is saved in ' + screenshotFile)
-
-    // Save screenshot for each css lost (simmulation)
-    var outerHTMLCsses = page.evaluate(function() {
-        outerHTMLCsses = [];
-
-        docCsses = $('style, link[rel="stylesheet"]');
-        for(var c=0; c<docCsses.length; c++) {
-            outerHTMLCsses.push({'frame' : -1, 'idx' : c, 'html' : docCsses[c].outerHTML});
-        }
-
-        frames = $('frame, iframe').contents();
-        for(f=0; f<frames.length; f++) {
-            docCsses = $(frames[f]).find('style, link[rel="stylesheet"]');
-            for(var c=0; c<docCsses.length; c++) {
-                outerHTMLCsses.push({'frame' : f, 'idx' : c, 'html' : docCsses[c].outerHTML});
-            }
-        }
-
-        return outerHTMLCsses;
-    }) || [];
-
-    outerHTMLCsses.forEach(function(outerHTMLCss) {
-        hashedCss = md5(outerHTMLCss['html']);
-        screenshotFile = screenshotDir + '/' + hashedCss + '.png';
-
-        // Remove css
-        page.evaluate(function(outerHTMLCss) {
-            if(outerHTMLCss['frame'] >= 0) {
-              frames = $('frame, iframe').contents();
-              for(f=0; f<frames.length; f++) {
-                  $(frames[f]).find('style, link[rel="stylesheet"]')[outerHTMLCss['idx']].remove();
-              }
-            } else {
-                $('style, link[rel="stylesheet"]')[outerHTMLCss['idx']].remove();
-            }
-        }, outerHTMLCss);
-
-        // Save screenshot
-        page.render(screenshotFile);
-        console.log('Screenshot is saved in ' + screenshotFile);
-
-        // Put css back
-        page.evaluate(function(outerHTMLCss) {
-            if(outerHTMLCss['frame'] >= 0) {
-              frames = $('frame, iframe');
-              for(f=0; f<frames.length; f++) {
-                  $(outerHTMLCss['html']).appendTo($('head'));
-              }
-            } else {
-                $(outerHTMLCss['html']).appendTo($(frames[f]).find('head'));
-            }
-        }, outerHTMLCss);
-    });
+    */
 }
 
 function calculateImportance(rule) {
