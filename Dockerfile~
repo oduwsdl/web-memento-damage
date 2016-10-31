@@ -5,9 +5,6 @@ MAINTAINER Erika Siregar <erikaris87@gmail.com>
 COPY start-desktop.sh /app
 COPY damage /app/cli
 
-RUN chmod +x /app/start-desktop.sh
-RUN chmod +x /app/cli/damage
-
 # Add project cli directory to PATH
 env PATH /app/cli:$PATH
 
