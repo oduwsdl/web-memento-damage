@@ -1,5 +1,5 @@
 FROM ubuntu:xenial
-MAINTAINER Sawood Alam <ibnesayeed@gmail.com>
+MAINTAINER Erika Siregar <erikaris87@gmail.com>
 
 # Set workdir
 RUN mkdir -p /app
@@ -11,9 +11,9 @@ RUN apt-get update
 RUN apt-get install -y python python-pip
 RUN pip install --upgrade pip
 
+# Install phantomjs and xvfb
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y phantomjs
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y xvfb
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y nginx
 
 # Install desktop and vncserver
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y lxde-core tightvncserver
@@ -23,10 +23,4 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y xtightvncviewer
 COPY . /app
 RUN pip install -r requirements.txt
 
-# Expose variables
-EXPOSE 80
-VOLUME /app/cli
-VOLUME /app/cache
-VOLUME /app/test
-
-CMD /app/start-desktop.sh
+CMD /bin/bash
