@@ -13,6 +13,7 @@ RUN mkdir -p /app/cli/workspace
 WORKDIR /app/cli/workspace
 
 # Start desktop
+RUN chmod +x /app/start-desktop.sh
 ENTRYPOINT /bin/sh -c /app/start-desktop.sh
 
 # Expose variables
