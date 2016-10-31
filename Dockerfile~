@@ -8,7 +8,6 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y nginx
 COPY start-desktop-server.sh /app
 
 # Start desktop dan server
-RUN chmod +x /app/start-desktop-server.sh
 ENTRYPOINT /app/start-desktop-server.sh
 
 # Expose variables
