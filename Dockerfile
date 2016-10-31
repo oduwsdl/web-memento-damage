@@ -9,6 +9,7 @@ COPY start-desktop-server.sh /app
 
 RUN chmod +x /app/start-desktop-server.sh
 RUN chmod +x /app/start-server.sh
+RUN chmod +x /app/server.sh
 
 # Start desktop dan server
 ENTRYPOINT /app/start-desktop-server.sh
