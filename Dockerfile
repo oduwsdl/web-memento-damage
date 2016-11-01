@@ -2,23 +2,20 @@ FROM erikaris/memento-damage:latest
 MAINTAINER Erika Siregar <erikaris87@gmail.com>
 
 # Copy necessary files
-COPY start-desktop.sh /app
 COPY damage /app/cli
-
-RUN chmod +x /app/start-desktop.sh
-RUN chmod +x /app/cli/damage
+RUN chmod +x -R /app/cli
 
 # Add project cli directory to PATH
 env PATH /app/cli:$PATH
 
+# Set workspace
+ENV WORKSPACE /app/cache
+
 # Set workdir
-RUN mkdir -p /app/cli/workspace
-WORKDIR /app/cli/workspace
+RUN mkdir -p "$WORKSPACE"
+WORKDIR "$WORKSPACE"
 
-# Start desktop
-ENTRYPOINT /bin/sh -c /app/start-desktop.sh
-
-# Expose variables
-VOLUME /app/cli/workspace
+# Expose "$WORKSPACE"
+VOLUME "$WORKSPACE"
 
 CMD /bin/bash
