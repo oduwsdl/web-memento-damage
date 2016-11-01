@@ -4,15 +4,16 @@ MAINTAINER Erika Siregar <erikaris87@gmail.com>
 # Install nginx
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y nginx
 
-# Copy necessary files
-COPY start-desktop-server.sh /app
+# Clean apt cache
+RUN DEBIAN_FRONTEND=noninteractive apt-get clean
 
-RUN chmod +x /app/start-desktop-server.sh
-RUN chmod +x /app/start-server.sh
-RUN chmod +x /app/server.sh
+# Copy necessary files
+COPY . /server
+RUN chmod +x /server/*
+RUN chmod +x /app/*.sh
 
 # Start desktop dan server
-ENTRYPOINT /app/start-desktop-server.sh
+ENTRYPOINT /server/start-all.sh
 
 # Expose variables
 EXPOSE 80
