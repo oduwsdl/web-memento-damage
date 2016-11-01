@@ -1,26 +1,27 @@
-FROM ubuntu:xenial
+FROM soedomoto/docker:ubuntu-lxde
 MAINTAINER Erika Siregar <erikaris87@gmail.com>
+
+# Install python pio phantomjs xvfb and nginx
+RUN apt-get install -y python python-pip
+RUN pip install --upgrade pip --no-cache-dir
+
+# Install phantomjs
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y phantomjs
+
+# Clean apt cache
+RUN DEBIAN_FRONTEND=noninteractive apt-get clean
+
 
 # Set workdir
 RUN mkdir -p /app
 WORKDIR /app
 
-RUN apt-get update
-
-# Install python pio phantomjs xvfb and nginx
-RUN apt-get install -y python python-pip
-RUN pip install --upgrade pip
-
-# Install phantomjs and xvfb
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y phantomjs
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y xvfb
-
-# Install desktop and vncserver
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y lxde-core tightvncserver
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y xtightvncviewer
-
-# Install application
+# Copy files
 COPY . /app
-RUN pip install -r requirements.txt
+RUN pip install -r requirements.txt --no-cache-dir
+
+# Expose directory
+VOLUME /app/cache
+
 
 CMD /bin/bash
