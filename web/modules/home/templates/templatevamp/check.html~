@@ -588,10 +588,6 @@
     checkDamageFinished = false;
     isError = false;
 
-    if(location.hash != '') {
-        $('a[href="'+location.hash+'"]').tab('show');
-    }
-
     checkDamageUriM('{{ url }}', {{ fresh }}, function(uri, result) {
       checkDamageFinished = true;
 
