@@ -1,9 +1,8 @@
-import inspect
 from urlparse import urlparse
 
-import os
-from ext.blueprint import Blueprint, RequestHandler
 from tornado import web
+
+from ext.blueprint import Blueprint, RequestHandler
 
 
 class Memento(Blueprint):

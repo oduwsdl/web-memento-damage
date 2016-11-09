@@ -1,14 +1,13 @@
 import pkgutil
 import sys
 
-import config
-from ext.blueprint import Application
-from ext.blueprint import Blueprint
-
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import scoped_session, sessionmaker
 
+import config
+from ext.blueprint import Application
+from ext.blueprint import Blueprint
 
 # Instantiate Tornado Application
 _settings = Application.import_settings_from_object(config)

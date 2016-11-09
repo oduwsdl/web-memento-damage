@@ -112,7 +112,7 @@
 <section class="intro text-center">
   <div class="body">
     <div class="container">
-      <div class="col-sm-12">
+      <div class="col-sm-12 example">
         <div class="col-sm-12">
           <h1 style="margin: 0 0 35px;">How well is your webpage archived?</h1>
         </div>
@@ -121,12 +121,12 @@
           <div class="frame">
             <div class="aspect"></div>
             <div class="inner">
-              <img class="thumb" src="static/images/screenshots/archive-org-web.png">
+              <img class="thumb" src="static/images/screenshots/http-cs-odu-edu.png">
             </div>
           </div>
           <br/>
-          <a class="no-overflow" href="http://web.archive.org/">http://web.archive.org/</a><br/>
-          Damage = 0.0
+          <a class="no-overflow" href="memento/check?url=http%3A%2F%2Fcs.odu.edu">http://cs.odu.edu/</a><br/>
+          Damage = 0.099
         </div>
         <div class="col-sm-4">
           <div class="frame">
@@ -136,7 +136,7 @@
             </div>
           </div>
           <br/>
-          <a class="no-overflow" href="https://web.archive.org/web/20020525205220/http://clarkjolley.com/">https://web.archive.org/web/20020525205220/http://clarkjolley.com/</a><br/>
+          <a class="no-overflow" href="memento/check?url=https%3A%2F%2Fweb.archive.org%2Fweb%2F20020525205220%2Fhttp%3A%2F%2Fclarkjolley.com%2F">https://web.archive.org/web/20020525205220/http://clarkjolley.com/</a><br/>
           Damage = 0.44014
         </div>
         <div class="col-sm-4">
@@ -147,7 +147,7 @@
             </div>
           </div>
           <br/>
-          <a class="no-overflow" href="https://web.archive.org/web/19981202033838/http://alguard.state.al.us/">https://web.archive.org/web/19981202033838/http://alguard.state.al.us/</a><br/>
+          <a class="no-overflow" href="memento/check?url=https%3A%2F%2Fweb.archive.org%2Fweb%2F19981202033838%2Fhttp%3A%2F%2Falguard.state.al.us">https://web.archive.org/web/19981202033838/http://alguard.state.al.us/</a><br/>
           Damage = 0.96800
         </div>
 
@@ -199,6 +199,10 @@
 
 {% block tail %}
 <script type="text/javascript">
+  $('.example a').each(function() {
+    $(this).attr('href', window.location.href + $(this).attr('href'));
+  });
+
   function processNoOverflow() {
     var hrefs = [], as = $('a.no-overflow');
     for(var i=0; i<as.length; i++) {
