@@ -1,5 +1,5 @@
 FROM soedomoto/docker:ubuntu-lxde
-MAINTAINER Erika Siregar <erikaris151@gmail.com>
+MAINTAINER Erika Siregar <erikaris1515@gmail.com>
 
 # Install python pio phantomjs xvfb and nginx
 RUN apt-get install -y python python-pip
