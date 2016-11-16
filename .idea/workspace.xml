@@ -3,41 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="abb02a85-edb0-4070-84af-33ef9785e6b3" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/__init__.py" afterPath="$PROJECT_DIR$/web/__init__.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/modules/home/__init__.py" afterPath="$PROJECT_DIR$/web/modules/home/__init__.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/static/assets/css/owl.carousel.css" afterPath="$PROJECT_DIR$/web/static/assets/css/owl.carousel.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/static/assets/css/responsive.css" afterPath="$PROJECT_DIR$/web/static/assets/css/responsive.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/static/assets/css/retina.css" afterPath="$PROJECT_DIR$/web/static/assets/css/retina.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/static/assets/css/style.css" afterPath="$PROJECT_DIR$/web/static/assets/css/style.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/static/assets/dashgumfree_v2/style.css" afterPath="$PROJECT_DIR$/web/static/assets/dashgumfree_v2/style.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/static/assets/js/functions.js" afterPath="$PROJECT_DIR$/web/static/assets/js/functions.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/static/assets/js/gmap3.js" afterPath="$PROJECT_DIR$/web/static/assets/js/gmap3.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/static/assets/js/jquery.ajaxchimp.min.js" afterPath="$PROJECT_DIR$/web/static/assets/js/jquery.ajaxchimp.min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/static/assets/js/modernizr-2.8.3.min.js" afterPath="$PROJECT_DIR$/web/static/assets/js/modernizr-2.8.3.min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/static/assets/js/plugins.js" afterPath="$PROJECT_DIR$/web/static/assets/js/plugins.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/static/assets/js/wow.min.js" afterPath="$PROJECT_DIR$/web/static/assets/js/wow.min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/static/assets/style.css" afterPath="$PROJECT_DIR$/web/static/assets/style.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/static/assets/templatevamp/css/base-admin-responsive.css" afterPath="$PROJECT_DIR$/web/static/assets/templatevamp/css/base-admin-responsive.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/static/assets/templatevamp/css/bootstrap.min.css" afterPath="$PROJECT_DIR$/web/static/assets/templatevamp/css/bootstrap.min.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/static/assets/templatevamp/css/pages/dashboard.css" afterPath="$PROJECT_DIR$/web/static/assets/templatevamp/css/pages/dashboard.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/static/assets/templatevamp/css/pages/faq.css" afterPath="$PROJECT_DIR$/web/static/assets/templatevamp/css/pages/faq.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/static/assets/templatevamp/css/pages/plans.css" afterPath="$PROJECT_DIR$/web/static/assets/templatevamp/css/pages/plans.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/static/assets/templatevamp/css/pages/reports.css" afterPath="$PROJECT_DIR$/web/static/assets/templatevamp/css/pages/reports.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/static/assets/templatevamp/css/pages/signin.css" afterPath="$PROJECT_DIR$/web/static/assets/templatevamp/css/pages/signin.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/static/assets/templatevamp/css/style.css" afterPath="$PROJECT_DIR$/web/static/assets/templatevamp/css/style.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/static/assets/templatevamp/img/glyphicons-halflings-white.html" afterPath="$PROJECT_DIR$/web/static/assets/templatevamp/img/glyphicons-halflings-white.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/static/assets/templatevamp/img/glyphicons-halflings.html" afterPath="$PROJECT_DIR$/web/static/assets/templatevamp/img/glyphicons-halflings.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/static/assets/templatevamp/js/base.js" afterPath="$PROJECT_DIR$/web/static/assets/templatevamp/js/base.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/static/assets/templatevamp/js/charts/area.js" afterPath="$PROJECT_DIR$/web/static/assets/templatevamp/js/charts/area.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/static/assets/templatevamp/js/charts/bar.js" afterPath="$PROJECT_DIR$/web/static/assets/templatevamp/js/charts/bar.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/static/assets/templatevamp/js/charts/donut.js" afterPath="$PROJECT_DIR$/web/static/assets/templatevamp/js/charts/donut.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/static/assets/templatevamp/js/charts/line.js" afterPath="$PROJECT_DIR$/web/static/assets/templatevamp/js/charts/line.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/static/assets/templatevamp/js/charts/pie.js" afterPath="$PROJECT_DIR$/web/static/assets/templatevamp/js/charts/pie.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/static/assets/templatevamp/js/faq.js" afterPath="$PROJECT_DIR$/web/static/assets/templatevamp/js/faq.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/static/assets/templatevamp/js/guidely/guidely.css" afterPath="$PROJECT_DIR$/web/static/assets/templatevamp/js/guidely/guidely.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/static/assets/templatevamp/js/guidely/guidely.min.js" afterPath="$PROJECT_DIR$/web/static/assets/templatevamp/js/guidely/guidely.min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/static/assets/templatevamp/js/jquery-1.7.2.min.js" afterPath="$PROJECT_DIR$/web/static/assets/templatevamp/js/jquery-1.7.2.min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/static/assets/templatevamp/js/signin.js" afterPath="$PROJECT_DIR$/web/static/assets/templatevamp/js/signin.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cli/damage.py" afterPath="$PROJECT_DIR$/cli/damage.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/modules/home/templates/templatevamp/index.html" afterPath="$PROJECT_DIR$/web/modules/home/templates/templatevamp/index.html" />
     </list>
     <ignored path="memento-pedia-tornado.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -57,11 +24,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="tools.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="tools.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ext/tools.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="270">
               <caret line="19" column="51" selection-start-line="19" selection-start-column="51" selection-end-line="19" selection-end-column="51" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="damage.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/cli/damage.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="243">
+              <caret line="133" column="24" selection-start-line="133" selection-start-column="24" selection-end-line="133" selection-end-column="24" />
               <folding />
             </state>
           </provider>
@@ -139,7 +116,6 @@
         <option value="$PROJECT_DIR$/web-memento-damage.conf" />
         <option value="$PROJECT_DIR$/web/__init__.py" />
         <option value="$PROJECT_DIR$/config.py" />
-        <option value="$PROJECT_DIR$/cli/damage.py" />
         <option value="$PROJECT_DIR$/start-nginx.sh" />
         <option value="$PROJECT_DIR$/ext/damage.py" />
         <option value="$PROJECT_DIR$/ext/phantomjs/crawl.js" />
@@ -160,6 +136,7 @@
         <option value="$PROJECT_DIR$/start-headless.sh" />
         <option value="$PROJECT_DIR$/web/modules/home/templates/templatevamp/index.html" />
         <option value="$PROJECT_DIR$/ext/tools.py" />
+        <option value="$PROJECT_DIR$/cli/damage.py" />
       </list>
     </option>
   </component>
@@ -264,6 +241,20 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="phantomjs" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web-memento-damage" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web-memento-damage" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cli" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -670,7 +661,14 @@
       <option name="project" value="LOCAL" />
       <updated>1479304820764</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="Fix template">
+      <created>1479304840568</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1479304840568</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="TodoView">
@@ -689,9 +687,9 @@
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22121212" sideWeight="0.4876923" order="1" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32923076" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3276923" sideWeight="0.5" order="11" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3241491" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3241491" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32615384" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29983792" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.29983792" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18939394" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3260135" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.19843137" sideWeight="0.5123077" order="0" side_tool="true" content_ui="tabs" />
@@ -970,20 +968,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/cli/damage.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="273">
-          <caret line="135" column="25" selection-start-line="135" selection-start-column="25" selection-end-line="135" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ext/damage.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="134">
-          <caret line="449" column="48" selection-start-line="449" selection-start-column="48" selection-end-line="449" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/modules/home/templates/templatevamp/_text.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1079,10 +1063,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/ext/damage.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="134">
+          <caret line="449" column="48" selection-start-line="449" selection-start-column="48" selection-end-line="449" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/ext/tools.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
           <caret line="19" column="51" selection-start-line="19" selection-start-column="51" selection-end-line="19" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cli/damage.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="243">
+          <caret line="133" column="24" selection-start-line="133" selection-start-column="24" selection-end-line="133" selection-end-column="24" />
           <folding />
         </state>
       </provider>
