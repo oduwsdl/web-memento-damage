@@ -67,7 +67,8 @@
   .rwd-table td {
     display: block;
     text-align: left;
-    cursor: pointer;
+    /*cursor: pointer;*/
+    position: relative;
   }
 
   .rwd-table .info td {
@@ -101,7 +102,23 @@
   .rwd-table .title {
     font-weight: bold;
     overflow-x: hidden;
+  }
+
+  .rwd-table .title .text {
+    cursor: pointer;
+    color: inherit;
+  }
+
+  .rwd-table .status-404 {
+    color: #077500;
+  }
+
+  .rwd-table .status-200 {
     color: #5b0021;
+  }
+
+  .rwd-table .status-null {
+    color: #ad8800;
   }
 
   @media (min-width: 615px) {
@@ -153,6 +170,28 @@
     .rwd-table th:last-child, .rwd-table td:last-child {
       padding-right: 0;
     }
+  }
+
+  .rwd-table .expcol {
+    cursor: pointer;
+    position: absolute;
+    font-size: 36px;
+    top: -3px;
+    color: red;
+    right: 10px;
+    display: none;
+  }
+
+  .rwd-table .expcol:before {
+    content: "\f139";
+  }
+
+  .rwd-table .expcol.collapsed:before {
+    content: "\f13a";
+  }
+
+  .rwd-table .hover .expcol {
+    display: block;
   }
 </style>
 
@@ -299,21 +338,25 @@
           ' px, Width: ' + rect['width'] + ' px, Height: ' + rect['height'] + ' px');
       });
 
-      tbody += '<tr class="title" data-toggle="collapse" data-target="#image-info-'+ idx +'">'+
+      tbody += '<tr class="title status-' + image.status_code + '">'+
         '<td data-th="No">'+ (idx+1) +'</td>'+
         '<td data-th="URI" style="text-align: left;">'+
-          '<span class="text" title="'+ image['url'] +'">'+ image['url'] +'</span>'+
+          '<a href="'+ image['url'] +'" target="_blank" class="text" title="'+ image['url'] +'">'+ image['url'] +'</span>'+
           '<span class="left-ellipsis">...</span>'+
         '</td>'+
         '<td data-th="Status" class="vert-separator">'+ ('status_code' in image ? image['status_code'] : '') +'</td>'+
         '<td data-th="Location">' + ('actual_damage' in image ? image['actual_damage']['location'].toFixed(3) : '-') + '</td>'+
         '<td data-th="Size" class="vert-separator">' + ('actual_damage' in image ? image['actual_damage']['size'].toFixed(3) : '-') + '</td>'+
         '<td data-th="Location">' + ('potential_damage' in image ? image['potential_damage']['location'].toFixed(3) : '-') + '</td>'+
-        '<td data-th="Size">' + ('potential_damage' in image ? image['potential_damage']['size'].toFixed(3) : '-') + '</td>'+
+        '<td data-th="Size">' + 
+          ('potential_damage' in image ? image['potential_damage']['size'].toFixed(3) : '-') + 
+          '<i class="fa expcol collapsed" data-toggle="collapse" data-target="#image-info-'+ idx +'"></i>' + 
+        '</td>'+
       '</tr>' +
       '<tr id="image-info-'+ idx +'" class="info collapse">'+
         '<td style="border-top-width: 0px;"></td>'+
         '<td colspan="15"><div>'+
+          '<div class="item"><div>URI</div><div> : </div><div>'+ image['url'] + '</div></div>' +
           '<div class="item"><div>Content-Type</div><div> : </div><div>'+ image['content_type'] + '</div></div>' +
           '<div class="item"><div>Coverage</div><div> : </div><div>'+ (image['percentage_coverage']*100) + ' %' + '</div></div>' +
           '<div class="item"><div>Rectangles</div><div> : </div><div>'+ rectangles.join('<br/>') +'</div></div>' +
@@ -387,18 +430,24 @@
     csses.forEach(function(css, idx) {
       if(!css['rules_tag']) css['rules_tag'] = [];
 
-      tbody += '<tr class="title" data-toggle="collapse" data-target="#css-info-'+ idx +'">'+
+      tbody += '<tr class="title status-' + css.status_code + '">'+
         '<td data-th="No">'+ (idx+1) +'</td>'+
-        '<td data-th="URI" style="text-align:left;">'+ css['url'] +'</td>'+
+        '<td data-th="URI" style="text-align:left;">'+ 
+          '<a href="'+ css['url'] +'" target="_blank" class="text" title="'+ css['url'] +'">'+ css['url'] +'</span>'+
+          '<span class="left-ellipsis">...</span>'+
         '<td data-th="Status" class="vert-separator">'+ ('status_code' in css ? css['status_code'] : '') +'</td>'+
         '<td data-th="Tag">' + ('actual_damage' in css ? css['actual_damage']['tag'].toFixed(3) : '-') + '</td>'+
         '<td data-th="Ratio" class="vert-separator">' + ('actual_damage' in css ? css['actual_damage']['ratio'].toFixed(3) : '-') + '</td>'+
         '<td data-th="Tag">' + ('potential_damage' in css ? css['potential_damage']['tag'].toFixed(3) : '-') + '</td>'+
-        '<td data-th="Ratio">' + ('potential_damage' in css ? css['potential_damage']['ratio'].toFixed(3) : '-') + '</td>'+
+        '<td data-th="Ratio">' + 
+          ('potential_damage' in css ? css['potential_damage']['ratio'].toFixed(3) : '-') + 
+          '<i class="fa expcol collapsed" data-toggle="collapse" data-target="#css-info-'+ idx +'"></i>' + 
+        '</td>'+
       '</tr>'+
       '<tr id="css-info-'+ idx +'" class="info collapse">'+
         '<td style="border-top-width: 0px;"></td>'+
         '<td colspan="15"><div>'+
+          '<div class="item"><div>URI</div><div> : </div><div>'+ css['url'] + '</div></div>' +
           '<div class="item"><div>Rules Selector</div><div> : </div><div>'+ css['rules_tag'].join(', ') + ' <strong>(Total '+ css['rules_tag'].length +')</strong>' + '</div></div>' +
           '<div class="item"><div>Importance</div><div> : </div><div>'+ css['importance'] + '</div></div>'
         '</div></td>'+
@@ -475,21 +524,25 @@
           ' px, Width: ' + rect['width'] + ' px, Height: ' + rect['height'] + ' px');
       });
 
-      tbody += '<tr class="title" data-toggle="collapse" data-target="#multimedia-info-'+ idx +'">'+
+      tbody += '<tr class="title status-' + multimedia.status_code + '">'+
         '<td data-th="No">'+ (idx+1) +'</td>'+
         '<td data-th="URI" style="text-align: left;">'+
-          '<span class="text" title="'+ multimedia['url'] +'">'+ multimedia['url'] +'</span>'+
+          '<a href="'+ multimedia['url'] +'" target="_blank" class="text" title="'+ multimedia['url'] +'">'+ multimedia['url'] +'</span>'+
           '<span class="left-ellipsis">...</span>'+
         '</td>'+
         '<td data-th="Status" class="vert-separator">'+ ('status_code' in multimedia ? multimedia['status_code'] : '') +'</td>'+
         '<td data-th="Location">' + ('actual_damage' in multimedia ? multimedia['actual_damage']['location'].toFixed(3) : '-') + '</td>'+
         '<td data-th="Size" class="vert-separator">' + ('actual_damage' in multimedia ? multimedia['actual_damage']['size'].toFixed(3) : '-') + '</td>'+
         '<td data-th="Location">' + ('potential_damage' in multimedia ? multimedia['potential_damage']['location'].toFixed(3) : '-') + '</td>'+
-        '<td data-th="Size">' + ('potential_damage' in multimedia ? multimedia['potential_damage']['size'].toFixed(3) : '-') + '</td>'+
+        '<td data-th="Size">' + 
+          ('potential_damage' in multimedia ? multimedia['potential_damage']['size'].toFixed(3) : '-') + 
+          '<i class="fa expcol collapsed" data-toggle="collapse" data-target="#multimedia-info-'+ idx +'"></i>' + 
+        '</td>'+
       '</tr>' +
       '<tr id="multimedia-info-'+ idx +'" class="info collapse">'+
         '<td style="border-top-width: 0px;"></td>'+
         '<td colspan="15"><div>'+
+          '<div class="item"><div>URI</div><div> : </div><div>'+ multimedia['url'] + '</div></div>' +
           '<div class="item"><div>Content-Type</div><div> : </div><div>'+ multimedia['content_type'] + '</div></div>' +
           '<div class="item"><div>Coverage</div><div> : </div><div>'+ (multimedia['percentage_coverage']*100) + ' %' + '</div></div>' +
           '<div class="item"><div>Rectangles</div><div> : </div><div>'+ rectangles.join('<br/>') +'</div></div>' +
@@ -592,6 +645,30 @@
         $('a[href="'+location.hash+'"]').tab('show');
     }
 
+    // Make tab persistent ============================================================
+    if (location.hash !== '') $('a[href="' + location.hash + '"]').tab('show');
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
+        if(!window.isback) {
+            if(history.pushState) {
+                history.pushState(null, null, '#'+$(e.target).attr('href').substr(1));
+            } else {
+                location.hash = '#'+$(e.target).attr('href').substr(1);
+            }
+        }
+    });
+
+    // Handle back button
+    window.onhashchange = function() {
+        if (window.location.hash) {
+            window.isback = true;
+            $('a[href="' + location.hash + '"]').tab('show');
+        } else {
+            history.pushState("", document.title, window.location.pathname);
+            location.reload();
+        }
+    }
+
+
     checkDamageUriM('{{ url }}', {{ fresh }}, function(uri, result) {
       checkDamageFinished = true;
 
@@ -651,6 +728,12 @@
 
       // Activate tooltip
       $('[data-toggle="tooltip"]').tooltip({container: 'body'});
+
+      $('.rwd-table .title').hover(function() {
+        $(this).addClass('hover');
+      }, function() {
+        $(this).removeClass('hover');
+      });
 
       // On window resize
       $( window ).resize(function() {
