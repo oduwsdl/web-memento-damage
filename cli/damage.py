@@ -1,8 +1,10 @@
-import json
-import sys
 import errno
+import json
 import os
+import sys
+import tempfile
 from hashlib import md5
+
 import unicodecsv as csv
 
 basedir = os.path.abspath(os.path.join(
@@ -26,7 +28,7 @@ def result_error(err = ''):
     pass
 
 
-def do_calculation(uri, output_dir):
+def do_calculation(uri, output_dir=None):
     hashed_url = md5(uri).hexdigest()
 
     # Define path for each arguments of crawl.js
@@ -39,45 +41,46 @@ def do_calculation(uri, output_dir):
     )
 
     # Define arguments
-    screenshot_file = os.path.join(output_dir, 'screenshot',
-                                   '{}.png'.format(hashed_url))
-    html_file = os.path.join(output_dir, 'html',
-                                   '{}.html'.format(hashed_url))
-    log_file = os.path.join(output_dir, 'log',
-                                   '{}.log'.format(hashed_url))
-    images_log_file = os.path.join(output_dir, 'log',
-                                   '{}.img.log'.format(hashed_url))
-    csses_log_file = os.path.join(output_dir, 'log',
-                                   '{}.css.log'.format(hashed_url))
-    crawler_log_file = os.path.join(output_dir, 'log',
-                                   '{}.crawl.log'.format(hashed_url))
-    damage_result_file = os.path.join(output_dir, 'result.csv')
+    if output_dir:
+        screenshot_file = os.path.join(output_dir, 'screenshot',
+                                       '{}.png'.format(hashed_url))
+        html_file = os.path.join(output_dir, 'html',
+                                       '{}.html'.format(hashed_url))
+        log_file = os.path.join(output_dir, 'log',
+                                       '{}.log'.format(hashed_url))
+        images_log_file = os.path.join(output_dir, 'log',
+                                       '{}.img.log'.format(hashed_url))
+        csses_log_file = os.path.join(output_dir, 'log',
+                                       '{}.css.log'.format(hashed_url))
+        crawler_log_file = os.path.join(output_dir, 'log',
+                                       '{}.crawl.log'.format(hashed_url))
+        damage_result_file = os.path.join(output_dir, 'result.csv')
 
-    try:
-        os.makedirs(os.path.join(output_dir, 'screenshot'))
-        os.makedirs(os.path.join(output_dir, 'html'))
-        os.makedirs(os.path.join(output_dir, 'log'))
-    except OSError, e:
-        if e.errno != errno.EEXIST:
-            raise
+        try:
+            os.makedirs(os.path.join(output_dir, 'screenshot'))
+            os.makedirs(os.path.join(output_dir, 'html'))
+            os.makedirs(os.path.join(output_dir, 'log'))
+        except OSError, e:
+            if e.errno != errno.EEXIST:
+                raise
 
-    print('Processing damage calculation of {}'.format(uri))
-    print('To see progress, uncomment print in section [Verbose] or open {}'
-          .format(os.path.abspath(crawler_log_file)))
+        print('Processing damage calculation of {}'.format(uri))
+        print('To see progress, uncomment print in section [Verbose] or open {}'
+              .format(os.path.abspath(crawler_log_file)))
+
+        # Define writer
+        # Logger
+        f = open(crawler_log_file, 'w')
+        f.write('')
+        f.close()
+
+        f = open(crawler_log_file, 'a')
 
     # page background-color will be set from phantomjs result
     page = {'background_color': 'FFFFFF'}
 
-    # Define writer
-    # Logger
-    f = open(crawler_log_file, 'w')
-    f.write('')
-    f.close()
-
-    f = open(crawler_log_file, 'a')
-
     def write(line):
-        f.write(line + '\n')
+        if output_dir: f.write(line + '\n')
 
         # [Verbose]
         # If you want verbose stdout, uncomment the line below
@@ -100,16 +103,26 @@ def do_calculation(uri, output_dir):
                     uri, str(result['total_damage'])))
 
                 # Write result to file
-                with open(damage_result_file, 'a+') as res:
-                    res.write(','.join((uri, str(result['total_damage']))) +
-                              '\n')
+                if output_dir:
+                    with open(damage_result_file, 'a+') as res:
+                        res.write(','.join((uri, str(result['total_damage']))) + '\n')
             except (ValueError, KeyError) as e:
                 pass
+
+
+    # Create temp dir if output_dir is null
+    if not output_dir:
+        tmp_output_dir = os.path.join(tempfile.gettempdir(), hashed_url)
+        try:
+            os.makedirs(tmp_output_dir)
+        except OSError, e:
+            if e.errno != errno.EEXIST:
+                raise
 
     # Crawl page with phantomjs crawl.js via arguments
     # Equivalent with console:
     cmd = Command(['phantomjs', '--ssl-protocol=any', crawljs_script,
-                   uri, output_dir],
+                   uri, output_dir or tmp_output_dir],
                   log_output)
     err_code = cmd.run(10 * 60, args=(write, ))
 
@@ -119,7 +132,7 @@ def do_calculation(uri, output_dir):
         # Calculate damage with damage-old.py via arguments
         # Equivalent with console:
         #   python damage.py <uri> <cache_dir> <bg>
-        cmd = Command([python, damage_py_script, uri, output_dir,
+        cmd = Command([python, damage_py_script, uri, output_dir or tmp_output_dir,
                        page['background_color']],
                       log_output)
 
@@ -131,15 +144,17 @@ def do_calculation(uri, output_dir):
 
 
 if __name__ == "__main__":
-    if len(sys.argv) != 3:
+    if len(sys.argv) < 2:
         print('Usage :')
-        print('python cli/damage.py <uri or csv> <output_dir>')
+        print('python cli/damage.py <uri or csv> [output_dir]')
         exit()
 
     uri = sys.argv[1]
-    output_dir = sys.argv[2]
 
-    output_dir = os.path.abspath(output_dir)
+    output_dir = None
+    if len(sys.argv) == 3:
+        output_dir = sys.argv[2]
+        output_dir = os.path.abspath(output_dir)
 
     if os.path.isfile(uri):
         with open(uri) as f:
