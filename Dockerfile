@@ -1,6 +1,10 @@
 FROM soedomoto/docker:ubuntu-lxde
 MAINTAINER Erika Siregar <erikaris1515@gmail.com>
 
+# Change ubuntu mirror
+RUN sed -i 's|http://|http://us.|g' /etc/apt/sources.list
+RUN apt-get update -y
+
 # Install python pio phantomjs xvfb and nginx
 RUN apt-get install -y python python-pip
 RUN pip install --upgrade pip --no-cache-dir
