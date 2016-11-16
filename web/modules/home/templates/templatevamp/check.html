@@ -645,20 +645,20 @@
         $('a[href="'+location.hash+'"]').tab('show');
     }
 
-    // Make tab persistent ============================================================
-    if (location.hash !== '') $('a[href="' + location.hash + '"]').tab('show');
-    $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
-        if(!window.isback) {
+    // Make tab persistent, set the history ============================================================
+    if (location.hash !== '') $('a[href="' + location.hash + '"]').tab('show'); // tab shown by using script
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {  // when the tab is active, run this function.  
+        if(!window.isback) {      // is isback false, add history. 
             if(history.pushState) {
-                history.pushState(null, null, '#'+$(e.target).attr('href').substr(1));
+                history.pushState(null, null, '#'+$(e.target).attr('href').substr(1));  // store to the history
             } else {
-                location.hash = '#'+$(e.target).attr('href').substr(1);
+                location.hash = '#'+$(e.target).attr('href').substr(1);     // another way to store the history. 
             }
         }
     });
 
-    // Handle back button
-    window.onhashchange = function() {
+    // Handle back button, use the history
+    window.onhashchange = function() {    // when back or forward button is clicked. onhaschange only affected by back/forward button
         if (window.location.hash) {
             window.isback = true;
             $('a[href="' + location.hash + '"]').tab('show');
