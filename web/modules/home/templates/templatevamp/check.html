@@ -358,7 +358,7 @@
         '<td colspan="15"><div>'+
           '<div class="item"><div>URI</div><div> : </div><div>'+ image['url'] + '</div></div>' +
           '<div class="item"><div>Content-Type</div><div> : </div><div>'+ image['content_type'] + '</div></div>' +
-          '<div class="item"><div>Coverage</div><div> : </div><div>'+ (image['percentage_coverage']*100) + ' %' + '</div></div>' +
+          '<div class="item"><div>Proportion to the page size</div><div> : </div><div>'+ (image['percentage_coverage']*100).toFixed(3) + ' %' + '</div></div>' +
           '<div class="item"><div>Rectangles</div><div> : </div><div>'+ rectangles.join('<br/>') +'</div></div>' +
         '</div></td>'+
       '</tr>';
