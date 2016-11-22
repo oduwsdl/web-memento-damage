@@ -1,4 +1,5 @@
 import os
+
 from tornado.web import StaticFileHandler
 
 host                    = 'localhost'
@@ -19,4 +20,4 @@ static_handler_class    = StaticFileHandler
 theme                   = 'templatevamp'
 
 # Database settings (default to sqlite)
-database_uri            = 'sqlite:///' + os.path.join(base_dir, 'app.db')
+database_uri            = 'sqlite:///' + os.path.join(cache_dir, 'app.db')
