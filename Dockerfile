@@ -46,4 +46,24 @@ WORKDIR "$WORKSPACE"
 
 
 
+# SERVER SETTINGS =================================================
+
+# Install nginx
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y nginx
+
+# Clean apt cache
+RUN DEBIAN_FRONTEND=noninteractive apt-get clean
+
+# Locate necessary files
+RUN mv /app/docker/server /server
+RUN chmod +x /server/*
+
+# Start desktop dan server
+ENTRYPOINT /server/start-all.sh
+
+# Expose variables
+EXPOSE 80
+
+
+
 CMD /bin/bash
