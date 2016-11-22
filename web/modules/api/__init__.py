@@ -2,7 +2,6 @@ import errno
 import io
 import json
 import os
-import sys
 from datetime import datetime
 from hashlib import md5
 from urlparse import urlparse
@@ -11,8 +10,8 @@ from PIL import Image
 from sqlalchemy import desc
 from tornado import web
 
+from cli.damage import CrawlAndCalculateDamage
 from ext.blueprint import Blueprint, RequestHandler
-from ext.tools import Command
 from web import database
 from web.models.models import MementoModel
 
@@ -162,56 +161,21 @@ class API(Blueprint):
             model.hashed_uri = hashed_url
             model.request_time = datetime.now()
 
-            # Define path for each arguments of crawl.js
-            crawljs_script = os.path.join(
-                self.application.settings.get('base_dir'),
-                'ext', 'phantomjs', 'crawl.js'
-            )
-            # Define damage-old.py location
-            damage_py_script = os.path.join(
-                self.application.settings.get('base_dir'),
-                'ext', 'damage.py'
-            )
 
-            # Define arguments
-            screenshot_file = '{}.png'.format(os.path.join(
-                self.blueprint.screenshot_dir, hashed_url))
-            html_file = '{}.html'.format(os.path.join(
-                self.blueprint.html_dir, hashed_url))
-            log_file = '{}.log'.format(os.path.join(
-                self.blueprint.log_dir, hashed_url))
-            images_log_file = '{}.img.log'.format(os.path.join(
-                self.blueprint.log_dir, hashed_url))
-            csses_log_file = '{}.css.log'.format(os.path.join(
-                self.blueprint.log_dir, hashed_url))
-            crawler_log_file = '{}.crawl.log'.format(os.path.join(
-                self.blueprint.log_dir, hashed_url))
+            tornado_request = self
+            class ModifiedCrawlAndCalculateDamage(CrawlAndCalculateDamage):
+                def write_output(self, logger_file, result_file, line):
+                    CrawlAndCalculateDamage.write_output(self, logger_file, result_file, line)
 
-            # Logger
-            f = open(crawler_log_file, 'w')
-            f.write('')
-            f.close()
-
-            f = open(crawler_log_file, 'a')
-
-            def log_output(out, page=None):
-                def write(line):
-                    f.write(line + '\n')
-                    print('Debug: {}'.format(line))
-
-                    if 'background_color' in line and page:
-                        line = json.loads(line)
-                        if line['background_color']:
-                            page['background_color'] = line['background_color']
                     if 'result' in line:
                         try:
-                            self.end_time = datetime.now()
+                            tornado_request.end_time = datetime.now()
                             line = json.loads(line)
 
                             result = line['result']
                             result['error'] = False
                             result['is_archive'] = False
-                            result['calculation_time'] = (self.end_time - self.start_time)\
+                            result['calculation_time'] = (tornado_request.end_time - tornado_request.start_time) \
                                 .seconds
 
                             result = json.dumps(result)
@@ -222,55 +186,20 @@ class API(Blueprint):
                             database.session.add(model)
                             database.session.commit()
 
-                            self.write(result)
-                            self.finish()
+                            tornado_request.write(result)
+                            tornado_request.finish()
                         except (ValueError, KeyError) as e:
                             pass
 
-                if out and hasattr(out, 'readline'):
-                    for line in iter(out.readline, b''):
-                    #for line in out.readlines():
-                        line =  line.strip()
-                        write(line)
-                else:
-                    write(out)
+                def result_error(self, err=''):
+                    if not tornado_request._finished:
+                        result = {
+                            'error': True,
+                            'message': err
+                        }
 
-            # Error
-            def result_error(err = ''):
-                if not self._finished:
-                    result = {
-                        'error' : True,
-                        'message' : err
-                    }
+                        tornado_request.write(json.dumps(result))
+                        tornado_request.finish()
 
-                    self.write(json.dumps(result))
-                    self.finish()
 
-            # page background-color will be set from phantomjs result
-            page = {
-                'background_color': 'FFFFFF'
-            }
-
-            # Crawl page with phantomjs crawl.js via arguments
-            # Equivalent with console:
-            #   phantomjs crawl.js <screenshot> <html> <log>
-            cmd = Command(['phantomjs', '--ssl-protocol=any', crawljs_script,
-                           uri, self.blueprint.cache_dir], log_output)
-            err_code = cmd.run(10 * 60, args=(page, ))
-
-            if err_code == 0:
-                python = sys.executable
-
-                # Calculate damage with damage-old.py via arguments
-                # Equivalent with console:
-                #   python damage.py <uri> <cache_dir> <bg>
-                cmd = Command([python, damage_py_script, uri,
-                               self.blueprint.cache_dir,
-                               page['background_color']],
-                              log_output)
-
-                err_code = cmd.run(10 * 60)
-                if err_code != 0:
-                    result_error()
-            else:
-                result_error()
+            ModifiedCrawlAndCalculateDamage(uri, self.blueprint.cache_dir).do_calculation()
