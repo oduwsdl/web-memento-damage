@@ -5,12 +5,15 @@ MAINTAINER Erika Siregar <erikaris1515@gmail.com>
 RUN sed -i 's|http://archive.ubuntu.com/ubuntu/|mirror://mirrors.ubuntu.com/mirrors.txt|g' /etc/apt/sources.list
 RUN apt-get update -y
 
-# Install python pio phantomjs xvfb and nginx
+# Install python pip
 RUN apt-get install -y python python-pip
 RUN pip install --upgrade pip --no-cache-dir
 
 # Install phantomjs
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y phantomjs
+
+# Install nginx
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y nginx
 
 # Clean apt cache
 RUN DEBIAN_FRONTEND=noninteractive apt-get clean
@@ -22,7 +25,9 @@ WORKDIR /app
 # Copy files
 COPY . /app
 RUN chmod +x /app/*.sh
-RUN pip install -r requirements.txt --no-cache-dir
+
+# Install required phython libraries
+RUN pip install -r /app/requirements.txt --no-cache-dir
 
 # Set workspace
 ENV WORKSPACE /app/cache
@@ -47,12 +52,6 @@ WORKDIR "$WORKSPACE"
 
 
 # SERVER SETTINGS =================================================
-
-# Install nginx
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y nginx
-
-# Clean apt cache
-RUN DEBIAN_FRONTEND=noninteractive apt-get clean
 
 # Locate necessary files
 RUN mv /app/docker/server /server

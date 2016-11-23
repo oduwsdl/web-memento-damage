@@ -1,5 +1,6 @@
-from web import database
 from sqlalchemy import Column, Integer, String, DateTime, Text
+
+from web import database
 
 
 class MementoModel(database.Model):

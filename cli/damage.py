@@ -17,12 +17,14 @@ from ext.tools import Command
 
 class CrawlAndCalculateDamage:
     _page = {'background_color': 'FFFFFF'}
+    _verbose = False
+    _mode = 'simple'
 
-    def __init__(self, uri, output_dir, options):
+    def __init__(self, uri, output_dir, options={}):
         self._uri = uri
         self._output_dir = output_dir
-        self._verbose = options.verbose
-        self._mode = options.mode
+        if 'verbose' in options: self._verbose = options['verbose']
+        if 'mode' in options: self._mode = options['mode']
 
     def log_output(self, out, logger_file, result_file, write_fn):
         if out and hasattr(out, 'readline'):
@@ -40,22 +42,21 @@ class CrawlAndCalculateDamage:
             line = json.loads(line)
             if line['background_color']:
                 self._page['background_color'] = line['background_color']
+
+        if 'crawl-result' in line:
+            line = json.loads(line)
+            crawl_result = line['crawl-result']
+            if crawl_result['error']:
+                if self._mode == 'simple':
+                    print(crawl_result['message'])
+                elif self._mode == 'json':
+                    print(json.dumps(crawl_result))
+                else:
+                    print('Choose mode "simple" or "json"')
+
         if 'result' in line:
             try:
                 line = json.loads(line)
-
-                # Crawl result
-                crawl_result = line['crawl-result']
-                if crawl_result['error']:
-                    if self._mode == 'simple':
-                        print(crawl_result['message'])
-                    elif self._mode == 'json':
-                        print(json.dumps(crawl_result))
-                    else:
-                        print('Choose mode "simple" or "json"')
-
-                    return
-
 
                 result = line['result']
                 result['error'] = False
@@ -75,6 +76,7 @@ class CrawlAndCalculateDamage:
                     with open(result_file, 'a+') as res:
                         res.write(','.join((self._uri, str(result['total_damage']))) + '\n')
             except (ValueError, KeyError) as e:
+                print('== Error bro ==')
                 if self._verbose: print(line)
 
         elif self._verbose: print(line)
@@ -141,7 +143,7 @@ if __name__ == "__main__":
                       help="print status messages to stdout")
 
     (options, args) = parser.parse_args()
-    # options = vars(options)
+    options = vars(options)
 
     if len(args) < 2:
         parser.print_help()

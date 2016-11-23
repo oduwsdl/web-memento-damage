@@ -23,14 +23,9 @@
 # SOFTWARE.
 
 # third party
-import contextlib
 
-import time
-
-from tornado.ioloop import IOLoop
 from tornado.web import RequestHandler as OriginalRequestHandler, StaticFileHandler
 
-# local
 from .template_loader import TemplateLoader
 
 

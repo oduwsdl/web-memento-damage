@@ -1,8 +1,6 @@
 import errno
 import json
 import mimetypes
-
-import os
 from datetime import datetime
 from functools import partial
 from urlparse import urlparse
@@ -11,8 +9,6 @@ from PyQt4.QtCore import QObject, SIGNAL, QUrl, QVariant
 from PyQt4.QtGui import QImage, QPainter
 from PyQt4.QtNetwork import QNetworkAccessManager, QNetworkRequest
 from PyQt4.QtWebKit import QWebView, QWebPage, QWebSettings
-
-from PIL import Image
 from damage import SiteDamage
 
 '''

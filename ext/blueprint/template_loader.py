@@ -25,7 +25,6 @@
 # std
 import os
 
-# third party
 import tornado.template
 
 
