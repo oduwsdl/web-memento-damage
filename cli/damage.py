@@ -7,6 +7,7 @@ from optparse import OptionParser
 
 import unicodecsv as csv
 
+sys.path.insert(0, '..')
 import config
 
 base_dir = config.base_dir
@@ -17,11 +18,11 @@ from ext.tools import Command
 class CrawlAndCalculateDamage:
     _page = {'background_color': 'FFFFFF'}
 
-    def __init__(self, uri, output_dir, options={}):
+    def __init__(self, uri, output_dir, options):
         self._uri = uri
         self._output_dir = output_dir
-        self._verbose = options.verbose if 'verbose' in options else True
-        self._mode = options.mode if 'mode' in options else 'json'
+        self._verbose = options.verbose
+        self._mode = options.mode
 
     def log_output(self, out, logger_file, result_file, write_fn):
         if out and hasattr(out, 'readline'):
@@ -42,6 +43,19 @@ class CrawlAndCalculateDamage:
         if 'result' in line:
             try:
                 line = json.loads(line)
+
+                # Crawl result
+                crawl_result = line['crawl-result']
+                if crawl_result['error']:
+                    if self._mode == 'simple':
+                        print(crawl_result['message'])
+                    elif self._mode == 'json':
+                        print(json.dumps(crawl_result))
+                    else:
+                        print('Choose mode "simple" or "json"')
+
+                    return
+
 
                 result = line['result']
                 result['error'] = False
@@ -127,8 +141,9 @@ if __name__ == "__main__":
                       help="print status messages to stdout")
 
     (options, args) = parser.parse_args()
+    # options = vars(options)
 
-    if len(args) != 2:
+    if len(args) < 2:
         parser.print_help()
         exit()
 
