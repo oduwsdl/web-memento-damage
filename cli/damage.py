@@ -1,6 +1,7 @@
 import errno
 import json
 import os
+import pprint as pp
 import sys
 from hashlib import md5
 from optparse import OptionParser
@@ -50,7 +51,7 @@ class CrawlAndCalculateDamage:
                 if self._mode == 'simple':
                     print(crawl_result['message'])
                 elif self._mode == 'json':
-                    print(json.dumps(crawl_result))
+                    print(pp.pprint(crawl_result))
                 else:
                     print('Choose mode "simple" or "json"')
 
@@ -67,7 +68,7 @@ class CrawlAndCalculateDamage:
                     print('Total damage of {} is {}'.format(
                         self._uri, str(result['total_damage'])))
                 elif self._mode == 'json':
-                    print(json.dumps(result))
+                    print(pp.pprint(result))
                 else:
                     print('Choose mode "simple" or "json"')
 
@@ -76,7 +77,6 @@ class CrawlAndCalculateDamage:
                     with open(result_file, 'a+') as res:
                         res.write(','.join((self._uri, str(result['total_damage']))) + '\n')
             except (ValueError, KeyError) as e:
-                print('== Error bro ==')
                 if self._verbose: print(line)
 
         elif self._verbose: print(line)
