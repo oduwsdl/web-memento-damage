@@ -2,6 +2,6 @@
 
 nohup /display/desktop.sh
 nohup /server/configure-nginx.sh &
-nohup /server/start-server.sh & 
+nohup /server/start-server.sh &
 
 bash

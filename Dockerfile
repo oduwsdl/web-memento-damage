@@ -57,12 +57,13 @@ WORKDIR "$WORKSPACE"
 RUN mv /app/docker/server /server
 RUN chmod +x /server/*
 
-# Start desktop dan server
-ENTRYPOINT /server/start-all.sh
-
 # Expose variables
 EXPOSE 80
 
 
 
-CMD /bin/bash
+# Wrap all
+RUN mv /app/docker/entrypoint /entrypoint
+RUN chmod +x /entrypoint/*
+
+ENTRYPOINT /entrypoint/start.sh
