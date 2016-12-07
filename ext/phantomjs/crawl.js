@@ -87,7 +87,7 @@ else {
 
         if (resUrl == url) {
             pageStatusCode = res.status;
-            if(res.status === 301) {
+            if(res.status === 301 || res.status === 302) {
                 isPageRedirect = true;
             }
         }
