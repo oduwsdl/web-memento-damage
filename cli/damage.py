@@ -1,7 +1,6 @@
 import errno
 import json
 import os
-import pprint as pp
 import sys
 from datetime import datetime
 from hashlib import md5
@@ -65,7 +64,7 @@ class CrawlAndCalculateDamage:
                 if self._mode == 'simple':
                     print(crawl_result['message'])
                 elif self._mode == 'json':
-                    print(pp.pformat(crawl_result))
+                    print(json.dumps(crawl_result))
                 else:
                     print('Choose mode "simple" or "json"')
 
@@ -93,14 +92,14 @@ class CrawlAndCalculateDamage:
                     print('Total damage of {} is {}'.format(
                         self._uri, str(result['total_damage'])))
                 elif self._mode == 'json':
-                    print(pp.pformat(result))
+                    print(json.dumps(result))
                 else:
                     print('Choose mode "simple" or "json"')
 
                 # Write result to file
                 if result_file:
                     with open(result_file, 'w') as f:
-                        f.write(pp.pformat(result))
+                        f.write(json.dumps(result))
                         f.flush()
                         f.close()
 
