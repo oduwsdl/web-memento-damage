@@ -4,5 +4,3 @@ parent_path=$( cd "$(dirname "${BASH_SOURCE}")" ; pwd -P )
 cd "$parent_path"
 
 python damage.py "${@:1:$#}" "$WORKSPACE"
-
-read -p "Press [Enter] key to exit..."
