@@ -1,4 +1,3 @@
-import errno
 import io
 import json
 import os
@@ -19,22 +18,7 @@ from web.models.models import MementoModel
 class API(Blueprint):
     def __init__(self, *args, **settings):
         Blueprint.__init__(self, url_prefix='/api', *args, **settings)
-
         self.cache_dir = self.application.settings.get('cache_dir')
-        self.screenshot_dir = os.path.join(
-            self.application.settings.get('cache_dir'), 'screenshot')
-        self.log_dir = os.path.join(
-            self.application.settings.get('cache_dir'), 'log')
-        self.html_dir = os.path.join(
-            self.application.settings.get('cache_dir'), 'html')
-
-        try:
-            os.makedirs(self.screenshot_dir)
-            os.makedirs(self.log_dir)
-            os.makedirs(self.html_dir)
-        except OSError, e:
-            if e.errno != errno.EEXIST:
-                raise
 
 
     '''
@@ -60,9 +44,7 @@ class API(Blueprint):
             start = int(start)
             hashed_uri = md5(uri).hexdigest()
 
-            crawler_log_file = '{}.crawl.log'.format(os.path.join(
-                self.blueprint.log_dir, hashed_uri))
-
+            crawler_log_file = os.path.join(self.blueprint.cache_dir, hashed_uri, 'crawl.log')
             with open(crawler_log_file, 'rb') as f:
                 for idx, line in enumerate(f.readlines()):
                     if idx >= start:
@@ -76,9 +58,7 @@ class API(Blueprint):
         def get(self, uri):
             hashed_uri = md5(uri).hexdigest()
 
-            crawler_log_file = '{}.crawl.log'.format(os.path.join(
-                self.blueprint.log_dir, hashed_uri))
-
+            crawler_log_file = os.path.join(self.blueprint.cache_dir, hashed_uri, 'crawl.log')
             with open(crawler_log_file, 'rb') as f:
                 for idx, line in enumerate(f.readlines()):
                     if 'crawl-result' in line:
@@ -97,8 +77,7 @@ class API(Blueprint):
         def get(self, uri):
             hashed_uri = md5(uri).hexdigest()
 
-            screenshot_file = '{}.png'.format(os.path.join(
-                self.blueprint.screenshot_dir, hashed_uri))
+            screenshot_file = os.path.join(self.blueprint.cache_dir, hashed_uri, 'screenshot.png')
             f = Image.open(screenshot_file)
             o = io.BytesIO()
             f.save(o, format="JPEG")
@@ -164,13 +143,32 @@ class API(Blueprint):
 
             tornado_request = self
             class ModifiedCrawlAndCalculateDamage(CrawlAndCalculateDamage):
-                def write_output(self, logger_file, result_file, line):
-                    CrawlAndCalculateDamage.write_output(self, logger_file, result_file, line)
+                def write_output(self, logger_file, result_file, summary_file, line):
+                    CrawlAndCalculateDamage.write_output(self, logger_file, result_file, summary_file, line)
+
+                    if 'crawl-result' in line:
+                        line = json.loads(line)
+                        self._crawl_result = line['crawl-result']
 
                     if 'result' in line:
                         try:
                             tornado_request.end_time = datetime.now()
                             line = json.loads(line)
+
+                            result = line['result']
+                            result.update(self._crawl_result)
+                            result['error'] = False
+                            result['is_archive'] = False
+                            result['message'] = 'Calculation is finished in {} seconds'.format(
+                                (tornado_request.end_time - tornado_request.start_time).seconds
+                            )
+                            result['timer'] = {
+                                'request_time': (tornado_request.start_time - datetime(1970,1,1)).total_seconds(),
+                                'response_time': (tornado_request.end_time - datetime(1970,1,1)).total_seconds()
+                            }
+                            result['calculation_time'] = (tornado_request.end_time - tornado_request.start_time).seconds
+
+
 
                             result = line['result']
                             result['error'] = False
@@ -202,4 +200,5 @@ class API(Blueprint):
                         tornado_request.finish()
 
 
-            ModifiedCrawlAndCalculateDamage(uri, self.blueprint.cache_dir).do_calculation()
+            ModifiedCrawlAndCalculateDamage(uri, self.blueprint.cache_dir, {'redirect': True})\
+                .do_calculation()

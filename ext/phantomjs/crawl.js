@@ -1,15 +1,3 @@
-if (!String.prototype.endsWith) {
-    String.prototype.endsWith = function(searchString, position) {
-        var subjectString = this.toString();
-        if (typeof position !== 'number' || !isFinite(position) || Math.floor(position) !== position || position > subjectString.length) {
-          position = subjectString.length;
-        }
-        position -= searchString.length;
-        var lastIndex = subjectString.indexOf(searchString, position);
-        return lastIndex !== -1 && lastIndex === position;
-    };
-}
-
 var system = require('system');
 var fs = require('fs');
 //var path = require('./path.js');
@@ -25,11 +13,11 @@ phantom.injectJs('underscore.js')
 phantom.injectJs('mimetype.js')
 
 // Set start time
-var starttime = Date.now()
+var starttime = Date.now();
 
 // If number of arguments after crawl.js is not 2, show message and exit phantomjs
 if (system.args.length < 3) {
-    console.log('Usage: phantomjs crawl.js <URI> <output_dir>');
+    console.log('Usage: phantomjs crawl.js <URI> <output_dir> [redirect]');
     phantom.exit(1);
 }
 
@@ -38,6 +26,11 @@ else {
     // use 1st param after crawl.js as URL input and 2nd param as output
     url = system.args[1];
     outputDir = system.args[2];
+    followRedirect = false
+
+    if(system.args.length >= 3) {
+        followRedirect = (system.args[3].toLowerCase() == 'true' || system.args[3] == '1');
+    }
 
     // Set timeout on fetching resources to 30 seconds (can be changed)
     page.settings.resourceTimeout = 300000;
@@ -65,10 +58,39 @@ else {
         console.log('CONSOLE: ' + msg + ' (from line #' + lineNum + ' in "' + sourceId + '")');
     };
 
+    pageStatusCode = null;
+    isPageRedirect = false;
+    isAborted = false;
+    abortMessage= '';
+
+    // Request will be execute before resource received
+    page.onResourceRequested = function(res, req) {
+        console.log('Resource request ' + resUrl + ' (' + res.status + ')');
+
+        if(!followRedirect && isPageRedirect) {
+            isAborted = true;
+            abortMessage = 'Request aborted! Page is redirected...';
+            req.abort();
+        }
+
+        else if(pageStatusCode == 404) {
+            isAborted = true;
+            abortMessage = 'Request aborted! Page not found...';
+            req.abort();
+        }
+    };
+
     // Resource is similiar with all listed in developer tools -> network tab -> refresh
     page.onResourceReceived = function (res) {
         resUrl = res.url;
-        console.log('Resource received ' + resUrl + ' (' + res.status + ')');
+        console.log('Resource received [' + res.stage + '] ' + resUrl + ' (' + res.status + ')');
+
+        if (resUrl == url) {
+            pageStatusCode = res.status;
+            if(res.status === 301) {
+                isPageRedirect = true;
+            }
+        }
 
         // Save all network resources to variable
         // res are sometimes duplicated, so only pushed if array hasnt contains this value
@@ -94,11 +116,35 @@ else {
     page.onLoadFinished =  function (status) {
         if (status !== 'success') {
             console.log(JSON.stringify({'crawl-result' : {
+              'uri' : url,
+              'status_code' : pageStatusCode,
               'error' : true,
               'message' : 'Unable to load the url'
             }}));
             phantom.exit(1);
-        } else {
+        }
+
+        else if(isAborted) {
+            console.log(JSON.stringify({'crawl-result' : {
+              'uri' : url,
+              'status_code' : pageStatusCode,
+              'error' : true,
+              'message' : abortMessage
+            }}));
+            phantom.exit(1);
+        }
+
+        else if(isAborted) {
+            console.log(JSON.stringify({'crawl-result' : {
+              'uri' : url,
+              'status_code' : pageStatusCode,
+              'error' : true,
+              'message' : abortMessage
+            }}));
+            phantom.exit(1);
+        }
+
+        else {
             // After page is opened, process page.
             // Use setTimeout to delay process
             // Timeout in ms, means 200 ms
@@ -122,6 +168,8 @@ else {
 
                     // Show message that crawl finished, and calculate executing time
                     console.log(JSON.stringify({'crawl-result' : {
+                      'uri' : url,
+                      'status_code' : pageStatusCode,
                       'error' : false,
                       'message' : 'Crawl finished in ' + (finishtime - starttime) + ' miliseconds'
                     }}));
@@ -153,7 +201,8 @@ function processPage(url, outputDir) {
 
 function processNetworkResources(url, outputDir) {
     hashedUrl = md5(url);
-    resourceFile = outputDir + '/log/' + hashedUrl + '.log';
+    // resourceFile = outputDir + '/log/' + hashedUrl + '.log';
+    resourceFile = outputDir + '/' + hashedUrl + '/network.log';
 
     // Save all resources
     // networkResources are sometimes duplicated
@@ -171,7 +220,8 @@ function processNetworkResources(url, outputDir) {
 
 function processHtml(url, outputDir) {
     hashedUrl = md5(url);
-    htmlFile = outputDir + '/html/' + hashedUrl + '.html';
+    // htmlFile = outputDir + '/html/' + hashedUrl + '.html';
+    htmlFile = outputDir + '/' + hashedUrl + '/source.html';
 
     // Save html using fs.write
     // DOM selection or modification always be done inside page.evaluate
@@ -184,7 +234,8 @@ function processHtml(url, outputDir) {
 
 function processImages(url, outputDir) {
     var hashedUrl = md5(url);
-    resourceImageFile = outputDir + '/log/' + hashedUrl + '.img.log';
+    // resourceImageFile = outputDir + '/log/' + hashedUrl + '.img.log';
+    resourceImageFile = outputDir + '/' + hashedUrl + '/image.log';
 
     // Get images using document.images
     // document.images also can be execute in browser console
@@ -281,7 +332,8 @@ function processImages(url, outputDir) {
 
 function processMultimedias(url, outputDir) {
     var hashedUrl = md5(url);
-    resourceVideoFile = outputDir + '/log/' + hashedUrl + '.vid.log';
+    // resourceVideoFile = outputDir + '/log/' + hashedUrl + '.vid.log';
+    resourceVideoFile = outputDir + '/' + hashedUrl + '/video.log';
 
     // Get videos using document.getElementsByTagName("video")
     // document.getElementsByTagName("video") also can be execute in browser console
@@ -362,7 +414,8 @@ function processMultimedias(url, outputDir) {
 
 function processCsses(url, resourceBasename) {
     var hashedUrl = md5(url);
-    resourceCssFile = outputDir + '/log/' + hashedUrl + '.css.log';
+    // resourceCssFile = outputDir + '/log/' + hashedUrl + '.css.log';
+    resourceCssFile = outputDir + '/' + hashedUrl + '/css.log';
 
     var csses = page.evaluate(function () {
         function serialize(docCss, frameId) {
@@ -444,8 +497,10 @@ function processCsses(url, resourceBasename) {
 
 function processScreenshots(url, outputDir) {
     hashedUrl = md5(url);
-    screenshotDir = outputDir + '/screenshot/' + hashedUrl;
-    screenshotFile = screenshotDir + '.png';
+    // screenshotDir = outputDir + '/screenshot/' + hashedUrl;
+    // screenshotFile = screenshotDir + '.png';
+    screenshotDir = outputDir + '/' + hashedUrl;
+    screenshotFile = screenshotDir + '/screenshot.png';
 
     // Save screenshot
     page.render(screenshotFile);

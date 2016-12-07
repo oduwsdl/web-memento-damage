@@ -447,7 +447,7 @@ class SiteDamage:
                 # Open screenshot file
                 # screenshot_file = os.path.join(self.screenshot_dir,
                 #                                '{}.png'.format(log['hash']))
-                screenshot_file = '{}.png'.format(self.screenshot_dir)
+                screenshot_file = os.path.join(self.screenshot_dir, 'screenshot.png')
                 im = Image.open(screenshot_file)
                 # Get all pixels
                 pix = im.load()
@@ -539,16 +539,12 @@ if __name__ == "__main__":
         hashed_url = md5(uri).hexdigest()
 
         # Resolve file path
-        html_file = os.path.join(output_dir, 'html',
-                                 '{}.html'.format(hashed_url))
-        log_file = os.path.join(output_dir, 'log', '{}.log'.format(hashed_url))
-        image_logs_file = os.path.join(output_dir, 'log',
-                                       '{}.img.log'.format(hashed_url))
-        css_logs_file = os.path.join(output_dir, 'log',
-                                     '{}.css.log'.format(hashed_url))
-        mlm_logs_file = os.path.join(output_dir, 'log',
-                                     '{}.vid.log'.format(hashed_url))
-        screenshot_dir = os.path.join(output_dir, 'screenshot', hashed_url)
+        html_file = os.path.join(output_dir, hashed_url, 'source.html')
+        log_file = os.path.join(output_dir, hashed_url, 'network.log')
+        image_logs_file = os.path.join(output_dir, hashed_url, 'image.log')
+        css_logs_file = os.path.join(output_dir, hashed_url, 'css.log')
+        mlm_logs_file = os.path.join(output_dir, hashed_url, 'video.log')
+        screenshot_dir = os.path.join(output_dir, hashed_url)
 
         # Read log contents
         h = html2text.HTML2Text()
@@ -606,6 +602,8 @@ if __name__ == "__main__":
         redirect_uris = []
         damage.follow_redirection(uri, logs_obj, redirect_uris)
         final_uri, final_status_code = redirect_uris[len(redirect_uris)-1]
+
+        result['redirect_uris'] = redirect_uris
 
         if final_status_code and final_status_code != 200:
             result['total_damage'] = 1

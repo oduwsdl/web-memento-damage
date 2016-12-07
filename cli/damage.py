@@ -3,6 +3,7 @@ import json
 import os
 import pprint as pp
 import sys
+from datetime import datetime
 from hashlib import md5
 from optparse import OptionParser
 
@@ -20,23 +21,32 @@ class CrawlAndCalculateDamage:
     _page = {'background_color': 'FFFFFF'}
     _verbose = False
     _mode = 'simple'
+    _follow_redirection = False
 
     def __init__(self, uri, output_dir, options={}):
         self._uri = uri
         self._output_dir = output_dir
         if 'verbose' in options: self._verbose = options['verbose']
         if 'mode' in options: self._mode = options['mode']
+        if 'redirect' in options: self._follow_redirection = options['redirect']
 
-    def log_output(self, out, logger_file, result_file, write_fn):
+        hashed_url = md5(self._uri).hexdigest()
+        try:
+            os.makedirs(os.path.join(self._output_dir, hashed_url))
+        except OSError, e:
+            if e.errno != errno.EEXIST:
+                raise
+
+    def log_output(self, out, logger_file, result_file, summary_file, write_fn):
         if out and hasattr(out, 'readline'):
             for line in iter(out.readline, b''):
                 # for line in out.readlines():
                 line = line.strip()
-                write_fn(logger_file, result_file, line)
+                write_fn(logger_file, result_file, summary_file, line)
         else:
-            write_fn(logger_file, result_file, out)
+            write_fn(logger_file, result_file, summary_file, out)
 
-    def write_output(self, logger_file, result_file, line):
+    def write_output(self, logger_file, result_file, summary_file, line):
         if logger_file: logger_file.write(line + '\n')
 
         if 'background_color' in line and self._page:
@@ -47,7 +57,11 @@ class CrawlAndCalculateDamage:
         if 'crawl-result' in line:
             line = json.loads(line)
             crawl_result = line['crawl-result']
+            self._crawl_result = crawl_result
+
             if crawl_result['error']:
+                self.response_time = datetime.now()
+
                 if self._mode == 'simple':
                     print(crawl_result['message'])
                 elif self._mode == 'json':
@@ -57,11 +71,22 @@ class CrawlAndCalculateDamage:
 
         if 'result' in line:
             try:
+                self.response_time = datetime.now()
+
                 line = json.loads(line)
 
                 result = line['result']
+                result.update(self._crawl_result)
                 result['error'] = False
                 result['is_archive'] = False
+                result['message'] = 'Calculation is finished in {} seconds'.format(
+                    (self.response_time - self.request_time).seconds
+                )
+                result['timer'] = {
+                    'request_time': (self.request_time - datetime(1970,1,1)).total_seconds(),
+                    'response_time': (self.response_time - datetime(1970,1,1)).total_seconds()
+                }
+                result['calculation_time'] = (self.response_time - self.request_time).seconds
 
                 # Print total damage
                 if self._mode == 'simple':
@@ -74,8 +99,17 @@ class CrawlAndCalculateDamage:
 
                 # Write result to file
                 if result_file:
-                    with open(result_file, 'a+') as res:
-                        res.write(','.join((self._uri, str(result['total_damage']))) + '\n')
+                    with open(result_file, 'w') as f:
+                        f.write(pp.pformat(result))
+                        f.flush()
+                        f.close()
+
+                if summary_file:
+                    with open(summary_file, 'a+') as f:
+                        f.write(','.join((self._uri, str(result['total_damage']))) + '\n')
+                        f.flush()
+                        f.close()
+
             except (ValueError, KeyError) as e:
                 if self._verbose: print(line)
 
@@ -85,6 +119,7 @@ class CrawlAndCalculateDamage:
         pass
 
     def do_calculation(self):
+        self.request_time = datetime.now()
         hashed_url = md5(self._uri).hexdigest()
 
         # Define path of scripts
@@ -92,13 +127,12 @@ class CrawlAndCalculateDamage:
         damage_py_script = os.path.join(base_dir, 'ext', 'damage.py')
 
         # Define output files location
-        crawler_log_file = os.path.join(self._output_dir, 'log', '{}.crawl.log'.format(hashed_url))
-        damage_result_file = os.path.join(self._output_dir, 'result.csv')
+        crawler_log_file = os.path.join(self._output_dir, hashed_url, 'crawl.log')
+        damage_result_file = os.path.join(self._output_dir, hashed_url, 'result.json')
+        damage_summary_file = os.path.join(self._output_dir, 'result.csv')
 
         try:
-            os.makedirs(os.path.join(self._output_dir, 'screenshot'))
-            os.makedirs(os.path.join(self._output_dir, 'html'))
-            os.makedirs(os.path.join(self._output_dir, 'log'))
+            os.makedirs(os.path.abspath(os.path.join(crawler_log_file, os.pardir)))
         except OSError, e:
             if e.errno != errno.EEXIST:
                 raise
@@ -112,10 +146,10 @@ class CrawlAndCalculateDamage:
 
         # Crawl page with phantomjs crawl.js via arguments
         # Equivalent with console:
-        cmd = Command(['phantomjs', '--ssl-protocol=any', crawljs_script, self._uri, self._output_dir],
-                      self.log_output)
-        err_code = cmd.run(10 * 60, args=(logger_file, damage_result_file, self.write_output,))
-
+        cmd = Command(['phantomjs', '--ssl-protocol=any', crawljs_script, self._uri, self._output_dir,
+                       str(self._follow_redirection)], self.log_output)
+        #print ' '.join(cmd.cmd)
+        err_code = cmd.run(10 * 60, args=(logger_file, damage_result_file, damage_summary_file, self.write_output,))
         if err_code == 0:
             python = sys.executable
 
@@ -125,7 +159,7 @@ class CrawlAndCalculateDamage:
             cmd = Command([python, damage_py_script, self._uri, self._output_dir, self._page['background_color']],
                           self.log_output)
 
-            err_code = cmd.run(10 * 60, args=(logger_file, damage_result_file, self.write_output,))
+            err_code = cmd.run(10 * 60, args=(logger_file, damage_result_file, damage_summary_file, self.write_output,))
             if err_code != 0:
                 self.result_error()
         else:
@@ -141,6 +175,9 @@ if __name__ == "__main__":
     parser.add_option("-v", "--verbose",
                       action="store_true", dest="verbose", default=False,
                       help="print status messages to stdout")
+    parser.add_option("-L", "--redirect",
+                      action="store_true", dest="redirect", default=False,
+                      help="follow url redirection")
 
     (options, args) = parser.parse_args()
     options = vars(options)
