@@ -31,6 +31,7 @@ RUN pip install -r /app/requirements.txt --no-cache-dir
 
 # Set workspace
 ENV WORKSPACE /app/cache
+# RUN mkdir "$WORKSPACE"
 
 # Expose directory
 VOLUME "$WORKSPACE"

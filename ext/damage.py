@@ -3,6 +3,7 @@ Section 'Damage' =============================================================
 '''
 import io
 import math
+import urlparse
 from hashlib import md5
 
 import html2text
@@ -137,21 +138,20 @@ class SiteDamage:
         return log_obj.values()
 
     def follow_redirection(self, uri, logs, redirect_uris):
-        if uri in logs:
-            redirect_uris.append((uri, logs[uri]['status_code']
-                if 'status_code' in logs[uri] else None))
+        while True:
+            if uri in logs.keys():
+                line = logs[uri]
+                status_code = line['status_code']
 
-            if 'status_code' in logs[uri] and logs[uri]['status_code'] == 302:
-                redirect_uri = logs[uri]['headers']['Location']
+                redirect_uris.append((uri, status_code))
 
-                for r_uri in logs.keys():
-                    if r_uri != uri and r_uri.endswith(redirect_uri):
-                        redirect_uri = r_uri
-                        break
-
-                self.follow_redirection(redirect_uri, logs, redirect_uris)
-        elif uri:
-            redirect_uris.append((uri, None))
+                if status_code in [301, 302]:
+                    redirect_url = line['headers']['Location']
+                    uri = urlparse.urljoin(uri, redirect_url)
+                else:
+                    break
+            else:
+                break
 
     def calculate_percentage_coverage(self):
         for idx, log in enumerate(self.image_logs):

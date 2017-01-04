@@ -59,23 +59,24 @@ else {
     };
 
     pageStatusCode = null;
-    isPageRedirect = false;
     isAborted = false;
     abortMessage= '';
 
     // Request will be execute before resource received
     page.onResourceRequested = function(res, req) {
-        console.log('Resource request ' + resUrl + ' (' + res.status + ')');
-
-        if(!followRedirect && isPageRedirect) {
+        if(!followRedirect && (pageStatusCode === 301 || pageStatusCode === 302)) {
             isAborted = true;
-            abortMessage = 'Request aborted! Page is redirected...';
+            if(pageStatusCode === 301) {
+                abortMessage = '301 Move Permanently';
+            } else if(pageStatusCode === 302) {
+                abortMessage = '302 Found';
+            }
             req.abort();
         }
 
         else if(pageStatusCode == 404) {
             isAborted = true;
-            abortMessage = 'Request aborted! Page not found...';
+            abortMessage = '404 Not Found';
             req.abort();
         }
     };
@@ -83,13 +84,15 @@ else {
     // Resource is similiar with all listed in developer tools -> network tab -> refresh
     page.onResourceReceived = function (res) {
         resUrl = res.url;
-        console.log('Resource received [' + res.stage + '] ' + resUrl + ' (' + res.status + ')');
+
+        if(res.stage === 'start') {
+            console.log('Resource ' + resUrl + ' (' + res.status + ') is receiving');
+        } else if(res.stage === 'end') {
+            console.log('Resource ' + resUrl + ' (' + res.status + ') received');
+        }
 
         if (resUrl == url) {
             pageStatusCode = res.status;
-            if(res.status === 301 || res.status === 302) {
-                isPageRedirect = true;
-            }
         }
 
         // Save all network resources to variable
@@ -114,32 +117,22 @@ else {
     };
 
     page.onLoadFinished =  function (status) {
-        if (status !== 'success') {
+        if(isAborted) {
+            console.log(JSON.stringify({'crawl-result' : {
+              'uri' : url,
+              'status_code' : pageStatusCode,
+              'error' : true,
+              'message' : abortMessage
+            }}));
+            phantom.exit(1);
+        }
+
+        else if (status !== 'success') {
             console.log(JSON.stringify({'crawl-result' : {
               'uri' : url,
               'status_code' : pageStatusCode,
               'error' : true,
               'message' : 'Unable to load the url'
-            }}));
-            phantom.exit(1);
-        }
-
-        else if(isAborted) {
-            console.log(JSON.stringify({'crawl-result' : {
-              'uri' : url,
-              'status_code' : pageStatusCode,
-              'error' : true,
-              'message' : abortMessage
-            }}));
-            phantom.exit(1);
-        }
-
-        else if(isAborted) {
-            console.log(JSON.stringify({'crawl-result' : {
-              'uri' : url,
-              'status_code' : pageStatusCode,
-              'error' : true,
-              'message' : abortMessage
             }}));
             phantom.exit(1);
         }

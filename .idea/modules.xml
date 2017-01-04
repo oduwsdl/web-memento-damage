@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/../../archivability-test/.idea/archivability-test.iml" filepath="$PROJECT_DIR$/../../archivability-test/.idea/archivability-test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../memento-damage-v2/crawler/.idea/crawler.iml" filepath="$PROJECT_DIR$/../memento-damage-v2/crawler/.idea/crawler.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/web-memento-damage.iml" filepath="$PROJECT_DIR$/.idea/web-memento-damage.iml" />
     </modules>
   </component>

@@ -2,8 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="abb02a85-edb0-4070-84af-33ef9785e6b3" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/nightmare/crawl.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/nightmare/package.json" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/nightmare/test.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/phantomjs/__init__.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/selenium/__init__.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/selenium/crawl.py" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Dockerfile" afterPath="$PROJECT_DIR$/Dockerfile" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cli/damage.py" afterPath="$PROJECT_DIR$/cli/damage.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ext/damage.py" afterPath="$PROJECT_DIR$/ext/damage.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ext/phantomjs/crawl.js" afterPath="$PROJECT_DIR$/ext/phantomjs/crawl.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/templates/templatevamp.html" afterPath="$PROJECT_DIR$/web/templates/templatevamp.html" />
     </list>
     <ignored path="memento-pedia-tornado.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -23,45 +35,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="2_calculate_all.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/../archivability-test/2_calculate_all.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="139">
-              <caret line="38" column="30" selection-start-line="38" selection-start-column="30" selection-end-line="38" selection-end-column="30" />
-              <folding>
-                <element signature="e#0#14#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="py2.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../archivability-test/env-linux/local/lib/python2.7/site-packages/unicodecsv/py2.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="271">
-              <caret line="68" column="18" selection-start-line="68" selection-start-column="10" selection-end-line="68" selection-end-column="18" />
-              <folding>
-                <marker date="1481035957860" expanded="false" signature="1277:1333" ph="import ..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="tools.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../archivability-test/tools.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="12" column="67" selection-start-line="12" selection-start-column="67" selection-end-line="12" selection-end-column="67" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="damage.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/cli/damage.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="362">
-              <caret line="134" column="21" selection-start-line="130" selection-start-column="8" selection-end-line="134" selection-end-column="21" />
+            <state relative-caret-position="330">
+              <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
               <folding>
                 <element signature="e#0#12#0" expanded="true" />
               </folding>
@@ -69,13 +47,23 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="__init__.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/modules/api/__init__.py">
+      <file leaf-file-name="crawl.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/ext/phantomjs/crawl.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-165">
-              <caret line="157" column="51" selection-start-line="157" selection-start-column="51" selection-end-line="157" selection-end-column="51" />
+            <state relative-caret-position="30">
+              <caret line="2" column="34" selection-start-line="2" selection-start-column="34" selection-end-line="2" selection-end-column="34" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="damage.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ext/damage.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="45">
+              <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
               <folding>
-                <marker date="1481078905928" expanded="false" signature="0:359" ph="import ..." />
+                <element signature="e#87#96#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -103,22 +91,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/static/assets/templatevamp/css/style.css" />
-        <option value="$PROJECT_DIR$/ext/selenium/crawl.py" />
-        <option value="$PROJECT_DIR$/app/templates/templatevamp.html" />
-        <option value="$PROJECT_DIR$/app/modules/home/templates/templatevamp/index.html" />
-        <option value="$PROJECT_DIR$/start.py" />
-        <option value="$PROJECT_DIR$/app/modules/home/templates/templatevamp/_summary.html" />
-        <option value="$PROJECT_DIR$/app/modules/home/templates/templatevamp/check.html" />
-        <option value="$PROJECT_DIR$/.dockerignore" />
-        <option value="$PROJECT_DIR$/web-memento-damage" />
-        <option value="$PROJECT_DIR$/web-memento-damage.conf" />
-        <option value="$PROJECT_DIR$/web/__init__.py" />
-        <option value="$PROJECT_DIR$/start-nginx.sh" />
-        <option value="$PROJECT_DIR$/web/modules/home/templates/templatevamp/_summary.html" />
-        <option value="$PROJECT_DIR$/../web-memento-damage-test/Dockerfile" />
-        <option value="$PROJECT_DIR$/start-display.sh" />
-        <option value="$PROJECT_DIR$/bin/start.py" />
         <option value="$PROJECT_DIR$/bin/start.bat" />
         <option value="$PROJECT_DIR$/bin/xvfb-start.sh" />
         <option value="$PROJECT_DIR$/bin/start.sh" />
@@ -132,28 +104,44 @@
         <option value="$PROJECT_DIR$/web/modules/home/templates/templatevamp/check.html" />
         <option value="$PROJECT_DIR$/config.py" />
         <option value="$PROJECT_DIR$/__init__.py" />
-        <option value="$PROJECT_DIR$/ext/selenium/__init__.py" />
         <option value="$PROJECT_DIR$/cli/damage" />
         <option value="$PROJECT_DIR$/server.sh" />
         <option value="$PROJECT_DIR$/server.bat" />
         <option value="$PROJECT_DIR$/requirements.txt" />
         <option value="$PROJECT_DIR$/docker/server/start-all.sh" />
         <option value="$PROJECT_DIR$/docker/cli/__init__.py" />
-        <option value="$PROJECT_DIR$/Dockerfile" />
         <option value="$PROJECT_DIR$/docker/entrypoint/start.sh" />
         <option value="$PROJECT_DIR$/cli/__init__.py" />
         <option value="$PROJECT_DIR$/../../archivability-test/prepare_data_10000_mementos.py" />
         <option value="$PROJECT_DIR$/../archivability-test/btly-uris.txt" />
         <option value="$PROJECT_DIR$/../archivability-test/uris.txt" />
         <option value="$PROJECT_DIR$/../archivability-test/prepare_data_10000_mementos.py" />
-        <option value="$PROJECT_DIR$/ext/phantomjs/crawl.js" />
-        <option value="$PROJECT_DIR$/ext/damage.py" />
         <option value="$PROJECT_DIR$/web/modules/api/__init__.py" />
-        <option value="$PROJECT_DIR$/../archivability-test/uri_m.csv" />
         <option value="$PROJECT_DIR$/../archivability-test/tools.py" />
         <option value="$PROJECT_DIR$/docker/cli/damage" />
-        <option value="$PROJECT_DIR$/cli/damage.py" />
+        <option value="$PROJECT_DIR$/../archivability-test/result.csv" />
+        <option value="$PROJECT_DIR$/../../../../ITB2015/EL5090 - Research Method/Research/Dynamic Enumerator Allocation/Test/calculate_cost_matrix.py" />
+        <option value="$PROJECT_DIR$/../archivability-test/uri_m.csv" />
+        <option value="$PROJECT_DIR$/ext/selenium/__init__.py" />
+        <option value="$PROJECT_DIR$/ext/selenium/crawl.py" />
+        <option value="$PROJECT_DIR$/../memento-damage-v2/crawler/selenium/server.log" />
+        <option value="$PROJECT_DIR$/../memento-damage-v2/crawler/selenium/bmp.log" />
+        <option value="$PROJECT_DIR$/../memento-damage-v2/crawler/selenium/har.json" />
+        <option value="$PROJECT_DIR$/../memento-damage-v2/crawler/selenium/proxy.port" />
+        <option value="$PROJECT_DIR$/env-linux/lib/python2.7/site-packages/selenium/webdriver/__init__.py" />
+        <option value="$PROJECT_DIR$/env-linux/lib/python2.7/site-packages/selenium/webdriver/common/service.py" />
+        <option value="$PROJECT_DIR$/env-linux/lib/python2.7/site-packages/selenium/webdriver/firefox/service.py" />
+        <option value="$PROJECT_DIR$/../memento-damage-v2/crawler/selenium/crawl.py" />
+        <option value="$PROJECT_DIR$/web/templates/templatevamp.html" />
+        <option value="$PROJECT_DIR$/ext/redirection_info.py" />
+        <option value="$PROJECT_DIR$/cache/d92d4a9819a2239539b943f83cf4f2bd/network.log" />
+        <option value="$PROJECT_DIR$/ext/phantomjs/crawl.js" />
+        <option value="$PROJECT_DIR$/Dockerfile" />
         <option value="$PROJECT_DIR$/../archivability-test/2_calculate_all.py" />
+        <option value="$PROJECT_DIR$/cache/23064a196640a35720733f4075c6577e/crawl.log" />
+        <option value="$PROJECT_DIR$/ext/damage.py" />
+        <option value="$PROJECT_DIR$/cache/e4c49a6b53b4061cf2f53dde4369d4cc/crawl.log" />
+        <option value="$PROJECT_DIR$/cli/damage.py" />
       </list>
     </option>
   </component>
@@ -247,7 +235,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="web" />
+              <option name="myItemId" value="ext" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -261,58 +249,22 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="web" />
+              <option name="myItemId" value="ext" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="modules" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="web-memento-damage" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="web-memento-damage" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="web" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="modules" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="api" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="web-memento-damage" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="web-memento-damage" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cli" />
+              <option name="myItemId" value="phantomjs" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
       <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../archivability-test" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../../ITB2015/EL5090 - Research Method/Research/Dynamic Enumerator Allocation/Test/calculate_cost_matrix.py" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file:///media/DATA/ERIKA/Summer Work/MementoPediaProject/memento-pedia-tornado/tornado_blueprint/request_handler.py" />
@@ -335,6 +287,13 @@
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder3" value="3" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/../memento-damage-v2/crawler/selenium" />
+      <recent name="$PROJECT_DIR$/../archivability-test" />
+      <recent name="$PROJECT_DIR$/web/modules/api" />
+      <recent name="$PROJECT_DIR$/ext/phantomjs" />
+      <recent name="$PROJECT_DIR$/web/static/images/screenshots" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/cli" />
       <recent name="$PROJECT_DIR$/cache" />
@@ -342,15 +301,8 @@
       <recent name="$PROJECT_DIR$/bin" />
       <recent name="$PROJECT_DIR$/app/modules/api/templates/dashgumfree" />
     </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/../archivability-test" />
-      <recent name="$PROJECT_DIR$/web/modules/api" />
-      <recent name="$PROJECT_DIR$/ext/phantomjs" />
-      <recent name="$PROJECT_DIR$/web/static/images/screenshots" />
-      <recent name="$PROJECT_DIR$" />
-    </key>
   </component>
-  <component name="RunManager" selected="Python.2_calculate_all">
+  <component name="RunManager" selected="Python.damage">
     <configuration default="false" name="server" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -368,36 +320,36 @@
       <option name="SHOW_COMMAND_LINE" value="false" />
       <method />
     </configuration>
-    <configuration default="false" name="damage" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration default="false" name="crawl (1)" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/cli" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../memento-damage-v2/crawler/selenium" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="crawler" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../memento-damage-v2/crawler/selenium/crawl.py" />
+      <option name="PARAMETERS" value="http://web.archive.org/web/20050305004932/http://www.cs.odu.edu/" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="redirection_info" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/ext" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="web-memento-damage" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/cli/damage.py" />
-      <option name="PARAMETERS" value="https://web.archive.org/web/20161006233303/http://odu.edu/compsci $PROJECT_DIR$/cache" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <method />
-    </configuration>
-    <configuration default="false" name="prepare_data_10000_mementos" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../archivability-test" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="archivability-test" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../archivability-test/1_prepare_data_10000_mementos.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/ext/redirection_info.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <method />
@@ -416,6 +368,23 @@
       <module name="archivability-test" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../archivability-test/2_calculate_all.py" />
       <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="damage" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/cli" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="web-memento-damage" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/cli/damage.py" />
+      <option name="PARAMETERS" value="-t -m json https://www.itb.ac.id/ $PROJECT_DIR$/cache" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <method />
     </configuration>
@@ -553,18 +522,20 @@
       <option name="USE_KEYWORD" value="false" />
       <method />
     </configuration>
-    <list size="4">
+    <list size="5">
       <item index="0" class="java.lang.String" itemvalue="Python.server" />
-      <item index="1" class="java.lang.String" itemvalue="Python.damage" />
-      <item index="2" class="java.lang.String" itemvalue="Python.prepare_data_10000_mementos" />
+      <item index="1" class="java.lang.String" itemvalue="Python.crawl (1)" />
+      <item index="2" class="java.lang.String" itemvalue="Python.redirection_info" />
       <item index="3" class="java.lang.String" itemvalue="Python.2_calculate_all" />
+      <item index="4" class="java.lang.String" itemvalue="Python.damage" />
     </list>
     <recent_temporary>
-      <list size="4">
-        <item index="0" class="java.lang.String" itemvalue="Python.2_calculate_all" />
+      <list size="5">
+        <item index="0" class="java.lang.String" itemvalue="Python.damage" />
         <item index="1" class="java.lang.String" itemvalue="Python.server" />
-        <item index="2" class="java.lang.String" itemvalue="Python.prepare_data_10000_mementos" />
-        <item index="3" class="java.lang.String" itemvalue="Python.damage" />
+        <item index="2" class="java.lang.String" itemvalue="Python.2_calculate_all" />
+        <item index="3" class="java.lang.String" itemvalue="Python.redirection_info" />
+        <item index="4" class="java.lang.String" itemvalue="Python.crawl (1)" />
       </list>
     </recent_temporary>
   </component>
@@ -893,7 +864,14 @@
       <option name="project" value="LOCAL" />
       <updated>1481085560406</updated>
     </task>
-    <option name="localTasksCounter" value="45" />
+    <task id="LOCAL-00045" summary="Remove pretty print">
+      <created>1481095123073</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1481095123073</updated>
+    </task>
+    <option name="localTasksCounter" value="46" />
     <servers />
   </component>
   <component name="TodoView">
@@ -907,15 +885,15 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="30" width="1366" height="738" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20833333" sideWeight="0.4876923" order="1" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18787879" sideWeight="0.4876923" order="1" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32923076" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3276923" sideWeight="0.5" order="11" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3241491" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32615384" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.29983792" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18939394" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29983792" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.18939394" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3241491" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.19843137" sideWeight="0.5123077" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -963,7 +941,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="add nightmarejs library" />
     <MESSAGE value="Change project structure" />
     <MESSAGE value="Fix User Interface" />
     <MESSAGE value="Remove Simulation, Add calculation time, Fix UI" />
@@ -988,7 +965,8 @@
     <MESSAGE value="Fix some errors" />
     <MESSAGE value="Fix prettyprint json" />
     <MESSAGE value="Fix damage shell" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix damage shell" />
+    <MESSAGE value="Remove pretty print" />
+    <option name="LAST_COMMIT_MESSAGE" value="Remove pretty print" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -998,209 +976,154 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/cli/damage" />
-    <entry file="file://$PROJECT_DIR$/docker/server/nginx.conf">
+    <entry file="file://$PROJECT_DIR$/../memento-damage-v2/crawler/cache/efdd79c50d59d8d67cde21558fd9bc2d/screenshot.png" />
+    <entry file="file://$PROJECT_DIR$/../memento-damage-v2/crawler/cache/11ac1b298739a7e48c6eef9aea563576/network.json" />
+    <entry file="file://$PROJECT_DIR$/../memento-damage-v2/crawler/cache/11ac1b298739a7e48c6eef9aea563576/screenshot.png" />
+    <entry file="file://$PROJECT_DIR$/env-linux/lib/python2.7/site-packages/selenium/webdriver/firefox/firefox_profile.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="25" selection-start-line="2" selection-start-column="21" selection-end-line="2" selection-end-column="25" />
+        <state relative-caret-position="196">
+          <caret line="178" column="8" selection-start-line="178" selection-start-column="8" selection-end-line="178" selection-end-column="8" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/env-linux-2/local/lib/python2.7/site-packages/tornado/web.py" />
-    <entry file="file://$PROJECT_DIR$/config.py">
+    <entry file="file://$PROJECT_DIR$/env-linux/lib/python2.7/site-packages/selenium/webdriver/firefox/options.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="30" selection-start-line="2" selection-start-column="30" selection-end-line="2" selection-end-column="30" />
+        <state relative-caret-position="196">
+          <caret line="55" column="8" selection-start-line="55" selection-start-column="8" selection-end-line="55" selection-end-column="8" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/cli/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ext/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ext/selenium/crawl.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ext/selenium/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ext/blueprint/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ext/blueprint/application.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="25" column="0" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ext/blueprint/blueprint.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="23" column="0" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ext/blueprint/request_handler.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="26" column="0" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ext/blueprint/template_loader.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="21" column="41" selection-start-line="21" selection-start-column="41" selection-end-line="21" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/env-linux-2/lib/python2.7/site-packages/PIL/Image.py" />
-    <entry file="file://$PROJECT_DIR$/web/models/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/models/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="13" selection-start-line="0" selection-start-column="13" selection-end-line="0" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/modules/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/modules/home/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="9" selection-start-line="4" selection-start-column="9" selection-end-line="4" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server.bat">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="23" selection-start-line="0" selection-start-column="23" selection-end-line="0" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/requirements.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server.sh">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="22" selection-start-line="5" selection-start-column="22" selection-end-line="5" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/docker/server/start-server.sh">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="25" selection-start-line="4" selection-start-column="6" selection-end-line="4" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/docker/server/start-all.sh">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="31" selection-start-line="4" selection-start-column="31" selection-end-line="4" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/docker/entrypoint/start.sh">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="38" selection-start-line="2" selection-start-column="38" selection-end-line="2" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Dockerfile">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="483">
-          <caret line="68" column="22" selection-start-line="68" selection-start-column="22" selection-end-line="68" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cli/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ext/phantomjs/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../archivability-test/prepare_data_10000_mementos.py" />
-    <entry file="file://$PROJECT_DIR$/env-linux/lib/python2.7/site-packages/requests/models.py">
+    <entry file="file://$PROJECT_DIR$/env-linux/lib/python2.7/site-packages/selenium/webdriver/firefox/firefox_binary.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-29">
-          <caret line="736" column="8" selection-start-line="736" selection-start-column="8" selection-end-line="736" selection-end-column="8" />
-          <folding />
+          <caret line="30" column="8" selection-start-line="30" selection-start-column="8" selection-end-line="30" selection-end-column="8" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../archivability-test/btly-uris.txt">
+    <entry file="file://$PROJECT_DIR$/env-linux/lib/python2.7/site-packages/browsermobproxy/server.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="558">
-          <caret line="3999" column="55" selection-start-line="3999" selection-start-column="55" selection-end-line="3999" selection-end-column="55" />
-          <folding />
+        <state relative-caret-position="301">
+          <caret line="36" column="21" selection-start-line="36" selection-start-column="21" selection-end-line="36" selection-end-column="21" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../archivability-test/uris.txt">
+    <entry file="file://$PROJECT_DIR$/../memento-damage-v2/crawler/selenium/proxy.port" />
+    <entry file="file://$PROJECT_DIR$/env-linux/lib/python2.7/site-packages/selenium/webdriver/firefox/service.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="123">
+          <caret line="30" column="0" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/env-linux/lib/python2.7/site-packages/browsermobproxy/client.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="196">
+          <caret line="43" column="8" selection-start-line="43" selection-start-column="8" selection-end-line="43" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/env-linux/lib/python2.7/site-packages/selenium/webdriver/opera/webdriver.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="258">
+          <caret line="57" column="6" selection-start-line="57" selection-start-column="6" selection-end-line="57" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/env-linux/lib/python2.7/site-packages/selenium/webdriver/remote/errorhandler.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="438">
+          <caret line="191" column="0" selection-start-line="191" selection-start-column="0" selection-end-line="191" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/env-linux/lib/python2.7/site-packages/selenium/webdriver/remote/command.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="196">
+          <caret line="33" column="4" selection-start-line="33" selection-start-column="4" selection-end-line="33" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/env-linux/lib/python2.7/site-packages/selenium/webdriver/chrome/service.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="25" column="8" selection-start-line="25" selection-start-column="8" selection-end-line="25" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/env-linux/lib/python2.7/site-packages/selenium/webdriver/remote/remote_connection.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-164">
+          <caret line="390" column="34" selection-start-line="390" selection-start-column="34" selection-end-line="390" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/env-linux/lib/python2.7/site-packages/selenium/webdriver/common/service.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="166">
+          <caret line="58" column="82" selection-start-line="58" selection-start-column="82" selection-end-line="58" selection-end-column="82" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/env-linux/lib/python2.7/site-packages/selenium/webdriver/firefox/webdriver.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="428">
+          <caret line="39" column="57" selection-start-line="39" selection-start-column="48" selection-end-line="39" selection-end-column="57" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../memento-damage-v2/crawler/cache/d05604a37f573915af6e6ded1ada226c/network.json" />
+    <entry file="file://$PROJECT_DIR$/env-linux/lib/python2.7/site-packages/selenium/webdriver/chrome/options.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="303">
+          <caret line="158" column="40" selection-start-line="158" selection-start-column="40" selection-end-line="158" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/env-linux/lib/python2.7/site-packages/selenium/webdriver/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="258">
+          <caret line="19" column="36" selection-start-line="19" selection-start-column="36" selection-end-line="19" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/env-linux/lib/python2.7/site-packages/selenium/webdriver/remote/webdriver.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="196">
+          <caret line="780" column="8" selection-start-line="780" selection-start-column="8" selection-end-line="780" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/env-linux/lib/python2.7/site-packages/selenium/webdriver/common/desired_capabilities.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="76">
+          <caret line="50" column="20" selection-start-line="50" selection-start-column="9" selection-end-line="50" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/env-linux/lib/python2.7/site-packages/selenium/webdriver/chrome/webdriver.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-312">
+          <caret line="33" column="24" selection-start-line="33" selection-start-column="24" selection-end-line="33" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../memento-damage-v2/crawler/cache/d05604a37f573915af6e6ded1ada226c/screenshot.png" />
+    <entry file="file://$PROJECT_DIR$/../memento-damage-v2/crawler/selenium/geckodriver.log">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
-          <caret line="0" column="14" selection-start-line="0" selection-start-column="14" selection-end-line="0" selection-end-column="14" />
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ext/phantomjs/crawl-bu.js">
+    <entry file="file://$PROJECT_DIR$/../memento-damage-v2/crawler/selenium/crawl.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="30" column="25" selection-start-line="30" selection-start-column="25" selection-end-line="30" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cache/b3777d54f809daec3d3907929ca34119/crawl.log">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -1208,157 +1131,200 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ext/phantomjs/crawl.js">
+    <entry file="file://$PROJECT_DIR$/cache/b3777d54f809daec3d3907929ca34119/network.log">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="930">
-          <caret line="501" column="47" selection-start-line="501" selection-start-column="47" selection-end-line="501" selection-end-column="47" />
+        <state relative-caret-position="165">
+          <caret line="11" column="305" selection-start-line="11" selection-start-column="297" selection-end-line="11" selection-end-column="305" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/env-linux/lib/python2.7/posixpath.py">
+    <entry file="file://$PROJECT_DIR$/config.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="196">
-          <caret line="30" column="0" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/.PyCharm2016.2/system/python_stubs/1865152751/_io.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-164">
-          <caret line="47" column="4" selection-start-line="47" selection-start-column="4" selection-end-line="47" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../archivability-test/uri_m.csv">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="217710">
-          <caret line="14514" column="111" selection-start-line="14514" selection-start-column="111" selection-end-line="14514" selection-end-column="111" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/lib/python2.7/pprint.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="196">
-          <caret line="54" column="4" selection-start-line="54" selection-start-column="4" selection-end-line="54" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../archivability-test/1_prepare_data_10000_mementos.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="22" column="47" selection-start-line="22" selection-start-column="47" selection-end-line="22" selection-end-column="47" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#0#9#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ext/tools.py">
+    <entry file="file://$PROJECT_DIR$/web/templates/dashgumfree.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="5" column="8" selection-start-line="5" selection-start-column="8" selection-end-line="5" selection-end-column="8" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/templates/hierapolis.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/templates/templatevamp.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="11" column="64" selection-start-line="11" selection-start-column="64" selection-end-line="11" selection-end-column="64" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cache/d92d4a9819a2239539b943f83cf4f2bd/network.log">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" column="17" selection-start-line="9" selection-start-column="9" selection-end-line="9" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ext/redirection_info.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="375">
+          <caret line="25" column="17" selection-start-line="17" selection-start-column="8" selection-end-line="25" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../archivability-test/json/1f327d0041c809bb2c78423899ca841b.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../archivability-test/json/0f811879d15facdcbe33b0cb2b74cf5a.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../archivability-test/json/000c743c81f82ee982ee6eba17bf9110.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.dockerignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Dockerfile">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="495">
+          <caret line="33" column="2" selection-start-line="33" selection-start-column="2" selection-end-line="33" selection-end-column="2" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../archivability-test/2_calculate_all.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="20" column="25" selection-start-line="20" selection-start-column="25" selection-end-line="20" selection-end-column="25" />
+          <folding>
+            <element signature="e#0#14#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/docker/cli/damage">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cache/23064a196640a35720733f4075c6577e/network.log">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cache/23064a196640a35720733f4075c6577e/image.log">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cache/23064a196640a35720733f4075c6577e/crawl.log">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cache/e4c49a6b53b4061cf2f53dde4369d4cc/screenshot.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cache/e4c49a6b53b4061cf2f53dde4369d4cc/css.log">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cache/e4c49a6b53b4061cf2f53dde4369d4cc/crawl.log">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="630">
+          <caret line="42" column="0" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ext/damage.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="143" column="77" selection-start-line="143" selection-start-column="77" selection-end-line="143" selection-end-column="77" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/lib/python2.7/threading.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="16">
-          <caret line="901" column="8" selection-start-line="901" selection-start-column="8" selection-end-line="901" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/lib/python2.7/subprocess.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-4124">
-          <caret line="768" column="8" selection-start-line="768" selection-start-column="8" selection-end-line="768" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../archivability-test/tools.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="12" column="67" selection-start-line="12" selection-start-column="67" selection-end-line="12" selection-end-column="67" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/docker/cli/damage">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="41" selection-start-line="5" selection-start-column="41" selection-end-line="5" selection-end-column="41" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../archivability-test/env-linux/local/lib/python2.7/site-packages/unicodecsv/py2.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="271">
-          <caret line="68" column="18" selection-start-line="68" selection-start-column="10" selection-end-line="68" selection-end-column="18" />
+        <state relative-caret-position="45">
+          <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
           <folding>
-            <marker date="1481035957860" expanded="false" signature="1277:1333" ph="import ..." />
+            <element signature="e#87#96#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../archivability-test/result.csv">
+    <entry file="file://$PROJECT_DIR$/server.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="225">
+          <caret line="19" column="45" selection-start-line="19" selection-start-column="45" selection-end-line="19" selection-end-column="45" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/modules/api/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-165">
-          <caret line="157" column="51" selection-start-line="157" selection-start-column="51" selection-end-line="157" selection-end-column="51" />
-          <folding>
-            <marker date="1481078905928" expanded="false" signature="0:359" ph="import ..." />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/cli/damage.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="362">
-          <caret line="134" column="21" selection-start-line="130" selection-start-column="8" selection-end-line="134" selection-end-column="21" />
+        <state relative-caret-position="330">
+          <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
           <folding>
             <element signature="e#0#12#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../archivability-test/2_calculate_all.py">
+    <entry file="file://$PROJECT_DIR$/ext/phantomjs/crawl.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="139">
-          <caret line="38" column="30" selection-start-line="38" selection-start-column="30" selection-end-line="38" selection-end-column="30" />
-          <folding>
-            <element signature="e#0#14#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="30">
+          <caret line="2" column="34" selection-start-line="2" selection-start-column="34" selection-end-line="2" selection-end-column="34" />
+          <folding />
         </state>
       </provider>
     </entry>
