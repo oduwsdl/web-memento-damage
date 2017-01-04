@@ -8,10 +8,7 @@ from optparse import OptionParser
 
 import unicodecsv as csv
 
-sys.path.insert(0, '..')
-import config
-
-base_dir = config.base_dir
+base_dir = os.path.join(os.path.dirname(__file__), os.pardir)
 sys.path.insert(0, base_dir)
 from ext.tools import Command
 
@@ -19,12 +16,14 @@ from ext.tools import Command
 class CrawlAndCalculateDamage:
     _page = {'background_color': 'FFFFFF'}
     _verbose = False
+    _show_step = False
     _mode = 'simple'
     _follow_redirection = False
 
     def __init__(self, uri, output_dir, options={}):
         self._uri = uri
         self._output_dir = output_dir
+        if 'show_step' in options: self._show_step = options['show_step']
         if 'verbose' in options: self._verbose = options['verbose']
         if 'mode' in options: self._mode = options['mode']
         if 'redirect' in options: self._follow_redirection = options['redirect']
@@ -47,6 +46,7 @@ class CrawlAndCalculateDamage:
 
     def write_output(self, logger_file, result_file, summary_file, line):
         if logger_file: logger_file.write(line + '\n')
+        if self._verbose: print('DEBUG: {} - {}'.format(datetime.now(), line))
 
         if 'background_color' in line and self._page:
             line = json.loads(line)
@@ -64,7 +64,7 @@ class CrawlAndCalculateDamage:
                 if self._mode == 'simple':
                     print(crawl_result['message'])
                 elif self._mode == 'json':
-                    print(json.dumps(crawl_result))
+                    print(json.dumps(crawl_result, indent=4))
                 else:
                     print('Choose mode "simple" or "json"')
 
@@ -92,7 +92,7 @@ class CrawlAndCalculateDamage:
                     print('Total damage of {} is {}'.format(
                         self._uri, str(result['total_damage'])))
                 elif self._mode == 'json':
-                    print(json.dumps(result))
+                    print(json.dumps(result, indent=4))
                 else:
                     print('Choose mode "simple" or "json"')
 
@@ -144,8 +144,11 @@ class CrawlAndCalculateDamage:
         # Equivalent with console:
         cmd = Command(['phantomjs', '--ssl-protocol=any', crawljs_script, self._uri, self._output_dir,
                        str(self._follow_redirection)], self.log_output)
-        #print ' '.join(cmd.cmd)
+
+        if self._show_step: print('DEBUG: {} == Start Crawling =='.format(datetime.now()))
         err_code = cmd.run(10 * 60, args=(logger_file, damage_result_file, damage_summary_file, self.write_output,))
+        if self._show_step: print('DEBUG: {} == Finish Crawling =='.format(datetime.now()))
+
         if err_code == 0:
             python = sys.executable
 
@@ -155,7 +158,10 @@ class CrawlAndCalculateDamage:
             cmd = Command([python, damage_py_script, self._uri, self._output_dir, self._page['background_color']],
                           self.log_output)
 
+            if self._show_step: print('DEBUG: {} == Start Analyzing =='.format(datetime.now()))
             err_code = cmd.run(10 * 60, args=(logger_file, damage_result_file, damage_summary_file, self.write_output,))
+            if self._show_step: print('DEBUG: {} == Finish Analyzing =='.format(datetime.now()))
+
             if err_code != 0:
                 self.result_error()
         else:
@@ -164,13 +170,16 @@ class CrawlAndCalculateDamage:
 
 if __name__ == "__main__":
     parser = OptionParser()
-    parser.set_usage(parser.get_usage().replace('\n', '') + ' <uri or csv> <output_dir>')
+    parser.set_usage(parser.get_usage().replace('\n', '') + ' <URI> <output_dir>')
     parser.add_option("-m", "--mode",
                       dest="mode", default="simple",
                       help="output mode: simple or json [default: %default]")
     parser.add_option("-v", "--verbose",
                       action="store_true", dest="verbose", default=False,
                       help="print status messages to stdout")
+    parser.add_option("-t", "--show-step",
+                      action="store_true", dest="show_step", default=False,
+                      help="print step messages to stdout")
     parser.add_option("-L", "--redirect",
                       action="store_true", dest="redirect", default=False,
                       help="follow url redirection")

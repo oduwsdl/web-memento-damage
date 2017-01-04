@@ -2,20 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="abb02a85-edb0-4070-84af-33ef9785e6b3" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/nightmare/crawl.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/nightmare/package.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/nightmare/test.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/phantomjs/__init__.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/selenium/__init__.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ext/selenium/crawl.py" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Dockerfile" afterPath="$PROJECT_DIR$/Dockerfile" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cli/damage.py" afterPath="$PROJECT_DIR$/cli/damage.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ext/damage.py" afterPath="$PROJECT_DIR$/ext/damage.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ext/phantomjs/crawl.js" afterPath="$PROJECT_DIR$/ext/phantomjs/crawl.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/templates/templatevamp.html" afterPath="$PROJECT_DIR$/web/templates/templatevamp.html" />
     </list>
     <ignored path="memento-pedia-tornado.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -62,9 +50,7 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="45">
               <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
-              <folding>
-                <element signature="e#87#96#0" expanded="true" />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
@@ -871,7 +857,14 @@
       <option name="project" value="LOCAL" />
       <updated>1481095123073</updated>
     </task>
-    <option name="localTasksCounter" value="46" />
+    <task id="LOCAL-00046" summary="Fix bug">
+      <created>1483526914008</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1483526914008</updated>
+    </task>
+    <option name="localTasksCounter" value="47" />
     <servers />
   </component>
   <component name="TodoView">
@@ -941,7 +934,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Change project structure" />
     <MESSAGE value="Fix User Interface" />
     <MESSAGE value="Remove Simulation, Add calculation time, Fix UI" />
     <MESSAGE value="Add docker support, With ubuntu xenial image" />
@@ -966,7 +958,8 @@
     <MESSAGE value="Fix prettyprint json" />
     <MESSAGE value="Fix damage shell" />
     <MESSAGE value="Remove pretty print" />
-    <option name="LAST_COMMIT_MESSAGE" value="Remove pretty print" />
+    <MESSAGE value="Fix bug" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix bug" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -1296,9 +1289,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="45">
           <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
-          <folding>
-            <element signature="e#87#96#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
