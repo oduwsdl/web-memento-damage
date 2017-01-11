@@ -1,23 +1,22 @@
 var system = require('system');
 var fs = require('fs');
-//var path = require('./path.js');
 var page = require('webpage').create();
-var networkResources = {}
+console.error = function () {
+    require("system").stderr.write(Array.prototype.join.call(arguments, ' ') + '\n');
+};
 
 page.settings.webSecurityEnabled = false;
-// Import md5 from CryptoJS to hash URI
 phantom.injectJs('md5.js')
-// Import underscore.js to make array unique
 phantom.injectJs('underscore.js')
-// Import mimetype.js to resolve content-type of 4xx resources
 phantom.injectJs('mimetype.js')
 
-// Set start time
+var networkResources = {}
+var Log = {'DEBUG': 10, 'INFO': 20}
 var starttime = Date.now();
 
 // If number of arguments after crawl.js is not 2, show message and exit phantomjs
 if (system.args.length < 3) {
-    console.log('Usage: phantomjs crawl.js <URI> <output_dir> [redirect]');
+    console.error('Usage: phantomjs crawl.js <URI> <output_dir> [redirect] [log_level]');
     phantom.exit(1);
 }
 
@@ -28,15 +27,20 @@ else {
     hashedUrl = md5(url);
     outputDir = system.args[2];
     followRedirect = false
+    logLevel = Log.DEBUG
 
-    if(system.args.length >= 3) {
+    if(system.args.length >= 4) {
         followRedirect = (system.args[3].toLowerCase() == 'true' || system.args[3] == '1');
+    }
+
+    if(system.args.length >= 5) {
+        logLevel = parseInt(system.args[4])
     }
 
     // Set timeout on fetching resources to 30 seconds (can be changed)
     page.settings.resourceTimeout = 300000;
     page.onResourceTimeout = function(e) {
-        console.log('Resource ' + e.url + ' timeout. ' + e.errorCode + ' ' + e.errorString);
+        console.error('Resource ' + e.url + ' timeout. ' + e.errorCode + ' ' + e.errorString);
     };
 
     // Use browser size 1024x768 (to be used on screenshot)
@@ -56,7 +60,7 @@ else {
 
     // Set console to debug
     page.onConsoleMessage = function(msg, lineNum, sourceId) {
-        console.log('CONSOLE: ' + msg + ' (from line #' + lineNum + ' in "' + sourceId + '")');
+        if(logLevel <= Log.DEBUG) console.log('CONSOLE: ' + msg + ' (from line #' + lineNum + ' in "' + sourceId + '")');
     };
 
     pageStatusCode = null;
@@ -86,14 +90,15 @@ else {
     page.onResourceReceived = function (res) {
         resUrl = res.url;
 
-        if(res.stage === 'start') {
-            console.log('Resource ' + resUrl + ' (' + res.status + ') is being received');
-        } else if(res.stage === 'end') {
-            console.log('Resource ' + resUrl + ' (' + res.status + ') is received');
-        }
-
         if (resUrl == url) {
             pageStatusCode = res.status;
+            if(logLevel <= Log.INFO && res.stage === 'start') console.log('Receiving resource(s)');
+        }
+
+        if(res.stage === 'start') {
+            if(logLevel <= Log.DEBUG) console.log('Resource ' + resUrl + ' (' + res.status + ') is being received');
+        } else if(res.stage === 'end') {
+            if(logLevel <= Log.DEBUG) console.log('Resource ' + resUrl + ' (' + res.status + ') is received');
         }
 
         // Save all network resources to variable
@@ -119,7 +124,7 @@ else {
 
     page.onLoadFinished =  function (status) {
         if(isAborted) {
-            console.log(JSON.stringify({'crawl-result' : {
+            if(logLevel <= Log.ERROR) console.error(JSON.stringify({'crawl-result' : {
               'uri' : url,
               'status_code' : pageStatusCode,
               'error' : true,
@@ -129,7 +134,7 @@ else {
         }
 
         else if (status !== 'success') {
-            console.log(JSON.stringify({'crawl-result' : {
+            if(logLevel <= Log.DEBUG) console.error(JSON.stringify({'crawl-result' : {
               'uri' : url,
               'status_code' : pageStatusCode,
               'error' : true,
@@ -139,6 +144,8 @@ else {
         }
 
         else {
+            if(logLevel <= Log.INFO) console.log('Page is loaded');
+
             // After page is opened, process page.
             // Use setTimeout to delay process
             // Timeout in ms, means 200 ms
@@ -155,13 +162,14 @@ else {
 
                     processPage(url, outputDir);
                     // Show bgcolor
-                    console.log(JSON.stringify({'background_color' : getBackgroundColor()}));
+                    if(logLevel <= Log.ERROR) console.log(JSON.stringify({'background_color' : getBackgroundColor()}));
 
                     // Set finished time
                     var finishtime = Date.now()
 
                     // Show message that crawl finished, and calculate executing time
-                    console.log(JSON.stringify({'crawl_result' : {
+                    if(logLevel <= Log.INFO) console.log('Crawl finished in ' + (finishtime - starttime) + ' miliseconds');
+                    if(logLevel <= Log.DEBUG) console.log(JSON.stringify({'crawl_result' : {
                       'uri' : url,
                       'status_code' : pageStatusCode,
                       'error' : false,
@@ -180,6 +188,7 @@ else {
     }, 5 * 60 * 1000);
 
     // Open URI
+    if(logLevel <= Log.INFO) console.log('Start crawling URI ' + url);
     page.open(url);
 
 }
@@ -207,10 +216,12 @@ function processNetworkResources(url, outputDir) {
     }
 
     fs.write(resourceFile, networkResourcesValues.join('\n'), "w");
-    console.log('Network resources is saved in ' + resourceFile)
+    if(logLevel <= Log.DEBUG) console.log('Network resources is saved in ' + resourceFile)
 }
 
 function processHtml(url, outputDir) {
+    if(logLevel <= Log.INFO) console.log('Saving HTML source');
+
     htmlFile = outputDir + '/source.html';
 
     // Save html using fs.write
@@ -219,10 +230,14 @@ function processHtml(url, outputDir) {
         return document.body.parentElement.outerHTML;
     });
     fs.write(htmlFile, html, "w");
-    console.log('HTML source of page is saved in ' + htmlFile)
+
+    if(logLevel <= Log.DEBUG) console.log('HTML source of page is saved in ' + htmlFile)
+    if(logLevel <= Log.INFO && logLevel > Log.DEBUG) console.log('HTML source is saved');
 }
 
 function processImages(url, outputDir) {
+    if(logLevel <= Log.INFO) console.log('Saving and calculating coverage of image(s)');
+
     resourceImageFile = outputDir + '/image.log';
 
     // Get images using document.images
@@ -315,10 +330,13 @@ function processImages(url, outputDir) {
     }
 
     fs.write(resourceImageFile, networkImagesValues.join('\n'), "w");
-    console.log('Network resource images is saved in ' + resourceImageFile)
+    if(logLevel <= Log.DEBUG) console.log('Image(s) are saved in ' + resourceImageFile)
+    if(logLevel <= Log.INFO && logLevel > Log.DEBUG) console.log('All image(s) are saved');
 }
 
 function processMultimedias(url, outputDir) {
+    if(logLevel <= Log.INFO) console.log('Saving and calculating coverage of video(s)');
+
     resourceVideoFile = outputDir + '/video.log';
 
     // Get videos using document.getElementsByTagName("video")
@@ -395,10 +413,13 @@ function processMultimedias(url, outputDir) {
     }
 
     fs.write(resourceVideoFile, networkVideosValues.join('\n'), "w");
-    console.log('Network resource videos is saved in ' + resourceVideoFile)
+    if(logLevel <= Log.DEBUG) console.log('Video(s) are saved in ' + resourceVideoFile);
+    if(logLevel <= Log.INFO) console.log('All video(s) are saved');
 }
 
 function processCsses(url, resourceBasename) {
+    if(logLevel <= Log.INFO) console.log('Saving and calculating importance of stylesheet(s)');
+
     resourceCssFile = outputDir + '/css.log';
 
     var csses = page.evaluate(function () {
@@ -476,15 +497,19 @@ function processCsses(url, resourceBasename) {
     }
 
     fs.write(resourceCssFile, networkCssValues.join('\n'), "wb");
-    console.log('Network resource csses is saved in ' + resourceCssFile)
+    if(logLevel <= Log.DEBUG) console.log('Network resource csses is saved in ' + resourceCssFile);
+    if(logLevel <= Log.INFO && logLevel > Log.DEBUG) console.log('All stylesheet(s) are saved');
 }
 
 function processScreenshots(url, outputDir) {
+    if(logLevel <= Log.INFO) console.log('Taking and saving screenshot');
+
     screenshotFile = outputDir + '/screenshot.png';
 
     // Save screenshot
     page.render(screenshotFile);
-    console.log('Screenshot is saved in ' + screenshotFile);
+    if(logLevel <= Log.DEBUG) console.log('Screenshot is saved in ' + screenshotFile);
+    if(logLevel <= Log.INFO && logLevel > Log.DEBUG) console.log('Screenshot is saved');
 }
 
 function calculateImportance(rule) {

@@ -1,5 +1,6 @@
 import errno
 import json
+import logging
 import os
 import sys
 import time
@@ -17,7 +18,8 @@ class CrawlAndCalculateDamage:
     _crawljs_script = os.path.join(base_dir, 'ext', 'phantomjs', 'crawl.js')
     _damage_py_script = os.path.join(base_dir, 'ext', 'damage.py')
     _page = {'background_color': 'FFFFFF'}
-    _verbose = False
+    _debug = False
+    _info = False
     _mode = 'simple'
     _follow_redirection = False
     _clean_cache = True
@@ -25,22 +27,49 @@ class CrawlAndCalculateDamage:
     def __init__(self, uri, output_dir, options={}):
         self._uri = uri
         self._output_dir = output_dir
-        if 'verbose' in options: self._verbose = options['verbose']
+
+        # Setup options
+        if 'debug' in options: self._debug = options['debug']
+        if 'info' in options: self._info = options['info']
         if 'mode' in options: self._mode = options['mode']
         if 'redirect' in options: self._follow_redirection = options['redirect']
         if 'clean_cache' in options: self._clean_cache = options['clean_cache']
 
-    def log_stdout(self, out, write_fn, logger_file, result_file, summary_file):
+        # Setup logger --> to show debug verbosity
+        log_formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
+
+        # To stdout
+        log_stdout_handler = logging.StreamHandler(sys.stdout)
+        log_stdout_handler.setFormatter(log_formatter)
+
+        # To file
+        app_log_file = os.path.join(self._output_dir, 'app.log')
+        log_file_handler = logging.FileHandler(app_log_file)
+        log_file_handler.setFormatter(log_formatter)
+
+        # Configure logger
+        self._logger = logging.getLogger(uri)
+        self._logger.addHandler(log_file_handler)
+        self._logger.addHandler(log_stdout_handler)
+
+        if self._info:
+            self._logger.setLevel(logging.INFO)
+        elif self._debug:
+            self._logger.setLevel(logging.DEBUG)
+        else:
+            self._logger.setLevel(logging.ERROR)
+
+    def log_stdout(self, out, write_fn, result_file):
         if out and hasattr(out, 'readline'):
             for line in iter(out.readline, b''):
                 line = line.strip()
-                write_fn(line, logger_file, result_file, summary_file)
+                write_fn(line, result_file)
         else:
-            write_fn(out, logger_file, result_file, summary_file)
+            write_fn(out, result_file)
 
-    def log_output(self, msg, logger_file, result_file, summary_file):
-        if logger_file: logger_file.write(msg + '\n')
-        if self._verbose: print('DEBUG: {} - {}'.format(datetime.now(), msg))
+    def log_output(self, msg, result_file):
+        if self._logger.level == logging.DEBUG: self._logger.debug(msg)
+        elif self._logger.level == logging.INFO: self._logger.info(msg)
 
         if 'background_color' in msg:
             msg = json.loads(msg)
@@ -56,11 +85,11 @@ class CrawlAndCalculateDamage:
                 self.response_time = datetime.now()
 
                 if self._mode == 'simple':
-                    print(crawl_result['message'])
+                    self._logger.error(crawl_result['message'])
                 elif self._mode == 'json':
-                    print(json.dumps(crawl_result, indent=4))
+                    self._logger.error(json.dumps(crawl_result, indent=4))
                 else:
-                    print('Choose mode "simple" or "json"')
+                    self._logger.error('Choose mode "simple" or "json"')
 
         if 'result' in msg:
             try:
@@ -69,7 +98,7 @@ class CrawlAndCalculateDamage:
                 msg = json.loads(msg)
 
                 result = msg['result']
-                result.update(self._crawl_result)
+                # result.update(self._crawl_result)
                 result['error'] = False
                 result['is_archive'] = False
                 result['message'] = 'Calculation is finished in {} seconds'.format(
@@ -83,12 +112,12 @@ class CrawlAndCalculateDamage:
 
                 # Print total damage
                 if self._mode == 'simple':
-                    print('Total damage of {} is {}'.format(
+                    self._logger.info('Total damage of {} is {}'.format(
                         self._uri, str(result['total_damage'])))
                 elif self._mode == 'json':
                     print(json.dumps(result, indent=4))
                 else:
-                    print('Choose mode "simple" or "json"')
+                    self._logger.error('Choose mode "simple" or "json"')
 
                 # Write result to file
                 if result_file:
@@ -97,58 +126,35 @@ class CrawlAndCalculateDamage:
                         f.flush()
                         f.close()
 
-                if summary_file:
-                    with open(summary_file, 'a+') as f:
-                        f.write(','.join((self._uri, str(result['total_damage']))) + '\n')
-                        f.flush()
-                        f.close()
-
             except (ValueError, KeyError) as e: pass
 
-    def log_stderr(self, out, write_fn, logger_file):
+    def log_stderr(self, out, write_fn):
         if out and hasattr(out, 'readline'):
             for line in iter(out.readline, b''):
                 line = line.strip()
-                write_fn(line, logger_file)
+                write_fn(line)
         else:
-            write_fn(out, logger_file)
+            write_fn(out)
 
-    def log_error(self, msg, logger_file):
-        if logger_file: logger_file.write(msg + '\n')
-        if self._verbose: print('ERROR: {} - {}'.format(datetime.now(), msg))
+    def log_error(self, msg):
+        self._logger.error(msg)
 
     def run(self):
         self.request_time = datetime.now()
 
         # Define output files location
-        crawler_log_file = os.path.join(self._output_dir, 'crawl.log')
         damage_result_file = os.path.join(self._output_dir, 'result.json')
-        damage_summary_file = os.path.join(self._output_dir, 'result.csv')
-
-        try:
-            os.makedirs(os.path.abspath(os.path.join(crawler_log_file, os.pardir)))
-        except OSError, e:
-            if e.errno != errno.EEXIST:
-                raise
-
-        # Define logger writer
-        # Create empty file
-        with open(crawler_log_file, 'w') as logger_file:
-            logger_file.write('')
-
-        # Open file again for appending
-        logger_file = open(crawler_log_file, 'a')
 
         # Crawl page with phantomjs crawl.js via arguments
         # Equivalent with console:
         phantomjs = os.getenv('PHANTOMJS', 'phantomjs')
 
         pjs_cmd = [phantomjs, '--ssl-protocol=any', self._crawljs_script, self._uri, self._output_dir,
-                   str(self._follow_redirection)]
+                   str(self._follow_redirection), str(self._logger.level)]
         cmd = Command(pjs_cmd, pipe_stdout_callback=self.log_stdout, pipe_stderr_callback=self.log_stderr)
         err_code = cmd.run(10 * 60,
-                           stdout_callback_args=(self.log_output, logger_file, damage_result_file, damage_summary_file, ),
-                           stderr_callback_args=(self.log_error, logger_file, ))
+                           stdout_callback_args=(self.log_output, damage_result_file, ),
+                           stderr_callback_args=(self.log_error, ))
 
         if err_code == 0:
             # Use the same python with this script
@@ -160,13 +166,13 @@ class CrawlAndCalculateDamage:
             py_damage_cmd = [python, self._damage_py_script, self._uri, self._output_dir, self._page['background_color']]
             cmd = Command(py_damage_cmd, pipe_stdout_callback=self.log_stdout, pipe_stderr_callback=self.log_stderr)
             err_code = cmd.run(10 * 60,
-                               stdout_callback_args=(self.log_output, logger_file, damage_result_file, damage_summary_file, ),
-                               stderr_callback_args=(self.log_error, logger_file, ))
+                               stdout_callback_args=(self.log_output, damage_result_file, ),
+                               stderr_callback_args=(self.log_error, ))
 
             if err_code != 0:
-                self.log_error('Application closed unexpectly', logger_file)
+                self.log_error('Application closed unexpectedly')
         else:
-            self.log_error('Application closed unexpectly', logger_file)
+            self.log_error('Application closed unexpectedly')
 
         # Remove cache directory
         if self._clean_cache:
@@ -174,15 +180,18 @@ class CrawlAndCalculateDamage:
             rmdir_recursive(self._output_dir)
 
 
-if __name__ == "__main__":
+def main():
     parser = OptionParser()
     parser.set_usage(parser.get_usage().replace('\n', '') + ' <URI> <output_dir>')
     parser.add_option("-m", "--mode",
                       dest="mode", default="simple",
                       help="output mode: simple or json [default: %default]")
-    parser.add_option("-v", "--verbose",
-                      action="store_true", dest="verbose", default=False,
-                      help="print status messages to stdout")
+    parser.add_option("-d", "--debug",
+                      action="store_true", dest="debug", default=False,
+                      help="print debug messages")
+    parser.add_option("-i", "--info",
+                      action="store_true", dest="info", default=False,
+                      help="print info messages")
     parser.add_option("-L", "--redirect",
                       action="store_true", dest="redirect", default=False,
                       help="follow url redirection")
@@ -215,3 +224,7 @@ if __name__ == "__main__":
 
     damage = CrawlAndCalculateDamage(uri, output_dir, options)
     damage.run()
+
+
+if __name__ == "__main__":
+    main()

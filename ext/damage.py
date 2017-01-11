@@ -1,13 +1,22 @@
 import io
+import logging
 import math
+import os
+import sys
 import urlparse
 
 import html2text
 from PIL import Image
 
+# Setup logger
+log_formatter = logging.Formatter('%(message)s')
+log_stdout_handler = logging.StreamHandler(sys.stdout)
+log_stdout_handler.setFormatter(log_formatter)
 
-def rgb2hex(r, g, b):
-    return '{:02x}{:02x}{:02x}'.format(r, g, b).upper()
+logger = logging.getLogger('damage')
+logger.addHandler(log_stdout_handler)
+logger.setLevel(logging.DEBUG)
+
 
 class SiteDamage:
     image_importance = {}
@@ -44,6 +53,9 @@ class SiteDamage:
         self.find_missings()
 
     def filter_blacklisted_uris(self):
+        logger.info('Removing resource(s) containing blacklisted URI(s)')
+        logger.info('Using URI blacklists: {}'.format(', '.join(self.blacklisted_uris)))
+
         # Filter images log
         tmp_image_logs = []
         for log in self.image_logs:
@@ -92,7 +104,11 @@ class SiteDamage:
 
         self.css_logs = tmp_css_logs
 
+        logger.info('Processing blacklisted URI(s) is done')
+
     def resolve_redirection(self):
+        logger.info('Resolving all redirected URI(s) with its final URI(s)')
+
         logs = {}
         for log in self.logs:
             logs[log['url']] = log
@@ -105,6 +121,8 @@ class SiteDamage:
 
         # Resolve redirection for css
         self.css_logs = self.purify_logs(self.css_logs, logs)
+
+        logger.info('All redirected URI(s) resolved')
 
     def purify_logs(self, source_logs, logs):
         log_obj = {}
@@ -149,6 +167,8 @@ class SiteDamage:
                 break
 
     def calculate_percentage_coverage(self):
+        logger.info('Calculating percentages of image and video coverage(s)')
+
         for idx, log in enumerate(self.image_logs):
             viewport_w, vieport_h = log['viewport_size']
             image_coverage  = 0
@@ -176,7 +196,11 @@ class SiteDamage:
                                  float(viewport_w * vieport_h)
             self.mlm_logs[idx]['percentage_coverage'] = pct_mlm_coverage
 
+        logger.info('Done calculating coverage(s)')
+
     def find_missings(self):
+        logger.info('Finding all missing resources')
+
         self.missing_imgs_log = []
         for log in self.image_logs:
             if log['status_code'] > 399:
@@ -201,8 +225,14 @@ class SiteDamage:
         self.calculate_potential_damage()
         self.calculate_actual_damage()
 
+        logger.info('Done calculating damage')
+
     def calculate_potential_damage(self):
+        logger.info('Calculating potential damage of resource(s)')
+
         # Image
+        logger.info('Calculating potential damage of image(s)')
+
         total_images_damage = 0
         for idx, log in enumerate(self.image_logs):
             image_damage = self.calculate_image_damage(log)
@@ -222,10 +252,12 @@ class SiteDamage:
                 'size' : total_size_importance,
                 'total' : total_image_damage
             }
-            print('Potential damage {} for {}'
-                  .format(total_image_damage, log['url']))
+            # print('Potential damage {} for {}'
+            #       .format(total_image_damage, log['url']))
 
         # Css
+        logger.info('Calculating potential damage of stylesheet(s)')
+
         total_css_damage = 0
         for idx, log in enumerate(self.css_logs):
             tag_importance, ratio_importance, css_damage = \
@@ -240,9 +272,11 @@ class SiteDamage:
                 'ratio' : ratio_importance,
                 'total' : css_damage
             }
-            print('Potential damage {} for {}'.format(css_damage, log['url']))
+            # print('Potential damage {} for {}'.format(css_damage, log['url']))
 
         # Multimedia
+        logger.info('Calculating potential damage of video(s)')
+
         total_mlms_damage = 0
         for idx, log in enumerate(self.mlm_logs):
             css_damage = self.calculate_image_damage(log)
@@ -262,19 +296,23 @@ class SiteDamage:
                 'size' : total_size_importance,
                 'total' : total_mlm_damage
             }
-            print('Potential damage {} for {}'
-                  .format(total_mlm_damage, log['url']))
+            # print('Potential damage {} for {}'
+            #       .format(total_mlm_damage, log['url']))
 
         # Text
+        logger.info('Calculating potential damage of text')
+
         num_words_of_text = len(self.text.split())
         total_text_damage = float(num_words_of_text) / self.words_per_image
 
         self.text_logs['num_words'] = num_words_of_text
         self.text_logs['words_per_image'] = self.words_per_image
 
-        print('Potential damage {} for {}'.format(total_text_damage, 'text'))
+        # print('Potential damage {} for {}'.format(total_text_damage, 'text'))
 
         # Based on measureMemento.pl line 555
+        logger.info('Weighting potential damage(s)')
+
         self.potential_image_damage = total_images_damage * self.image_weight
         self.potential_css_damage = total_css_damage * self.css_weight
         self.potential_multimedia_damage = total_mlms_damage * \
@@ -287,7 +325,11 @@ class SiteDamage:
                                 self.potential_damage_text
 
     def calculate_actual_damage(self):
+        logger.info('Calculating actual damage of resource(s)')
+
         # Images
+        logger.info('Calculating actual damage of images(s)')
+
         total_images_damage = 0
         for idx, log in enumerate(self.image_logs):
             if log['status_code'] > 399:
@@ -308,10 +350,12 @@ class SiteDamage:
                     'size' : total_size_importance,
                     'total' : total_image_damage
                 }
-                print('Actual damage {} for {}'
-                      .format(total_image_damage, log['url']))
+                # print('Actual damage {} for {}'
+                #       .format(total_image_damage, log['url']))
 
         # Css
+        logger.info('Calculating actual damage of stylesheet(s)')
+
         total_css_damage = 0
         for idx, log in enumerate(self.css_logs):
             tag_importance, ratio_importance, css_damage = \
@@ -325,9 +369,11 @@ class SiteDamage:
                 'ratio' : ratio_importance,
                 'total' : css_damage
             }
-            print('Actual damage {} for {}'.format(css_damage, log['url']))
+            # print('Actual damage {} for {}'.format(css_damage, log['url']))
 
         # Multimedia
+        logger.info('Calculating actual damage of video(s)')
+
         total_mlms_damage = 0
         for idx, log in enumerate(self.mlm_logs):
             if log['status_code'] > 399:
@@ -348,15 +394,17 @@ class SiteDamage:
                     'size' : total_size_importance,
                     'total' : total_mlm_damage
                 }
-                print('Actual damage {} for {}'
-                      .format(total_mlm_damage, log['url']))
+                # print('Actual damage {} for {}'
+                #       .format(total_mlm_damage, log['url']))
 
         # Text
         total_text_damage = 0
         self.actual_damage_text = total_text_damage * self.text_weight
-        print('Actual damage {} for {}'.format(self.actual_damage_text, 'text'))
+        # print('Actual damage {} for {}'.format(self.actual_damage_text, 'text'))
 
         # Based on measureMemento.pl line 555
+        logger.info('Weighting actual damage(s)')
+
         self.actual_image_damage = total_images_damage * self.image_weight
         self.actual_css_damage = total_css_damage * self.css_weight
         self.actual_multimedia_damage = total_mlms_damage * \
@@ -515,7 +563,12 @@ class SiteDamage:
         total_importance = tag_importance + ratio_importance
         return (tag_importance, ratio_importance, total_importance)
 
-if __name__ == "__main__":
+
+def rgb2hex(r, g, b):
+    return '{:02x}{:02x}{:02x}'.format(r, g, b).upper()
+
+
+def main():
     import sys
     import os
     import json
@@ -542,11 +595,11 @@ if __name__ == "__main__":
         h = html2text.HTML2Text()
         h.ignore_links = True
         text = h.handle(u' '.join([
-            line.strip() for line in io.open(html_file, "r", encoding="utf-8").readlines()
-        ]))
+                                      line.strip() for line in io.open(html_file, "r", encoding="utf-8").readlines()
+                                      ]))
 
         logs = [json.loads(log) for log in
-                      open(log_file).readlines()]
+                open(log_file).readlines()]
         image_logs = [json.loads(log) for log in
                       open(image_logs_file).readlines()]
         css_logs = [json.loads(log) for log in
@@ -566,44 +619,48 @@ if __name__ == "__main__":
         result = {}
         result['uri'] = uri
         result['weight'] = {
-            'multimedia' : damage.multimedia_weight,
-            'css' : damage.css_weight,
-            'image' : damage.image_weight,
-            'text' : damage.text_weight
+            'multimedia': damage.multimedia_weight,
+            'css': damage.css_weight,
+            'image': damage.image_weight,
+            'text': damage.text_weight
         }
         result['images'] = damage.image_logs
         result['csses'] = damage.css_logs
         result['multimedias'] = damage.mlm_logs
         result['text'] = damage.text_logs
         result['potential_damage'] = {
-            'total' : damage.potential_damage,
-            'image' : damage.potential_image_damage,
-            'css'   : damage.potential_css_damage,
-            'multimedia' : damage.potential_multimedia_damage,
-            'text'  : damage.potential_damage_text,
+            'total': damage.potential_damage,
+            'image': damage.potential_image_damage,
+            'css': damage.potential_css_damage,
+            'multimedia': damage.potential_multimedia_damage,
+            'text': damage.potential_damage_text,
         }
         result['actual_damage'] = {
-            'total' : damage.actual_damage,
-            'image' : damage.actual_image_damage,
-            'css'   : damage.actual_css_damage,
-            'multimedia' : damage.actual_multimedia_damage,
-            'text'  : damage.actual_damage_text,
+            'total': damage.actual_damage,
+            'image': damage.actual_image_damage,
+            'css': damage.actual_css_damage,
+            'multimedia': damage.actual_multimedia_damage,
+            'text': damage.actual_damage_text,
         }
 
         redirect_uris = []
         damage.follow_redirection(uri, logs_obj, redirect_uris)
-        final_uri, final_status_code = redirect_uris[len(redirect_uris)-1]
+        final_uri, final_status_code = redirect_uris[len(redirect_uris) - 1]
 
         result['redirect_uris'] = redirect_uris
 
-        if final_status_code and final_status_code != 200:
+        if (not final_status_code) or (final_status_code != 200):
             result['total_damage'] = 1
         elif damage.potential_damage != 0:
-            result['total_damage'] = damage.actual_damage/damage.potential_damage
+            result['total_damage'] = damage.actual_damage / damage.potential_damage
         else:
             result['total_damage'] = 0
 
-        print('Potential Damage : {}'.format(result['potential_damage']['total']))
-        print('Actual Damage : {}'.format(result['actual_damage']['total']))
-        print('Total Damage : {}'.format(result['total_damage']))
-        print(json.dumps({'result' : result}))
+        logger.info('Potential Damage : {}'.format(result['potential_damage']['total']))
+        logger.info('Actual Damage : {}'.format(result['actual_damage']['total']))
+        logger.info('Total Damage : {}'.format(result['total_damage']))
+        logger.debug(json.dumps({'result': result}))
+
+
+if __name__ == "__main__":
+    main()
