@@ -40,8 +40,6 @@ VOLUME "$WORKSPACE"
 
 # CLI SETTINGS ====================================================
 
-# Copy necessary files
-RUN mv /app/docker/cli/damage /app/cli/damage
 RUN chmod +x -R /app/cli
 
 # Add project cli directory to PATH

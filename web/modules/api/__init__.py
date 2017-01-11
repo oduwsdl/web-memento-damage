@@ -6,10 +6,10 @@ from hashlib import md5
 from urlparse import urlparse
 
 from PIL import Image
+from cli.damage import CrawlAndCalculateDamage
 from sqlalchemy import desc
 from tornado import web
 
-from cli.damage import CrawlAndCalculateDamage
 from ext.blueprint import Blueprint, RequestHandler
 from web import database
 from web.models.models import MementoModel
@@ -144,7 +144,7 @@ class API(Blueprint):
             tornado_request = self
             class ModifiedCrawlAndCalculateDamage(CrawlAndCalculateDamage):
                 def write_output(self, logger_file, result_file, summary_file, line):
-                    CrawlAndCalculateDamage.write_output(self, logger_file, result_file, summary_file, line)
+                    CrawlAndCalculateDamage.log_output(self, logger_file, result_file, summary_file, line)
 
                     if 'crawl-result' in line:
                         line = json.loads(line)
@@ -201,4 +201,4 @@ class API(Blueprint):
 
 
             ModifiedCrawlAndCalculateDamage(uri, self.blueprint.cache_dir, {'redirect': True})\
-                .do_calculation()
+                .run()

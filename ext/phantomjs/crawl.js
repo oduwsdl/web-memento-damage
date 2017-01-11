@@ -25,6 +25,7 @@ if (system.args.length < 3) {
 else {
     // use 1st param after crawl.js as URL input and 2nd param as output
     url = system.args[1];
+    hashedUrl = md5(url);
     outputDir = system.args[2];
     followRedirect = false
 
@@ -45,10 +46,10 @@ else {
     page.onError = function(msg, trace) {
         var msgStack = ['PHANTOM ERROR: ' + msg];
         if (trace && trace.length) {
-        msgStack.push('TRACE:');
-        trace.forEach(function(t) {
-        msgStack.push(' -> ' + (t.file || t.sourceURL) + ': ' + t.line + (t.function ? ' (in function ' + t.function +')' : ''));
-        });
+            msgStack.push('TRACE:');
+            trace.forEach(function(t) {
+                msgStack.push(' -> ' + (t.file || t.sourceURL) + ': ' + t.line + (t.function ? ' (in function ' + t.function +')' : ''));
+            });
         }
         console.error(msgStack.join('\n'));
     };
@@ -86,9 +87,9 @@ else {
         resUrl = res.url;
 
         if(res.stage === 'start') {
-            console.log('Resource ' + resUrl + ' (' + res.status + ') is receiving');
+            console.log('Resource ' + resUrl + ' (' + res.status + ') is being received');
         } else if(res.stage === 'end') {
-            console.log('Resource ' + resUrl + ' (' + res.status + ') received');
+            console.log('Resource ' + resUrl + ' (' + res.status + ') is received');
         }
 
         if (resUrl == url) {
@@ -160,7 +161,7 @@ else {
                     var finishtime = Date.now()
 
                     // Show message that crawl finished, and calculate executing time
-                    console.log(JSON.stringify({'crawl-result' : {
+                    console.log(JSON.stringify({'crawl_result' : {
                       'uri' : url,
                       'status_code' : pageStatusCode,
                       'error' : false,
@@ -193,9 +194,7 @@ function processPage(url, outputDir) {
 }
 
 function processNetworkResources(url, outputDir) {
-    hashedUrl = md5(url);
-    // resourceFile = outputDir + '/log/' + hashedUrl + '.log';
-    resourceFile = outputDir + '/' + hashedUrl + '/network.log';
+    resourceFile = outputDir + '/network.log';
 
     // Save all resources
     // networkResources are sometimes duplicated
@@ -212,9 +211,7 @@ function processNetworkResources(url, outputDir) {
 }
 
 function processHtml(url, outputDir) {
-    hashedUrl = md5(url);
-    // htmlFile = outputDir + '/html/' + hashedUrl + '.html';
-    htmlFile = outputDir + '/' + hashedUrl + '/source.html';
+    htmlFile = outputDir + '/source.html';
 
     // Save html using fs.write
     // DOM selection or modification always be done inside page.evaluate
@@ -226,9 +223,7 @@ function processHtml(url, outputDir) {
 }
 
 function processImages(url, outputDir) {
-    var hashedUrl = md5(url);
-    // resourceImageFile = outputDir + '/log/' + hashedUrl + '.img.log';
-    resourceImageFile = outputDir + '/' + hashedUrl + '/image.log';
+    resourceImageFile = outputDir + '/image.log';
 
     // Get images using document.images
     // document.images also can be execute in browser console
@@ -324,9 +319,7 @@ function processImages(url, outputDir) {
 }
 
 function processMultimedias(url, outputDir) {
-    var hashedUrl = md5(url);
-    // resourceVideoFile = outputDir + '/log/' + hashedUrl + '.vid.log';
-    resourceVideoFile = outputDir + '/' + hashedUrl + '/video.log';
+    resourceVideoFile = outputDir + '/video.log';
 
     // Get videos using document.getElementsByTagName("video")
     // document.getElementsByTagName("video") also can be execute in browser console
@@ -406,9 +399,7 @@ function processMultimedias(url, outputDir) {
 }
 
 function processCsses(url, resourceBasename) {
-    var hashedUrl = md5(url);
-    // resourceCssFile = outputDir + '/log/' + hashedUrl + '.css.log';
-    resourceCssFile = outputDir + '/' + hashedUrl + '/css.log';
+    resourceCssFile = outputDir + '/css.log';
 
     var csses = page.evaluate(function () {
         function serialize(docCss, frameId) {
@@ -489,87 +480,11 @@ function processCsses(url, resourceBasename) {
 }
 
 function processScreenshots(url, outputDir) {
-    hashedUrl = md5(url);
-    // screenshotDir = outputDir + '/screenshot/' + hashedUrl;
-    // screenshotFile = screenshotDir + '.png';
-    screenshotDir = outputDir + '/' + hashedUrl;
-    screenshotFile = screenshotDir + '/screenshot.png';
+    screenshotFile = outputDir + '/screenshot.png';
 
     // Save screenshot
     page.render(screenshotFile);
     console.log('Screenshot is saved in ' + screenshotFile);
-
-    /**
-    var outerHTMLCsses = page.evaluate(function() {
-        outerHTMLCsses = [];
-
-        var tmpCsses = document.styleSheets;
-        for(t=0; t<tmpCsses.length; t++) {
-            outerHTMLCsses.push({'frame' : -1, 'idx' : t, 'html' : tmpCsses[t].ownerNode.outerHTML});
-        }
-
-        var tmpFrames = window.frames;
-        for(f=0; f<tmpFrames.length; f++) {
-            var tmpDocument = tmpFrames[f].document;
-            if(tmpDocument == undefined) tmpDocument = tmpFrames[f];
-
-            tmpCsses = tmpDocument.styleSheets;
-            for(t=0; t<tmpCsses.length; t++) {
-                outerHTMLCsses.push({'frame' : f, 'idx' : t, 'html' : tmpCsses[t].ownerNode.outerHTML});
-            }
-        }
-
-        return outerHTMLCsses;
-    }) || [];
-
-    outerHTMLCsses.forEach(function(outerHTMLCss) {
-        hashedCss = md5(outerHTMLCss['html']);
-        screenshotFile = screenshotDir + '/' + hashedCss + '.png';
-
-        // Remove css
-        var removed = page.evaluate(function(outerHTMLCss) {
-            if(outerHTMLCss['frame'] >= 0) {
-                var tmpFrame = window.frames[outerHTMLCss['frame']];
-                var tmpDocument = tmpFrame.document;
-                if(tmpDocument == undefined) tmpDocument = tmpFrame;
-            } else {
-                var tmpDocument = document;
-            }
-
-            var tmpCss = tmpDocument.styleSheets[outerHTMLCss['idx']];
-            if(tmpCss) {
-                var tmpCssOwner = tmpCss.ownerNode;
-                tmpCssOwner.parentElement.removeChild(tmpCssOwner);
-                return true;
-            }
-
-            return false
-        }, outerHTMLCss);
-
-        // Save screenshot
-        page.render(screenshotFile);
-        console.log('Screenshot is saved in ' + screenshotFile);
-
-        // Put css back
-        if(removed) {
-            page.evaluate(function(outerHTMLCss) {
-                if(outerHTMLCss['frame'] >= 0) {
-                    var tmpFrame = window.frames[outerHTMLCss['frame']];
-                    var tmpDocument = tmpFrame.document;
-                    if(tmpDocument == undefined) tmpDocument = tmpFrame;
-                } else {
-                    var tmpDocument = document;
-                }
-
-                var parentEl = tmpDocument.getElementsByTagName('head')[0];
-                var parentInnerHTML = parentEl.innerHTML;
-                parentInnerHTML += outerHTMLCss;
-
-                parentEl.innerHTML = parentInnerHTML;
-            }, outerHTMLCss);
-        }
-    });
-    */
 }
 
 function calculateImportance(rule) {

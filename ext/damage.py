@@ -1,10 +1,6 @@
-'''
-Section 'Damage' =============================================================
-'''
 import io
 import math
 import urlparse
-from hashlib import md5
 
 import html2text
 from PIL import Image
@@ -87,8 +83,7 @@ class SiteDamage:
             # <http://mementoweb.org/terms/donotnegotiate>; rel="type"
             if 'headers' in log and 'Link' in log['headers'] \
                     and not is_blacklisted:
-                if log['headers']['Link'] == '<http://mementoweb.org/terms/' \
-                                             'donotnegotiate>; rel="type"':
+                if log['headers']['Link'] == '<http://mementoweb.org/terms/donotnegotiate>; rel="type"':
                     is_blacklisted = True
 
             # If not blacklisted, put into temporary array
@@ -536,22 +531,18 @@ if __name__ == "__main__":
         output_dir = sys.argv[2]
         background_color = sys.argv[3] if len(sys.argv) >= 3 else 'FFFFFF'
 
-        hashed_url = md5(uri).hexdigest()
-
         # Resolve file path
-        html_file = os.path.join(output_dir, hashed_url, 'source.html')
-        log_file = os.path.join(output_dir, hashed_url, 'network.log')
-        image_logs_file = os.path.join(output_dir, hashed_url, 'image.log')
-        css_logs_file = os.path.join(output_dir, hashed_url, 'css.log')
-        mlm_logs_file = os.path.join(output_dir, hashed_url, 'video.log')
-        screenshot_dir = os.path.join(output_dir, hashed_url)
+        html_file = os.path.join(output_dir, 'source.html')
+        log_file = os.path.join(output_dir, 'network.log')
+        image_logs_file = os.path.join(output_dir, 'image.log')
+        css_logs_file = os.path.join(output_dir, 'css.log')
+        mlm_logs_file = os.path.join(output_dir, 'video.log')
 
         # Read log contents
         h = html2text.HTML2Text()
         h.ignore_links = True
         text = h.handle(u' '.join([
-            line.strip() for line in io.open(html_file, "r",
-                                    encoding="utf-8").readlines()
+            line.strip() for line in io.open(html_file, "r", encoding="utf-8").readlines()
         ]))
 
         logs = [json.loads(log) for log in
@@ -569,7 +560,7 @@ if __name__ == "__main__":
 
         # Calculate site damage
         damage = SiteDamage(text, logs, image_logs, css_logs, mlm_logs,
-                            screenshot_dir, background_color)
+                            output_dir, background_color)
         damage.calculate_all()
 
         result = {}
