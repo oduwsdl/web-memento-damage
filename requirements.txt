@@ -1,9 +1,0 @@
-backports-abc==0.5
-certifi==2016.9.26
-html2text==2016.9.19
-Pillow==3.4.2
-singledispatch==3.4.0.3
-six==1.10.0
-SQLAlchemy==1.1.4
-tornado==4.4.2
-unicodecsv==0.14.1

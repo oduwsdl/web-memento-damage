@@ -2,7 +2,7 @@ cache/*
 env-*/*
 .idea/*
 *.pyc
-app.db
-app.log
-memento_damage.pem
-memento_damage.ppk
+*.db
+*.log
+*.pem
+*.ppk
