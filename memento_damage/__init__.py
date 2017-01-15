@@ -1,4 +1,5 @@
 import errno
+import io
 import json
 import logging
 import os
@@ -9,9 +10,9 @@ from hashlib import md5
 from optparse import OptionParser
 
 import html2text
-import io
 
 from memento_damage.damage_analysis import MementoDamageAnalysis
+from memento_damage.web import flask_app
 
 base_dir = os.path.join(os.path.dirname(__file__))
 base_dir = os.path.abspath(base_dir)
@@ -32,7 +33,7 @@ class MementoDamage(object):
     _result = None
 
     def __init__(self, uri, output_dir, options={}):
-        self._uri = uri
+        self._uri = str(uri)
         self._output_dir = output_dir
 
         # Setup options
@@ -150,6 +151,9 @@ class MementoDamage(object):
 
         return self._result
 
+    def get_result(self):
+        return self._result
+
     def print_result(self):
         # Print total damage
         if self._result:
@@ -255,7 +259,6 @@ def main():
     damage = MementoDamage(uri, output_dir, options)
     damage.run()
     damage.print_result()
-
 
 if __name__ == "__main__":
     main()

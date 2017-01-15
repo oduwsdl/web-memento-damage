@@ -10,6 +10,8 @@ setup(
     install_requires=[
         'pillow',
         'html2text',
+        'flask',
+        'Flask-SQLAlchemy'
     ],
     url='https://github.com/erikaris/web-memento-damage',
     license='',

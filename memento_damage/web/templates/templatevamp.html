@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>{% block title %}{% endblock %} - MementoDamage</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+  <!-- <link href="{{ url_for('static', filename='assets/templatevamp/css/bootstrap-responsive.min.css') }}" rel="stylesheet"> -->
+  <link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600" rel="stylesheet">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <link href="{{ url_for('static', filename='assets/highlight.js/styles/default.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='assets/templatevamp/css/style.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='assets/templatevamp/css/widget.css') }}" rel="stylesheet">
+
+  <style>
+    body {
+      /*font: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;*/
+      font: Lora,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    }
+
+    .navbar {
+      margin-bottom: 0;
+      border: 0px;
+    }
+
+    .navbar-inner {
+      background: #5b0021 !important;
+    }
+
+    .navbar-brand {
+      color: #fff;
+    }
+
+    .navbar-brand:focus, .navbar-brand:hover {
+      color: #cecdcd;
+      text-decoration: none;
+    }
+
+    .nav>li>a:focus, .nav>li>a:hover {
+      color: #cecdcd !important;
+      background-color: transparent;
+    }
+
+    .main {
+      border-bottom: 0px;
+    }
+
+    .footer {
+      border-top: 0px;
+    }
+
+    .footer-inner {
+      background: none;
+    }
+
+    .h1, .h2, .h3, h1, h2, h3 {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .btn-success {
+      background-color: #5b0021;
+      border-color: #3c0016;
+    }
+
+    .btn-success:hover {
+      background-color: #5b0021;
+      border-color: #3c0016;
+    }
+
+    .frame {
+      display: inline-block;
+      position: relative;
+      width: 100%;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+    }
+    .frame .aspect {
+      margin-top: 75%; /* 4:3 aspect ratio */
+    }
+    .frame .inner {
+      position: absolute;
+      top: 5px;
+      bottom: 5px;
+      left: 5px;
+      right: 5px;
+      border-radius: 5px;
+      overflow: hidden;
+      background-color: #FFF;
+    }
+    .frame img {
+      width: 100%;
+    }
+  </style>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+  <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+  <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  {% block head %}{% endblock %}
+</head>
+
+<body>
+  <div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <i class="fa fa-bars" aria-hidden="true"></i>
+          </button>
+          <a class="navbar-brand" href="/">MementoDamage</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/">Home</a></li>
+            <li><a href="/api">API</a></li>
+            <li><a href="/faq">Faq</a></li>
+            <li><a href="/help">Help</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /navbar -->
+
+  {% block content %}{% endblock %}
+
+  <nav class="footer navbar" style="position: static;">
+    <div class="footer-inner">
+      <div class="container">
+        <div class="row">
+            <div class="span12">
+              <p class="text-muted">
+                Copyright &copy; <a href="http://ws-dl.blogspot.com/">Web Science and Digital Libraries -
+                Department of Computer Science, Old Dominion University, Norfolk VA - 23529</a>, 2016.<br/>
+                Template by <a href="http://www.egrappler.com/">Egrappler</a>.
+              </p>
+            </div>
+          </div>
+      </div>
+    </div>
+  </nav>
+  <!-- /footer -->
+
+  <!-- Le javascript
+================================================== -->
+  <!-- Placed at the end of the document so the pages load faster -->
+
+  <script type="text/javascript">
+    if ($("body").height() <= $(window).height()) {
+      $('.footer').addClass('navbar-fixed-bottom');
+    }
+  </script>
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']]
+      },
+      CommonHTML: { linebreaks: { automatic: true } },
+      "HTML-CSS": { linebreaks: { automatic: true } },
+      SVG: { linebreaks: { automatic: true } }
+    });
+  </script>
+  <script async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
+
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+  <script src="{{ url_for('static', filename='assets/elevatezoom/jquery.elevatezoom.js') }}"></script>
+  <script src="{{ url_for('static', filename='assets/highlight.js/highlight.pack.js') }}"></script>
+  <script src="{{ url_for('static', filename='assets/highlight.js/highlightjs-line-numbers.min.js') }}"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+
+  <script src="{{ url_for('static', filename='assets/templatevamp/js/base.js') }}"></script>
+
+  {% block tail %}{% endblock %}
+</body>
+
+</html>
