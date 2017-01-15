@@ -12,7 +12,6 @@ from optparse import OptionParser
 import html2text
 
 from memento_damage.damage_analysis import MementoDamageAnalysis
-from memento_damage.web import flask_app
 
 base_dir = os.path.join(os.path.dirname(__file__))
 base_dir = os.path.abspath(base_dir)

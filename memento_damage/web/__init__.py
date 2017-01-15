@@ -22,11 +22,10 @@ class ModifiedLoader(DispatchingJinjaLoader):
             yield self.app, loader
 
 
-# Define the WSGI application object
-flask_app = Flask(__name__)
+def create_flask_app(options):
+    # Define the WSGI application object
+    flask_app = Flask(__name__)
 
-
-def configure_flask_app(options):
     # Configurations
     flask_app.config.from_mapping(options)
     flask_app.jinja_options = Flask.jinja_options.copy()
@@ -56,6 +55,8 @@ def configure_flask_app(options):
     # Build the database:
     # This will create the database file using SQLAlchemy
     db.create_all()
+
+    return flask_app
 
 
 def main():
@@ -88,7 +89,7 @@ def main():
     options['CSRF_SESSION_KEY']                 = 'secret'
     options['SECRET_KEY']                       = 'secret'
 
-    configure_flask_app(options)
+    flask_app = create_flask_app(options)
     flask_app.run(host=options['HOST'], port=options['PORT'], debug=options['DEBUG'],
             threaded=True, use_reloader=False)
 
