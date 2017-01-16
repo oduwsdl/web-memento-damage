@@ -22,42 +22,55 @@ class ModifiedLoader(DispatchingJinjaLoader):
             yield self.app, loader
 
 
-def create_flask_app(options):
-    # Define the WSGI application object
-    flask_app = Flask(__name__)
+flask_app = None
 
-    # Configurations
-    flask_app.config.from_mapping(options)
-    flask_app.jinja_options = Flask.jinja_options.copy()
-    flask_app.jinja_options['loader'] = ModifiedLoader(flask_app)
+class FlaskApp(Flask):
+    def __init__(self, options):
+        Flask.__init__(self, __name__)
 
-    # Define the database object which is imported
-    # by modules and controllers
-    db = SQLAlchemy(flask_app)
+        global flask_app
+        flask_app = self
 
-    # Sample HTTP error handling
-    @flask_app.errorhandler(404)
-    def not_found(error):
-        return render_template('404.html'), 404
+        # Configurations
+        self.config.from_mapping(options)
+        self.jinja_options = Flask.jinja_options.copy()
+        self.jinja_options['loader'] = ModifiedLoader(self)
 
-    # Load all modules
-    modules_dir = os.path.join(options['BASE_DIR'], 'modules')
-    sys.path.append(modules_dir)
-    for importer, package_name, _ in pkgutil.iter_modules([modules_dir]):
-        importer.find_module(package_name).load_module(package_name)
+        self.configure_database()
+        self.load_modules()
+        self.create_database()
 
-    # Register modules
-    for mod_cls in Blueprint.__subclasses__():
-        if str(mod_cls.__module__).startswith('mod'):
-            mod = mod_cls()
-            flask_app.register_blueprint(mod)
+    def configure_database(self):
+        # Define the database object which is imported
+        # by modules and controllers
+        self.db = SQLAlchemy(self)
 
-    # Build the database:
-    # This will create the database file using SQLAlchemy
-    db.create_all()
+    def load_modules(self):
+        # Sample HTTP error handling
+        @self.errorhandler(404)
+        def not_found(error):
+            return render_template('404.html'), 404
 
-    return flask_app
+        # Load all modules
+        modules_dir = os.path.join(self.config['BASE_DIR'], 'modules')
+        sys.path.append(modules_dir)
+        for importer, package_name, _ in pkgutil.iter_modules([modules_dir]):
+            importer.find_module(package_name).load_module(package_name)
 
+        # Register modules
+        for mod_cls in Blueprint.__subclasses__():
+            if str(mod_cls.__module__).startswith('mod'):
+                mod = mod_cls()
+                self.register_blueprint(mod)
+
+    def create_database(self):
+        # Build the database:
+        # This will create the database file using SQLAlchemy
+        self.db.create_all()
+
+    def run_server(self):
+        self.run(host=self.config['HOST'], port=self.config['PORT'], debug=self.config['DEBUG'],
+                      threaded=True, use_reloader=False)
 
 def main():
     parser = OptionParser()
@@ -89,9 +102,7 @@ def main():
     options['CSRF_SESSION_KEY']                 = 'secret'
     options['SECRET_KEY']                       = 'secret'
 
-    flask_app = create_flask_app(options)
-    flask_app.run(host=options['HOST'], port=options['PORT'], debug=options['DEBUG'],
-            threaded=True, use_reloader=False)
+    FlaskApp(options).run_server()
 
 
 if __name__ == "__main__":
