@@ -91,7 +91,7 @@ class FlaskApp(Flask):
 def main():
     parser = OptionParser()
     parser.add_option("-O", "--output-dir",
-                      dest="CACHE_DIR", default=os.getcwd(),
+                      dest="CACHE_DIR", default=None,
                       help="output directory (optional)")
     parser.add_option("-H", "--host",
                       dest="HOST", default='0.0.0.0',
