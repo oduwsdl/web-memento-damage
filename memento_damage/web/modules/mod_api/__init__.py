@@ -45,7 +45,7 @@ class API(Blueprint):
                     if idx >= start:
                         lines_to_send.append(line.strip())
 
-                return Response(response='\n'.join(lines_to_send), status=200, mimetype='text/plain')
+                return Response(response=json.dumps(lines_to_send), status=200, mimetype='application/json')
 
         @self.route('/damage/error/<path:uri>', methods=['GET'])
         def api_damage_error(uri):

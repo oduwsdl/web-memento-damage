@@ -68,7 +68,7 @@ class MementoDamage(object):
         log_stdout_handler.setFormatter(log_formatter)
 
         # To file
-        log_file_handler = logging.FileHandler(self.app_log_file)
+        log_file_handler = logging.FileHandler(self.app_log_file, mode='w')
         log_file_handler.setFormatter(log_formatter)
 
         # Configure logger

@@ -766,18 +766,13 @@
     log = $('#log code')
     totalLines = 0
 
-    function onCheckProgressFinished(uri, result) {
-      if(result.length > 0) {
-        lines = result.split('\n');
-        lines.forEach(function(line) {
-          log.append(line + '\n');
-        });
+    function onCheckProgressFinished(uri, lines) {
+      lines.forEach(function(line) {
+        var result = hljs.highlightAuto(line);
+        log.append('<div>' + result.value + '</div>');
+      });
 
-        hljs.highlightBlock(log[0]);
-        hljs.lineNumbersBlock(log[0]);
-
-        totalLines += lines.length;
-      }
+      totalLines += lines.length;
 
       if(!checkDamageFinished) {
         progressCheckDamageUriM('{{ url }}', totalLines, onCheckProgressFinished)
