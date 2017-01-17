@@ -688,8 +688,14 @@
       if(result['is_archive'] == true) {
         $('#alert-is-archive').show();
         $('#archive-time').html(result['archive_time']);
-        $('#fresh-uri').attr('href', window.location.href + '&fresh=true')
-          .html(window.location.href + '&fresh=true');
+
+        var url_hash = window.location.href.split('#');
+        var url_fresh = url_hash[0] + '&fresh=true';
+        if(url_hash.length > 1) {
+          url_fresh += '#' + url_hash[1]
+        }
+
+        $('#fresh-uri').attr('href', url_fresh).html(url_fresh);
       }
 
       // Show summary ==================================================================
