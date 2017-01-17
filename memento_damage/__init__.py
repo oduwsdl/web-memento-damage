@@ -4,6 +4,7 @@ import json
 import logging
 import os
 import sys
+import tempfile
 import time
 from datetime import datetime
 from hashlib import md5
@@ -58,7 +59,6 @@ class MementoDamage(object):
         if 'info' in options: self._info = options['info']
         if 'mode' in options: self._mode = options['mode']
         if 'redirect' in options: self._follow_redirection = options['redirect']
-        if 'clean_cache' in options: self._clean_cache = options['clean_cache']
 
         # Setup logger --> to show debug verbosity
         log_formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
@@ -212,7 +212,7 @@ class MementoDamage(object):
 
 def main():
     parser = OptionParser()
-    parser.set_usage(parser.get_usage().replace('\n', '') + ' <URI> <output_dir>')
+    parser.set_usage(parser.get_usage().replace('\n', '') + ' <URI>')
     parser.add_option("-m", "--mode",
                       dest="mode", default="simple",
                       help="output mode: simple or json [default: %default]")
@@ -225,34 +225,44 @@ def main():
     parser.add_option("-L", "--redirect",
                       action="store_true", dest="redirect", default=False,
                       help="follow url redirection")
-    parser.add_option("-k", "--keep-cache",
-                      action="store_false", dest="clean_cache", default=True,
-                      help="dont clean cache after process finished")
+    parser.add_option("-O", "--output-dir",
+                      dest="output_dir", default=None,
+                      help="output directory (optional)")
 
     (options, args) = parser.parse_args()
     options = vars(options)
 
-    if len(args) < 2:
+    if len(args) < 1:
         parser.print_help()
         exit()
 
     uri = args[0]
+
+    is_use_tempdir = False
+    # If option -O is provided, use it
+    if options['output_dir']:
+        output_dir = options['output_dir']
+        if not os.path.isabs(output_dir):
+            output_dir = os.path.join(os.getcwd(), output_dir)
+            output_dir = os.path.abspath(output_dir)
+    # Otherwise make temp dir
+    else:
+        output_dir = tempfile.mkdtemp()
+        is_use_tempdir = True
+
     hashed_url = md5(uri).hexdigest()
-    output_dir = args[1]
-
-    if not os.path.isabs(output_dir):
-        output_dir = os.path.join(os.getcwd(), output_dir)
-        output_dir = os.path.abspath(output_dir)
-
     output_dir = os.path.join(output_dir, hashed_url)
 
+    # Make output_dir recursive
     try:
         os.makedirs(output_dir)
     except OSError, e:
-        if e.errno != errno.EEXIST:
-            raise
+        if e.errno != errno.EEXIST: raise
 
+    # Instantiate and run
     damage = MementoDamage(uri, output_dir, options)
+    if not is_use_tempdir:
+        damage.set_dont_clean_cache_on_finish()
     damage.run()
     damage.print_result()
 
