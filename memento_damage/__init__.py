@@ -61,7 +61,7 @@ class MementoDamage(object):
         if 'redirect' in options: self._follow_redirection = options['redirect']
 
         # Setup logger --> to show debug verbosity
-        log_formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
+        log_formatter = logging.Formatter('%(asctime)s %(name)s %(levelname)s %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
 
         # To stdout
         log_stdout_handler = logging.StreamHandler(sys.stdout)
@@ -213,6 +213,9 @@ class MementoDamage(object):
 def main():
     parser = OptionParser()
     parser.set_usage(parser.get_usage().replace('\n', '') + ' <URI>')
+    parser.add_option("-O", "--output-dir",
+                      dest="output_dir", default=None,
+                      help="output directory (optional)")
     parser.add_option("-m", "--mode",
                       dest="mode", default="simple",
                       help="output mode: simple or json [default: %default]")
@@ -225,9 +228,6 @@ def main():
     parser.add_option("-L", "--redirect",
                       action="store_true", dest="redirect", default=False,
                       help="follow url redirection")
-    parser.add_option("-O", "--output-dir",
-                      dest="output_dir", default=None,
-                      help="output directory (optional)")
 
     (options, args) = parser.parse_args()
     options = vars(options)
@@ -238,7 +238,7 @@ def main():
 
     uri = args[0]
 
-    is_use_tempdir = False
+    use_tempdir = False
     # If option -O is provided, use it
     if options['output_dir']:
         output_dir = options['output_dir']
@@ -248,7 +248,7 @@ def main():
     # Otherwise make temp dir
     else:
         output_dir = tempfile.mkdtemp()
-        is_use_tempdir = True
+        use_tempdir = True
 
     hashed_url = md5(uri).hexdigest()
     output_dir = os.path.join(output_dir, hashed_url)
@@ -261,7 +261,7 @@ def main():
 
     # Instantiate and run
     damage = MementoDamage(uri, output_dir, options)
-    if not is_use_tempdir:
+    if not use_tempdir:
         damage.set_dont_clean_cache_on_finish()
     damage.run()
     damage.print_result()
