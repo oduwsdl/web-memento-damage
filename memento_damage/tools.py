@@ -1,20 +1,28 @@
 import os
+import re
 from subprocess import Popen, PIPE
 from threading import Thread
 
 
-def rmdir_recursive(d):
+def rmdir_recursive(d, exception_files=[]):
     for path in (os.path.join(d, f) for f in os.listdir(d)):
         if os.path.isdir(path):
             rmdir_recursive(path)
         else:
-            os.unlink(path)
+            remove = True
+            for ef in exception_files:
+                matches = re.findall(r'' + ef, path)
+                if len(matches) > 0:
+                    remove = False
+                    break
+
+            if remove:
+                os.unlink(path)
 
     try:
         os.rmdir(d)
     except OSError, e:
-        if e.errno != os.errno.ENOTEMPTY:
-            print e
+        if e.errno != os.errno.ENOTEMPTY: pass
 
 
 class Command(object):

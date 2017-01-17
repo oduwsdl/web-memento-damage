@@ -9,8 +9,6 @@ from datetime import datetime
 from hashlib import md5
 from optparse import OptionParser
 
-import html2text
-
 from memento_damage.damage_analysis import MementoDamageAnalysis
 
 base_dir = os.path.join(os.path.dirname(__file__))
@@ -20,9 +18,19 @@ from memento_damage.tools import Command, rmdir_recursive
 
 
 class MementoDamage(object):
-    _crawljs_script = os.path.join(base_dir, 'phantomjs', 'crawl.js')
-    _background_color = 'FFFFFF'
+    # Define all output files
+    APP_LOG_FILE_NAME = 'app.log'
+    HTML_FILE_NAME = 'source.html'
+    NETWORK_LOG_FILE_NAME = 'network.log'
+    IMAGE_LOG_FILE_NAME = 'image.log'
+    CSS_LOG_FILE_NAME = 'css.log'
+    VIDEO_LOG_FILE_NAME = 'video.log'
+    SCREENSHOT_FILE_NAME = 'screenshot.png'
+    JSON_RESULT_FILE_NAME = 'result.json'
 
+    background_color = 'FFFFFF'
+
+    _crawljs_script = os.path.join(base_dir, 'phantomjs', 'crawl.js')
     _debug = False
     _info = False
     _mode = 'simple'
@@ -32,10 +40,20 @@ class MementoDamage(object):
     _result = None
 
     def __init__(self, uri, output_dir, options={}):
-        self._uri = str(uri)
-        self._output_dir = output_dir
+        self.uri = str(uri)
+        self.output_dir = output_dir
 
-        # Setup options
+        # Initialize variable
+        self.app_log_file = os.path.join(self.output_dir, self.APP_LOG_FILE_NAME)
+        self.html_file = os.path.join(self.output_dir, self.HTML_FILE_NAME)
+        self.network_log_file = os.path.join(self.output_dir, self.NETWORK_LOG_FILE_NAME)
+        self.image_log_file = os.path.join(self.output_dir, self.IMAGE_LOG_FILE_NAME)
+        self.css_log_file = os.path.join(self.output_dir, self.CSS_LOG_FILE_NAME)
+        self.video_log_file = os.path.join(self.output_dir, self.VIDEO_LOG_FILE_NAME)
+        self.screenshot_file = os.path.join(self.output_dir, self.SCREENSHOT_FILE_NAME)
+        self.json_result_file = os.path.join(self.output_dir, self.JSON_RESULT_FILE_NAME)
+
+        # options
         if 'debug' in options: self._debug = options['debug']
         if 'info' in options: self._info = options['info']
         if 'mode' in options: self._mode = options['mode']
@@ -50,41 +68,40 @@ class MementoDamage(object):
         log_stdout_handler.setFormatter(log_formatter)
 
         # To file
-        app_log_file = os.path.join(self._output_dir, 'app.log')
-        log_file_handler = logging.FileHandler(app_log_file)
+        log_file_handler = logging.FileHandler(self.app_log_file)
         log_file_handler.setFormatter(log_formatter)
 
         # Configure logger
-        self._logger = logging.getLogger(uri)
-        self._logger.addHandler(log_file_handler)
-        self._logger.addHandler(log_stdout_handler)
+        self.logger = logging.getLogger(uri)
+        self.logger.addHandler(log_file_handler)
+        self.logger.addHandler(log_stdout_handler)
 
         self.setup_logger()
 
     def setup_logger(self):
         if self._info:
-            self._logger.setLevel(logging.INFO)
+            self.logger.setLevel(logging.INFO)
         elif self._debug:
-            self._logger.setLevel(logging.DEBUG)
+            self.logger.setLevel(logging.DEBUG)
         else:
-            self._logger.setLevel(logging.ERROR)
+            self.logger.setLevel(logging.ERROR)
 
-    def log_stdout(self, out, write_fn, result_file):
+    def log_stdout(self, out, write_fn):
         if out and hasattr(out, 'readline'):
             for line in iter(out.readline, b''):
                 line = line.strip()
-                write_fn(line, result_file)
+                write_fn(line)
         else:
-            write_fn(out, result_file)
+            write_fn(out)
 
-    def log_output(self, msg, result_file):
-        if self._logger.level == logging.DEBUG: self._logger.debug(msg)
-        elif self._logger.level == logging.INFO: self._logger.info(msg)
+    def log_output(self, msg):
+        if self.logger.level == logging.DEBUG: self.logger.debug(msg)
+        elif self.logger.level == logging.INFO: self.logger.info(msg)
 
         if 'background_color' in msg:
             msg = json.loads(msg)
             if msg['background_color']:
-                self._background_color = msg['background_color']
+                self.background_color = msg['background_color']
 
         if 'crawl_result' in msg:
             msg = json.loads(msg)
@@ -95,11 +112,11 @@ class MementoDamage(object):
                 self.response_time = datetime.now()
 
                 if self._mode == 'simple':
-                    self._logger.error(crawl_result['message'])
+                    self.logger.error(crawl_result['message'])
                 elif self._mode == 'json':
-                    self._logger.error(json.dumps(crawl_result, indent=4))
+                    self.logger.error(json.dumps(crawl_result, indent=4))
                 else:
-                    self._logger.error('Choose mode "simple" or "json"')
+                    self.logger.error('Choose mode "simple" or "json"')
 
     def log_stderr(self, out, write_fn):
         if out and hasattr(out, 'readline'):
@@ -110,23 +127,20 @@ class MementoDamage(object):
             write_fn(out)
 
     def log_error(self, msg):
-        self._logger.error(msg)
+        self.logger.error(msg)
 
     def run(self):
         self.request_time = datetime.now()
-
-        # Define output files location
-        damage_result_file = os.path.join(self._output_dir, 'result.json')
 
         # Crawl page with phantomjs crawl.js via arguments
         # Equivalent with console:
         phantomjs = os.getenv('PHANTOMJS', 'phantomjs')
 
-        pjs_cmd = [phantomjs, '--ssl-protocol=any', self._crawljs_script, self._uri, self._output_dir,
-                   str(self._follow_redirection), str(self._logger.level)]
+        pjs_cmd = [phantomjs, '--ssl-protocol=any', self._crawljs_script, self.uri, self.output_dir,
+                   str(self._follow_redirection), str(self.logger.level)]
         cmd = Command(pjs_cmd, pipe_stdout_callback=self.log_stdout, pipe_stderr_callback=self.log_stderr)
         err_code = cmd.run(10 * 60,
-                           stdout_callback_args=(self.log_output, damage_result_file, ),
+                           stdout_callback_args=(self.log_output, ),
                            stderr_callback_args=(self.log_error, ))
 
         if err_code != 0:
@@ -146,8 +160,10 @@ class MementoDamage(object):
         }
         self._result['calculation_time'] = (self.response_time - self.request_time).seconds
 
-        self._do_clean_cache()
+        # Save output
+        io.open(self.json_result_file, 'wb').write(json.dumps(self._result))
 
+        self._do_clean_cache()
         return self._result
 
     def get_result(self):
@@ -157,34 +173,15 @@ class MementoDamage(object):
         # Print total damage
         if self._result:
             if self._mode == 'simple':
-                print('Total damage of {} is {}'.format(self._uri, str(self._result['total_damage'])))
+                print('Total damage of {} is {}'.format(self.uri, str(self._result['total_damage'])))
             elif self._mode == 'json':
                 print(json.dumps(self._result, indent=4))
             else:
-                self._logger.error('Choose mode "simple" or "json"')
+                self.logger.error('Choose mode "simple" or "json"')
 
     def _do_analysis(self):
-        # Resolve file path
-        html_file = os.path.join(self._output_dir, 'source.html')
-        log_file = os.path.join(self._output_dir, 'network.log')
-        image_logs_file = os.path.join(self._output_dir, 'image.log')
-        css_logs_file = os.path.join(self._output_dir, 'css.log')
-        mlm_logs_file = os.path.join(self._output_dir, 'video.log')
-        screenshot_file = os.path.join(self._output_dir, 'screenshot.png')
-
-        # Read log contents
-        h = html2text.HTML2Text()
-        h.ignore_links = True
-
-        text = h.handle(u' '.join([line.strip() for line in io.open(html_file, "r", encoding="utf-8").readlines()]))
-        logs = [json.loads(log) for log in open(log_file).readlines()]
-        image_logs = [json.loads(log) for log in open(image_logs_file).readlines()]
-        css_logs = [json.loads(log) for log in open(css_logs_file).readlines()]
-        mlm_logs = [json.loads(log) for log in open(mlm_logs_file).readlines()]
-
         # Calculate damage
-        analysis = MementoDamageAnalysis(self._uri, self._output_dir, text, logs, image_logs, css_logs, mlm_logs,
-                                       screenshot_file, self._background_color, self._logger)
+        analysis = MementoDamageAnalysis(self)
         analysis.run()
 
         return analysis.get_result()
@@ -193,7 +190,7 @@ class MementoDamage(object):
         # Remove cache directory
         if self._clean_cache:
             time.sleep(3)
-            rmdir_recursive(self._output_dir)
+            rmdir_recursive(self.output_dir)
 
     def set_show_debug_message(self):
         self._debug = True

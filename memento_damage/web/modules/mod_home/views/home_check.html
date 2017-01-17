@@ -810,7 +810,7 @@
 
   function progressCheckDamageUriM(uri, start, onFinished) {
     setTimeout(function() {
-      $.get('/api/damage/progress/' + encodeURIComponent(uri) + '/' + start, function(result) {
+      $.get('/api/damage/progress/' + encodeURIComponent(uri) + '?start=' + start, function(result) {
         // Call onFinished callback
         onFinished(uri, result)
       });

@@ -1,12 +1,9 @@
 import io
 import json
-import logging
 import math
-import os
 import urlparse
 
 import html2text
-import sys
 from PIL import Image
 
 
@@ -26,39 +23,21 @@ class MementoDamageAnalysis(object):
         '[INTERNAL]'
     ]
 
-    def __init__(self, uri, output_dir, text, logs, image_logs, css_logs, mlm_logs, screenshot_file,
-                 background_color ='FFFFFF', logger=None):
-        self._uri = uri
-        self._output_dir = output_dir
-        self._text = text
-        self._logs = logs
-        self._image_logs = image_logs
-        self._css_logs = css_logs
-        self._mlm_logs = mlm_logs
+    def __init__(self, memento_damage):
+        self.memento_damage = memento_damage
+
+        # Read log contents
+        h = html2text.HTML2Text()
+        h.ignore_links = True
+        self._text = h.handle(u' '.join([line.strip() for line in
+                                         io.open(memento_damage.html_file, "r", encoding="utf-8").readlines()]))
+        self._logs = [json.loads(log) for log in open(memento_damage.network_log_file).readlines()]
+        self._image_logs = [json.loads(log) for log in open(memento_damage.image_log_file).readlines()]
+        self._css_logs = [json.loads(log) for log in open(memento_damage.css_log_file).readlines()]
+        self._mlm_logs = [json.loads(log) for log in open(memento_damage.video_log_file).readlines()]
         self._text_logs = {}
-        self._screenshot_file = screenshot_file
-        self._background_color = background_color
 
-        if not logger:
-            # Setup self._logger --> to show debug verbosity
-            log_formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
-
-            # To stdout
-            log_stdout_handler = logging.StreamHandler(sys.stdout)
-            log_stdout_handler.setFormatter(log_formatter)
-
-            # To file
-            app_log_file = os.path.join(output_dir, 'app.log')
-            log_file_handler = logging.FileHandler(app_log_file)
-            log_file_handler.setFormatter(log_formatter)
-
-            # Configure logger
-            self._logger = logging.getLogger(uri)
-            self._logger.addHandler(log_file_handler)
-            self._logger.addHandler(log_stdout_handler)
-            self._logger.setLevel(logging.DEBUG)
-        else:
-            self._logger = logger
+        self._logger = self.memento_damage.logger
 
     def run(self):
         # Filter blacklisted uris
@@ -81,7 +60,7 @@ class MementoDamageAnalysis(object):
             logs[log['url']] = log
 
         redirect_uris = []
-        self._follow_redirection(self._uri, logs, redirect_uris)
+        self._follow_redirection(self.memento_damage.uri, logs, redirect_uris)
         final_uri, final_status_code = redirect_uris[len(redirect_uris) - 1]
 
         if (not final_status_code) or (final_status_code != 200):
@@ -95,7 +74,7 @@ class MementoDamageAnalysis(object):
 
 
         result = {}
-        result['uri'] = self._uri
+        result['uri'] = self.memento_damage.uri
         result['weight'] = {
             'multimedia': self.multimedia_weight,
             'css': self.css_weight,
@@ -588,7 +567,7 @@ class MementoDamageAnalysis(object):
                 # Open screenshot file
                 # screenshot_file = os.path.join(self.screenshot_dir,
                 #                                '{}.png'.format(log['hash']))
-                im = Image.open(self._screenshot_file)
+                im = Image.open(self.memento_damage.screenshot_file)
                 # Get all pixels
                 pix = im.load()
 
@@ -616,7 +595,7 @@ class MementoDamageAnalysis(object):
                         pix_hex = self._rgb2hex(r_, g_, b_)
 
                         if pix_hex.upper() == \
-                                self._background_color.upper():
+                                self.memento_damage.background_color.upper():
                             whiteguys_col[x] += 1
 
                 # divide width into 3 parts

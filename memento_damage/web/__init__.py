@@ -1,12 +1,16 @@
+import errno
 import os
 import pkgutil
 import sys
+import time
 from optparse import OptionParser
 
 from flask import Flask, Blueprint, render_template
 from flask.globals import _request_ctx_stack
 from flask.templating import DispatchingJinjaLoader
 from flask_sqlalchemy import SQLAlchemy
+
+from memento_damage import rmdir_recursive
 
 
 class ModifiedLoader(DispatchingJinjaLoader):
@@ -30,6 +34,12 @@ class FlaskApp(Flask):
 
         global flask_app
         flask_app = self
+
+        # Make cache dir
+        try:
+            os.makedirs(options['CACHE_DIR'])
+        except OSError, e:
+            if e.errno != errno.EEXIST: raise
 
         # Configurations
         self.config.from_mapping(options)
@@ -72,6 +82,11 @@ class FlaskApp(Flask):
         self.run(host=self.config['HOST'], port=self.config['PORT'], debug=self.config['DEBUG'],
                       threaded=True, use_reloader=False)
 
+        # If CLEAN_CACHE set to True, clean cache directory after server is closed
+        if self.config['CLEAN_CACHE']:
+            time.sleep(3)
+            rmdir_recursive(self.config['CACHE_DIR'], exception_files=[r'app.db'])
+
 def main():
     parser = OptionParser()
     parser.add_option("-C", "--cache-dir",
@@ -86,9 +101,16 @@ def main():
     parser.add_option("-D", "--debug",
                       action="store_true", dest="DEBUG", default=False,
                       help="print server debug messages")
+    parser.add_option("-k", "--keep-cache",
+                      action="store_false", dest="CLEAN_CACHE", default=True,
+                      help="dont clean cache after server closed")
 
     (options, args) = parser.parse_args()
     options = vars(options)
+
+    # Make cache dir absolute
+    if not os.path.isabs(options['CACHE_DIR']):
+        options['CACHE_DIR'] = os.path.abspath(os.path.join(os.getcwd(), options['CACHE_DIR']))
 
     # Add some necessary config variables
     options['BASE_URL']                         = 'http://{}:{}'.format(options['HOST'], options['PORT'])
