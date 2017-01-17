@@ -2,6 +2,7 @@ import errno
 import os
 import pkgutil
 import sys
+import tempfile
 import time
 from optparse import OptionParser
 
@@ -89,28 +90,34 @@ class FlaskApp(Flask):
 
 def main():
     parser = OptionParser()
-    parser.add_option("-C", "--cache-dir",
+    parser.add_option("-O", "--output-dir",
                       dest="CACHE_DIR", default=os.getcwd(),
-                      help="cache directory")
+                      help="output directory (optional)")
     parser.add_option("-H", "--host",
                       dest="HOST", default='0.0.0.0',
                       help="host of server")
     parser.add_option("-P", "--port",
                       dest="PORT", default=8080,
                       help="port of server")
-    parser.add_option("-D", "--debug",
+    parser.add_option("-d", "--debug",
                       action="store_true", dest="DEBUG", default=False,
                       help="print server debug messages")
-    parser.add_option("-k", "--keep-cache",
-                      action="store_false", dest="CLEAN_CACHE", default=True,
-                      help="dont clean cache after server closed")
 
     (options, args) = parser.parse_args()
     options = vars(options)
 
-    # Make cache dir absolute
-    if not os.path.isabs(options['CACHE_DIR']):
-        options['CACHE_DIR'] = os.path.abspath(os.path.join(os.getcwd(), options['CACHE_DIR']))
+    # If option -O is provided, use it
+    if options['CACHE_DIR']:
+        options['CLEAN_CACHE'] = False
+        output_dir = options['CACHE_DIR']
+        # Make output_dir absolute
+        if not os.path.isabs(output_dir):
+            output_dir = os.path.join(os.getcwd(), output_dir)
+            options['CACHE_DIR'] = os.path.abspath(output_dir)
+    # Otherwise make temp dir
+    else:
+        options['CACHE_DIR'] = tempfile.mkdtemp()
+        options['CLEAN_CACHE'] = True
 
     # Add some necessary config variables
     options['BASE_URL']                         = 'http://{}:{}'.format(options['HOST'], options['PORT'])
