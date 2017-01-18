@@ -1,0 +1,9 @@
+cache/*
+env-*/
+dist/*
+.idea/*
+*.pyc
+app.db
+app.log
+memento_damage.pem
+memento_damage.ppk
