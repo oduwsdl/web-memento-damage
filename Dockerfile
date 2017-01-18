@@ -15,7 +15,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y phantomjs
 # Clean apt cache
 RUN DEBIAN_FRONTEND=noninteractive apt-get clean
 
-# Make temporary dir to put library file
+# Make temporary dir to put library file --> install it
 RUN mkdir -p /tmp/app
 COPY . /tmp/app
 
@@ -27,4 +27,6 @@ RUN mkdir -p /app
 COPY ./entrypoint.sh /app
 
 # Run entrypoint at startup
+PORT = 80
+EXPOSE $PORT
 ENTRYPOINT /app/entrypoint.sh
