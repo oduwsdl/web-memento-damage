@@ -30,4 +30,5 @@ RUN chmod +x -R /app/entrypoint.sh
 # Run entrypoint at startup
 ENV PORT 80
 EXPOSE $PORT
-ENTRYPOINT /app/entrypoint.sh
+ENTRYPOINT ["/bin/sh", "-c"]
+CMD ["/app/entrypoint.sh"]
