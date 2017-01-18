@@ -19,8 +19,8 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get clean
 RUN mkdir -p /tmp/app
 COPY . /tmp/app
 
-RUN pip install -U setuptools
-RUN pip install /tmp/app
+RUN pip install -U setuptools --no-cache-dir
+RUN pip install /tmp/app --no-cache-dir
 
 # Copy entrypoint to /server
 RUN mkdir -p /app
