@@ -27,6 +27,6 @@ RUN mkdir -p /app
 COPY ./entrypoint.sh /app
 
 # Run entrypoint at startup
-PORT = 80
+ENV PORT 80
 EXPOSE $PORT
 ENTRYPOINT /app/entrypoint.sh
