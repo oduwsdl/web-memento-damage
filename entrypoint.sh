@@ -1,6 +1,4 @@
 #!/usr/bin/env bash
 
 nohup /display/desktop.sh
-nohup memento-damage-server -P $PORT &
-
-bash
+memento-damage-server -P $PORT
