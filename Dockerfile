@@ -25,6 +25,7 @@ RUN pip install /tmp/app --no-cache-dir
 # Copy entrypoint to /server
 RUN mkdir -p /app
 COPY ./entrypoint.sh /app
+RUN chmod +x -R /app/entrypoint.sh
 
 # Run entrypoint at startup
 ENV PORT 80
