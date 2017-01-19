@@ -7,7 +7,7 @@ Memento Damage is a tool that help us to estimate damage of webpage.
 Docker
 ======
 
-Memento Damage can be used as docker container. There are two mode available, ``server`` and ``cli``. 
+Memento Damage can be used as docker container. There are two modes available, ``server`` and ``cli``. 
 
 Server Mode
 -----------
@@ -47,4 +47,4 @@ Then execute ``damage`` using command as below. If using ``csv`` input, put it f
 damage <uri or csv>
 ```
     
-The result will be appeared in both ``terminal`` and ``<local-path>/result.csv``.
+The result will appear in both ``terminal`` and ``<local-path>/result.csv``.
