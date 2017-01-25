@@ -29,12 +29,11 @@ class MementoDamageAnalysis(object):
         # Read log contents
         h = html2text.HTML2Text()
         h.ignore_links = True
-        self._text = h.handle(u' '.join([line.strip() for line in
-                                         io.open(memento_damage.html_file, "r", encoding="utf-8").readlines()]))
-        self._logs = [json.loads(log) for log in open(memento_damage.network_log_file).readlines()]
-        self._image_logs = [json.loads(log) for log in open(memento_damage.image_log_file).readlines()]
-        self._css_logs = [json.loads(log) for log in open(memento_damage.css_log_file).readlines()]
-        self._mlm_logs = [json.loads(log) for log in open(memento_damage.video_log_file).readlines()]
+        self._text = h.handle(u' '.join([line.strip() for line in io.open(memento_damage.html_file, encoding="utf-8").readlines()]))
+        self._logs = [json.loads(log, strict=False) for log in io.open(memento_damage.network_log_file, encoding="utf-8").readlines()]
+        self._image_logs = [json.loads(log, strict=False) for log in io.open(memento_damage.image_log_file, encoding="utf-8").readlines()]
+        self._css_logs = [json.loads(log, strict=False) for log in io.open(memento_damage.css_log_file, encoding="utf-8").readlines()]
+        self._mlm_logs = [json.loads(log, strict=False) for log in io.open(memento_damage.video_log_file, encoding="utf-8").readlines()]
         self._text_logs = {}
 
         self._logger = self.memento_damage.logger
