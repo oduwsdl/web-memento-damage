@@ -69,19 +69,21 @@ else {
 
     // Request will be execute before resource received
     page.onResourceRequested = function(res, req) {
+        if(isAborted) req.abort();
+
         if(!followRedirect && (pageStatusCode === 301 || pageStatusCode === 302)) {
             isAborted = true;
             if(pageStatusCode === 301) {
-                abortMessage = '301 Move Permanently';
+                abortMessage = 'Page is moved permanently (Status code 301)';
             } else if(pageStatusCode === 302) {
-                abortMessage = '302 Found';
+                abortMessage = 'Page is found, but redirected (Status code 302)';
             }
             req.abort();
         }
 
         else if(pageStatusCode == 404) {
             isAborted = true;
-            abortMessage = '404 Not Found';
+            abortMessage = 'Page not found (Status code 404)';
             req.abort();
         }
     };
@@ -93,6 +95,10 @@ else {
         if (resUrl == url) {
             pageStatusCode = res.status;
             if(logLevel <= Log.INFO && res.stage === 'start') console.log('Receiving resource(s)');
+        }
+
+        if((!followRedirect && (pageStatusCode === 301 || pageStatusCode === 302)) || (pageStatusCode == 404)) {
+            return;
         }
 
         if(res.stage === 'start') {
@@ -122,24 +128,30 @@ else {
         }
     };
 
-    page.onLoadFinished =  function (status) {
+    page.onLoadFinished = function (status) {
         if(isAborted) {
-            if(logLevel <= Log.ERROR) console.error(JSON.stringify({'crawl-result' : {
+            processPage(url, outputDir);
+
+            console.error(JSON.stringify({'crawl-result' : {
               'uri' : url,
               'status_code' : pageStatusCode,
               'error' : true,
               'message' : abortMessage
             }}));
-            phantom.exit(1);
+
+            phantom.exit(pageStatusCode);
         }
 
         else if (status !== 'success') {
-            if(logLevel <= Log.ERROR) console.error(JSON.stringify({'crawl-result' : {
+            processPage(url, outputDir);
+
+            console.error(JSON.stringify({'crawl-result' : {
               'uri' : url,
               'status_code' : pageStatusCode,
               'error' : true,
-              'message' : 'Unable to load the url'
+              'message' : 'Error in loading url. Check log for detail information.'
             }}));
+
             phantom.exit(1);
         }
 
@@ -169,7 +181,7 @@ else {
 
                     // Show message that crawl finished, and calculate executing time
                     if(logLevel <= Log.INFO) console.log('Crawl finished in ' + (finishtime - starttime) + ' miliseconds');
-                    if(logLevel <= Log.DEBUG) console.log(JSON.stringify({'crawl_result' : {
+                    if(logLevel <= Log.DEBUG) console.log(JSON.stringify({'crawl-result' : {
                       'uri' : url,
                       'status_code' : pageStatusCode,
                       'error' : false,

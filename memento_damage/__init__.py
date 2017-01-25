@@ -96,17 +96,33 @@ class MementoDamage(object):
             write_fn(out)
 
     def log_output(self, msg):
-        if self.logger.level == logging.DEBUG: self.logger.debug(msg)
-        elif self.logger.level == logging.INFO: self.logger.info(msg)
-
         if 'background_color' in msg:
             msg = json.loads(msg)
             if msg['background_color']:
                 self.background_color = msg['background_color']
+                return
 
-        if 'crawl_result' in msg:
+        if 'crawl-result' in msg:
             msg = json.loads(msg)
-            crawl_result = msg['crawl_result']
+            crawl_result = msg['crawl-result']
+            self._crawl_result = crawl_result
+            msg = crawl_result['message']
+
+        if self.logger.level == logging.DEBUG: self.logger.debug(msg)
+        elif self.logger.level == logging.INFO: self.logger.info(msg)
+
+    def log_stderr(self, out, write_fn):
+        if out and hasattr(out, 'readline'):
+            for line in iter(out.readline, b''):
+                line = line.strip()
+                write_fn(line)
+        else:
+            write_fn(out)
+
+    def log_error(self, msg):
+        if 'crawl-result' in msg:
+            msg = json.loads(msg)
+            crawl_result = msg['crawl-result']
             self._crawl_result = crawl_result
 
             if crawl_result['error']:
@@ -118,17 +134,8 @@ class MementoDamage(object):
                     self.logger.error(json.dumps(crawl_result, indent=4))
                 else:
                     self.logger.error('Choose mode "simple" or "json"')
-
-    def log_stderr(self, out, write_fn):
-        if out and hasattr(out, 'readline'):
-            for line in iter(out.readline, b''):
-                line = line.strip()
-                write_fn(line)
         else:
-            write_fn(out)
-
-    def log_error(self, msg):
-        self.logger.error(msg)
+            self.logger.error(msg)
 
     def run(self):
         self.request_time = datetime.now()
@@ -137,15 +144,14 @@ class MementoDamage(object):
         # Equivalent with console:
         phantomjs = os.getenv('PHANTOMJS', 'phantomjs')
 
-        pjs_cmd = [phantomjs, '--ssl-protocol=any', '--output-encoding=utf8', self._crawljs_script, self.uri, self.output_dir,
-                   str(self._follow_redirection), str(self.logger.level)]
+        pjs_cmd = [phantomjs, '--ssl-protocol=any', '--output-encoding=utf8', self._crawljs_script, self.uri,
+                   self.output_dir, str(self._follow_redirection), str(self.logger.level)]
         cmd = Command(pjs_cmd, pipe_stdout_callback=self.log_stdout, pipe_stderr_callback=self.log_stderr)
         err_code = cmd.run(10 * 60,
                            stdout_callback_args=(self.log_output, ),
                            stderr_callback_args=(self.log_error, ))
 
         if err_code != 0:
-            self.log_error('Application closed unexpectedly')
             self._do_clean_cache()
             return
 
