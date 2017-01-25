@@ -70,6 +70,7 @@ class MementoDamage(object):
         # To file
         log_file_handler = logging.FileHandler(self.app_log_file, mode='w')
         log_file_handler.setFormatter(log_formatter)
+        log_file_handler.setLevel(logging.DEBUG)
 
         # Configure logger
         self.logger = logging.getLogger(uri)
