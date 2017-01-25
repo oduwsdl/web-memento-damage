@@ -7,6 +7,7 @@ import sys
 import tempfile
 import time
 from datetime import datetime
+from hashlib import md5
 from optparse import OptionParser
 
 from memento_damage.damage_analysis import MementoDamageAnalysis
@@ -240,6 +241,7 @@ def main():
         exit()
 
     uri = args[0]
+    hashed_url = md5(uri).hexdigest()
 
     use_tempdir = False
     # If option -O is provided, use it
@@ -249,17 +251,19 @@ def main():
             output_dir = os.path.join(os.getcwd(), output_dir)
             output_dir = os.path.abspath(output_dir)
 
-        # Check whether output_dir is exists
-        if os.path.exists(output_dir):
-            overwrite = prompt_yes_no('Path "{}" is exists. Do yo want to overwrite?'.format(output_dir))
-            # if not overwrite, dont continue
-            if not overwrite:
-                return
-
     # Otherwise make temp dir
     else:
         output_dir = tempfile.mkdtemp()
         use_tempdir = True
+
+    output_dir = os.path.join(output_dir, hashed_url)
+
+    # Check whether output_dir is exists
+    if os.path.exists(output_dir):
+        overwrite = prompt_yes_no('Path "{}" is exists. Do yo want to overwrite?'.format(output_dir))
+        # if not overwrite, dont continue
+        if not overwrite:
+            return
 
     # Make output_dir recursive
     try:
