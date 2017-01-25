@@ -136,7 +136,7 @@ class MementoDamage(object):
         # Equivalent with console:
         phantomjs = os.getenv('PHANTOMJS', 'phantomjs')
 
-        pjs_cmd = [phantomjs, '--ssl-protocol=any', self._crawljs_script, self.uri, self.output_dir,
+        pjs_cmd = [phantomjs, '--ssl-protocol=any', '--output-encoding=utf8', self._crawljs_script, self.uri, self.output_dir,
                    str(self._follow_redirection), str(self.logger.level)]
         cmd = Command(pjs_cmd, pipe_stdout_callback=self.log_stdout, pipe_stderr_callback=self.log_stderr)
         err_code = cmd.run(10 * 60,

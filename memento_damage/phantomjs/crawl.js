@@ -324,7 +324,7 @@ function processImages(url, outputDir) {
         networkImagesValues.push(JSON.stringify(value));
     }
 
-    fs.write(resourceImageFile, networkImagesValues.join('\n'), "w");
+    fs.write(resourceImageFile, unescape(encodeURIComponent(networkImagesValues.join('\n'))), "w");
     if(logLevel <= Log.INFO) console.log('Processing images --> creating ' + resourceImageFile)
 }
 
@@ -404,7 +404,7 @@ function processMultimedias(url, outputDir) {
         networkVideosValues.push(JSON.stringify(value));
     }
 
-    fs.write(resourceVideoFile, networkVideosValues.join('\n'), "w");
+    fs.write(resourceVideoFile, unescape(encodeURIComponent(networkVideosValues.join('\n'))), "w");
     if(logLevel <= Log.INFO) console.log('Processing videos --> creating ' + resourceVideoFile);
 }
 
@@ -485,7 +485,7 @@ function processCsses(url, resourceBasename) {
         networkCssValues.push(JSON.stringify(networkCsses[r]));
     }
 
-    fs.write(resourceCssFile, networkCssValues.join('\n'), "wb");
+    fs.write(resourceCssFile, unescape(encodeURIComponent(networkCssValues.join('\n'))), "wb");
     if(logLevel <= Log.INFO) console.log('Processing stylesheets --> creating ' + resourceCssFile);
 }
 
