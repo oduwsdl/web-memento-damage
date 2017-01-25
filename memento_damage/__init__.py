@@ -7,7 +7,6 @@ import sys
 import tempfile
 import time
 from datetime import datetime
-from hashlib import md5
 from optparse import OptionParser
 
 from memento_damage.damage_analysis import MementoDamageAnalysis
@@ -15,7 +14,7 @@ from memento_damage.damage_analysis import MementoDamageAnalysis
 base_dir = os.path.join(os.path.dirname(__file__))
 base_dir = os.path.abspath(base_dir)
 sys.path.insert(0, base_dir)
-from memento_damage.tools import Command, rmdir_recursive
+from memento_damage.tools import Command, rmdir_recursive, prompt_yes_no
 
 
 class MementoDamage(object):
@@ -55,10 +54,11 @@ class MementoDamage(object):
         self.json_result_file = os.path.join(self.output_dir, self.JSON_RESULT_FILE_NAME)
 
         # options
-        if 'debug' in options: self._debug = options['debug']
-        if 'info' in options: self._info = options['info']
         if 'mode' in options: self._mode = options['mode']
         if 'redirect' in options: self._follow_redirection = options['redirect']
+        if 'debug' in options:
+            if options['debug'] == 'complete': self._debug = True
+            elif options['debug'] == 'simple': self._info = True
 
         # Setup logger --> to show debug verbosity
         log_formatter = logging.Formatter('%(asctime)s %(name)s %(levelname)s %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
@@ -218,13 +218,10 @@ def main():
                       help="output directory (optional)")
     parser.add_option("-m", "--mode",
                       dest="mode", default="simple",
-                      help="output mode: simple or json [default: %default]")
+                      help='output mode: "simple" or "json" [default: %default]')
     parser.add_option("-d", "--debug",
-                      action="store_true", dest="debug", default=False,
-                      help="print debug messages")
-    parser.add_option("-i", "--info",
-                      action="store_true", dest="info", default=False,
-                      help="print info messages")
+                      dest="debug", default="simple",
+                      help='debug mode: "simple" or "complete" [default: %default]')
     parser.add_option("-L", "--redirect",
                       action="store_true", dest="redirect", default=False,
                       help="follow url redirection")
@@ -245,13 +242,18 @@ def main():
         if not os.path.isabs(output_dir):
             output_dir = os.path.join(os.getcwd(), output_dir)
             output_dir = os.path.abspath(output_dir)
+
+        # Check whether output_dir is exists
+        if os.path.exists(output_dir):
+            overwrite = prompt_yes_no('Path "{}" is exists. Do yo want to overwrite?'.format(output_dir))
+            # if not overwrite, dont continue
+            if not overwrite:
+                return
+
     # Otherwise make temp dir
     else:
         output_dir = tempfile.mkdtemp()
         use_tempdir = True
-
-    hashed_url = md5(uri).hexdigest()
-    output_dir = os.path.join(output_dir, hashed_url)
 
     # Make output_dir recursive
     try:

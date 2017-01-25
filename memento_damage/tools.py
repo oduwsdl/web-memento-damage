@@ -25,6 +25,26 @@ def rmdir_recursive(d, exception_files=[]):
         if e.errno != os.errno.ENOTEMPTY: pass
 
 
+def prompt_yes_no(question=''):
+    yes_options = set(['yes', 'y', 'ye', ''])
+    no_options = set(['no', 'n'])
+
+    try:
+        # For py2
+        answer = raw_input(question + ' [Y/n]').lower()
+    except:
+        # For py3
+        answer = input(question + ' [Y/n]').lower()
+
+    if answer in yes_options:
+        return True
+    elif answer in no_options:
+        return False
+    else:
+        print("Please respond with 'yes' or 'no'")
+        return prompt_yes_no(question)
+
+
 class Command(object):
     def __init__(self, cmd, pipe_stdout_callback=None, pipe_stderr_callback=None):
         self.cmd = cmd
