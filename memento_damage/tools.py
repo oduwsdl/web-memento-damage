@@ -55,10 +55,10 @@ class Command(object):
                 stdout_thread.start()
 
             if self.pipe_stderr_callback:
-                stdin_thread = Thread(target=self.pipe_stderr_callback,
+                stderr_thread = Thread(target=self.pipe_stderr_callback,
                                       args=(self.process.stderr, ) + stderr_callback_args)
-                stdin_thread.daemon = True
-                stdin_thread.start()
+                stderr_thread.daemon = True
+                stderr_thread.start()
 
             self.process.wait()
 
