@@ -11,8 +11,7 @@ from optparse import OptionParser
 
 from memento_damage.damage_analysis import MementoDamageAnalysis
 
-base_dir = os.path.join(os.path.dirname(__file__))
-base_dir = os.path.abspath(base_dir)
+base_dir = os.path.abspath(os.path.dirname(__file__))
 sys.path.insert(0, base_dir)
 from memento_damage.tools import Command, rmdir_recursive, prompt_yes_no
 

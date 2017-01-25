@@ -5,7 +5,6 @@ memento_damage/damage_analysis.py
 memento_damage/tools.py
 memento_damage/cli/memento-damage
 memento_damage/cli/memento-damage-server
-memento_damage/cli/cache_dir/.fuse_hidden0003b18b00000036
 memento_damage/phantomjs/crawl.js
 memento_damage/phantomjs/jquery-3.1.0.min.js
 memento_damage/phantomjs/md5.js

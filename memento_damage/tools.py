@@ -71,6 +71,7 @@ class Command(object):
             if self.pipe_stdout_callback:
                 stdout_thread = Thread(target=self.pipe_stdout_callback,
                                    args=(self.process.stdout, ) + stdout_callback_args)
+                print("stdout_thread={}".format(stdout_thread))
                 stdout_thread.daemon = True
                 stdout_thread.start()
 
