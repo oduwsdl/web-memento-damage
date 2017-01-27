@@ -44,7 +44,7 @@ docker attach <container-name>
 Then execute ``damage`` using command as below. If using ``csv`` input, put it first in ``<local-path>`` as defined in ``docker run`` above.
 
 ```
-damage <uri or csv>
+memento-damage <uri or csv>
 ```
     
 The result will appear in both ``terminal`` and ``<local-path>/result.csv``.
