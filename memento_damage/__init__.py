@@ -223,6 +223,9 @@ def main():
     parser.add_option("-O", "--output-dir",
                       dest="output_dir", default=None,
                       help="output directory (optional)")
+    parser.add_option("--overwrite",
+                      action="store_true", dest="overwrite", default=False,
+                      help="overwrite existing output directory")
     parser.add_option("-m", "--mode",
                       dest="mode", default="simple",
                       help='output mode: "simple" or "json" [default: %default]')
@@ -258,12 +261,13 @@ def main():
 
     output_dir = os.path.join(output_dir, hashed_url)
 
-    # Check whether output_dir is exists
-    if os.path.exists(output_dir):
-        overwrite = prompt_yes_no('Path "{}" is exists. Do yo want to overwrite?'.format(output_dir))
-        # if not overwrite, dont continue
-        if not overwrite:
-            return
+    # If overwrite is not provided in options --> Check whether output_dir is exists
+    if not options['overwrite']:
+        if os.path.exists(output_dir):
+            overwrite = prompt_yes_no('Path "{}" is exists. Do yo want to overwrite?'.format(output_dir))
+            # if not overwrite, dont continue
+            if not overwrite:
+                return
 
     # Make output_dir recursive
     try:
