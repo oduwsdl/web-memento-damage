@@ -63,6 +63,11 @@ else {
         if(logLevel <= Log.DEBUG) console.log('CONSOLE: ' + msg + ' (from line #' + lineNum + ' in "' + sourceId + '")');
     };
 
+    page.onResourceError = function(res) {
+        page.errorMessage = res.errorString
+        console.error(res.errorString);
+    };
+
     pageStatusCode = null;
     isAborted = false;
     abortMessage= '';
@@ -149,7 +154,7 @@ else {
               'uri' : url,
               'status_code' : pageStatusCode,
               'error' : true,
-              'message' : 'Error in loading url. Check log for detail information.'
+              'message' : 'Error in loading url. ' + page.errorMessage + '.'
             }}));
 
             phantom.exit(1);
