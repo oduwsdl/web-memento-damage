@@ -38,6 +38,7 @@ class MementoDamage(object):
     _clean_cache = True
 
     _result = None
+    _last_error_message = None
 
     def __init__(self, uri, output_dir, options={}):
         self.uri = str(uri)
@@ -127,6 +128,7 @@ class MementoDamage(object):
 
             if crawl_result['error']:
                 self.response_time = datetime.now()
+                self._last_error_message = crawl_result['message']
 
                 if self._mode == 'simple':
                     self.logger.error(crawl_result['message'])
@@ -135,6 +137,7 @@ class MementoDamage(object):
                 else:
                     self.logger.error('Choose mode "simple" or "json"')
         else:
+            self._last_error_message = msg
             self.logger.error(msg)
 
     def run(self):
@@ -152,6 +155,11 @@ class MementoDamage(object):
                            stderr_callback_args=(self.log_error, ))
 
         if err_code != 0:
+            self._result = {}
+            self._result['uri'] = self.uri
+            self._result['error'] = True
+            self._result['message'] = self._last_error_message
+
             self._do_clean_cache()
             return
 
