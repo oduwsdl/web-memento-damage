@@ -6,8 +6,8 @@ import os
 import sys
 import tempfile
 import time
+import urllib
 from datetime import datetime
-from hashlib import md5
 from optparse import OptionParser
 
 from memento_damage.damage_analysis import MementoDamageAnalysis
@@ -244,7 +244,7 @@ def main():
         exit()
 
     uri = args[0]
-    hashed_url = md5(uri).hexdigest()
+    quoted_url = urllib.quote(uri).replace('/', '_').replace('.', '-')
 
     use_tempdir = False
     # If option -O is provided, use it
@@ -259,7 +259,7 @@ def main():
         output_dir = tempfile.mkdtemp()
         use_tempdir = True
 
-    output_dir = os.path.join(output_dir, hashed_url)
+    output_dir = os.path.join(output_dir, quoted_url)
 
     # If overwrite is not provided in options --> Check whether output_dir is exists
     if not options['overwrite']:
