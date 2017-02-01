@@ -119,7 +119,7 @@ class MementoDamageAnalysis(object):
 
         # If not defined, check whether uri has header 'Link' containing
         # <http://mementoweb.org/terms/donotnegotiate>; rel="type"
-        if 'Link' in log['headers'] and not is_blacklisted:
+        if 'headers' in log and 'Link' in log['headers'] and not is_blacklisted:
             if log['headers']['Link'] == '<http://mementoweb.org/terms/' \
                                          'donotnegotiate>; rel="type"':
                 is_blacklisted = True
