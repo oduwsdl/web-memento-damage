@@ -96,7 +96,7 @@ def main():
     parser.add_option("-H", "--host",
                       dest="HOST", default='0.0.0.0',
                       help="host of server")
-    parser.add_option("-p", "--port",
+    parser.add_option("-P", "--port",
                       dest="PORT", default=8080,
                       help="port of server")
     parser.add_option("-d", "--debug",

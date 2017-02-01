@@ -27,6 +27,12 @@ RUN mkdir -p /app
 COPY ./entrypoint.sh /app
 RUN chmod +x -R /app/entrypoint.sh
 
+#
+ENV WORKSPACE /app/cache
+RUN mkdir -p "$WORKSPACE"
+WORKDIR "$WORKSPACE"
+VOLUME "$WORKSPACE"
+
 # Run entrypoint at startup
 ENV PORT 80
 EXPOSE $PORT
