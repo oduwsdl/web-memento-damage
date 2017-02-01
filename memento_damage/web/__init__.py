@@ -93,7 +93,7 @@ def main():
     parser.add_option("-o", "--output-dir",
                       dest="CACHE_DIR", default=None,
                       help="output directory (optional)")
-    parser.add_option("-h", "--host",
+    parser.add_option("-H", "--host",
                       dest="HOST", default='0.0.0.0',
                       help="host of server")
     parser.add_option("-p", "--port",
