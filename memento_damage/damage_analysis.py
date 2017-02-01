@@ -108,51 +108,48 @@ class MementoDamageAnalysis(object):
     def get_result_as_string(self):
         return json.dumps(self.get_result(), indent=4)
 
+    def _is_blacklisted(self, log):
+        is_blacklisted = False
+
+        # Check whether uri is defined in blacklisted_uris
+        for b_uri in self.blacklisted_uris:
+            if log['url'].startswith(b_uri):
+                is_blacklisted = True
+                break
+
+        # If not defined, check whether uri has header 'Link' containing
+        # <http://mementoweb.org/terms/donotnegotiate>; rel="type"
+        if 'Link' in log['headers'] and not is_blacklisted:
+            if log['headers']['Link'] == '<http://mementoweb.org/terms/' \
+                                         'donotnegotiate>; rel="type"':
+                is_blacklisted = True
+
+        return is_blacklisted
+
     def _remove_blacklisted_uris(self):
         # Filter images log
         tmp_image_logs = []
         for log in self._image_logs:
-            is_blacklisted = False
-
-            # Check whether uri is defined in blacklisted_uris
-            for b_uri in self.blacklisted_uris:
-                if log['url'].startswith(b_uri):
-                    is_blacklisted = True
-                    break
-
-            # If not defined, check whether uri has header 'Link' containing
-            # <http://mementoweb.org/terms/donotnegotiate>; rel="type"
-            if 'Link' in log['headers'] and not is_blacklisted:
-                if log['headers']['Link'] == '<http://mementoweb.org/terms/' \
-                                             'donotnegotiate>; rel="type"':
-                    is_blacklisted = True
-
             # If not blacklisted, put into temporary array
-            if not is_blacklisted:
+            if not self._is_blacklisted(log):
                 tmp_image_logs.append(log)
 
         self._image_logs = tmp_image_logs
 
+        # Filter multimedia log
+        tmp_mlm_logs = []
+        for log in self._mlm_logs:
+            # If not blacklisted, put into temporary array
+            if not self._is_blacklisted(log):
+                tmp_mlm_logs.append(log)
+
+        self._mlm_logs = tmp_mlm_logs
+
         # Filter csses log
         tmp_css_logs = []
         for log in self._css_logs:
-            is_blacklisted = False
-
-            # Check whether uri is defined in blacklisted_uris
-            for b_uri in self.blacklisted_uris:
-                if log['url'].startswith(b_uri):
-                    is_blacklisted = True
-                    break
-
-            # If not defined, check whether uri has header 'Link' containing
-            # <http://mementoweb.org/terms/donotnegotiate>; rel="type"
-            if 'headers' in log and 'Link' in log['headers'] \
-                    and not is_blacklisted:
-                if log['headers']['Link'] == '<http://mementoweb.org/terms/donotnegotiate>; rel="type"':
-                    is_blacklisted = True
-
             # If not blacklisted, put into temporary array
-            if not is_blacklisted:
+            if not self._is_blacklisted(log):
                 tmp_css_logs.append(log)
 
         self._css_logs = tmp_css_logs
