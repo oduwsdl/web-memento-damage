@@ -140,46 +140,46 @@ class MementoDamage(object):
             self._last_error_message = msg
             self.logger.error(msg)
 
-    def run(self):
+    def run(self, re_run=True):
         self.request_time = datetime.now()
 
-        # Crawl page with phantomjs crawl.js via arguments
-        # Equivalent with console:
-        phantomjs = os.getenv('PHANTOMJS', 'phantomjs')
+        if re_run:
+            # Crawl page with phantomjs crawl.js via arguments
+            # Equivalent with console:
+            phantomjs = os.getenv('PHANTOMJS', 'phantomjs')
 
-        pjs_cmd = [phantomjs, '--ssl-protocol=any', '--output-encoding=utf8', self._crawljs_script, self.uri,
-                   self.output_dir, str(self._follow_redirection), str(self.logger.level)]
-        cmd = Command(pjs_cmd, pipe_stdout_callback=self.log_stdout, pipe_stderr_callback=self.log_stderr)
-        err_code = cmd.run(10 * 60,
-                           stdout_callback_args=(self.log_output, ),
-                           stderr_callback_args=(self.log_error, ))
+            pjs_cmd = [phantomjs, '--ssl-protocol=any', '--output-encoding=utf8', self._crawljs_script, self.uri,
+                       self.output_dir, str(self._follow_redirection), str(self.logger.level)]
+            cmd = Command(pjs_cmd, pipe_stdout_callback=self.log_stdout, pipe_stderr_callback=self.log_stderr)
+            err_code = cmd.run(10 * 60,
+                               stdout_callback_args=(self.log_output, ),
+                               stderr_callback_args=(self.log_error, ))
 
-        if err_code != 0:
-            self._result = {}
-            self._result['uri'] = self.uri
-            self._result['error'] = True
-            self._result['message'] = self._last_error_message
+            if err_code != 0:
+                self._result = {}
+                self._result['uri'] = self.uri
+                self._result['error'] = True
+                self._result['message'] = self._last_error_message
+            else:
+                # get result of damage analysis
+                self._result = self._do_analysis()
+                self.response_time = datetime.now()
 
+                self._result['message'] = 'Calculation is finished in {} seconds'.format(
+                    (self.response_time - self.request_time).seconds)
+                self._result['timer'] = {
+                    'request_time': (self.request_time - datetime(1970, 1, 1)).total_seconds(),
+                    'response_time': (self.response_time - datetime(1970, 1, 1)).total_seconds()
+                }
+                self._result['calculation_time'] = (self.response_time - self.request_time).seconds
+
+            # Save output
+            io.open(self.json_result_file, 'wb').write(json.dumps(self._result))
             self._do_clean_cache()
-            return
 
-        # get result of damage analysis
-        self._result = self._do_analysis()
-        self.response_time = datetime.now()
-
-        self._result['message'] = 'Calculation is finished in {} seconds'.format(
-            (self.response_time - self.request_time).seconds)
-        self._result['timer'] = {
-            'request_time': (self.request_time - datetime(1970, 1, 1)).total_seconds(),
-            'response_time': (self.response_time - datetime(1970, 1, 1)).total_seconds()
-        }
-        self._result['calculation_time'] = (self.response_time - self.request_time).seconds
-
-        # Save output
-        io.open(self.json_result_file, 'wb').write(json.dumps(self._result))
-
-        self._do_clean_cache()
-        return self._result
+        else:
+            if os.path.exists(self.json_result_file):
+                self._result = json.loads(io.open(self.json_result_file).read())
 
     def get_result(self):
         return self._result
@@ -187,12 +187,22 @@ class MementoDamage(object):
     def print_result(self):
         # Print total damage
         if self._result:
-            if self._mode == 'simple':
-                print('Total damage of {} is {}'.format(self.uri, str(self._result['total_damage'])))
-            elif self._mode == 'json':
-                print(json.dumps(self._result, indent=4))
+            if not self._result['error']:
+                if self._mode == 'simple':
+                    final_uri, final_status = self._result['redirect_uris'][len(self._result['redirect_uris']) - 1]
+                    print('Total damage of {} is {}'.format(final_uri, str(self._result['total_damage'])))
+                elif self._mode == 'json':
+                    print(json.dumps(self._result, indent=4))
+                else:
+                    self.logger.error('Choose mode "simple" or "json"')
+
             else:
-                self.logger.error('Choose mode "simple" or "json"')
+                if self._mode == 'simple':
+                    print('Error in processing {}: {}'.format(self.uri, str(self._result['message'])))
+                elif self._mode == 'json':
+                    print(json.dumps(self._result, indent=4))
+                else:
+                    self.logger.error('Choose mode "simple" or "json"')
 
     def _do_analysis(self):
         # Calculate damage
@@ -228,10 +238,10 @@ class MementoDamage(object):
 def main():
     parser = OptionParser()
     parser.set_usage(parser.get_usage().replace('\n', '') + ' <URI>')
-    parser.add_option("-O", "--output-dir",
+    parser.add_option("-o", "--output-dir",
                       dest="output_dir", default=None,
                       help="output directory (optional)")
-    parser.add_option("--overwrite",
+    parser.add_option("-O", "--overwrite",
                       action="store_true", dest="overwrite", default=False,
                       help="overwrite existing output directory")
     parser.add_option("-m", "--mode",
@@ -268,14 +278,7 @@ def main():
         use_tempdir = True
 
     output_dir = os.path.join(output_dir, quoted_url)
-
-    # If overwrite is not provided in options --> Check whether output_dir is exists
-    if not options['overwrite']:
-        if os.path.exists(output_dir):
-            overwrite = prompt_yes_no('Path "{}" is exists. Do yo want to overwrite?'.format(output_dir))
-            # if not overwrite, dont continue
-            if not overwrite:
-                return
+    re_run = (not os.path.exists(output_dir)) or (os.path.exists(output_dir) and options['overwrite'])
 
     # Make output_dir recursive
     try:
@@ -287,7 +290,7 @@ def main():
     damage = MementoDamage(uri, output_dir, options)
     if not use_tempdir:
         damage.set_dont_clean_cache_on_finish()
-    damage.run()
+    damage.run(re_run)
     damage.print_result()
 
 if __name__ == "__main__":

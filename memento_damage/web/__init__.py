@@ -90,13 +90,13 @@ class FlaskApp(Flask):
 
 def main():
     parser = OptionParser()
-    parser.add_option("-O", "--output-dir",
+    parser.add_option("-o", "--output-dir",
                       dest="CACHE_DIR", default=None,
                       help="output directory (optional)")
-    parser.add_option("-H", "--host",
+    parser.add_option("-h", "--host",
                       dest="HOST", default='0.0.0.0',
                       help="host of server")
-    parser.add_option("-P", "--port",
+    parser.add_option("-p", "--port",
                       dest="PORT", default=8080,
                       help="port of server")
     parser.add_option("-d", "--debug",
