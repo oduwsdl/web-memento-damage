@@ -248,7 +248,7 @@ def main():
                       dest="mode", default="simple",
                       help='output mode: "simple" or "json" [default: %default]')
     parser.add_option("-d", "--debug",
-                      dest="debug", default="simple",
+                      dest="debug", default=None,
                       help='debug mode: "simple" or "complete" [default: %default]')
     parser.add_option("-L", "--redirect",
                       action="store_true", dest="redirect", default=False,
