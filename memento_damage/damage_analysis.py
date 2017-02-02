@@ -228,6 +228,8 @@ class MementoDamageAnalysis(object):
                 break
 
     def _calculate_percentage_coverage(self):
+        im = Image.open(self.memento_damage.screenshot_file)
+
         # Coverage of images
         for idx, log in enumerate(self._image_logs):
             viewport_w, vieport_h = log['viewport_size']
@@ -237,10 +239,18 @@ class MementoDamageAnalysis(object):
                 h = rect['height']
                 image_coverage += (w * h)
 
-            if float(viewport_w * vieport_h) > 0:
-                pct_image_coverage = float(image_coverage) / \
-                                     float(viewport_w * vieport_h)
-            else: pct_image_coverage = 0.0
+            if float(viewport_w * vieport_h) <= 0:
+                # If javascript cannot calculate viewport size, use screenshot size,
+                # since, it is representation of webpage
+                viewport_w, vieport_h = im.size
+
+            pct_image_coverage = float(image_coverage) / \
+                                 float(viewport_w * vieport_h)
+
+            # if float(viewport_w * vieport_h) > 0:
+            #     pct_image_coverage = float(image_coverage) / \
+            #                          float(viewport_w * vieport_h)
+            # else: pct_image_coverage = 0.0
 
             self._image_logs[idx]['percentage_coverage'] = pct_image_coverage
 
