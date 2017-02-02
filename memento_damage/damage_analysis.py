@@ -566,13 +566,14 @@ class MementoDamageAnalysis(object):
                 im = Image.open(self.memento_damage.screenshot_file)
                 # Get all pixels
                 pix = im.load()
+                # np_pic = numpy.asarray(im)
 
                 # Use vieport_size (screenshot size) or default_window_size (
                 # 1024x768)
-                if not use_window_size:
-                    window_size = im.size
-
                 window_w, windows_h = window_size
+                if not use_window_size:
+                    window_w, window_h = im.size
+                    # windows_h, window_w, _ = np_pic.shape
 
                 # Whiteguys is representation of pixels having same color with
                 # background color
@@ -585,7 +586,8 @@ class MementoDamageAnalysis(object):
                     for y in range(0,windows_h):
                         # Get RGBA color in each pixel
                         #     (e.g. White -> (255,255,255,255))
-                        r_, g_, b_, a_ = pix[x,y]
+                        r_, g_, b_, a_ = pix[x, y]
+                        # r_, g_, b_, a_ = np_pic[y,x]
                         # Convert RGBA to Hex color
                         #     (e.g. White -> FFFFFF)
                         pix_hex = self._rgb2hex(r_, g_, b_)
@@ -603,27 +605,29 @@ class MementoDamageAnalysis(object):
                 leftWhiteguys = 0
                 for c in range(0,one_third):
                     leftWhiteguys += whiteguys_col[c]
-                leftAvg = leftWhiteguys / one_third
+                left_avg = leftWhiteguys / one_third
 
                 # calculate whiteguys in the 1/3 center
                 centerWhiteguys = 0
                 for c in range(one_third,2*one_third):
                     centerWhiteguys += whiteguys_col[c]
-                centerAvg = centerWhiteguys / one_third
+                center_avg = centerWhiteguys / one_third
 
                 # calculate whiteguys in the 1/3 right
                 rightWhiteguys = 0
                 for c in range(2*one_third,window_w):
                     rightWhiteguys += whiteguys_col[c]
-                rightAvg = rightWhiteguys / one_third
+                right_avg = rightWhiteguys / one_third
 
                 # Based on measureMemento.pl line 803
-                if (leftAvg + centerAvg + rightAvg) == 0:
+                # give tolerance 0.05% from total whiteguys average
+                right_avg_tolerance = 0.05 * (left_avg + center_avg + right_avg)
+                if (left_avg + center_avg + right_avg) == 0:
                     ratio_importance = 0.0
-                elif float(rightAvg) / (leftAvg+centerAvg+rightAvg) > \
+                elif float(right_avg + right_avg_tolerance) / (left_avg + center_avg + right_avg) > \
                         float(1)/3:
-                    ratio_importance = float(rightAvg) / (
-                        leftAvg+centerAvg+rightAvg) * ratio_weight
+                    ratio_importance = float(right_avg) / (
+                        left_avg + center_avg + right_avg) * ratio_weight
                 else:
                     ratio_importance = ratio_weight
 
