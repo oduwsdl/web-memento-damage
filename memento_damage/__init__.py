@@ -29,6 +29,7 @@ class MementoDamage(object):
     JSON_RESULT_FILE_NAME = 'result.json'
 
     background_color = 'FFFFFF'
+    viewport_size = [1024, 777]
 
     _crawljs_script = os.path.join(base_dir, 'phantomjs', 'crawl.js')
     _debug = False
@@ -149,7 +150,7 @@ class MementoDamage(object):
             phantomjs = os.getenv('PHANTOMJS', 'phantomjs')
 
             pjs_cmd = [phantomjs, '--ssl-protocol=any', '--output-encoding=utf8', self._crawljs_script, self.uri,
-                       self.output_dir, str(self._follow_redirection), str(self.logger.level)]
+                       self.output_dir, str(self._follow_redirection), '{}x{}'.format(*self.viewport_size), str(self.logger.level)]
             cmd = Command(pjs_cmd, pipe_stdout_callback=self.log_stdout, pipe_stderr_callback=self.log_stderr)
             err_code = cmd.run(10 * 60,
                                stdout_callback_args=(self.log_output, ),

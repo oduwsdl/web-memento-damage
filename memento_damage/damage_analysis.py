@@ -434,7 +434,7 @@ class MementoDamageAnalysis(object):
         total_css_damage = 0
         for idx, log in enumerate(self._css_logs):
             tag_importance, ratio_importance, css_damage = \
-                self._calculate_css_damage(log, use_window_size=False)
+                self._calculate_css_damage(log, use_window_size=False, window_size=self.memento_damage.viewport_size)
 
             # Based on measureMemento.pl line 468
             total_css_damage += css_damage

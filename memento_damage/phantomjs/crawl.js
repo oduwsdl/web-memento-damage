@@ -16,7 +16,7 @@ var starttime = Date.now();
 
 // If number of arguments after crawl.js is not 2, show message and exit phantomjs
 if (system.args.length < 3) {
-    console.error('Usage: phantomjs crawl.js <URI> <output_dir> [redirect] [log_level]');
+    console.error('Usage: phantomjs crawl.js <URI> <output_dir> [redirect] [viewport_w x viewport_h] [log_level]');
     phantom.exit(1);
 }
 
@@ -27,6 +27,7 @@ else {
     hashedUrl = md5(url);
     outputDir = system.args[2];
     followRedirect = false
+    viewportSize = [1024, 768]
     logLevel = Log.DEBUG
 
     if(system.args.length >= 4) {
@@ -34,7 +35,14 @@ else {
     }
 
     if(system.args.length >= 5) {
-        logLevel = parseInt(system.args[4])
+        strViewportSize = system.args[4].toLowerCase().split("x");
+        if(strViewportSize.length == 2) {
+            viewportSize = [parseInt(strViewportSize[0]), parseInt(strViewportSize[1])];
+        }
+    }
+
+    if(system.args.length >= 6) {
+        logLevel = parseInt(system.args[5])
     }
 
     // Set timeout on fetching resources to 30 seconds (can be changed)
@@ -44,7 +52,7 @@ else {
     };
 
     // Use browser size 1024x768 (to be used on screenshot)
-    page.viewportSize = { width: 1024, height: 777 };
+    page.viewportSize = { width: viewportSize[0], height: viewportSize[1] };
 
     // Set error handler
     page.onError = function(msg, trace) {
@@ -271,15 +279,15 @@ function processImages(url, outputDir) {
 
         for(var i=0; i<documentImages.length; i++) {
             var docImage = documentImages[i];
-            allImages[docImage['src']] = {};
-            allImages[docImage['src']]['rectangles'] = []
+            allImages[docImage['currentSrc']] = {};
+            allImages[docImage['currentSrc']]['rectangles'] = []
         }
 
         for(var i=0; i<documentImages.length; i++) {
             var docImage = documentImages[i];
 
             // Calculate vieport size
-            allImages[docImage['src']]['viewport_size'] = [
+            allImages[docImage['currentSrc']]['viewport_size'] = [
                 docImage.ownerDocument.body.clientWidth,
                 docImage.ownerDocument.body.clientHeight
             ];
@@ -301,7 +309,7 @@ function processImages(url, outputDir) {
                 'left' : curleft,
             }
 
-            allImages[docImage['src']]['rectangles'].push(rectangle);
+            allImages[docImage['currentSrc']]['rectangles'].push(rectangle);
         }
 
         return allImages;
@@ -321,7 +329,7 @@ function processImages(url, outputDir) {
                 });
 
                 if(! ('viewport_size' in networkImages[url])) {
-                    networkImages[url]['viewport_size'] = [10,10]
+                    networkImages[url]['viewport_size'] = viewportSize;
                 }
 
                 if(! ('rectangles' in networkImages[url])) {
@@ -363,6 +371,12 @@ function processMultimedias(url, outputDir) {
         for(var i=0; i<documentVideos.length; i++) {
             var docVideo = documentVideos[i];
 
+            // Calculate vieport size
+            allVideos[docVideo['currentSrc']]['viewport_size'] = [
+                docVideo.ownerDocument.body.clientWidth,
+                docVideo.ownerDocument.body.clientHeight
+            ];
+
             // Calculate top left position
             var obj = docVideo;
             var curleft = 0, curtop = 0;
@@ -386,10 +400,6 @@ function processMultimedias(url, outputDir) {
         return allVideos;
     });
 
-    var viewport_size = page.evaluate(function () {
-        return [document.body.clientWidth, document.body.clientHeight];
-    });
-
     // Check images url == resource url, append position if same
     var networkVideos = {};
     var docVideoUrls = Object.keys(videos);
@@ -403,12 +413,15 @@ function processMultimedias(url, outputDir) {
                     }
                 });
 
+                if(! ('viewport_size' in networkImages[url])) {
+                    networkImages[url]['viewport_size'] = viewportSize;
+                }
+
                 if(! ('rectangles' in networkVideos[url])) {
                     networkVideos[url]['rectangles'] = []
                 }
 
                 networkVideos[url]['url'] = url;
-                networkVideos[url]['viewport_size'] = viewport_size;
             }
         }
     }
