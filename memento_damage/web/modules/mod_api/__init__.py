@@ -2,6 +2,7 @@ import errno
 import io
 import json
 import os
+import urllib
 from datetime import datetime
 from hashlib import md5
 from urlparse import urlparse
@@ -37,8 +38,9 @@ class API(Blueprint):
             start = request.args.get('start', '0')
             start = int(start)
             hashed_uri = md5(uri).hexdigest()
+            quoted_url = urllib.quote(uri).replace('/', '_').replace('.', '-')
 
-            app_log_file = os.path.join(app.config['CACHE_DIR'], hashed_uri, 'app.log')
+            app_log_file = os.path.join(app.config['CACHE_DIR'], quoted_url, 'app.log')
             with open(app_log_file, 'rb') as f:
                 lines_to_send = []
                 for idx, line in enumerate(f.readlines()):
@@ -68,8 +70,9 @@ class API(Blueprint):
         @self.route('/damage/screenshot/<path:uri>', methods=['GET'])
         def api_damage_screenshot(uri):
             hashed_uri = md5(uri).hexdigest()
+            quoted_url = urllib.quote(uri).replace('/', '_').replace('.', '-')
 
-            screenshot_file = os.path.join(app.config['CACHE_DIR'], hashed_uri, 'screenshot.png')
+            screenshot_file = os.path.join(app.config['CACHE_DIR'], quoted_url, 'screenshot.png')
             f = Image.open(screenshot_file)
             o = io.BytesIO()
             f.save(o, format="JPEG")
@@ -84,7 +87,8 @@ class API(Blueprint):
             fresh = True if fresh.lower() == 'true' else False
 
             hashed_uri = md5(uri).hexdigest()
-            output_dir = os.path.join(app.config['CACHE_DIR'], hashed_uri)
+            quoted_url = urllib.quote(uri).replace('/', '_').replace('.', '-')
+            output_dir = os.path.join(app.config['CACHE_DIR'], quoted_url)
 
             try:
                 os.makedirs(output_dir)
