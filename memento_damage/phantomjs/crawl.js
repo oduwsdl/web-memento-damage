@@ -6,12 +6,12 @@ console.error = function () {
 };
 
 page.settings.webSecurityEnabled = false;
-phantom.injectJs('md5.js')
-phantom.injectJs('underscore.js')
-phantom.injectJs('mimetype.js')
+phantom.injectJs('md5.js');
+phantom.injectJs('underscore.js');
+phantom.injectJs('mimetype.js');
 
-var networkResources = {}
-var Log = {'DEBUG': 10, 'INFO': 20}
+var networkResources = {};
+var Log = {'DEBUG': 10, 'INFO': 20};
 var starttime = Date.now();
 
 // If number of arguments after crawl.js is not 2, show message and exit phantomjs
@@ -26,9 +26,9 @@ else {
     url = system.args[1];
     hashedUrl = md5(url);
     outputDir = system.args[2];
-    followRedirect = false
-    viewportSize = [1024, 768]
-    logLevel = Log.DEBUG
+    followRedirect = false;
+    viewportSize = [1024, 768];
+    logLevel = Log.DEBUG;
 
     if(system.args.length >= 4) {
         followRedirect = (system.args[3].toLowerCase() == 'true' || system.args[3] == '1');
@@ -42,7 +42,7 @@ else {
     }
 
     if(system.args.length >= 6) {
-        logLevel = parseInt(system.args[5])
+        logLevel = parseInt(system.args[5]);
     }
 
     // Set timeout on fetching resources to 30 seconds (can be changed)
@@ -72,7 +72,7 @@ else {
     };
 
     page.onResourceError = function(res) {
-        page.errorMessage = res.errorString
+        page.errorMessage = res.errorString;
         console.error(res.errorString);
     };
 
@@ -123,7 +123,7 @@ else {
         // Save all network resources to variable
         // res are sometimes duplicated, so only pushed if array hasnt contains this value
         // use underscore.js to check whether value has been contained in networkResources key
-        headers = {}
+        headers = {};
         res.headers.forEach(function(header) {
             headers[header['name']] = header['value'];
         });
@@ -133,7 +133,7 @@ else {
             'status_code' : res.status,
             'content_type' : res.status > 399 ? mimeType.lookup(resUrl) : res.contentType,
             'headers' : headers,
-        }
+        };
 
         var networkResourcesKeys = Object.keys(networkResources);
         if(! _.contains(networkResourcesKeys, resUrl)) {
@@ -149,7 +149,7 @@ else {
               'uri' : url,
               'status_code' : pageStatusCode,
               'error' : true,
-              'message' : abortMessage
+              'message' : abortMessage,
             }}));
 
             phantom.exit(pageStatusCode);
@@ -162,7 +162,7 @@ else {
               'uri' : url,
               'status_code' : pageStatusCode,
               'error' : true,
-              'message' : 'Error in loading url. ' + page.errorMessage + '.'
+              'message' : 'Error in loading url. ' + page.errorMessage + '.',
             }}));
 
             phantom.exit(1);
@@ -190,7 +190,7 @@ else {
                     if(logLevel <= Log.ERROR) console.log(JSON.stringify({'background_color' : getBackgroundColor()}));
 
                     // Set finished time
-                    var finishtime = Date.now()
+                    var finishtime = Date.now();
 
                     // Show message that crawl finished, and calculate executing time
                     if(logLevel <= Log.INFO) console.log('Crawl finished in ' + (finishtime - starttime) + ' miliseconds');
@@ -198,7 +198,7 @@ else {
                       'uri' : url,
                       'status_code' : pageStatusCode,
                       'error' : false,
-                      'message' : 'Crawl finished in ' + (finishtime - starttime) + ' miliseconds'
+                      'message' : 'Crawl finished in ' + (finishtime - starttime) + ' miliseconds',
                     }}));
 
                     phantom.exit();
@@ -242,7 +242,7 @@ function processNetworkResources(url, outputDir) {
     }
 
     fs.write(resourceFile, networkResourcesValues.join('\n'), "w");
-    if(logLevel <= Log.DEBUG) console.log('Saving network resources --> creating ' + resourceFile)
+    if(logLevel <= Log.DEBUG) console.log('Saving network resources --> creating ' + resourceFile);
 }
 
 function processHtml(url, outputDir) {
@@ -255,7 +255,7 @@ function processHtml(url, outputDir) {
     });
     fs.write(htmlFile, html, "w");
 
-    if(logLevel <= Log.INFO) console.log('Saving HTML source --> creating ' + htmlFile)
+    if(logLevel <= Log.INFO) console.log('Saving HTML source --> creating ' + htmlFile);
 }
 
 function processImagesInFrame() {
@@ -342,7 +342,7 @@ function processImages(url, outputDir) {
                 }
 
                 if(! ('rectangles' in networkImages[url])) {
-                    networkImages[url]['rectangles'] = []
+                    networkImages[url]['rectangles'] = [];
                 }
 
                 networkImages[url]['url'] = url;
@@ -360,7 +360,7 @@ function processImages(url, outputDir) {
 
     resourceImageFile = outputDir + '/image.log';
     fs.write(resourceImageFile, unescape(encodeURIComponent(values.join('\n'))), "w");
-    if(logLevel <= Log.INFO) console.log('Processing images --> creating ' + resourceImageFile)
+    if(logLevel <= Log.INFO) console.log('Processing images --> creating ' + resourceImageFile);
 }
 
 function processMultimediasInFrame() {
@@ -374,7 +374,7 @@ function processMultimediasInFrame() {
             var docVideo = documentVideos[i];
             allVideos[docVideo['currentSrc']] = {};
             allVideos[docVideo['currentSrc']]['url'] = url;
-            allVideos[docVideo['currentSrc']]['rectangles'] = []
+            allVideos[docVideo['currentSrc']]['rectangles'] = [];
         }
 
         for(var i=0; i<documentVideos.length; i++) {
@@ -445,7 +445,7 @@ function processMultimedias(url, outputDir) {
                 }
 
                 if(! ('rectangles' in networkVideos[url])) {
-                    networkVideos[url]['rectangles'] = []
+                    networkVideos[url]['rectangles'] = [];
                 }
 
                 networkVideos[url]['url'] = url;
