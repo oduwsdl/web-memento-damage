@@ -628,6 +628,7 @@ function processTextInFrame() {
             }
 
             textLog[idx] = {
+                'id': idx,
                 'html': outerHTML,
                 'tag': outerTag,
                 'original-text': originalText.trim(),
@@ -675,8 +676,6 @@ function processTextInFrame() {
                 // Put back original element
                 $(allElements[idx]).replaceWith(textLog[idx]['html']);
             }
-
-            delete textLog[idx]['html'];
         }
 
         var arrTextLogs = [];
