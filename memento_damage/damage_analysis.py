@@ -295,15 +295,14 @@ class MementoDamageAnalysis(object):
             if log['status_code'] > 399:
                 self.missing_mlms_log.append(log)
 
-        # self.missing_csses_log = []
-        # for log in self.csses_log:
-        #     if 'status_code' in log:
-        #         status_code, true = log['status_code']
-        #         if status_code > 399:
-        #             self.missing_csses_log.append(log)
+        self.missing_csses_log = []
+        for log in self._css_logs:
+            if 'status_code' in log:
+                if log['status_code'] > 399:
+                    self.missing_csses_log.append(log)
 
         # Since all css set to 404 (missing)
-        self.missing_csses_log = self._css_logs
+        # self.missing_csses_log = self._css_logs
 
     def _calculate_potential_damage(self):
         self._logger.info('Calculating potential damage')
@@ -468,20 +467,21 @@ class MementoDamageAnalysis(object):
 
         total_css_damage = 0
         for idx, log in enumerate(self._css_logs):
-            tag_importance, ratio_importance, css_damage = \
-                self._calculate_css_damage(log, use_viewport_size=False)
+            if ('status_code' in log) and (log['status_code'] > 399):
+                tag_importance, ratio_importance, css_damage = \
+                    self._calculate_css_damage(log, use_viewport_size=False)
 
-            # Based on measureMemento.pl line 468
-            total_css_damage += css_damage
+                # Based on measureMemento.pl line 468
+                total_css_damage += css_damage
 
-            self._css_logs[idx]['actual_damage'] = {
-                'tag': tag_importance,
-                'ratio': ratio_importance,
-                'total': css_damage
-            }
+                self._css_logs[idx]['actual_damage'] = {
+                    'tag': tag_importance,
+                    'ratio': ratio_importance,
+                    'total': css_damage
+                }
 
-            self._logger.info('Actual damage of {} is {}'.format(log['url'], css_damage))
-            # print('Actual damage {} for {}'.format(css_damage, log['url']))
+                self._logger.info('Actual damage of {} is {}'.format(log['url'], css_damage))
+                # print('Actual damage {} for {}'.format(css_damage, log['url']))
 
         # Multimedia
         self._logger.info('Calculate actual damage for Multimedia(s)')
