@@ -531,8 +531,8 @@ function processScreenshots(url, outputDir) {
     if(logLevel <= Log.INFO) console.log('Processing screenshot --> creating ' + screenshotFile);
 }
 
-function processText(url, outputDir) {
-    resourceTextFile = outputDir + '/text.log';
+function processTextFrame() {
+    console.error('Processing text in frame ' + page.frameName);
 
     var textLog = page.evaluate(function() {
         var allElements = {};
@@ -544,6 +544,30 @@ function processText(url, outputDir) {
             var outerTag = this.cloneNode(false).outerHTML
             var oW = originalCs.width.replace('px', '');
             var oH = originalCs.height.replace('px', '');
+
+            // Fix width
+            var obj = this;
+            do {
+                oW = window.getComputedStyle(obj).width.replace('px', '');
+                if(oW) break;
+            } while (obj = obj.offsetParent);
+
+            // Fix height
+            var obj = this;
+            do {
+                oH = window.getComputedStyle(obj).height.replace('px', '');
+                if(oH) break;
+            } while (obj = obj.offsetParent);
+
+            // Calculate top left position
+            var obj = this;
+            var curleft = 0, curtop = 0;
+            if (obj.offsetParent) {
+                do {
+                    curleft += obj.offsetLeft;
+                    curtop += obj.offsetTop;
+                } while (obj = obj.offsetParent);
+            }
 
             allElements[idx] = this;
 
@@ -569,20 +593,19 @@ function processText(url, outputDir) {
                 'html': outerHTML,
                 'tag': outerTag,
                 'original-text': originalText.trim(),
-                'original-width': parseFloat(oW),
-                'original-height': parseFloat(oH),
                 'visible': visible,
                 'in-viewport': inViewport,
                 'text': text.trim(),
-                'width': 0,
-                'height': 0,
+                'top': curtop,
+                'left': curleft,
+                'width': parseFloat(oW),
+                'height': parseFloat(oH),
             };
         });
 
         var elIdxs = Object.keys(allElements).reverse();
         for (var i = 0; i < elIdxs.length; i++) {
             var idx = elIdxs[i];
-            var text = textLog[idx]['text'];
 
             if (allElements[idx].childElementCount > 0) {
                 for(var c=0; c<allElements[idx].childElementCount; c++) {
@@ -590,19 +613,24 @@ function processText(url, outputDir) {
                 }
 
                 try {
-                    text = $(this).text().trim();
+                    var cs = window.getComputedStyle(allElements[idx]);
+                    textLog[idx]['text'] = $(this).text().trim();
+                    textLog[idx]['width'] = parseFloat(cs.width.replace('px', '')) || 0;
+                    textLog[idx]['height'] = parseFloat(cs.height.replace('px', '')) || 0;
                 } catch(ex) {}
             }
 
-            if (text.length > 0) {
+            if (textLog[idx]['text'].length > 0) {
                 // Make element not wrapped
                 $(allElements[idx]).css('position', 'fixed').css('top', '0px')
                     .css('left', '0px').css('width', 'auto').css('height', 'auto')
                     .css('white-space', 'nowrap');
 
+                // Calculate coverage
                 var cs = window.getComputedStyle(allElements[idx]);
-                textLog[idx]['width'] = parseFloat(cs.width.replace('px', '')) || 0;
-                textLog[idx]['height'] = parseFloat(cs.height.replace('px', '')) || 0;
+                var w = parseFloat(cs.width.replace('px', '')) || 0;
+                var h = parseFloat(cs.height.replace('px', '')) || 0;
+                textLog[idx]['coverage'] = w * h;
 
                 // Put back original element
                 $(allElements[idx]).replaceWith(textLog[idx]['html']);
@@ -615,13 +643,32 @@ function processText(url, outputDir) {
         var elIdxs = Object.keys(textLog);
         for (var i = 0; i < elIdxs.length; i++) {
             idx = elIdxs[i];
-            arrTextLogs.push(JSON.stringify(textLog[idx]));
+            if(textLog[idx]['text'].length > 0) {
+                arrTextLogs.push(JSON.stringify(textLog[idx]));
+            }
         }
 
         return arrTextLogs;
-    });
+    }) || [];
 
-    fs.write(resourceTextFile, textLog.join('\n'), "wb");
+    return textLog;
+}
+
+function processText(url, outputDir) {
+    console.log(page.framesName.length);
+
+    var textLog = processTextFrame();
+    for(var f=0; f<page.framesCount; f++) {
+        if(!_.includes(page.framesName[f], 'fb_') && !_.includes(page.framesName[f], 'twiter-')) {
+            page.switchToFrame(page.framesName[f]);
+            var textLogFrame = processTextFrame();
+            textLog = textLog.concat(textLogFrame);
+        }
+    }
+    page.switchToMainFrame();
+
+    resourceTextFile = outputDir + '/text.log';
+    fs.write(resourceTextFile, unescape(encodeURIComponent(textLog.join('\n'))), "wb");
     if (logLevel <= Log.INFO) console.log('Processing text --> creating ' + resourceTextFile);
 }
 

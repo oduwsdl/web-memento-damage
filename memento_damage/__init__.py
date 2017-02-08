@@ -26,6 +26,7 @@ class MementoDamage(object):
     CSS_LOG_FILE_NAME = 'css.log'
     VIDEO_LOG_FILE_NAME = 'video.log'
     SCREENSHOT_FILE_NAME = 'screenshot.png'
+    TEXT_LOG_FILE_NAME = 'text.log'
     JSON_RESULT_FILE_NAME = 'result.json'
 
     background_color = 'FFFFFF'
@@ -52,6 +53,7 @@ class MementoDamage(object):
         self.image_log_file = os.path.join(self.output_dir, self.IMAGE_LOG_FILE_NAME)
         self.css_log_file = os.path.join(self.output_dir, self.CSS_LOG_FILE_NAME)
         self.video_log_file = os.path.join(self.output_dir, self.VIDEO_LOG_FILE_NAME)
+        self.text_log_file = os.path.join(self.output_dir, self.TEXT_LOG_FILE_NAME)
         self.screenshot_file = os.path.join(self.output_dir, self.SCREENSHOT_FILE_NAME)
         self.json_result_file = os.path.join(self.output_dir, self.JSON_RESULT_FILE_NAME)
 
@@ -149,8 +151,9 @@ class MementoDamage(object):
             # Equivalent with console:
             phantomjs = os.getenv('PHANTOMJS', 'phantomjs')
 
-            pjs_cmd = [phantomjs, '--ssl-protocol=any', '--output-encoding=utf8', self._crawljs_script, self.uri,
-                       self.output_dir, str(self._follow_redirection), '{}x{}'.format(*self.viewport_size), str(self.logger.level)]
+            pjs_cmd = [phantomjs, '--ssl-protocol=any', '--output-encoding=utf8', '--web-security=no',
+                       self._crawljs_script, self.uri, self.output_dir, str(self._follow_redirection),
+                       '{}x{}'.format(*self.viewport_size), str(self.logger.level)]
             cmd = Command(pjs_cmd, pipe_stdout_callback=self.log_stdout, pipe_stderr_callback=self.log_stderr)
             err_code = cmd.run(10 * 60,
                                stdout_callback_args=(self.log_output, ),
@@ -175,7 +178,7 @@ class MementoDamage(object):
                 self._result['calculation_time'] = (self.response_time - self.request_time).seconds
 
             # Save output
-            io.open(self.json_result_file, 'wb').write(json.dumps(self._result))
+            io.open(self.json_result_file, 'wb').write(json.dumps(self._result, indent=4))
             self._do_clean_cache()
 
         else:

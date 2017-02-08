@@ -11,12 +11,15 @@ class MementoDamageAnalysis(object):
     image_importance = {}
     css_importance = 0
 
-    multimedia_weight   = 0.50
-    css_weight          = 0.05
-    proportion          = 3.0/4.0
-    image_weight        = proportion * (1-(multimedia_weight + css_weight))
-    text_weight         = 1.0 - (multimedia_weight + css_weight + image_weight)
-    words_per_image     = 1000
+    page_size = [1024, 768]  # Default size
+    viewport_size = [1024, 768]  # Default size
+
+    multimedia_weight = 0.50
+    css_weight = 0.05
+    proportion = 3.0 / 4.0
+    image_weight = proportion * (1 - (multimedia_weight + css_weight))
+    text_weight = 1.0 - (multimedia_weight + css_weight + image_weight)
+    words_per_image = 1000
 
     blacklisted_uris = [
         'https://analytics.archive.org/',
@@ -29,12 +32,23 @@ class MementoDamageAnalysis(object):
         # Read log contents
         h = html2text.HTML2Text()
         h.ignore_links = True
-        self._text = h.handle(u' '.join([line.strip() for line in io.open(memento_damage.html_file, encoding="utf-8").readlines()]))
-        self._logs = [json.loads(log, strict=False) for log in io.open(memento_damage.network_log_file, encoding="utf-8").readlines()]
-        self._image_logs = [json.loads(log, strict=False) for log in io.open(memento_damage.image_log_file, encoding="utf-8").readlines()]
-        self._css_logs = [json.loads(log, strict=False) for log in io.open(memento_damage.css_log_file, encoding="utf-8").readlines()]
-        self._mlm_logs = [json.loads(log, strict=False) for log in io.open(memento_damage.video_log_file, encoding="utf-8").readlines()]
-        self._text_logs = {}
+        self._text = h.handle(
+            u' '.join([line.strip() for line in io.open(memento_damage.html_file, encoding="utf-8").readlines()]))
+        self._logs = [json.loads(log, strict=False) for log in
+                      io.open(memento_damage.network_log_file, encoding="utf-8").readlines()]
+        self._image_logs = [json.loads(log, strict=False) for log in
+                            io.open(memento_damage.image_log_file, encoding="utf-8").readlines()]
+        self._css_logs = [json.loads(log, strict=False) for log in
+                          io.open(memento_damage.css_log_file, encoding="utf-8").readlines()]
+        self._mlm_logs = [json.loads(log, strict=False) for log in
+                          io.open(memento_damage.video_log_file, encoding="utf-8").readlines()]
+        self._text_logs = [json.loads(log, strict=False) for log in
+                           io.open(memento_damage.text_log_file, encoding="utf-8").readlines()]
+        # self._text_logs = {}
+
+        self.viewport_size = self.memento_damage.viewport_size
+        im = Image.open(self.memento_damage.screenshot_file)
+        self.page_size = im.size
 
         self._logger = self.memento_damage.logger
 
@@ -70,7 +84,6 @@ class MementoDamageAnalysis(object):
             total_damage = 0
 
         self._logger.info('Calculate total damage (actual damage / potential damage) = {}'.format(total_damage))
-
 
         result = {}
         result['uri'] = self.memento_damage.uri
@@ -187,7 +200,7 @@ class MementoDamageAnalysis(object):
 
             if len(redirect_uris) > 0:
                 original_uri, original_status = redirect_uris[0]
-                final_uri, final_status_code = redirect_uris[len(redirect_uris)-1]
+                final_uri, final_status_code = redirect_uris[len(redirect_uris) - 1]
 
                 if original_uri != final_uri:
                     log_obj[original_uri]['url'] = final_uri
@@ -233,7 +246,7 @@ class MementoDamageAnalysis(object):
         # Coverage of images
         for idx, log in enumerate(self._image_logs):
             viewport_w, vieport_h = log['viewport_size']
-            image_coverage  = 0
+            image_coverage = 0
             for rect in log['rectangles']:
                 w = rect['width']
                 h = rect['height']
@@ -257,14 +270,14 @@ class MementoDamageAnalysis(object):
         # Coverage of videos
         for idx, log in enumerate(self._mlm_logs):
             viewport_w, vieport_h = log['viewport_size']
-            mlm_coverage  = 0
+            mlm_coverage = 0
             for rect in log['rectangles']:
                 w = rect['width']
                 h = rect['height']
                 mlm_coverage += (w * h)
 
             pct_mlm_coverage = float(mlm_coverage) / \
-                                 float(viewport_w * vieport_h)
+                               float(viewport_w * vieport_h)
             self._mlm_logs[idx]['percentage_coverage'] = pct_mlm_coverage
 
         self._logger.info('Calculate percentage coverage')
@@ -298,46 +311,43 @@ class MementoDamageAnalysis(object):
         # Image
         self._logger.info('Calculate potential damage for Image(s)')
 
-        total_images_damage = 0
+        total_images_damage = 0.0
         for idx, log in enumerate(self._image_logs):
-            image_damage = self._calculate_image_damage(log)
+            text_damages = self._calculate_image_damage(log, use_viewport_size=True)
             # Based on measureMemento.pl line 463
             total_location_importance = 0
             total_size_importance = 0
-            total_image_damage = 0
-            for location_importance, size_importance, damage in image_damage:
+            total_text_damage = 0
+            for location_importance, size_importance, damage in text_damages:
                 total_location_importance += location_importance
                 total_size_importance += size_importance
-                total_image_damage += damage
+                total_text_damage += damage
 
-            total_images_damage += total_image_damage
+            total_images_damage += total_text_damage
 
             self._image_logs[idx]['potential_damage'] = {
-                'location' : total_location_importance,
-                'size' : total_size_importance,
-                'total' : total_image_damage
+                'location': total_location_importance,
+                'size': total_size_importance,
+                'total': total_text_damage
             }
 
-            self._logger.info('Potential damage of {} is {}'.format(log['url'], total_image_damage))
-            # print('Potential damage {} for {}'
-            #       .format(total_image_damage, log['url']))
+            self._logger.info('Potential damage of {} is {}'.format(log['url'], total_text_damage))
 
         # Css
         self._logger.info('Calculate potential damage for Stylesheet(s)')
 
-        total_css_damage = 0
+        total_css_damage = 0.0
         for idx, log in enumerate(self._css_logs):
             tag_importance, ratio_importance, css_damage = \
-                self._calculate_css_damage(log, use_window_size=False, \
-                                           is_potential=True)
+                self._calculate_css_damage(log, is_potential=True, use_viewport_size=True)
 
             # Based on measureMemento.pl line 468
             total_css_damage += css_damage
 
             self._css_logs[idx]['potential_damage'] = {
-                'tag'   : tag_importance,
-                'ratio' : ratio_importance,
-                'total' : css_damage
+                'tag': tag_importance,
+                'ratio': ratio_importance,
+                'total': css_damage
             }
             self._logger.info('Potential damage of {} is {}'.format(log['url'], css_damage))
             # print('Potential damage {} for {}'.format(css_damage, log['url']))
@@ -347,7 +357,7 @@ class MementoDamageAnalysis(object):
 
         total_mlms_damage = 0
         for idx, log in enumerate(self._mlm_logs):
-            css_damage = self._calculate_image_damage(log)
+            css_damage = self._calculate_image_damage(log, use_viewport_size=False)
             # Based on measureMemento.pl line 463
             total_location_importance = 0
             total_size_importance = 0
@@ -360,9 +370,9 @@ class MementoDamageAnalysis(object):
             total_mlms_damage += total_mlm_damage
 
             self._mlm_logs[idx]['potential_damage'] = {
-                'location' : total_location_importance,
-                'size' : total_size_importance,
-                'total' : total_mlm_damage
+                'location': total_location_importance,
+                'size': total_size_importance,
+                'total': total_mlm_damage
             }
 
             self._logger.info('Potential damage of {} is {}'.format(log['url'], total_mlm_damage))
@@ -372,14 +382,43 @@ class MementoDamageAnalysis(object):
         # Text
         self._logger.info('Calculate potential damage for Text')
 
-        num_words_of_text = len(self._text.split())
-        total_text_damage = float(num_words_of_text) / self.words_per_image
+        # num_words_of_text = len(self._text.split())
+        # total_text_damage = float(num_words_of_text) / self.words_per_image
+        #
+        # self._text_logs['num_words'] = num_words_of_text
+        # self._text_logs['words_per_image'] = self.words_per_image
+
+        total_texts_damage = 0.0
+        num_words_of_text = 0
+        for idx, log in enumerate(self._text_logs):
+            if len(log['text']) > 0:
+                text_damages = self._calculate_text_damage(log, use_viewport_size=True)
+                # Based on measureMemento.pl line 463
+                total_location_importance = 0
+                total_size_importance = 0
+                total_text_damage = 0
+                for location_importance, size_importance, damage in text_damages:
+                    total_location_importance += location_importance
+                    total_size_importance += size_importance
+                    total_text_damage += damage
+
+                total_texts_damage += total_text_damage
+                num_words_of_text += len(log['text'])
+
+                self._text_logs[idx]['potential_damage'] = {
+                    'location': total_location_importance,
+                    'size': total_size_importance,
+                    'total': total_text_damage
+                }
+            else:
+                try: self._text_logs.pop(idx)
+                except: pass
 
         self._text_logs['num_words'] = num_words_of_text
         self._text_logs['words_per_image'] = self.words_per_image
 
-        self._logger.info('Potential damage of {} is {}'.format('"text"', total_text_damage))
-        # print('Potential damage {} for {}'.format(total_text_damage, 'text'))
+
+        self._logger.info('Potential damage of {} is {}'.format('"text"', total_texts_damage))
 
         # Based on measureMemento.pl line 555
         self._logger.info('Weighting potential damage(s)')
@@ -406,7 +445,7 @@ class MementoDamageAnalysis(object):
         total_images_damage = 0
         for idx, log in enumerate(self._image_logs):
             if log['status_code'] > 399:
-                image_damage = self._calculate_image_damage(log)
+                image_damage = self._calculate_image_damage(log, use_viewport_size=False)
                 # Based on measureMemento.pl line 463
                 total_location_importance = 0
                 total_size_importance = 0
@@ -419,9 +458,9 @@ class MementoDamageAnalysis(object):
                 total_images_damage += total_image_damage
 
                 self._image_logs[idx]['actual_damage'] = {
-                    'location' : total_location_importance,
-                    'size' : total_size_importance,
-                    'total' : total_image_damage
+                    'location': total_location_importance,
+                    'size': total_size_importance,
+                    'total': total_image_damage
                 }
 
                 self._logger.info('Actual damage of {} is {}'.format(log['url'], total_image_damage))
@@ -434,15 +473,15 @@ class MementoDamageAnalysis(object):
         total_css_damage = 0
         for idx, log in enumerate(self._css_logs):
             tag_importance, ratio_importance, css_damage = \
-                self._calculate_css_damage(log, use_window_size=False, window_size=self.memento_damage.viewport_size)
+                self._calculate_css_damage(log, use_viewport_size=False)
 
             # Based on measureMemento.pl line 468
             total_css_damage += css_damage
 
             self._css_logs[idx]['actual_damage'] = {
-                'tag'   : tag_importance,
-                'ratio' : ratio_importance,
-                'total' : css_damage
+                'tag': tag_importance,
+                'ratio': ratio_importance,
+                'total': css_damage
             }
 
             self._logger.info('Actual damage of {} is {}'.format(log['url'], css_damage))
@@ -454,7 +493,7 @@ class MementoDamageAnalysis(object):
         total_mlms_damage = 0
         for idx, log in enumerate(self._mlm_logs):
             if log['status_code'] > 399:
-                mlm_damage = self._calculate_image_damage(log)
+                mlm_damage = self._calculate_image_damage(log, use_viewport_size=False)
                 # Based on measureMemento.pl line 463
                 total_location_importance = 0
                 total_size_importance = 0
@@ -467,9 +506,9 @@ class MementoDamageAnalysis(object):
                 total_mlms_damage += total_mlm_damage
 
                 self._mlm_logs[idx]['actual_damage'] = {
-                    'location' : total_location_importance,
-                    'size' : total_size_importance,
-                    'total' : total_mlm_damage
+                    'location': total_location_importance,
+                    'size': total_size_importance,
+                    'total': total_mlm_damage
                 }
 
                 self._logger.info('Actual damage of {} is {}'.format(log['url'], total_mlm_damage))
@@ -497,12 +536,11 @@ class MementoDamageAnalysis(object):
 
         self._logger.info('Actual damage of {} is {}'.format('"webpage"', self._actual_damage))
 
-    def _calculate_image_damage(self, log, size_weight=0.5,
-                                centrality_weight=0.5):
+    def _calculate_image_damage(self, log, size_weight=0.5, centrality_weight=0.5, use_viewport_size=True):
         importances = []
 
-        #im = Image.open(self.screenshot_file)
-        viewport_w, viewport_h = log['viewport_size'] #im.size
+        # im = Image.open(self.screenshot_file)
+        viewport_w, viewport_h = self.viewport_size if use_viewport_size else self.page_size
         middle_x = viewport_w / 2
         middle_y = viewport_h / 2
 
@@ -527,7 +565,8 @@ class MementoDamageAnalysis(object):
 
             if viewport_w * viewport_h > 0:
                 prop = float(w * h) / (viewport_w * viewport_h)
-            else: prop = 0
+            else:
+                prop = 0.0
 
             size_importance = prop * size_weight
 
@@ -538,8 +577,7 @@ class MementoDamageAnalysis(object):
         return importances
 
     def _calculate_css_damage(self, log, tag_weight=0.5, ratio_weight=0.5,
-                              is_potential=False, use_window_size = True,
-                              window_size=(1024,768)):
+                              is_potential=False, use_viewport_size=True):
         css_url = log['url']
         rules_importance = log['importance']
 
@@ -580,10 +618,8 @@ class MementoDamageAnalysis(object):
 
                 # Use vieport_size (screenshot size) or default_window_size (
                 # 1024x768)
-                window_w, windows_h = window_size
-                if not use_window_size:
-                    window_w, window_h = im.size
-                    # windows_h, window_w, _ = np_pic.shape
+                viewport_w, viewport_h = self.viewport_size if use_viewport_size else self.page_size
+                # windows_h, window_w, _ = np_pic.shape
 
                 # Whiteguys is representation of pixels having same color with
                 # background color
@@ -591,9 +627,9 @@ class MementoDamageAnalysis(object):
 
                 # Iterate over pixels in window size (e.g. 1024x768)
                 # And check whether having same color with background
-                for x in range(0,window_w):
+                for x in range(0, viewport_w):
                     whiteguys_col.setdefault(x, 0)
-                    for y in range(0,windows_h):
+                    for y in range(0, viewport_h):
                         # Get RGBA color in each pixel
                         #     (e.g. White -> (255,255,255,255))
                         r_, g_, b_, a_ = pix[x, y]
@@ -609,23 +645,23 @@ class MementoDamageAnalysis(object):
                 # divide width into 3 parts
                 # Justin use term : low, mid, and high for 1/3 left,
                 # 1/3 midlle, and 1/3 right
-                one_third = int(math.floor(window_w/3))
+                one_third = int(math.floor(viewport_w / 3))
 
                 # calculate whiteguys in the 1/3 left
                 leftWhiteguys = 0
-                for c in range(0,one_third):
+                for c in range(0, one_third):
                     leftWhiteguys += whiteguys_col[c]
                 left_avg = leftWhiteguys / one_third
 
                 # calculate whiteguys in the 1/3 center
                 centerWhiteguys = 0
-                for c in range(one_third,2*one_third):
+                for c in range(one_third, 2 * one_third):
                     centerWhiteguys += whiteguys_col[c]
                 center_avg = centerWhiteguys / one_third
 
                 # calculate whiteguys in the 1/3 right
                 rightWhiteguys = 0
-                for c in range(2*one_third,window_w):
+                for c in range(2 * one_third, viewport_w):
                     rightWhiteguys += whiteguys_col[c]
                 right_avg = rightWhiteguys / one_third
 
@@ -635,7 +671,7 @@ class MementoDamageAnalysis(object):
                 if (left_avg + center_avg + right_avg) == 0:
                     ratio_importance = 0.0
                 elif float(right_avg + right_avg_tolerance) / (left_avg + center_avg + right_avg) > \
-                        float(1)/3:
+                                float(1) / 3:
                     ratio_importance = float(right_avg) / (
                         left_avg + center_avg + right_avg) * ratio_weight
                 else:
@@ -649,6 +685,44 @@ class MementoDamageAnalysis(object):
         total_importance = tag_importance + ratio_importance
         return (tag_importance, ratio_importance, total_importance)
 
+    def _calculate_text_damage(self, log, size_weight=0.5, centrality_weight=0.5, use_viewport_size=True):
+        importances = []
+
+        viewport_w, viewport_h = self.viewport_size if use_viewport_size else self.page_size
+        middle_x = viewport_w / 2.0
+        middle_y = viewport_h / 2.0
+
+        if len(log['text']) > 0:
+            x = log['left']
+            y = log['top']
+            w = log['width']
+            h = log['height']
+            c = log['coverage']
+
+            location_importance = 0.0
+            if x and y and w and h:
+                # Based on measureMemento.pl line 703
+                if (x + w) > middle_x and x < middle_x:
+                    location_importance += centrality_weight / 2;
+
+                # Based on measureMemento.pl line 715
+                if (y + h) > middle_y and y < middle_y:
+                    location_importance += centrality_weight / 2;
+
+            size_importance = 0.0
+            if c:
+                if viewport_w * viewport_h > 0:
+                    prop = float(c) / (viewport_w * viewport_h)
+                else:
+                    prop = 0.0
+
+                size_importance = prop * size_weight
+
+            importance = location_importance + size_importance
+            importances.append((location_importance, size_importance,
+                                importance))
+
+        return importances
 
     def _rgb2hex(self, r, g, b):
         return '{:02x}{:02x}{:02x}'.format(r, g, b).upper()
