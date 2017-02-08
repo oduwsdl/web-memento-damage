@@ -175,7 +175,7 @@ else {
             // Use setTimeout to delay process
             // Timeout in ms, means 200 ms
             window.setTimeout(function () {
-                if (page.injectJs('jquery-3.1.0.min.js') && page.injectJs('underscore.js')) {
+                if (page.injectJs('jquery-3.1.0.min.js') && page.injectJs('underscore.js') && page.injectJs('isInViewport.min.js')) {
                     // Calculate bgcolor
                     var bgcolor = getBackgroundColor();
                     // If bgcolor == 000000 -> change it to white
@@ -225,6 +225,7 @@ function processPage(url, outputDir) {
     processMultimedias(url, outputDir);
     processCsses(url, outputDir);
     processScreenshots(url, outputDir);
+    processText(url, outputDir);
 }
 
 function processNetworkResources(url, outputDir) {
@@ -268,19 +269,22 @@ function processImages(url, outputDir) {
 
         var images = document.images || [];
         for(var i=0; i<images.length; i++) documentImages.push(images[i]);
-        var frames = window.frames;
-        for(var f=0; f<frames.length; f++) {
-            var tmpDocument = frames[f].document;
-            if(tmpDocument == undefined) tmpDocument = frames[f];
 
-            images = tmpDocument.images || [];
-            for(var i=0; i<images.length; i++) documentImages.push(images[i]);
-        }
+        try {
+            var frames = window.frames;
+            for(var f=0; f<frames.length; f++) {
+                var tmpDocument = frames[f].document;
+                if(tmpDocument == undefined) tmpDocument = frames[f];
+
+                images = tmpDocument.images || [];
+                for(var i=0; i<images.length; i++) documentImages.push(images[i]);
+            }
+        } catch(e) {}
 
         for(var i=0; i<documentImages.length; i++) {
             var docImage = documentImages[i];
             allImages[docImage['currentSrc']] = {};
-            allImages[docImage['currentSrc']]['rectangles'] = []
+            allImages[docImage['currentSrc']]['rectangles'] = [];
         }
 
         for(var i=0; i<documentImages.length; i++) {
@@ -525,6 +529,100 @@ function processScreenshots(url, outputDir) {
     // Save screenshot
     page.render(screenshotFile);
     if(logLevel <= Log.INFO) console.log('Processing screenshot --> creating ' + screenshotFile);
+}
+
+function processText(url, outputDir) {
+    resourceTextFile = outputDir + '/text.log';
+
+    var textLog = page.evaluate(function() {
+        var allElements = {};
+        var textLog = {};
+        $('body').find('*').each(function(idx, el) {
+            var originalCs = window.getComputedStyle(this);
+            var originalText = $(this).text().replace(/\n\s+\n/g,'\n\n').replace(/ \s+ /g,' ');
+            var outerHTML = this.outerHTML;
+            var outerTag = this.cloneNode(false).outerHTML
+            var oW = originalCs.width.replace('px', '');
+            var oH = originalCs.height.replace('px', '');
+
+            allElements[idx] = this;
+
+            var visible = false;
+            if ($(this).is(':visible') || $(this).is(':not(:hidden)') ||
+                originalCs['display'] == '' || originalCs['display'] != 'none' ||
+                originalCs['visibility'] == '' || originalCs['visibility'] == 'visible') {
+                visible = true;
+            }
+
+            var inViewport = false;
+            if ($(this).is(':in-viewport')) {
+                inViewport = true;
+            }
+
+            if(this.childElementCount == 0) {
+                var text = $(this).text();
+            } else {
+                var text = "";
+            }
+
+            textLog[idx] = {
+                'html': outerHTML,
+                'tag': outerTag,
+                'original-text': originalText.trim(),
+                'original-width': parseFloat(oW),
+                'original-height': parseFloat(oH),
+                'visible': visible,
+                'in-viewport': inViewport,
+                'text': text.trim(),
+                'width': 0,
+                'height': 0,
+            };
+        });
+
+        var elIdxs = Object.keys(allElements).reverse();
+        for (var i = 0; i < elIdxs.length; i++) {
+            var idx = elIdxs[i];
+            var text = textLog[idx]['text'];
+
+            if (allElements[idx].childElementCount > 0) {
+                for(var c=0; c<allElements[idx].childElementCount; c++) {
+                    $(allElements[idx].children[c]).remove();
+                }
+
+                try {
+                    text = $(this).text().trim();
+                } catch(ex) {}
+            }
+
+            if (text.length > 0) {
+                // Make element not wrapped
+                $(allElements[idx]).css('position', 'fixed').css('top', '0px')
+                    .css('left', '0px').css('width', 'auto').css('height', 'auto')
+                    .css('white-space', 'nowrap');
+
+                var cs = window.getComputedStyle(allElements[idx]);
+                textLog[idx]['width'] = parseFloat(cs.width.replace('px', '')) || 0;
+                textLog[idx]['height'] = parseFloat(cs.height.replace('px', '')) || 0;
+
+                // Put back original element
+                $(allElements[idx]).replaceWith(textLog[idx]['html']);
+            }
+
+            delete textLog[idx]['html'];
+        }
+
+        var arrTextLogs = [];
+        var elIdxs = Object.keys(textLog);
+        for (var i = 0; i < elIdxs.length; i++) {
+            idx = elIdxs[i];
+            arrTextLogs.push(JSON.stringify(textLog[idx]));
+        }
+
+        return arrTextLogs;
+    });
+
+    fs.write(resourceTextFile, textLog.join('\n'), "wb");
+    if (logLevel <= Log.INFO) console.log('Processing text --> creating ' + resourceTextFile);
 }
 
 function calculateImportance(rule) {
