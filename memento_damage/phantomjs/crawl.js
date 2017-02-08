@@ -285,8 +285,8 @@ function processImagesInFrame() {
 
             // Computed styles
             var cs = window.getComputedStyle(docImage);
-            var width = parseFloat(cs.width.replace('px', ''));
-            var height = parseFloat(cs.height.replace('px', ''));
+            var width = parseFloat(cs.width.replace('px', '')) || docImage.clientWidth;
+            var height = parseFloat(cs.height.replace('px', '')) || docImage.clientHeight;
 
             // Calculate top left position
             var obj = docImage;
@@ -388,8 +388,8 @@ function processMultimediasInFrame() {
 
             // Computed styles
             var cs = window.getComputedStyle(docVideo);
-            var width = parseFloat(cs.width.replace('px', ''));
-            var height = parseFloat(cs.height.replace('px', ''));
+            var width = parseFloat(cs.width.replace('px', '')) || docVideo.clientWidth;
+            var height = parseFloat(cs.height.replace('px', '')) || docVideo.clientHeight;
 
             // Calculate top left position
             var obj = docVideo;
@@ -580,8 +580,8 @@ function processTextInFrame() {
             var originalText = $(this).text().replace(/\n\s+\n/g,'\n\n').replace(/ \s+ /g,' ');
             var outerHTML = this.outerHTML;
             var outerTag = this.cloneNode(false).outerHTML
-            var oW = originalCs.width.replace('px', '');
-            var oH = originalCs.height.replace('px', '');
+            var oW = originalCs.width.replace('px', '') || (this.clientWidth + '');
+            var oH = originalCs.height.replace('px', '') ||  (this.clientHeight + '');
 
             // Use width of parent if this width is not detected
             var obj = this;
