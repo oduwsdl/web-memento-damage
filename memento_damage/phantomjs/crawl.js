@@ -46,7 +46,7 @@ else {
     }
 
     // Set timeout on fetching resources to 30 seconds (can be changed)
-    page.settings.resourceTimeout = 300000;
+    page.settings.resourceTimeout = 30000;
     page.onResourceTimeout = function(e) {
         console.error('Resource ' + e.url + ' timeout. ' + e.errorCode + ' ' + e.errorString);
     };
