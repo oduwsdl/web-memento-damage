@@ -258,66 +258,71 @@ function processHtml(url, outputDir) {
     if(logLevel <= Log.INFO) console.log('Saving HTML source --> creating ' + htmlFile)
 }
 
-function processImages(url, outputDir) {
-    resourceImageFile = outputDir + '/image.log';
-
+function processImagesInFrame() {
     // Get images using document.images
     // document.images also can be execute in browser console
     var images = page.evaluate(function () {
         var allImages = {};
-        var documentImages = [];
-
-        var images = document.images || [];
-        for(var i=0; i<images.length; i++) documentImages.push(images[i]);
-
-        try {
-            var frames = window.frames;
-            for(var f=0; f<frames.length; f++) {
-                var tmpDocument = frames[f].document;
-                if(tmpDocument == undefined) tmpDocument = frames[f];
-
-                images = tmpDocument.images || [];
-                for(var i=0; i<images.length; i++) documentImages.push(images[i]);
-            }
-        } catch(e) {}
+        var documentImages = document.images;
 
         for(var i=0; i<documentImages.length; i++) {
             var docImage = documentImages[i];
-            allImages[docImage['currentSrc']] = {};
-            allImages[docImage['currentSrc']]['rectangles'] = [];
+
+            // Make defaults value
+            allImages[docImage['src']] = {};
+            allImages[docImage['src']]['url'] = docImage['src'];
+            allImages[docImage['src']]['rectangles'] = [];
         }
 
         for(var i=0; i<documentImages.length; i++) {
             var docImage = documentImages[i];
 
             // Calculate vieport size
-            allImages[docImage['currentSrc']]['viewport_size'] = [
+            allImages[docImage['src']]['viewport_size'] = [
                 docImage.ownerDocument.body.clientWidth,
                 docImage.ownerDocument.body.clientHeight
             ];
 
+            // Computed styles
+            var cs = window.getComputedStyle(docImage);
+            var width = parseFloat(cs.width.replace('px', ''));
+            var height = parseFloat(cs.height.replace('px', ''));
+
             // Calculate top left position
             var obj = docImage;
-            var curleft = 0, curtop = 0;
-            if (obj.offsetParent) {
-                do {
-                    curleft += obj.offsetLeft;
-                    curtop += obj.offsetTop;
-                } while (obj = obj.offsetParent);
-            }
+            var left = 0, top = 0;
+            do {
+                left += obj.offsetLeft;
+                top += obj.offsetTop;
+            } while (obj = obj.offsetParent);
 
             rectangle = {
-                'width' : docImage['width'],
-                'height' : docImage['height'],
-                'top' : curtop,
-                'left' : curleft,
+                'width' : width,
+                'height' : height,
+                'top' : top,
+                'left' : left,
             }
 
-            allImages[docImage['currentSrc']]['rectangles'].push(rectangle);
+            allImages[docImage['src']]['rectangles'].push(rectangle);
         }
 
         return allImages;
-    });
+    }) || {};
+
+    return images;
+}
+
+function processImages(url, outputDir) {
+    var images = processImagesInFrame();
+    for(var f=0; f<page.framesCount; f++) {
+        if(!_.includes(page.framesName[f], 'fb_') && !_.includes(page.framesName[f], 'twiter-')) {
+            page.switchToFrame(page.framesName[f]);
+            var imagesFrame = processImagesInFrame();
+            // textLog = textLog.concat(textLogFrame);
+            _.extend(images, imagesFrame);
+        }
+    }
+    page.switchToMainFrame();
 
     // Check images url == resource url, append position if same
     var networkImages = {};
@@ -346,20 +351,19 @@ function processImages(url, outputDir) {
     }
 
     // Save all resource images
-    var networkImagesValues = []
-    var networkImagesKeys = Object.keys(networkImages);
-    for(r=0; r<networkImagesKeys.length; r++) {
-        var value = networkImages[networkImagesKeys[r]];
-        networkImagesValues.push(JSON.stringify(value));
+    var values = [];
+    var keys = Object.keys(networkImages);
+    for(r=0; r<keys.length; r++) {
+        var value = networkImages[keys[r]];
+        values.push(JSON.stringify(value));
     }
 
-    fs.write(resourceImageFile, unescape(encodeURIComponent(networkImagesValues.join('\n'))), "w");
+    resourceImageFile = outputDir + '/image.log';
+    fs.write(resourceImageFile, unescape(encodeURIComponent(values.join('\n'))), "w");
     if(logLevel <= Log.INFO) console.log('Processing images --> creating ' + resourceImageFile)
 }
 
-function processMultimedias(url, outputDir) {
-    resourceVideoFile = outputDir + '/video.log';
-
+function processMultimediasInFrame() {
     // Get videos using document.getElementsByTagName("video")
     // document.getElementsByTagName("video") also can be execute in browser console
     var videos = page.evaluate(function () {
@@ -369,6 +373,7 @@ function processMultimedias(url, outputDir) {
         for(var i=0; i<documentVideos.length; i++) {
             var docVideo = documentVideos[i];
             allVideos[docVideo['currentSrc']] = {};
+            allVideos[docVideo['currentSrc']]['url'] = url;
             allVideos[docVideo['currentSrc']]['rectangles'] = []
         }
 
@@ -381,28 +386,46 @@ function processMultimedias(url, outputDir) {
                 docVideo.ownerDocument.body.clientHeight
             ];
 
+            // Computed styles
+            var cs = window.getComputedStyle(docVideo);
+            var width = parseFloat(cs.width.replace('px', ''));
+            var height = parseFloat(cs.height.replace('px', ''));
+
             // Calculate top left position
             var obj = docVideo;
-            var curleft = 0, curtop = 0;
-            if (obj.offsetParent) {
-                do {
-                    curleft += obj.offsetLeft;
-                    curtop += obj.offsetTop;
-                } while (obj = obj.offsetParent);
-            }
+            var left = 0, top = 0;
+            do {
+                left += obj.offsetLeft;
+                top += obj.offsetTop;
+            } while (obj = obj.offsetParent);
 
             rectangle = {
-                'width' : docVideo['clientWidth'],
-                'height' : docVideo['clientHeight'],
-                'top' : curtop,
-                'left' : curleft,
+                'width' : width,
+                'height' : height,
+                'top' : top,
+                'left' : left,
             }
 
             allVideos[docVideo['currentSrc']]['rectangles'].push(rectangle);
         }
 
         return allVideos;
-    });
+    }) || {};
+
+    return videos;
+}
+
+function processMultimedias(url, outputDir) {
+    var videos = processMultimediasInFrame();
+    for(var f=0; f<page.framesCount; f++) {
+        if(!_.includes(page.framesName[f], 'fb_') && !_.includes(page.framesName[f], 'twiter-')) {
+            page.switchToFrame(page.framesName[f]);
+            var videosFrame = processMultimediasInFrame();
+            // textLog = textLog.concat(textLogFrame);
+            _.extend(videos, videosFrame);
+        }
+    }
+    page.switchToMainFrame();
 
     // Check images url == resource url, append position if same
     var networkVideos = {};
@@ -438,13 +461,12 @@ function processMultimedias(url, outputDir) {
         networkVideosValues.push(JSON.stringify(value));
     }
 
+    resourceVideoFile = outputDir + '/video.log';
     fs.write(resourceVideoFile, unescape(encodeURIComponent(networkVideosValues.join('\n'))), "w");
     if(logLevel <= Log.INFO) console.log('Processing videos --> creating ' + resourceVideoFile);
 }
 
-function processCsses(url, resourceBasename) {
-    resourceCssFile = outputDir + '/css.log';
-
+function processCssesInFrame() {
     var csses = page.evaluate(function () {
         function serialize(docCss, frameId) {
             // For each stylesheet, get its rules
@@ -482,7 +504,22 @@ function processCsses(url, resourceBasename) {
         }
 
         return allCsses;
-    });
+    }) || {};
+
+    return csses;
+}
+
+function processCsses(url, resourceBasename) {
+    var csses = processCssesInFrame();
+    for(var f=0; f<page.framesCount; f++) {
+        if(!_.includes(page.framesName[f], 'fb_') && !_.includes(page.framesName[f], 'twiter-')) {
+            page.switchToFrame(page.framesName[f]);
+            var cssesFrame = processCssesInFrame();
+            // textLog = textLog.concat(textLogFrame);
+            _.extend(csses, cssesFrame);
+        }
+    }
+    page.switchToMainFrame();
 
     // Check css url == resource url, append position if same
     var networkCsses = []
@@ -519,6 +556,7 @@ function processCsses(url, resourceBasename) {
         networkCssValues.push(JSON.stringify(networkCsses[r]));
     }
 
+    resourceCssFile = outputDir + '/css.log';
     fs.write(resourceCssFile, unescape(encodeURIComponent(networkCssValues.join('\n'))), "wb");
     if(logLevel <= Log.INFO) console.log('Processing stylesheets --> creating ' + resourceCssFile);
 }
@@ -531,7 +569,7 @@ function processScreenshots(url, outputDir) {
     if(logLevel <= Log.INFO) console.log('Processing screenshot --> creating ' + screenshotFile);
 }
 
-function processTextFrame() {
+function processTextInFrame() {
     console.error('Processing text in frame ' + page.frameName);
 
     var textLog = page.evaluate(function() {
@@ -545,21 +583,21 @@ function processTextFrame() {
             var oW = originalCs.width.replace('px', '');
             var oH = originalCs.height.replace('px', '');
 
-            // Fix width
+            // Use width of parent if this width is not detected
             var obj = this;
             do {
                 oW = window.getComputedStyle(obj).width.replace('px', '');
                 if(oW) break;
             } while (obj = obj.offsetParent);
 
-            // Fix height
+            // Use height of parent if this height is not detected
             var obj = this;
             do {
                 oH = window.getComputedStyle(obj).height.replace('px', '');
                 if(oH) break;
             } while (obj = obj.offsetParent);
 
-            // Calculate top left position
+            // Calculate absolute top left position
             var obj = this;
             var curleft = 0, curtop = 0;
             if (obj.offsetParent) {
@@ -607,6 +645,7 @@ function processTextFrame() {
         for (var i = 0; i < elIdxs.length; i++) {
             var idx = elIdxs[i];
 
+            // If element has children, try remove all children and see what text is left
             if (allElements[idx].childElementCount > 0) {
                 for(var c=0; c<allElements[idx].childElementCount; c++) {
                     $(allElements[idx].children[c]).remove();
@@ -620,6 +659,7 @@ function processTextFrame() {
                 } catch(ex) {}
             }
 
+            // Calculate coverage by simulating fixed position
             if (textLog[idx]['text'].length > 0) {
                 // Make element not wrapped
                 $(allElements[idx]).css('position', 'fixed').css('top', '0px')
@@ -655,13 +695,11 @@ function processTextFrame() {
 }
 
 function processText(url, outputDir) {
-    console.log(page.framesName.length);
-
-    var textLog = processTextFrame();
+    var textLog = processTextInFrame();
     for(var f=0; f<page.framesCount; f++) {
         if(!_.includes(page.framesName[f], 'fb_') && !_.includes(page.framesName[f], 'twiter-')) {
             page.switchToFrame(page.framesName[f]);
-            var textLogFrame = processTextFrame();
+            var textLogFrame = processTextInFrame();
             textLog = textLog.concat(textLogFrame);
         }
     }
