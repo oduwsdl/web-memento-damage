@@ -414,10 +414,6 @@ class MementoDamageAnalysis(object):
                 try: self._text_logs.pop(idx)
                 except: pass
 
-        self._text_logs['num_words'] = num_words_of_text
-        self._text_logs['words_per_image'] = self.words_per_image
-
-
         self._logger.info('Potential damage of {} is {}'.format('"text"', total_texts_damage))
 
         # Based on measureMemento.pl line 555
@@ -427,7 +423,7 @@ class MementoDamageAnalysis(object):
         self._potential_css_damage = total_css_damage * self.css_weight
         self._potential_multimedia_damage = total_mlms_damage * \
                                             self.multimedia_weight
-        self._potential_damage_text = total_text_damage * self.text_weight
+        self._potential_damage_text = total_texts_damage * self.text_weight
 
         self._potential_damage = self._potential_image_damage + \
                                  self._potential_css_damage + \
@@ -555,20 +551,36 @@ class MementoDamageAnalysis(object):
             h = image_rect['height']
 
             location_importance = 0.0
-            # Based on measureMemento.pl line 703
-            if (x + w) > middle_x and x < middle_x:
-                location_importance += centrality_weight / 2;
+            if x and y and w and h:
+                text_middle_x = float(x + w) / 2
+                text_middle_y = float(y + h) / 2
 
-            # Based on measureMemento.pl line 715
-            if (y + h) > middle_y and y < middle_y:
-                location_importance += centrality_weight / 2;
+                if float(x + w) >= 0.0 and float(y + h) >= 0.0:
+                    distance_x = abs(middle_x - text_middle_x)
+                    distance_y = abs(middle_y - text_middle_y)
 
-            if viewport_w * viewport_h > 0:
-                prop = float(w * h) / (viewport_w * viewport_h)
-            else:
-                prop = 0.0
+                    prop_x = (middle_x - distance_x) / middle_x
+                    prop_y = (middle_y - distance_y) / middle_y
 
-            size_importance = prop * size_weight
+                    location_importance += prop_x * (centrality_weight / 2)
+                    location_importance += prop_y * (centrality_weight / 2)
+
+            # # Based on measureMemento.pl line 703
+            # if (x + w) > middle_x and x < middle_x:
+            #     location_importance += centrality_weight / 2;
+            #
+            # # Based on measureMemento.pl line 715
+            # if (y + h) > middle_y and y < middle_y:
+            #     location_importance += centrality_weight / 2;
+
+            size_importance = 0.0
+            if w and h:
+                if viewport_w * viewport_h > 0:
+                    prop = float(w * h) / (viewport_w * viewport_h)
+                else:
+                    prop = 0.0
+
+                size_importance = prop * size_weight
 
             importance = location_importance + size_importance
             importances.append((location_importance, size_importance,
@@ -701,13 +713,26 @@ class MementoDamageAnalysis(object):
 
             location_importance = 0.0
             if x and y and w and h:
-                # Based on measureMemento.pl line 703
-                if (x + w) > middle_x and x < middle_x:
-                    location_importance += centrality_weight / 2;
+                text_middle_x = float(x + w) / 2
+                text_middle_y = float(y + h) / 2
 
-                # Based on measureMemento.pl line 715
-                if (y + h) > middle_y and y < middle_y:
-                    location_importance += centrality_weight / 2;
+                if float(x + w) >= 0.0 and float(y + h) >= 0.0:
+                    distance_x = abs(middle_x - text_middle_x)
+                    distance_y = abs(middle_y - text_middle_y)
+
+                    prop_x = (middle_x - distance_x) / middle_x
+                    prop_y = (middle_y - distance_y) / middle_y
+
+                    location_importance += prop_x * (centrality_weight / 2)
+                    location_importance += prop_y * (centrality_weight / 2)
+
+                # # Based on measureMemento.pl line 703
+                # if (x + w) > middle_x and x < middle_x:
+                #     location_importance += centrality_weight / 2;
+                #
+                # # Based on measureMemento.pl line 715
+                # if (y + h) > middle_y and y < middle_y:
+                #     location_importance += centrality_weight / 2;
 
             size_importance = 0.0
             if c:
