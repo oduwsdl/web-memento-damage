@@ -74,7 +74,10 @@ class MementoDamageAnalysis(object):
 
         redirect_uris = []
         self._follow_redirection(self.memento_damage.uri, logs, redirect_uris)
-        final_uri, final_status_code = redirect_uris[len(redirect_uris) - 1]
+        if len(redirect_uris) > 0:
+            final_uri, final_status_code = redirect_uris[len(redirect_uris) - 1]
+        else:
+            final_uri, final_status_code = self.memento_damage.uri, None
 
         if (not final_status_code) or (final_status_code != 200):
             total_damage = 1

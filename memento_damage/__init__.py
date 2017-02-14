@@ -2,6 +2,7 @@ import errno
 import io
 import json
 import logging
+import mimetypes
 import os
 import sys
 import tempfile
@@ -144,8 +145,17 @@ class MementoDamage(object):
             self.logger.error(msg)
 
     def run(self, re_run=True):
-        self.request_time = datetime.now()
+        self._result = {}
 
+        # Check mimetype of URI input
+        mimetype, encoding = mimetypes.guess_type(self.uri)
+        if mimetype and 'html' not in mimetype:
+            self._result['uri'] = self.uri
+            self._result['error'] = True
+            self._result['message'] = 'URI must be in HTML format'
+            return
+
+        self.request_time = datetime.now()
         if re_run:
             # Crawl page with phantomjs crawl.js via arguments
             # Equivalent with console:
@@ -160,7 +170,6 @@ class MementoDamage(object):
                                stderr_callback_args=(self.log_error, ))
 
             if err_code != 0:
-                self._result = {}
                 self._result['uri'] = self.uri
                 self._result['error'] = True
                 self._result['message'] = self._last_error_message
@@ -193,10 +202,14 @@ class MementoDamage(object):
         if self._result:
             if not self._result['error']:
                 if self._mode == 'simple':
-                    final_uri, final_status = self._result['redirect_uris'][len(self._result['redirect_uris']) - 1]
+                    final_uri = self.uri
+                    if len(self._result['redirect_uris']) > 1:
+                        final_uri, final_status = self._result['redirect_uris'][len(self._result['redirect_uris']) - 1]
                     print('Total damage of {} is {}'.format(final_uri, str(self._result['total_damage'])))
+
                 elif self._mode == 'json':
                     print(json.dumps(self._result, indent=4))
+
                 else:
                     self.logger.error('Choose mode "simple" or "json"')
 
