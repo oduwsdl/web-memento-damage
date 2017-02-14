@@ -241,7 +241,7 @@ function processNetworkResources(url, outputDir) {
         networkResourcesValues.push(JSON.stringify(value));
     }
 
-    fs.write(resourceFile, networkResourcesValues.join('\n'), "w");
+    fs.write(resourceFile, unescape(encodeURIComponent(networkResourcesValues.join('\n'))), "w");
     if(logLevel <= Log.DEBUG) console.log('Saving network resources --> creating ' + resourceFile);
 }
 
