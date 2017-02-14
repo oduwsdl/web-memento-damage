@@ -226,10 +226,12 @@ class MementoDamageAnalysis(object):
                 slashed_uri = uri + '/'
 
             line = None
-            if unslashed_uri in logs.keys():
-                line = logs[unslashed_uri]
-            elif slashed_uri in logs.keys():
-                line = logs[slashed_uri]
+            urls = [u for u, s in redirect_uris]
+            if unslashed_uri not in urls and slashed_uri not in urls:
+                if unslashed_uri in logs.keys():
+                    line = logs[unslashed_uri]
+                elif slashed_uri in logs.keys():
+                    line = logs[slashed_uri]
 
             if line:
                 status_code = line['status_code']
