@@ -47,6 +47,8 @@ class MementoDamage(object):
         self.uri = str(uri)
         self.output_dir = output_dir
 
+        self.reformat_uri_webrecorder_io()
+
         # Initialize variable
         self.app_log_file = os.path.join(self.output_dir, self.APP_LOG_FILE_NAME)
         self.html_file = os.path.join(self.output_dir, self.HTML_FILE_NAME)
@@ -83,6 +85,14 @@ class MementoDamage(object):
         self.logger.addHandler(log_stdout_handler)
 
         self.setup_logger()
+
+    def reformat_uri_webrecorder_io(self):
+        if self.uri.startswith('https://webrecorder.io') or self.uri.startswith('http://webrecorder.io'):
+            wrc_comps = self.uri.replace('https://webrecorder.io/', '').split('/')
+            user, project, date = wrc_comps[:3]
+            wrc_url = '/'.join(wrc_comps[3:])
+            new_uri = 'https://wbrc.io/{}/{}/{}id_/{}'.format(user, project, date, wrc_url)
+            self.uri = new_uri
 
     def setup_logger(self):
         if self._info:

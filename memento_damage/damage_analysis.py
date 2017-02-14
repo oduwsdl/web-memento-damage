@@ -79,7 +79,7 @@ class MementoDamageAnalysis(object):
         else:
             final_uri, final_status_code = self.memento_damage.uri, None
 
-        if (not final_status_code) or (final_status_code != 200):
+        if (not final_status_code) or (final_status_code == 404):
             total_damage = 1
         elif self._potential_damage != 0:
             total_damage = self._actual_damage / self._potential_damage
