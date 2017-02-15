@@ -109,6 +109,7 @@ class MementoDamageAnalysis(object):
             'total': self._potential_damage,
             'image': self._potential_image_damage,
             'css': self._potential_css_damage,
+            'js': self._potential_js_damage,
             'multimedia': self._potential_multimedia_damage,
             'text': self._potential_damage_text,
         }
@@ -116,6 +117,7 @@ class MementoDamageAnalysis(object):
             'total': self._actual_damage,
             'image': self._actual_image_damage,
             'css': self._actual_css_damage,
+            'js': self._actual_js_damage,
             'multimedia': self._actual_multimedia_damage,
             'text': self._actual_damage_text,
         }
@@ -370,12 +372,18 @@ class MementoDamageAnalysis(object):
             self._logger.info('Potential damage of {} is {}'.format(log['url'], css_damage))
             # print('Potential damage {} for {}'.format(css_damage, log['url']))
 
-        # Css
+        # Js
         self._logger.info('Calculate potential damage for Javascript(s)')
 
         total_js_damage = 0.0
         for idx, log in enumerate(self._js_logs):
-            pass
+            total_js_damage += 1
+
+            self._js_logs[idx]['potential_damage'] = {
+                'total': 1
+            }
+
+            self._logger.info('Potential damage of {} is {}'.format(log['url'], 1))
 
         # Multimedia
         self._logger.info('Calculate potential damage for Multimedia(s)')
@@ -446,12 +454,14 @@ class MementoDamageAnalysis(object):
 
         self._potential_image_damage = total_images_damage * self.image_weight
         self._potential_css_damage = total_css_damage * self.css_weight
+        self._potential_js_damage = total_js_damage * self.js_weight
         self._potential_multimedia_damage = total_mlms_damage * \
                                             self.multimedia_weight
         self._potential_damage_text = total_texts_damage * self.text_weight
 
         self._potential_damage = self._potential_image_damage + \
                                  self._potential_css_damage + \
+                                 self._potential_js_damage + \
                                  self._potential_multimedia_damage + \
                                  self._potential_damage_text
 
@@ -511,9 +521,17 @@ class MementoDamageAnalysis(object):
 
         # Javascript
         self._logger.info('Calculate actual damage for Javascript(s)')
+
+        total_js_damage = 0
         for idx, log in enumerate(self._js_logs):
             if ('status_code' in log) and (log['status_code'] > 399):
-                pass
+                total_js_damage += 1
+
+                self._js_logs[idx]['actual_damage'] = {
+                    'total': 1
+                }
+
+                self._logger.info('Potential damage of {} is {}'.format(log['url'], 1))
 
         # Multimedia
         self._logger.info('Calculate actual damage for Multimedia(s)')
@@ -555,10 +573,12 @@ class MementoDamageAnalysis(object):
 
         self._actual_image_damage = total_images_damage * self.image_weight
         self._actual_css_damage = total_css_damage * self.css_weight
+        self._actual_js_damage = total_js_damage * self.js_weight
         self._actual_multimedia_damage = total_mlms_damage * \
                                          self.multimedia_weight
         self._actual_damage = self._actual_image_damage + \
                               self._actual_css_damage + \
+                              self._actual_js_damage + \
                               self._actual_multimedia_damage + \
                               self._actual_damage_text
 
