@@ -514,7 +514,7 @@
         ).appendTo(table);
 
         tbody = '<tbody>';
-        pdTag = pdRatio = adTag = adRatio = 0;
+        pd = ad = 0;
         jses.forEach(function(js, idx) {
             if (!js['rules_tag']) js['rules_tag'] = [];
 
@@ -526,8 +526,8 @@
                     '</td>' +
                     '<td class="vert-separator"><i class="fa expcol collapsed" data-toggle="collapse" data-target="#js-info-' + idx + '"></i></td>' +
                     '<td data-th="Status" class="vert-separator">' + ('status_code' in js ? js['status_code'] : '') + '</td>' +
-                    '<td data-th="Tag">' + ('actual_damage' in js ? js['actual_damage']['total'].toFixed(3) : '-') + '</td>' +
-                    '<td data-th="Tag">' + ('potential_damage' in js ? js['potential_damage']['total'].toFixed(3) : '-') + '</td>' +
+                    '<td data-th="Actual Damage" class="vert-separator">' + ('actual_damage' in js ? js['actual_damage']['total'].toFixed(3) : '-') + '</td>' +
+                    '<td data-th="Potential Damage">' + ('potential_damage' in js ? js['potential_damage']['total'].toFixed(3) : '-') + '</td>' +
                 '</tr>' +
                 '<tr id="js-info-' + idx + '" class="info collapse">' +
                     '<td style="border-top-width: 0px;"></td>' +
@@ -536,10 +536,8 @@
                     '</div></td>' +
                 '</tr>';
 
-            pdTag += ('potential_damage' in js ? js['potential_damage']['tag'] : 0)
-            pdRatio += ('potential_damage' in js ? js['potential_damage']['ratio'] : 0)
-            adTag += ('actual_damage' in js ? js['actual_damage']['tag'] : 0)
-            adRatio += ('actual_damage' in js ? js['actual_damage']['ratio'] : 0)
+            pd += ('potential_damage' in js ? js['potential_damage']['total'] : 0)
+            ad += ('actual_damage' in js ? js['actual_damage']['total'] : 0)
         });
 
         if (jses.length == 0) {
@@ -555,24 +553,22 @@
             $(
                 '<thead>' +
                 '<tr>' +
-                '<th colspan="3" class="vert-separator">Total</th>' +
-                '<th class="vert-separator"></th>' +
-                '<th>' + adTag.toFixed(3) + '</th>' +
-                '<th class="vert-separator">' + adRatio.toFixed(3) + '</th>' +
-                '<th>' + pdTag.toFixed(3) + '</th>' +
-                '<th>' + pdRatio.toFixed(3) + '</th>' +
+                    '<th colspan="3" class="vert-separator">Total</th>' +
+                    '<th class="vert-separator"></th>' +
+                    '<th class="vert-separator">' + ad.toFixed(3) + '</th>' +
+                    '<th>' + pd.toFixed(3) + '</th>' +
                 '</tr>' +
                 '<tr>' +
-                '<th colspan="3" class="vert-separator">Weight</th>' +
-                '<th class="vert-separator">' + weight.toFixed(3) + '</th>' +
-                '<th colspan="2" class="vert-separator"></th>' +
-                '<th colspan="2"></th>' +
+                    '<th colspan="3" class="vert-separator">Weight</th>' +
+                    '<th class="vert-separator">' + weight.toFixed(3) + '</th>' +
+                    '<th colspan="1" class="vert-separator"></th>' +
+                    '<th colspan="1"></th>' +
                 '</tr>' +
                 '<tr>' +
-                '<th colspan="3" class="vert-separator">Damage</th>' +
-                '<th class="vert-separator"></th>' +
-                '<th colspan="2" class="vert-separator">' + ((adTag + adRatio) * weight).toFixed(3) + '</th>' +
-                '<th colspan="2">' + ((pdTag + pdRatio) * weight).toFixed(3) + '</th>' +
+                    '<th colspan="3" class="vert-separator">Damage</th>' +
+                    '<th class="vert-separator"></th>' +
+                    '<th colspan="1" class="vert-separator">' + (ad * weight).toFixed(3) + '</th>' +
+                    '<th colspan="1">' + (pd * weight).toFixed(3) + '</th>' +
                 '</tr>' +
                 '</thead>'
             ).appendTo(table);
