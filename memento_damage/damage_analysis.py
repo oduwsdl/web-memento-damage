@@ -16,9 +16,10 @@ class MementoDamageAnalysis(object):
 
     multimedia_weight = 0.50
     css_weight = 0.05
+    js_weight = 0.05
     proportion = 3.0 / 4.0
-    image_weight = proportion * (1 - (multimedia_weight + css_weight))
-    text_weight = 1.0 - (multimedia_weight + css_weight + image_weight)
+    image_weight = proportion * (1 - (multimedia_weight + css_weight + js_weight))
+    text_weight = 1.0 - (multimedia_weight + css_weight + js_weight + image_weight)
     words_per_image = 1000
 
     blacklisted_uris = [
@@ -40,6 +41,8 @@ class MementoDamageAnalysis(object):
                             io.open(memento_damage.image_log_file, encoding="utf-8").readlines()]
         self._css_logs = [json.loads(log, strict=False) for log in
                           io.open(memento_damage.css_log_file, encoding="utf-8").readlines()]
+        self._js_logs = [json.loads(log, strict=False) for log in
+                          io.open(memento_damage.js_log_file, encoding="utf-8").readlines()]
         self._mlm_logs = [json.loads(log, strict=False) for log in
                           io.open(memento_damage.video_log_file, encoding="utf-8").readlines()]
         self._text_logs = [json.loads(log, strict=False) for log in
@@ -93,11 +96,13 @@ class MementoDamageAnalysis(object):
         result['weight'] = {
             'multimedia': self.multimedia_weight,
             'css': self.css_weight,
+            'js': self.js_weight,
             'image': self.image_weight,
             'text': self.text_weight
         }
         result['images'] = self._image_logs
         result['csses'] = self._css_logs
+        result['jses'] = self._js_logs
         result['multimedias'] = self._mlm_logs
         result['text'] = self._text_logs
         result['potential_damage'] = {
@@ -169,6 +174,15 @@ class MementoDamageAnalysis(object):
                 tmp_css_logs.append(log)
 
         self._css_logs = tmp_css_logs
+
+        # Filter javascripts log
+        tmp_js_logs = []
+        for log in self._js_logs:
+            # If not blacklisted, put into temporary array
+            if not self._is_blacklisted(log):
+                tmp_js_logs.append(log)
+
+        self._js_logs = tmp_js_logs
 
         self._logger.info('Remove blacklisted URIS')
         self._logger.info('Blacklisted URIS: {}'.format(', '.join(self.blacklisted_uris)))
@@ -356,6 +370,13 @@ class MementoDamageAnalysis(object):
             self._logger.info('Potential damage of {} is {}'.format(log['url'], css_damage))
             # print('Potential damage {} for {}'.format(css_damage, log['url']))
 
+        # Css
+        self._logger.info('Calculate potential damage for Javascript(s)')
+
+        total_js_damage = 0.0
+        for idx, log in enumerate(self._js_logs):
+            pass
+
         # Multimedia
         self._logger.info('Calculate potential damage for Multimedia(s)')
 
@@ -487,6 +508,12 @@ class MementoDamageAnalysis(object):
 
                 self._logger.info('Actual damage of {} is {}'.format(log['url'], css_damage))
                 # print('Actual damage {} for {}'.format(css_damage, log['url']))
+
+        # Javascript
+        self._logger.info('Calculate actual damage for Javascript(s)')
+        for idx, log in enumerate(self._js_logs):
+            if ('status_code' in log) and (log['status_code'] > 399):
+                pass
 
         # Multimedia
         self._logger.info('Calculate actual damage for Multimedia(s)')
@@ -701,6 +728,12 @@ class MementoDamageAnalysis(object):
 
         total_importance = tag_importance + ratio_importance
         return (tag_importance, ratio_importance, total_importance)
+
+    def _calculate_js_damage(self, log, tag_weight=0.5, ratio_weight=0.5,
+                              is_potential=False, use_viewport_size=True):
+        css_url = log['url']
+
+        return None
 
     def _calculate_text_damage(self, log, size_weight=0.5, centrality_weight=0.5, use_viewport_size=True):
         importances = []

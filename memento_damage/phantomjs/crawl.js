@@ -224,6 +224,7 @@ function processPage(url, outputDir) {
     processImages(url, outputDir);
     processMultimedias(url, outputDir);
     processCsses(url, outputDir);
+    processJavascripts(url, outputDir);
     processScreenshots(url, outputDir);
     processText(url, outputDir);
 }
@@ -559,6 +560,65 @@ function processCsses(url, resourceBasename) {
     resourceCssFile = outputDir + '/css.log';
     fs.write(resourceCssFile, unescape(encodeURIComponent(networkCssValues.join('\n'))), "wb");
     if(logLevel <= Log.INFO) console.log('Processing stylesheets --> creating ' + resourceCssFile);
+}
+
+function processJavascriptsInFrame() {
+    var jses = page.evaluate(function () {
+        function serialize(docJs) {
+            // Create json containing url and rules
+            var jsonJs = {
+                'url' : docJs['src'] || '[INTERNAL]',
+            };
+
+            return jsonJs;
+        }
+
+        var allJses = [];
+        var tmpJses = document.scripts || [];
+        for(t=0; t<tmpJses.length; t++) allJses.push(serialize(tmpJses[t]));
+        return allJses;
+    }) || {};
+
+    return jses;
+}
+
+function processJavascripts(url, outputDir) {
+    var jses = processJavascriptsInFrame();
+    for(var f=0; f<page.framesCount; f++) {
+        if(!_.includes(page.framesName[f], 'fb') && !_.includes(page.framesName[f], 'twiter')) {
+            page.switchToFrame(page.framesName[f]);
+            var jsesFrame = processJavascriptsInFrame();
+            // textLog = textLog.concat(textLogFrame);
+            _.extend(jses, jsesFrame);
+        }
+    }
+    page.switchToMainFrame();
+
+    // Check css url == resource url, append position if same
+    var networkJses = []
+    var networkResourcesKeys = Object.keys(networkResources);
+    for(var i=0; i<jses.length; i++) {
+        var js = jses[i];
+
+        idx = _.indexOf(networkResourcesKeys, js['url']);
+        if(idx >= 0) {
+            var networkJs = networkResources[networkResourcesKeys[idx]];
+            js = _.extend(js, networkJs);
+        }
+
+        networkJses.push(js);
+    }
+
+    // Save all resource csses
+    // var resourceCssFile = path.join(resourceDir, resourceBasename + '.css.log');
+    networkJsValues = []
+    for(r=0; r<networkJses.length; r++) {
+        networkJsValues.push(JSON.stringify(networkJses[r]));
+    }
+
+    resourceJsFile = outputDir + '/js.log';
+    fs.write(resourceJsFile, unescape(encodeURIComponent(networkJsValues.join('\n'))), "wb");
+    if(logLevel <= Log.INFO) console.log('Processing javascript --> creating ' + resourceJsFile);
 }
 
 function processScreenshots(url, outputDir) {

@@ -19,17 +19,6 @@ from memento_damage.tools import Command, rmdir_recursive, prompt_yes_no
 
 
 class MementoDamage(object):
-    # Define all output files
-    APP_LOG_FILE_NAME = 'app.log'
-    HTML_FILE_NAME = 'source.html'
-    NETWORK_LOG_FILE_NAME = 'network.log'
-    IMAGE_LOG_FILE_NAME = 'image.log'
-    CSS_LOG_FILE_NAME = 'css.log'
-    VIDEO_LOG_FILE_NAME = 'video.log'
-    SCREENSHOT_FILE_NAME = 'screenshot.png'
-    TEXT_LOG_FILE_NAME = 'text.log'
-    JSON_RESULT_FILE_NAME = 'result.json'
-
     background_color = 'FFFFFF'
     viewport_size = [1024, 777]
 
@@ -50,15 +39,16 @@ class MementoDamage(object):
         self.reformat_uri_webrecorder_io()
 
         # Initialize variable
-        self.app_log_file = os.path.join(self.output_dir, self.APP_LOG_FILE_NAME)
-        self.html_file = os.path.join(self.output_dir, self.HTML_FILE_NAME)
-        self.network_log_file = os.path.join(self.output_dir, self.NETWORK_LOG_FILE_NAME)
-        self.image_log_file = os.path.join(self.output_dir, self.IMAGE_LOG_FILE_NAME)
-        self.css_log_file = os.path.join(self.output_dir, self.CSS_LOG_FILE_NAME)
-        self.video_log_file = os.path.join(self.output_dir, self.VIDEO_LOG_FILE_NAME)
-        self.text_log_file = os.path.join(self.output_dir, self.TEXT_LOG_FILE_NAME)
-        self.screenshot_file = os.path.join(self.output_dir, self.SCREENSHOT_FILE_NAME)
-        self.json_result_file = os.path.join(self.output_dir, self.JSON_RESULT_FILE_NAME)
+        self.app_log_file       = os.path.join(self.output_dir, 'app.log')
+        self.html_file          = os.path.join(self.output_dir, 'source.html')
+        self.network_log_file   = os.path.join(self.output_dir, 'network.log')
+        self.image_log_file     = os.path.join(self.output_dir, 'image.log')
+        self.css_log_file       = os.path.join(self.output_dir, 'css.log')
+        self.js_log_file        = os.path.join(self.output_dir, 'js.log')
+        self.video_log_file     = os.path.join(self.output_dir, 'video.log')
+        self.text_log_file      = os.path.join(self.output_dir, 'text.log')
+        self.screenshot_file    = os.path.join(self.output_dir, 'screenshot.png')
+        self.json_result_file   = os.path.join(self.output_dir, 'result.json')
 
         # options
         if 'mode' in options: self._mode = options['mode']
