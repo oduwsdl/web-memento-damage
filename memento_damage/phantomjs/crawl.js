@@ -346,7 +346,9 @@ function processImages(url, outputDir) {
                     networkImages[url]['rectangles'] = [];
                 }
 
-                networkImages[url]['url'] = url;
+                if(! ('url' in networkImages[url]))    {
+                    networkImages[url]['url'] = url;
+                }
             }
         }
     }
