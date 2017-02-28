@@ -205,7 +205,7 @@ else {
                 }
             }, 5000);
         }
-    }
+    };
 
     // Kill crawl.js, after 5 minutes not responding
     window.setTimeout(function () {
@@ -316,7 +316,7 @@ function processImagesInFrame() {
 function processImages(url, outputDir) {
     var images = processImagesInFrame();
     for(var f=0; f<page.framesCount; f++) {
-        if(!_.includes(page.framesName[f], 'fb_') && !_.includes(page.framesName[f], 'twiter-')) {
+        if(!_.includes(page.framesName[f], 'fb_') && !_.includes(page.framesName[f], 'twitter-')) {
             page.switchToFrame(page.framesName[f]);
             var imagesFrame = processImagesInFrame();
             // textLog = textLog.concat(textLogFrame);
@@ -362,7 +362,13 @@ function processImages(url, outputDir) {
     }
 
     resourceImageFile = outputDir + '/image.log';
+//    console.log("values = " + values + "\n");
+//    console.log("values.join = " + (values.join('\n')) + "\n");
+//    console.log("value = " + values[0] + "\n");
+//    console.log("value encodeURIComponent = " + encodeURIComponent(values[0]));
+//    console.log("value encode unescape = " + unescape(encodeURIComponent(values[0])));
     fs.write(resourceImageFile, unescape(encodeURIComponent(values.join('\n'))), "w");
+    //fs.write(resourceImageFile, (values.join('\n')), "w");
     if(logLevel <= Log.INFO) console.log('Processing images --> creating ' + resourceImageFile);
 }
 
@@ -375,9 +381,21 @@ function processMultimediasInFrame() {
 
         for(var i=0; i<documentVideos.length; i++) {
             var docVideo = documentVideos[i];
-            allVideos[docVideo['currentSrc']] = {};
-            allVideos[docVideo['currentSrc']]['url'] = url;
-            allVideos[docVideo['currentSrc']]['rectangles'] = [];
+//            allVideos[docVideo['currentSrc']] = {};
+//            allVideos[docVideo['currentSrc']]['url'] = url;
+//            allVideos[docVideo['currentSrc']]['rectangles'] = [];
+
+            var pat = /^https?:\/\//i;
+            if(pat.test(docVideo['src']))    {
+                allVideos[docVideo['src']] = {};
+                allVideos[docVideo['src']]['url'] = docVideo['src'];
+                allVideos[docVideo['src']]['rectangles'] = [];
+            }
+            else    {
+                allVideos[docVideo['currentSrc']] = {};
+                allVideos[docVideo['currentSrc']]['url'] = docVideo['currentSrc'];
+                allVideos[docVideo['currentSrc']]['rectangles'] = [];
+            }
         }
 
         for(var i=0; i<documentVideos.length; i++) {
@@ -395,19 +413,27 @@ function processMultimediasInFrame() {
             var height = parseFloat(cs.height.replace('px', '')) || docVideo.clientHeight;
 
             // Calculate top left position
-            var obj = docVideo;
+//            var obj = docVideo;
+//            var left = 0, top = 0;
+//            do {
+//                left += obj.offsetLeft;
+//                top += obj.offsetTop;
+//            } while (obj = obj.offsetParent);
+
+
             var left = 0, top = 0;
             do {
-                left += obj.offsetLeft;
-                top += obj.offsetTop;
-            } while (obj = obj.offsetParent);
+                left += docVideo.offsetLeft;                    // alternative: elem.getBoundingClientRect()  --> has been tested.
+                top += docVideo.offsetTop;
+            } while (docVideo = docVideo.offsetParent);
+
 
             rectangle = {
                 'width' : width,
                 'height' : height,
                 'top' : top,
                 'left' : left,
-            }
+            };
 
             allVideos[docVideo['currentSrc']]['rectangles'].push(rectangle);
         }
@@ -421,7 +447,7 @@ function processMultimediasInFrame() {
 function processMultimedias(url, outputDir) {
     var videos = processMultimediasInFrame();
     for(var f=0; f<page.framesCount; f++) {
-        if(!_.includes(page.framesName[f], 'fb_') && !_.includes(page.framesName[f], 'twiter-')) {
+        if(!_.includes(page.framesName[f], 'fb_') && !_.includes(page.framesName[f], 'twitter-')) {
             page.switchToFrame(page.framesName[f]);
             var videosFrame = processMultimediasInFrame();
             // textLog = textLog.concat(textLogFrame);
@@ -438,13 +464,13 @@ function processMultimedias(url, outputDir) {
             if(networkResources[url]['content_type'].indexOf('video/') == 0) {
                 networkVideos[url] = networkResources[url];
                 docVideoUrls.forEach(function(dvUrl, idx) {
-                    if(url.indexOf(dvUrl) >= 0) {
+                    if(networkVideos[url]['url'].indexOf(dvUrl) >= 0)    {       // if docVideoUrls contains dvUrl
                         networkVideos[url] = _.extend(networkVideos[url], videos[dvUrl]);
                     }
                 });
 
-                if(! ('viewport_size' in networkImages[url])) {
-                    networkImages[url]['viewport_size'] = viewportSize;
+                if(! ('viewport_size' in networkVideos[url])) {
+                    networkVideos[url]['viewport_size'] = viewportSize;
                 }
 
                 if(! ('rectangles' in networkVideos[url])) {
@@ -493,18 +519,8 @@ function processCssesInFrame() {
         }
 
         var allCsses = [];
-
         var tmpCsses = document.styleSheets || [];
         for(t=0; t<tmpCsses.length; t++) allCsses.push(serialize(tmpCsses[t], -1));
-
-        var tmpFrames = window.frames;
-        for(f=0; f<tmpFrames.length; f++) {
-            var tmpDocument = tmpFrames[f].document;
-            if(tmpDocument == undefined) tmpDocument = tmpFrames[f];
-
-            tmpCsses = tmpDocument.styleSheets || [];
-            for(t=0; t<tmpCsses.length; t++) allCsses.push(serialize(tmpCsses[t], f));
-        }
 
         return allCsses;
     }) || {};
@@ -512,10 +528,10 @@ function processCssesInFrame() {
     return csses;
 }
 
-function processCsses(url, resourceBasename) {
+function processCsses(url, outputDir) {
     var csses = processCssesInFrame();
     for(var f=0; f<page.framesCount; f++) {
-        if(!_.includes(page.framesName[f], 'fb_') && !_.includes(page.framesName[f], 'twiter-')) {
+        if(!_.includes(page.framesName[f], 'fb_') && !_.includes(page.framesName[f], 'twitter-')) {
             page.switchToFrame(page.framesName[f]);
             var cssesFrame = processCssesInFrame();
             // textLog = textLog.concat(textLogFrame);
@@ -545,7 +561,7 @@ function processCsses(url, resourceBasename) {
                 importance += calculateImportance(rule);
             }
         } else {
-            css['rules_tag'] = []
+            css['rules_tag'] = [];
         }
 
         css['importance'] = importance;
@@ -587,7 +603,7 @@ function processJavascriptsInFrame() {
 function processJavascripts(url, outputDir) {
     var jses = processJavascriptsInFrame();
     for(var f=0; f<page.framesCount; f++) {
-        if(!_.includes(page.framesName[f], 'fb') && !_.includes(page.framesName[f], 'twiter')) {
+        if(!_.includes(page.framesName[f], 'fb') && !_.includes(page.framesName[f], 'twitter-')) {
             page.switchToFrame(page.framesName[f]);
             var jsesFrame = processJavascriptsInFrame();
             // textLog = textLog.concat(textLogFrame);
@@ -758,7 +774,7 @@ function processTextInFrame() {
 function processText(url, outputDir) {
     var textLog = processTextInFrame();
     for(var f=0; f<page.framesCount; f++) {
-        if(!_.includes(page.framesName[f], 'fb_') && !_.includes(page.framesName[f], 'twiter-')) {
+        if(!_.includes(page.framesName[f], 'fb_') && !_.includes(page.framesName[f], 'twitter-')) {
             page.switchToFrame(page.framesName[f]);
             var textLogFrame = processTextInFrame();
             textLog = textLog.concat(textLogFrame);
