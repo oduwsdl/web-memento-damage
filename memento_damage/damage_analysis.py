@@ -333,7 +333,7 @@ class MementoDamageAnalysis(object):
 
         total_images_damage = 0.0
         for idx, log in enumerate(self._image_logs):
-            text_damages = self._calculate_image_damage(log, use_viewport_size=True)
+            text_damages = self._calculate_image_and_multimedia_damage(log, use_viewport_size=True)
             # Based on measureMemento.pl line 463
             total_location_importance = 0
             total_size_importance = 0
@@ -390,7 +390,7 @@ class MementoDamageAnalysis(object):
 
         total_mlms_damage = 0
         for idx, log in enumerate(self._mlm_logs):
-            css_damage = self._calculate_image_damage(log, use_viewport_size=False)
+            css_damage = self._calculate_image_and_multimedia_damage(log, use_viewport_size=False)
             # Based on measureMemento.pl line 463
             total_location_importance = 0
             total_size_importance = 0
@@ -476,7 +476,7 @@ class MementoDamageAnalysis(object):
         total_images_damage = 0
         for idx, log in enumerate(self._image_logs):
             if log['status_code'] > 399:
-                image_damage = self._calculate_image_damage(log, use_viewport_size=False)
+                image_damage = self._calculate_image_and_multimedia_damage(log, use_viewport_size=False)
                 # Based on measureMemento.pl line 463
                 total_location_importance = 0
                 total_size_importance = 0
@@ -539,7 +539,7 @@ class MementoDamageAnalysis(object):
         total_mlms_damage = 0
         for idx, log in enumerate(self._mlm_logs):
             if log['status_code'] > 399:
-                mlm_damage = self._calculate_image_damage(log, use_viewport_size=False)
+                mlm_damage = self._calculate_image_and_multimedia_damage(log, use_viewport_size=False)
                 # Based on measureMemento.pl line 463
                 total_location_importance = 0
                 total_size_importance = 0
@@ -584,7 +584,7 @@ class MementoDamageAnalysis(object):
 
         self._logger.info('Actual damage of {} is {}'.format('"webpage"', self._actual_damage))
 
-    def _calculate_image_damage(self, log, size_weight=0.5, centrality_weight=0.5, use_viewport_size=True):
+    def _calculate_image_and_multimedia_damage(self, log, size_weight=0.5, centrality_weight=0.5, use_viewport_size=True):
         importances = []
 
         # im = Image.open(self.screenshot_file)
@@ -603,6 +603,9 @@ class MementoDamageAnalysis(object):
             h = image_rect['height']
 
             location_importance = 0.0
+
+            # New algorithm, need to be tested
+            '''
             if x and y and w and h:
                 text_middle_x = float(x + w) / 2
                 text_middle_y = float(y + h) / 2
@@ -616,14 +619,15 @@ class MementoDamageAnalysis(object):
 
                     location_importance += prop_x * (centrality_weight / 2)
                     location_importance += prop_y * (centrality_weight / 2)
+            '''
 
-            # # Based on measureMemento.pl line 703
-            # if (x + w) > middle_x and x < middle_x:
-            #     location_importance += centrality_weight / 2;
-            #
-            # # Based on measureMemento.pl line 715
-            # if (y + h) > middle_y and y < middle_y:
-            #     location_importance += centrality_weight / 2;
+            # Based on measureMemento.pl line 703
+            if (x + w) > middle_x and x < middle_x:
+                location_importance += centrality_weight / 2;
+
+            # Based on measureMemento.pl line 715
+            if (y + h) > middle_y and y < middle_y:
+                location_importance += centrality_weight / 2;
 
             size_importance = 0.0
             if w and h:
@@ -774,6 +778,8 @@ class MementoDamageAnalysis(object):
                 text_middle_x = float(x + w) / 2
                 text_middle_y = float(y + h) / 2
 
+                # New algorithm, need to be tested
+                '''
                 if float(x + w) >= 0.0 and float(y + h) >= 0.0:
                     distance_x = abs(middle_x - text_middle_x)
                     distance_y = abs(middle_y - text_middle_y)
@@ -783,14 +789,15 @@ class MementoDamageAnalysis(object):
 
                     location_importance += prop_x * (centrality_weight / 2)
                     location_importance += prop_y * (centrality_weight / 2)
+                '''
 
-                # # Based on measureMemento.pl line 703
-                # if (x + w) > middle_x and x < middle_x:
-                #     location_importance += centrality_weight / 2;
-                #
-                # # Based on measureMemento.pl line 715
-                # if (y + h) > middle_y and y < middle_y:
-                #     location_importance += centrality_weight / 2;
+                # Based on measureMemento.pl line 703
+                if (x + w) > middle_x and x < middle_x:
+                    location_importance += centrality_weight / 2;
+
+                # Based on measureMemento.pl line 715
+                if (y + h) > middle_y and y < middle_y:
+                    location_importance += centrality_weight / 2;
 
             size_importance = 0.0
             if c:
