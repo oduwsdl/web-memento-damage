@@ -104,9 +104,10 @@ else {
     // Resource is similiar with all listed in developer tools -> network tab -> refresh
     page.onResourceReceived = function (res) {
         resUrl = res.url;
+        resStatus = res.status;
 
         if (resUrl == url) {
-            pageStatusCode = res.status;
+            pageStatusCode = resStatus;
             if(logLevel <= Log.INFO && res.stage === 'start') console.log('Receiving resource(s)');
         }
 
@@ -114,10 +115,15 @@ else {
             return;
         }
 
+        // Handle base64 image (have 'data' scheme), set status code to 200
+        if(resUrl.indexOf('data') == 0) {
+            resStatus = 200;
+        }
+
         if(res.stage === 'start') {
-            if(logLevel <= Log.DEBUG) console.log('Resource ' + resUrl + ' (' + res.status + ') is being received');
+            if(logLevel <= Log.DEBUG) console.log('Resource ' + resUrl + ' (' + resStatus + ') is being received');
         } else if(res.stage === 'end') {
-            if(logLevel <= Log.DEBUG) console.log('Resource ' + resUrl + ' (' + res.status + ') is received');
+            if(logLevel <= Log.DEBUG) console.log('Resource ' + resUrl + ' (' + resStatus + ') is received');
         }
 
         // Save all network resources to variable
@@ -130,8 +136,8 @@ else {
 
         var resource = {
             'url' : resUrl,
-            'status_code' : res.status,
-            'content_type' : res.status > 399 ? mimeType.lookup(resUrl) : res.contentType,
+            'status_code' : resStatus,
+            'content_type' : resStatus > 399 ? mimeType.lookup(resUrl) : res.contentType,
             'headers' : headers,
         };
 
