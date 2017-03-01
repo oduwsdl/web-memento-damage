@@ -73,7 +73,7 @@ class MementoDamageAnalysis(object):
     def get_result(self):
         logs = {}
         for log in self._logs:
-            logs[log['url']] = log
+            logs[log['url'].lower()] = log
 
         redirect_uris = []
         self._follow_redirection(self.memento_damage.uri, logs, redirect_uris)
@@ -241,8 +241,11 @@ class MementoDamageAnalysis(object):
                 unslashed_uri = uri
                 slashed_uri = uri + '/'
 
+            unslashed_uri = unslashed_uri.lower()
+            slashed_uri = slashed_uri.lower()
+
             line = None
-            urls = [u for u, s in redirect_uris]
+            urls = [u.lower() for u, s in redirect_uris]
             if unslashed_uri not in urls and slashed_uri not in urls:
                 if unslashed_uri in logs.keys():
                     line = logs[unslashed_uri]

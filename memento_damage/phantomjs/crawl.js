@@ -505,7 +505,7 @@ function processMultimedias(url, outputDir) {
 
 function processCssesInFrame() {
     var csses = page.evaluate(function () {
-        $.noConflict();
+        // $.noConflict();
         function getSelectorTextRecursive(rule, rules_tag) {
             // Reference for type https://developer.mozilla.org/en-US/docs/Web/API/CSSRule#Type_constants
             if(rule.type == 1) { // CSSStyleRule
@@ -672,6 +672,8 @@ function processTextInFrame() {
     console.error('Processing text in frame ' + page.frameName);
 
     var textLog = page.evaluate(function() {
+        // $.noConflict();
+
         var allElements = {};
         var textLog = {};
         $('body').find('*').each(function(idx, el) {
