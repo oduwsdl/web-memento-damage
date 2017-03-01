@@ -24,7 +24,8 @@ class MementoDamageAnalysis(object):
 
     blacklisted_uris = [
         'https://analytics.archive.org/',
-        '[INTERNAL]'
+        '[INTERNAL]',
+        'data:'
     ]
 
     def __init__(self, memento_damage):
