@@ -505,32 +505,55 @@ function processMultimedias(url, outputDir) {
 
 function processCssesInFrame() {
     var csses = page.evaluate(function () {
-        function serialize(docCss, frameId) {
-            // For each stylesheet, get its rules
-            var rules = docCss.cssRules || [];
-            // For each rule, get selectorText
-            var rules_tag = []
-            for(var r=0; r<rules.length; r++) {
-                var rule = rules[r].selectorText;
-                rules_tag.push(rule);
+        $.noConflict();
+        function getSelectorTextRecursive(rule, rules_tag) {
+            // Reference for type https://developer.mozilla.org/en-US/docs/Web/API/CSSRule#Type_constants
+            if(rule.type == 1) { // CSSStyleRule
+                var tag = rule.selectorText;
+                rules_tag.push(tag);
+            } else if(rule.type == 4) { // CSSMediaRule
+                var subRules = rule.cssRules;
+                for(var sr=0; sr<subRules.length; sr++) {
+                    rules_tag = getSelectorTextRecursive(subRules[sr], rules_tag);
+                }
             }
 
+            return rules_tag;
+        }
+
+        function serialize(docCss) {
+            var rules_tag = [];
+            // For each stylesheet, get its rules
+            var rules = docCss.cssRules || docCss.rules || [];
+            // For each rule, get selectorText
+            for(var r=0; r<rules.length; r++) {
+                var rule = rules[r];
+                rules_tag = getSelectorTextRecursive(rule, rules_tag);
+            }
+            // Calculate importance
+            importance = 0;
+            for(var r=0; r<rules_tag.length; r++) {
+                var tag = rules_tag[r];
+                try {
+                    importance += $(tag).length;
+                } catch(e) {}
+            }
             // Create json containing url and rules
             var jsonCss = {
                 'url' : docCss['href'] || '[INTERNAL]',
                 'rules_tag' : rules_tag || [],
                 'hash' : docCss.ownerNode.outerHTML,
-                'frame' : frameId,
+                'importance': importance,
             };
 
             return jsonCss;
         }
 
-        var allCsses = [];
-        var tmpCsses = document.styleSheets || [];
-        for(t=0; t<tmpCsses.length; t++) allCsses.push(serialize(tmpCsses[t], -1));
+        var jsonCsses = [];
+        var docCsses = document.styleSheets || [];
+        for(t=0; t<docCsses.length; t++) jsonCsses.push(serialize(docCsses[t]));
 
-        return allCsses;
+        return jsonCsses;
     }) || {};
 
     return csses;
@@ -555,6 +578,7 @@ function processCsses(url, outputDir) {
         var css = csses[i];
 
         if('hash' in css) css['hash'] = md5(css['hash']);
+        if(! ('rules_tag' in css)) css['rules_tag'] = [];
 
         idx = _.indexOf(networkResourcesKeys, css['url']);
         if(idx >= 0) {
@@ -562,17 +586,6 @@ function processCsses(url, outputDir) {
             css = _.extend(css, networkCss);
         }
 
-        var importance = 0;
-        if('rules_tag' in css) {
-            for(var r=0; r<css['rules_tag'].length; r++) {
-                var rule = css['rules_tag'][r];
-                importance += calculateImportance(rule);
-            }
-        } else {
-            css['rules_tag'] = [];
-        }
-
-        css['importance'] = importance;
         networkCsses.push(css);
     }
 
@@ -793,64 +806,6 @@ function processText(url, outputDir) {
     resourceTextFile = outputDir + '/text.log';
     fs.write(resourceTextFile, unescape(encodeURIComponent(textLog.join('\n'))), "wb");
     if (logLevel <= Log.INFO) console.log('Processing text --> creating ' + resourceTextFile);
-}
-
-function calculateImportance(rule) {
-    var importance = 0;
-
-    if(rule == undefined) {
-    } else if(rule.match(/^\..*/i)) {
-        importance += page.evaluate(getNumElementsByClass, rule);
-    } else if(rule.match(/^#.*/i)) {
-        var theArr = rule.split('#');
-        var theArr2 = theArr[1].split(' ');
-        var theGuy = theArr2[0];
-        importance += page.evaluate(getNumElementByID, theGuy);
-    } else if(rule.match(/.*#.*/i)) {
-        importance += page.evaluate(getNumElementByID, rule);
-    } else if(rule.match(/[a-zA-Z]*\..*/g)) {
-        var theArr = rule.split('.');
-        importance += page.evaluate(getNumElementsByTagAndClass, theArr[0], theArr[1]);
-    } else if(!(rule.match(/\./ig))) {
-        importance += page.evaluate(getNumElementsByTag, rule);
-    } else {
-
-    }
-
-    return importance;
-}
-
-function getNumElementsByClass(className) {
-    var counter = 0;
-    var elems = document.getElementsByTagName('*');
-    for (var i = 0; i < elems.length; i++) {
-        if((' ' + elems[i].className + ' ').indexOf(' ' + className + ' ') > -1) {
-            counter++;
-        }
-    }
-    return counter;
-}
-
-function getNumElementByID(id) {
-    var theThing = document.getElementById(id);
-    if(theThing == null)
-        return 0;
-    return 1;
-}
-
-function getNumElementsByTagAndClass(tagName, className) {
-    var counter = 0;
-    var elems = document.getElementsByTagName(tagName);
-    for (var i = 0; i < elems.length; i++) {
-        if((' ' + elems[i].className + ' ').indexOf(' ' + className + ' ') > -1) {
-            counter++;
-        }
-    }
-    return counter;
-}
-
-function getNumElementsByTag(tagName) {
-    return document.getElementsByTagName(tagName).length;
 }
 
 function getBackgroundColor() {
