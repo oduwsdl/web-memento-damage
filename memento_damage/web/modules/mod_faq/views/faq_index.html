@@ -1,0 +1,82 @@
+{% extends 'templatevamp.html' %}
+
+{% block title %}Frequently Asked Questions{% endblock %}
+
+{% block head %}
+<style>
+  #side-nav.affix {
+    position: fixed;
+    top: 20px;
+  }
+
+  #side-nav>.active>a {
+    font-weight: 700;
+    background-color: transparent;
+    border-right: 2px solid #337ab7;
+  }
+
+  #side-nav>li>a:hover {
+    background-color: transparent;
+    border-right: 1px solid #337ab7;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="spacer" style="padding-top: 28px"></div>
+
+<div class="main">
+  <div class="main-inner">
+    <div class="container">
+      <div class="row">
+        <nav class="col-md-3 scrollspy">
+          <ul id="side-nav" class="nav hidden-xs hidden-sm" data-spy="affix"></ul><!-- end of main navigation -->
+        </nav>
+
+        <div class="col-md-9" id="api">
+          <div class="widget">
+            <div class="widget-header"><i class="fa fa-question-circle-o"></i>
+              <h3>What is MementoDamage?</h3>
+            </div>
+            <div class="widget-content">
+              <p>Memento Damage is a tool to calculate damage rate of a web page.</p>
+            </div>
+          </div>
+
+          <div class="widget">
+            <div class="widget-header"><i class="fa fa-question-circle-o"></i>
+              <h3>How to use this tool?</h3>
+            </div>
+            <div class="widget-content">
+              <p>Memento Damage can be used in a various way: Web, REST API, python library, and docker. </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block tail %}
+<script type="text/javascript">
+  $('.widget h3').each(function() {
+    var text = $(this).html();
+    var id = text.toLowerCase().replace(/[^\w\s]/gi, '').replace(/ /g,"-");
+
+    $(this).attr('id', id)
+    $('<li><a href="#' + id + '">' + text + '</a></li>').appendTo($('#side-nav'));
+  });
+
+  $('body')
+    .attr('data-spy', 'scroll')
+    .attr('data-target', '.scrollspy')
+    .css('position', 'relative');
+
+  $('#side-nav').affix({
+    offset: {
+      top: $('.navbar').offset().top + $('.spacer').offset().top
+    }
+  });
+</script>
+{% endblock %}

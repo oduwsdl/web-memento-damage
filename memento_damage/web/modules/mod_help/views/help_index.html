@@ -1,0 +1,65 @@
+{% extends 'templatevamp.html' %}
+
+{% block title %}API{% endblock %}
+
+{% block head %}
+<style>
+  #side-nav.affix {
+    position: fixed;
+    top: 20px;
+  }
+
+  #side-nav>.active>a {
+    font-weight: 700;
+    background-color: transparent;
+    border-right: 2px solid #337ab7;
+  }
+
+  #side-nav>li>a:hover {
+    background-color: transparent;
+    border-right: 1px solid #337ab7;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="jumbotron">
+  <div class="container">
+    <div class="col-md-10 col-md-offset-1">
+      <h2>This is Help Page</h2>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+  <div class="main-inner">
+    <div class="container">
+      <div class="row">
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block tail %}
+<script type="text/javascript">
+  $('.widget h3').each(function() {
+    var id = $(this).html().replace(' ', '-').toLowerCase();
+    var text = $(this).html();
+
+    $(this).attr('id', id)
+    $('<li><a href="#' + id + '">' + text + '</a></li>').appendTo($('#side-nav'));
+  });
+
+  $('body')
+    .attr('data-spy', 'scroll')
+    .attr('data-target', '.scrollspy')
+    .css('position', 'relative');
+
+  $('#side-nav').affix({
+    offset: {
+      top: $('.navbar').offset().top + $('.jumbotron').offset().top + 200
+    }
+  });
+</script>
+{% endblock %}
