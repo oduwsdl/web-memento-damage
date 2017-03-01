@@ -23,18 +23,60 @@
 {% endblock %}
 
 {% block content %}
-<div class="jumbotron">
-  <div class="container">
-    <div class="col-md-10 col-md-offset-1">
-      <h2>This is Help Page</h2>
-    </div>
-  </div>
-</div>
-
 <div class="main">
   <div class="main-inner">
     <div class="container">
       <div class="row">
+        <nav class="col-md-3 scrollspy">
+          <ul id="side-nav" class="nav hidden-xs hidden-sm" data-spy="affix"></ul><!-- end of main navigation -->
+        </nav>
+
+        <div class="col-md-9" id="api">
+          <div class="widget">
+            <div class="widget-header"><i class="fa fa-question-circle-o"></i>
+              <h3>Pull docker image</h3>
+            </div>
+            <div class="widget-content">
+              <p></p>
+            </div>
+          </div>
+
+          <div class="widget">
+            <div class="widget-header"><i class="fa fa-question-circle-o"></i>
+              <h3>Run docker image</h3>
+            </div>
+            <div class="widget-content">
+              <p></p>
+            </div>
+          </div>
+
+          <div class="widget">
+            <div class="widget-header"><i class="fa fa-question-circle-o"></i>
+              <h3>Run the web-server</h3>
+            </div>
+            <div class="widget-content">
+              <p></p>
+            </div>
+          </div>
+
+          <div class="widget">
+            <div class="widget-header"><i class="fa fa-question-circle-o"></i>
+              <h3>Run the CLI</h3>
+            </div>
+            <div class="widget-content">
+              <p></p>
+            </div>
+          </div>
+
+          <div class="widget">
+            <div class="widget-header"><i class="fa fa-question-circle-o"></i>
+              <h3>Start using it?</h3>
+            </div>
+            <div class="widget-content">
+              <p></p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -44,8 +86,8 @@
 {% block tail %}
 <script type="text/javascript">
   $('.widget h3').each(function() {
-    var id = $(this).html().replace(' ', '-').toLowerCase();
     var text = $(this).html();
+    var id = text.toLowerCase().replace(/[^\w\s]/gi, '').replace(/ /g,"-");
 
     $(this).attr('id', id)
     $('<li><a href="#' + id + '">' + text + '</a></li>').appendTo($('#side-nav'));
@@ -58,7 +100,7 @@
 
   $('#side-nav').affix({
     offset: {
-      top: $('.navbar').offset().top + $('.jumbotron').offset().top + 200
+      top: $('.navbar').offset().top + $('.spacer').offset().top
     }
   });
 </script>
