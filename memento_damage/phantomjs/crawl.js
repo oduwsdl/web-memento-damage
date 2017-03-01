@@ -143,6 +143,8 @@ else {
 
         var networkResourcesKeys = Object.keys(networkResources);
         if(! _.contains(networkResourcesKeys, resUrl)) {
+            // Sometimes url received in quoted (encoded) format, so decode it
+            resUrl = decodeURIComponent(resUrl);
             networkResources[resUrl] = resource;
         }
     };
