@@ -10,7 +10,7 @@ from optparse import OptionParser
 from bs4 import BeautifulSoup
 from memento_damage import MementoDamage
 from multiprocess import Queue, Process
-from matplotlib import pyplot as plt
+# from matplotlib import pyplot as plt
 
 
 def column(matrix, i):
@@ -51,7 +51,7 @@ class URIMCrawler(object):
     pool = MultiProcess(20)
 
     def get_uri_ms(self, index_uri, uri_r, idx, total):
-        print '{}/{} Get URI-M for {} from {}'.format(idx, total, uri_r, index_uri)
+        print '{0}/{1} Get URI-M for {3} from {4}'.format(idx, total, uri_r, index_uri)
 
         uri_ms = []
         try:
@@ -80,7 +80,7 @@ class URIMCrawler(object):
         return self.get_uri_ms(*args)
 
     def get_index_uris(self, uri_r, idx, total):
-        print '{}/{} Get index uris for URI-R = {}'.format(idx, total, uri_r)
+        print '{0}/{1} Get index uris for URI-R = {2}'.format(idx, total, uri_r)
 
         index_uris = []
         try:
@@ -90,7 +90,7 @@ class URIMCrawler(object):
                 index_uris = [(index['uri'], uri_r, idx, total) for index in resp_timemap_content['timemap_index']]
         except: pass
 
-        print '{}/{} Index uris = {} for URI-R = {}'.format(idx, total, len(index_uris), uri_r)
+        print '{0}/{1} Index uris = {2} for URI-R = {3}'.format(idx, total, len(index_uris), uri_r)
         return index_uris
 
     def get_index_uris_wrapper(self, args):
@@ -142,7 +142,7 @@ class URIMDamage(object):
         except OSError, e:
             if e.errno != errno.EEXIST: raise
 
-        print 'Processing {}'.format(uri_m)
+        print 'Processing {0}'.format(uri_m)
 
         result = None
         if not os.path.exists(out_json_file):
@@ -156,12 +156,15 @@ class URIMDamage(object):
 
             result = m.get_result()
             with open(out_json_file, 'wb') as f:
-                f.write(json.dumps(result, indent=4))
-
+                json.dump(result, f, indent=4)
+        '''
         else:
             result = json.load(open(out_json_file))
 
         return uri_r, uri_m, year, time, result
+        '''
+
+        return uri_r, uri_m, year, time
 
     def process_uri_m_wrapper(self, args):
         if not (type(args) == list or type(args) == tuple):
@@ -170,8 +173,8 @@ class URIMDamage(object):
         return self.process_uri_m(*args)
 
     def process(self, uri_ms, outdir):
-        p_uri_ms = [u + [outdir, ] for u in uri_ms]
-        return self.pool.map(self.process_uri_m_wrapper, p_uri_ms[:50])
+        p_uri_ms = [list(u) + [outdir, ] for u in uri_ms]
+        return self.pool.map(self.process_uri_m_wrapper, p_uri_ms)
 
 
 if __name__ == '__main__':
@@ -186,6 +189,7 @@ if __name__ == '__main__':
     uri_ms = URIMCrawler().process_input(args[0], args[1])
     uri_damages = URIMDamage().process(uri_ms, args[2])
 
+'''
     # Make graph
     damages_per_year = {}
     missings_per_year = {}
@@ -218,3 +222,4 @@ if __name__ == '__main__':
     plt.plot(column(arr_damage_year, 0), column(arr_damage_year, 2), 'ro')
     plt.plot(column(arr_damage_year, 0), column(arr_damage_year, 2), '--')
     plt.show()
+'''
