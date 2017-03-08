@@ -3,13 +3,16 @@ import json
 import os
 import tempfile
 import urllib
+from Queue import Empty
+from threading import Thread
+
 import numpy as np
 import requests
 from datetime import datetime
 from optparse import OptionParser
 from bs4 import BeautifulSoup
 from memento_damage import MementoDamage
-from multiprocess import Queue, Process
+from multiprocess import Queue, Process, Pool
 # from matplotlib import pyplot as plt
 
 
@@ -21,37 +24,112 @@ class MultiProcess(object):
     def __init__(self, cores=4):
         self.cores = cores
 
-    def map(self, function, sequence):
-        def _map(fn, list, q):
-            q.put(map(fn, list))
+    def map(self, function, sequence, native=False):
+        def _run(e, q):
+            q.put(function(e))
 
-        sl_idx = np.array_split(np.array(range(len(sequence))), self.cores)
+        def _worker(e):
+            q = Queue()
+            t = Thread(target=_run, args=(e, q,))
+            t.daemon = True
+            t.start()
+            t.join(60)
 
-        sublist = []
-        for sli in sl_idx:
-            sublist.append([sequence[i] for i in sli])
+            ret = q.get()
+            return ret
 
-        arr_ps = []
-        q = Queue()
-        for sl in sublist:
-            p = Process(target=_map, args=(function, sl, q,))
-            p.daemon = True
-            arr_ps.append(p)
+        return Pool(self.cores).map(_worker, sequence)
 
-        for p in arr_ps: p.start()
-
-        results = []
-        for _ in arr_ps:
-            results += q.get()
-
-        return results
+        # q_in = Queue()
+        # for e in sequence: q_in.put(e)
+        # q_out = Queue()
+        #
+        # # def _run(e):
+        # #     q_out.put(function(e))
+        # #
+        # # def _process():
+        # #     while True:
+        # #         if q_in.qsize() == 0: break
+        # #
+        # #         try:
+        # #             t = Thread(target=_run, args=(q_in.get(timeout=5), ))
+        # #             # t.daemon = True
+        # #             t.start()
+        # #             t.join(15)
+        # #         except Empty, e:
+        # #             break
+        # #
+        # # processes = []
+        # # for _ in range(self.cores):
+        # #     p = Process(target=_process)
+        # #     # p.daemon = True
+        # #     processes.append(p)
+        # #
+        # # for p in processes: p.start()
+        # # for p in processes: p.join()
+        #
+        # def _run(i, n, e):
+        #     q_out.put(function(e))
+        #
+        # def _process(i, n, e):
+        #     q_out.put(function(e))
+        #
+        #     # t = Thread(target=_run, args=(i, n, e,))
+        #     # t.daemon = True
+        #     # t.start()
+        #     # t.join(60)
+        #
+        # processes = []
+        # for i, e in enumerate(sequence):
+        #     p = Process(target=_process, args=(i, len(sequence), e, ))
+        #     p.daemon = True
+        #     processes.append(p)
+        #
+        # while len(processes) > 0:
+        #     ses_processes = []
+        #     for _ in range(self.cores):
+        #         ses_processes.append(processes.pop())
+        #
+        #     for t in ses_processes: t.start()
+        #     for t in ses_processes: t.join(15)
+        #
+        # # def _run(fn, e, q):
+        # #     q.put(fn(e))
+        # #
+        # # def _map(fn, list, q):
+        # #     for e in list:
+        # #         t = Thread(target=_run, args=(fn, e, q, ))
+        # #         t.daemon = True
+        # #         t.start()
+        # #         t.join(60)
+        # #
+        # # sl_idx = np.array_split(np.array(range(len(sequence))), self.cores)
+        # #
+        # # sublist = []
+        # # for sli in sl_idx:
+        # #     sublist.append([sequence[i] for i in sli])
+        # #
+        # # arr_ps = []
+        # # for sl in sublist:
+        # #     p = Process(target=_map, args=(function, sl, q,))
+        # #     p.daemon = True
+        # #     arr_ps.append(p)
+        # #
+        # # for p in arr_ps: p.start()
+        # # for p in arr_ps: p.join()
+        #
+        # results = []
+        # while q_out.qsize() != 0:
+        #     results += q_out.get()
+        #
+        # return results
 
 
 class URIMCrawler(object):
-    pool = MultiProcess(20)
+    pool = MultiProcess(100)
 
-    def get_uri_ms(self, index_uri, uri_r, idx, total):
-        print '{0}/{1} Get URI-M for {3} from {4}'.format(idx, total, uri_r, index_uri)
+    def get_uri_ms(self, index_uri, uri_r, idx, total, *args):
+        print '{0}/{1} Get URI-M for {2} from {3}'.format(idx, total, uri_r, index_uri)
 
         uri_ms = []
         try:
@@ -102,17 +180,17 @@ class URIMCrawler(object):
     def process_input(self, uri_r_file, uri_r_file_output):
         flat_uri_ms = []
         if not os.path.exists(uri_r_file_output):
-            uri_rs = [u.strip() for u in open(uri_r_file).readlines()]
+            uri_rs = list(set([u.strip() for u in open(uri_r_file).readlines()]))
             uri_rs = [(u, i+1, len(uri_rs)) for i, u in enumerate(uri_rs)]
 
-            index_uris = self.pool.map(self.get_index_uris_wrapper, uri_rs)
+            index_uris = self.pool.map(self.get_index_uris_wrapper, uri_rs, native=True)
 
             # Combine into flat arrays
             flat_index_uris = []
             for iu in index_uris:
                 flat_index_uris += iu
 
-            uri_ms = self.pool.map(self.get_uri_ms_wrapper, flat_index_uris)
+            uri_ms = self.pool.map(self.get_uri_ms_wrapper, flat_index_uris, native=True)
 
             # Combine into flat arrays
             for iu in uri_ms:
@@ -132,7 +210,7 @@ class URIMCrawler(object):
 
 
 class URIMDamage(object):
-    pool = MultiProcess(20)
+    pool = MultiProcess(50)
 
     def process_uri_m(self, uri_r, uri_m, year, time, outdir):
         quoted_url = urllib.quote(uri_m).replace('/', '_').replace('.', '-')
@@ -144,8 +222,10 @@ class URIMDamage(object):
 
         print 'Processing {0}'.format(uri_m)
 
+        exists = True
         result = None
         if not os.path.exists(out_json_file):
+            exists = False
             m = MementoDamage(uri_m, tempfile.mkdtemp())
             m.set_show_debug_message()
             m.set_output_mode_json()
@@ -163,6 +243,8 @@ class URIMDamage(object):
 
         return uri_r, uri_m, year, time, result
         '''
+
+        print 'Processing {0} Done: {1}'.format(uri_m, 'Exists' if exists else None)
 
         return uri_r, uri_m, year, time
 
