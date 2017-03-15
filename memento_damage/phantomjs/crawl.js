@@ -677,36 +677,17 @@ function processTextInFrame() {
         var allElements = {};
         var textLog = {};
         $('body').find('*').each(function(idx, el) {
-            var originalCs = window.getComputedStyle(this);
             var originalText = $(this).text().replace(/\n\s+\n/g,'\n\n').replace(/ \s+ /g,' ');
-            var outerHTML = this.outerHTML;
+            var outerHTML = this.outerHTML
             var outerTag = this.cloneNode(false).outerHTML
-            var oW = originalCs.width.replace('px', '') || (this.clientWidth + '');
-            var oH = originalCs.height.replace('px', '') ||  (this.clientHeight + '');
 
-            // Use width of parent if this width is not detected
-            var obj = this;
-            do {
-                oW = window.getComputedStyle(obj).width.replace('px', '');
-                if(oW) break;
-            } while (obj = obj.offsetParent);
+            // get the height and width of each element
+            var oW = $(this).outerWidth(false);         // source: http://stackoverflow.com/questions/9276633/get-absolute-height-and-width
+            var oH = $(this).outerHeight(false);
 
-            // Use height of parent if this height is not detected
-            var obj = this;
-            do {
-                oH = window.getComputedStyle(obj).height.replace('px', '');
-                if(oH) break;
-            } while (obj = obj.offsetParent);
-
-            // Calculate absolute top left position
-            var obj = this;
-            var curleft = 0, curtop = 0;
-            if (obj.offsetParent) {
-                do {
-                    curleft += obj.offsetLeft;
-                    curtop += obj.offsetTop;
-                } while (obj = obj.offsetParent);
-            }
+            // calculate absolute top-left position of the object --> find the coordinate
+            var curtop = $(this).offset().top;
+            var curleft = $(this).offset().left;
 
             allElements[idx] = this;
 
