@@ -1,0 +1,61 @@
+{% extends 'templatevamp.html' %}
+
+{% block title %}Frequently Asked Questions{% endblock %}
+
+{% block head %}
+<style>
+  #side-nav.affix {
+    position: fixed;
+    top: 20px;
+  }
+
+  #side-nav>.active>a {
+    font-weight: 700;
+    background-color: transparent;
+    border-right: 2px solid #337ab7;
+  }
+
+  #side-nav>li>a:hover {
+    background-color: transparent;
+    border-right: 1px solid #337ab7;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="spacer" style="padding-top: 28px"></div>
+
+<div class="main">
+  <div class="main-inner">
+    <div class="container">
+      <div class="row">
+        <p> Should you find any problem or error, feel free to contact us by opening an issue on github: <a href="https://github.com/erikaris/web-memento-damage/issues" target="_blank">  https://github.com/erikaris/web-memento-damage/issues </a>. </p>
+      </div>
+    </div>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block tail %}
+<script type="text/javascript">
+  $('.widget h3').each(function() {
+    var text = $(this).html();
+    var id = text.toLowerCase().replace(/[^\w\s]/gi, '').replace(/ /g,"-");
+
+    $(this).attr('id', id)
+    $('<li><a href="#' + id + '">' + text + '</a></li>').appendTo($('#side-nav'));
+  });
+
+  $('body')
+    .attr('data-spy', 'scroll')
+    .attr('data-target', '.scrollspy')
+    .css('position', 'relative');
+
+  $('#side-nav').affix({
+    offset: {
+      top: $('.navbar').offset().top + $('.spacer').offset().top
+    }
+  });
+</script>
+{% endblock %}

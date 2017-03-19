@@ -210,12 +210,15 @@
                 <li><a data-toggle="tab" href="#log"><i class="fa fa fa-circle-o-notch fa-spin"></i><span>Log</span> </a> </li>
             </ul>
             <div class="item">
-                <form method="GET" action="/memento/check">
-                    <div class="input-group">
-                        <input class="form-control" type="text" name="url" placeholder="http://www.somesite.com" required />
-                        <span class="input-group-btn">
-              <button class="btn btn-success" type="submit"><i class="fa fa-play"></i></button>
-            </span>
+                <form method="GET" action="/memento/check" role="form" data-toggle="validator">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input class="form-control" type="url" name="url" placeholder="http://www.somesite.com" required data-error="Your URI format is not correct. Consider adding a scheme (e.g: http://) to your URI" />
+                            <span class="input-group-btn">
+                  <button class="btn btn-success" type="submit"><i class="fa fa-play"></i></button>
+                </span>
+                        </div>
+                        <div class="help-block with-errors"></div>
                     </div>
                 </form>
             </div>

@@ -172,14 +172,19 @@
         </div>
 
         <div class="col-sm-10 col-sm-offset-1">
-          <form class="news-letter" method="GET" action="/memento/check">
+          <form class="news-letter" method="GET" action="/memento/check" role="form" data-toggle="validator">
             <div class="subscribe-hide">
-              <div class="input-group">
-                <input class="form-control" type="text" name="url" placeholder="http://www.somesite.com"  required />
+              <div class="form-group">
+                <div class="input-group">
+                <input class="form-control" type="url" name="url" placeholder="http://www.somesite.com"  required data-error="Your URI format is not correct. Consider adding a scheme (e.g: http://) to your URI" />
                 <span class="input-group-btn">
                   <button class="btn btn-success" type="submit">Check &raquo;</button>
                 </span>
-              </div><!-- /input-group -->
+                </div><!-- /input-group -->
+                <div class="help-block with-errors">
+
+                </div>
+              </div>
               <div class="subscribe-error"></div>
             </div><!-- /.subscribe-hide -->
             <div class="subscribe-message"></div>
