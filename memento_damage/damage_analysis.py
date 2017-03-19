@@ -257,7 +257,7 @@ class MementoDamageAnalysis(object):
                 status_code = line['status_code']
                 redirect_uris.append((uri, status_code))
 
-                if status_code in [301, 302]:
+                if status_code in [301, 302] and 'headers' in line and 'Location' in line['headers']:
                     redirect_url = line['headers']['Location']
                     uri = urlparse.urljoin(uri, redirect_url)
                 else:
