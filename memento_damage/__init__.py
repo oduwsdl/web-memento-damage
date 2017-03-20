@@ -174,17 +174,22 @@ class MementoDamage(object):
                 self._result['error'] = True
                 self._result['message'] = self._last_error_message
             else:
-                # get result of damage analysis
-                self._result = self._do_analysis()
-                self.response_time = datetime.now()
+                try:
+                    # get result of damage analysis
+                    self._result = self._do_analysis()
+                    self.response_time = datetime.now()
 
-                self._result['message'] = 'Calculation is finished in {} seconds'.format(
-                    (self.response_time - self.request_time).seconds)
-                self._result['timer'] = {
-                    'request_time': (self.request_time - datetime(1970, 1, 1)).total_seconds(),
-                    'response_time': (self.response_time - datetime(1970, 1, 1)).total_seconds()
-                }
-                self._result['calculation_time'] = (self.response_time - self.request_time).seconds
+                    self._result['message'] = 'Calculation is finished in {} seconds'.format(
+                        (self.response_time - self.request_time).seconds)
+                    self._result['timer'] = {
+                        'request_time': (self.request_time - datetime(1970, 1, 1)).total_seconds(),
+                        'response_time': (self.response_time - datetime(1970, 1, 1)).total_seconds()
+                    }
+                    self._result['calculation_time'] = (self.response_time - self.request_time).seconds
+                except Exception, e:
+                    self._result['uri'] = self.uri
+                    self._result['error'] = True
+                    self._result['message'] = "Error({0}): {1}".format(e.errno, e.strerror)
 
             # Save output
             io.open(self.json_result_file, 'wb').write(json.dumps(self._result, indent=4))
