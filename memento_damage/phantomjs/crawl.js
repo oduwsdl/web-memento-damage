@@ -153,6 +153,11 @@ else {
         if(isAborted) {
             processPage(url, outputDir);
 
+            //? what's the difference between console.log vs console.error?
+            //? where can I find this 'crawl-result' print out?
+            //? I run this and see the output on terminal, just wanna see whether it printed 'crawl-result'
+                //? or not. Apparently it's not.
+
             console.error(JSON.stringify({'crawl-result' : {
               'uri' : url,
               'status_code' : pageStatusCode,
@@ -165,7 +170,6 @@ else {
 
         else if (status !== 'success') {
             processPage(url, outputDir);
-
             console.error(JSON.stringify({'crawl-result' : {
               'uri' : url,
               'status_code' : pageStatusCode,
@@ -677,6 +681,7 @@ function processTextInFrame() {
         var allElements = {};
         var textLog = {};
         $('body').find('*').each(function(idx, el) {
+            var originalCs = getComputedStyle(this);
             var originalText = $(this).text().replace(/\n\s+\n/g,'\n\n').replace(/ \s+ /g,' ');
             var outerHTML = this.outerHTML
             var outerTag = this.cloneNode(false).outerHTML
