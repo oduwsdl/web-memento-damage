@@ -1,23 +1,18 @@
 {% extends 'templatevamp.html' %}
 
-{% block title %}Frequently Asked Questions{% endblock %}
+{% block title %}Contact Us{% endblock %}
 
 {% block head %}
 <style>
-  #side-nav.affix {
-    position: fixed;
-    top: 20px;
-  }
-
-  #side-nav>.active>a {
-    font-weight: 700;
+  .border {
+    min-height: 437px;
+    width: 100%;
+    padding: 19px;
     background-color: transparent;
-    border-right: 2px solid #337ab7;
-  }
-
-  #side-nav>li>a:hover {
-    background-color: transparent;
-    border-right: 1px solid #337ab7;
+    border: 1px solid #5b0021;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(91,0,33,.05);
+    box-shadow: inset 0 1px 1px rgba(91,0,33,.05);
   }
 </style>
 {% endblock %}
@@ -29,7 +24,30 @@
   <div class="main-inner">
     <div class="container">
       <div class="row">
-        <p> Should you find any problem or error, feel free to contact us by opening an issue on github: <a href="https://github.com/erikaris/web-memento-damage/issues" target="_blank">  https://github.com/erikaris/web-memento-damage/issues </a>. </p>
+        <div class="col-md-6">
+          <div class="border">
+            <h3><i class="fa fa-home"></i>&nbsp;Address</h3>
+            <p>Web Science and Digital Libraries - Department of Computer Science, Old Dominion University, Norfolk VA - 23529</p>
+            <hr/>
+
+            <h3><i class="fa fa-home"></i>&nbsp;Homepage</h3>
+            <p><a href="http://ws-dl.blogspot.com/">http://ws-dl.blogspot.com/</a></p>
+            <hr/>
+
+            <h3><i class="fa fa-home"></i>&nbsp;Email</h3>
+            <p><a href="mailto:erikaris87@gmail.com">erikaris87@gmail.com"</a></p>
+            <hr/>
+
+            <h3><i class="fa fa-home"></i>&nbsp;Github</h3>
+            <p><a href="https://github.com/erikaris/web-memento-damage.git">https://github.com/erikaris/web-memento-damage.git</a></p>
+
+          </div>
+        </div>
+        <div class="col-md-6">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3191.2004999347914!2d-76.30895628513238!3d36.88555147993098!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89ba99ad24ba3945%3A0xcd2bdc432c4e4bac!2sOld+Dominion+University!5e0!3m2!1sen!2sid!4v1490057383475" frameborder="0" style="border:0; padding:0" class="border" allowfullscreen></iframe>
+        </div>
+
+        <!--<p> Should you find any problem or error, feel free to contact us by opening an issue on github: <a href="https://github.com/erikaris/web-memento-damage/issues" target="_blank">  https://github.com/erikaris/web-memento-damage/issues </a>. </p>-->
       </div>
     </div>
 
