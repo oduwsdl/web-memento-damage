@@ -40,32 +40,31 @@ class API(Blueprint):
             hashed_uri = md5(uri).hexdigest()
             quoted_url = urllib.quote(uri).replace('/', '_').replace('.', '-')
 
+            lines_to_send = []
             app_log_file = os.path.join(app.config['CACHE_DIR'], quoted_url, 'app.log')
-            with open(app_log_file, 'rb') as f:
-                lines_to_send = []
-                for idx, line in enumerate(f.readlines()):
-                    if idx >= start:
-                        lines_to_send.append(line.strip())
+            if os.path.exists(app_log_file):
+                with open(app_log_file, 'rb') as f:
+                    for idx, line in enumerate(f.readlines()):
+                        if idx >= start:
+                            lines_to_send.append(line.strip())
 
-                return Response(response=json.dumps(lines_to_send), status=200, mimetype='application/json')
+            return Response(response=json.dumps(lines_to_send), status=200, mimetype='application/json')
 
         @self.route('/damage/error/<path:uri>', methods=['GET'])
         def api_damage_error(uri):
             hashed_uri = md5(uri).hexdigest()
+            quoted_url = urllib.quote(uri).replace('/', '_').replace('.', '-')
 
-            app_log_file = os.path.join(app.config['CACHE_DIR'], hashed_uri, 'app.log')
+            result_file = os.path.join(app.config['CACHE_DIR'], quoted_url, 'result.json')
+            if os.path.exists(result_file):
+                try:
+                    result = json.load(open(result_file))
+                    return Response(response=json.dumps(result), status=200, mimetype='application/json')
+                except Exception, e:
+                    return Response(response=json.dumps({'error': True, 'message': e.message}), status=200,
+                                    mimetype='application/json')
+
             return Response(response=json.dumps({'error': False}), status=200, mimetype='application/json')
-
-            # with open(app_log_file, 'rb') as f:
-            #     for idx, line in enumerate(f.readlines()):
-            #         if 'crawl-result' in line:
-            #             json_line = json.loads(line)
-            #             self.write(json.dumps(json_line['crawl-result']))
-            #             self.finish()
-            #
-            #     if not self._finished:
-            #         self.write(json.dumps({'error': False}))
-            #         self.finish()
 
         @self.route('/damage/screenshot/<path:uri>', methods=['GET'])
         def api_damage_screenshot(uri):

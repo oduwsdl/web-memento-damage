@@ -819,56 +819,64 @@
 
         checkDamageUriM('{{ url }}', '{{ fresh }}', function(uri, result) {
             checkDamageFinished = true;
-
             if (result['error']) {
                 if (!isError) {
-                    $('#alert-is-error .alert')
-                        .html('<strong>Error!</strong> ' + result['message'] + '. See log tab')
+                    $('#alert-is-error')
+                        .html('<strong>Error!</strong> ' + result['message'] + '. See <u class="log-ref">log</u> tab')
                         .show();
 
                     isError = true;
                 }
-                return;
+
+                // On value clicked
+                $('.log-ref').on('click', function() {
+                    $('a[data-toggle="tab"][href="#log"]').tab('show');
+                });
             }
 
-            // Show alert if result is an archive calculation ================================
-            if (result['is_archive'] == true) {
-                $('#alert-is-archive').show();
-                $('#archive-time').html(result['archive_time']);
+            else {
+                // Show alert if result is an archive calculation ================================
+                if (result['is_archive'] == true) {
+                    $('#alert-is-archive').show();
+                    $('#archive-time').html(result['archive_time']);
 
-                var url_hash = window.location.href.split('#');
-                var url_fresh = url_hash[0] + '&fresh=true';
-                if (url_hash.length > 1) {
-                    url_fresh += '#' + url_hash[1]
+                    var url_hash = window.location.href.split('#');
+                    var url_fresh = url_hash[0] + '&fresh=true';
+                    if (url_hash.length > 1) {
+                        url_fresh += '#' + url_hash[1]
+                    }
+
+                    $('#fresh-uri').attr('href', url_fresh).html(url_fresh);
                 }
 
-                $('#fresh-uri').attr('href', url_fresh).html(url_fresh);
-            }
+                // Show summary ==================================================================
+                showSummary(result);
 
-            // Show summary ==================================================================
-            showSummary(result);
+                // Show images and stylesheets ===================================================
+                for (var key in result) {
+                    val = result[key];
 
-            // Show images and stylesheets ===================================================
-            for (var key in result) {
-                val = result[key];
-
-                if (key == 'images') {
-                    showImages(val, result['weight']['image']);
-                } else if (key == 'csses') {
-                    showStylesheets(val, result['weight']['css']);
-                } else if (key == 'jses') {
-                    showJavascripts(val, result['weight']['js']);
-                } else if (key == 'multimedias') {
-                    showMultimedias(val, result['weight']['multimedia']);
-                } else if (key == 'text') {
-                    showText(val, result['weight']['text']);
+                    if (key == 'images') {
+                        showImages(val, result['weight']['image']);
+                    } else if (key == 'csses') {
+                        showStylesheets(val, result['weight']['css']);
+                    } else if (key == 'jses') {
+                        showJavascripts(val, result['weight']['js']);
+                    } else if (key == 'multimedias') {
+                        showMultimedias(val, result['weight']['multimedia']);
+                    } else if (key == 'text') {
+                        showText(val, result['weight']['text']);
+                    }
                 }
+
+                setTimeout(fixTable, 3000)
+
+                // Show screenshot ===============================================================
+                showScreenshot(uri);
             }
 
-            setTimeout(fixTable, 3000)
-
-            // Show screenshot ===============================================================
-            showScreenshot(uri);
+            // Open summary tab ==============================================================
+            $('a[data-toggle="tab"][href="#summary"]').tab('show');
 
             // Change icon to checklist ======================================================
             $('[href="#summary"] i').attr('class', 'fa fa-dashboard');
@@ -933,8 +941,8 @@
         function onCheckErrorFinished(uri, result) {
             if (result['error']) {
                 if (!isError) {
-                    $('#alert-is-error .alert')
-                        .html('<strong>Error!</strong> ' + result['message'] + '. See log tab')
+                    $('#alert-is-error')
+                        .html('<strong>Error!</strong> ' + result['message'] + '. See <u class="log-ref">log</u> tab')
                         .show();
 
                     isError = true;
