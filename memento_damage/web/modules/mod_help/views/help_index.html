@@ -34,50 +34,56 @@
         </nav>
 
         <div class="col-md-9" id="api">
-          <div class="widget">
-            <div class="widget-header"><i class="fa fa-question-circle-o"></i>
-              <h3>Pull docker image</h3>
-            </div>
-            <div class="widget-content">
-              <p></p>
-            </div>
-          </div>
-
-          <div class="widget">
-            <div class="widget-header"><i class="fa fa-question-circle-o"></i>
-              <h3>Run docker image</h3>
-            </div>
-            <div class="widget-content">
-              <p></p>
-            </div>
-          </div>
-
-          <div class="widget">
-            <div class="widget-header"><i class="fa fa-question-circle-o"></i>
-              <h3>Run the web-server</h3>
-            </div>
-            <div class="widget-content">
-              <p></p>
-            </div>
-          </div>
-
-          <div class="widget">
-            <div class="widget-header"><i class="fa fa-question-circle-o"></i>
-              <h3>Run the CLI</h3>
-            </div>
-            <div class="widget-content">
-              <p></p>
-            </div>
-          </div>
-
-          <div class="widget">
-            <div class="widget-header"><i class="fa fa-question-circle-o"></i>
-              <h3>Start using it?</h3>
-            </div>
-            <div class="widget-content">
-              <p></p>
-            </div>
-          </div>
+          <h1><a id="Memento_Damage_0"></a>Memento Damage</h1>
+          <p>Memento Damage is a tool that help us to estimate damage of webpage. There are 2 ways to use this tool:</p>
+          <ul>
+            <li>Online service</li>
+            <li>Local service</li>
+          </ul>
+          <h2><a id="Online_Service_6"></a>Online Service</h2>
+          <p>Online tool can be used by accesing <a href="http://memento-damage.cs.odu.edu/">http://memento-damage.cs.odu.edu/</a>. This service is suitable for the purpose of finding the damage of single URI. To use the tool user just simply type or paste the URI to the damage-check textbox form, and type enter or click check button.</p>
+          <p><img src="https://github.com/erikaris/web-memento-damage/raw/screenshot/pasted%20image%200.png" alt=""></p>
+          <p>Then, the output will be displayed on the result page, on tab ‘summary’. Other tabs in the result page provide the details of the damage according to the resources types: images, stylesheets, javascript, multimedia, and text. Tab ‘screenshot’ provide the screenshot of the URI and tab ‘log’ gives the details of the process that happens during the damage calculation.</p>
+          <p><img src="https://github.com/erikaris/web-memento-damage/raw/screenshot/online-2.png" alt=""></p>
+          <h3><a id="REST_API_15"></a>REST API</h3>
+          <p>REST API is provided to facilitate memento-damage calculation is accessed by independent HTTP Client. It is suitable to be used with relatively small number of URIs (e.g. 10 - 100 URIs). Each language should have its own HTTP Client. Here are some example accessing memento-damage by using REST API:</p>
+          <h4><a id="CURL_18"></a>CURL</h4>
+          <pre><code>curl http://memento-damage.cs.odu.edu/api/damage/http://odu.edu/compsci
+          </code></pre>
+          <h4><a id="Python_23"></a>Python</h4>
+          <pre><code>import requests
+          resp = requests.get('http://memento-damage.cs.odu.edu/api/damage/http://odu.edu/compsci')
+          print resp.json()
+          </code></pre>
+          <h2><a id="Local_Service_30"></a>Local Service</h2>
+          <p>Local service is used by installing and running Memento Damage tool in local machine. This option is suitable if you want to calculate the damage on a myriad number of URIs (say 10.000 URIs).  The web service <a href="http://memento-damage.cs.odu.edu/">http://memento-damage.cs.odu.edu/</a> clearly cannot handle this. Therefore, we provide an option so that users can create the memento damage environment on their own machine.</p>
+          <p>There are 2 (two) way to use Memento Damage tool in local machine: using Docker, and using library. Using docker is recommended since it’s result is more consistent.</p>
+          <h3><a id="Docker_35"></a>Docker</h3>
+          <p>First, install docker in your machine, and make sure docker daemon is started. Refer to this steps on how to install docker: <a href="https://docs.docker.com/engine/getstarted/step_one/#step-2-install-docker">https://docs.docker.com/engine/getstarted/step_one/#step-2-install-docker</a>.</p>
+          <p>Pull the docker image of memento-damage from: erikaris/memento-damage:</p>
+          <pre><code>docker pull erikaris/memento-damage
+          </code></pre>
+          <p>run the container for the image:</p>
+          <pre><code>docker run -i -t -P --name memento-damage erikaris/memento-damage:latest /app/entrypoint.sh
+          </code></pre>
+          <p>After docker container of memento-damge is running, we can execute memento-damage from within docker container or outside docker container.</p>
+          <h4><a id="Inside_Container_50"></a>Inside Container</h4>
+          <p>First, attach container:</p>
+          <pre><code>docker attach memento-damage
+          </code></pre>
+          <p>Or, alternatively, using exec:</p>
+          <pre><code>docker exec -it memento-damage bash
+          </code></pre>
+          <p>Then, start using memento-damage by typing the command:</p>
+          <pre><code>memento-damage [options] &lt;URI&gt;
+          </code></pre>
+          <p>Explore available options by using:</p>
+          <pre><code>memento-damage --help
+          </code></pre>
+          <h4><a id="Outside_Container_71"></a>Outside Container</h4>
+          <p>We can also executing memento-damage without entering container explicitly, by using:</p>
+          <pre><code>docker exec memento-damage memento-damage [options] &lt;URI&gt;
+          </code></pre>
         </div>
       </div>
     </div>
