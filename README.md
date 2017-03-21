@@ -1,6 +1,7 @@
 # Memento Damage
 
-Memento Damage is a tool that help us to estimate damage of webpage. There are 2 ways to use this tool:
+Memento Damage is a tool that helps to estimate the damage that happens on a memento. Although the main idea is to calculate damage on memento (URI-M), this tool can also be used for calculating damage on a live web page (URI-R).  </br>
+There are 2 ways to use this tool:
 - Online service
 - Local service
 
