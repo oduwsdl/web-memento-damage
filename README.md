@@ -5,7 +5,7 @@ There are 2 ways to use this tool:
 - [Online service](#online-service)
   - [Website](#website)
   - [REST API](#rest-api)
-- Local service
+- [Local service](#local-service)
   - [Docker](#docker)
   - [Library](#library)
 
