@@ -3,9 +3,11 @@
 Memento Damage is a tool that helps to estimate the damage that happens on a memento. Although the main idea is to calculate damage on memento (URI-M), this tool can also be used for calculating damage on a live web page (URI-R).  </br>
 There are 2 ways to use this tool:
 - Online service
--- Website
--- REST API
+  - Website
+  - REST API
 - Local service
+  - Docker
+  - Library
 
 ## Online Service
 ### Website
@@ -80,7 +82,7 @@ docker exec memento-damage memento-damage [options] <URI>
 ```
 
 ### Library
-Using library is relatively similar to using docker. But user has to ensure that all the requirements (phantomjs 2.xx and python 2.7) are installed on their machines.  <br />
+Using library is relatively similar to using docker. The installation process is much simpler and faster than the docker version. But user has to ensure that all the requirements (phantomjs 2.xx and python 2.7) are installed on their machines.  <br />
 Download the latest library version from https://github.com/erikaris/web-memento-damage/tree/master/dist. <br />
 Install the library using command:  
 ```
