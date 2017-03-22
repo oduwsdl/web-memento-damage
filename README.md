@@ -78,4 +78,12 @@ docker exec memento-damage memento-damage [options] <URI>
 ```
 
 ### Library
+Using library is relatively similar to using docker. But user has to ensure that all the requirements (phantomjs 2.xx and python 2.7) are installed on their machines.  <br />
+Download the latest library version from https://github.com/erikaris/web-memento-damage/tree/master/dist. <br />
+Install the library using command:  
+```
+sudo pip install memento-damage-x.x.x.tar.gz
+```
+Start using the tool by typing the command ‘memento-damage’, which is similar to that of the docker version. 
+
 
