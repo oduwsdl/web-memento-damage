@@ -7,6 +7,8 @@
   #side-nav.affix {
     position: fixed;
     top: 20px;
+    width: 21%;
+    padding-right: 15px;
   }
 
   #side-nav>.active>a {
@@ -35,55 +37,75 @@
 
         <div class="col-md-9" id="api">
           <h1><a id="Memento_Damage_0"></a>Memento Damage</h1>
-          <p>Memento Damage is a tool that help us to estimate damage of webpage. There are 2 ways to use this tool:</p>
+          <p>Memento Damage is a tool that helps to estimate the damage that happens on a memento. Although the main idea is to calculate damage on memento (URI-M), this tool can also be used for calculating damage on a live web page (URI-R).<br>
+          There are 2 ways to use this tool:</p>
           <ul>
-            <li>Online service</li>
-            <li>Local service</li>
+          <li><a href="#Online_Service_11">Online service</a>
+          <ul>
+          <li><a href="#Website_12">Website</a></li>
+          <li><a href="#REST_API_21">REST API</a></li>
           </ul>
-          <h2><a id="Online_Service_6"></a>Online Service</h2>
-          <p>Online tool can be used by accesing <a href="http://memento-damage.cs.odu.edu/">http://memento-damage.cs.odu.edu/</a>. This service is suitable for the purpose of finding the damage of single URI. To use the tool user just simply type or paste the URI to the damage-check textbox form, and type enter or click check button.</p>
-          <p><img src="https://github.com/erikaris/web-memento-damage/raw/screenshot/pasted%20image%200.png" alt=""></p>
-          <p>Then, the output will be displayed on the result page, on tab ‘summary’. Other tabs in the result page provide the details of the damage according to the resources types: images, stylesheets, javascript, multimedia, and text. Tab ‘screenshot’ provide the screenshot of the URI and tab ‘log’ gives the details of the process that happens during the damage calculation.</p>
-          <p><img src="https://github.com/erikaris/web-memento-damage/raw/screenshot/online-2.png" alt=""></p>
-          <h3><a id="REST_API_15"></a>REST API</h3>
-          <p>REST API is provided to facilitate memento-damage calculation is accessed by independent HTTP Client. It is suitable to be used with relatively small number of URIs (e.g. 10 - 100 URIs). Each language should have its own HTTP Client. Here are some example accessing memento-damage by using REST API:</p>
-          <h4><a id="CURL_18"></a>CURL</h4>
+          </li>
+          <li><a href="#Local_Service_37">Local service</a>
+          <ul>
+          <li><a href="#Docker_42">Docker</a></li>
+          <li><a href="#Library_83">Library</a></li>
+          </ul>
+          </li>
+          </ul>
+          <h2><a id="Online_Service_11"></a>Online Service</h2>
+          <h3><a id="Website_12"></a>Website</h3>
+          <p>The website version can be used by accesing <a href="http://memento-damage.cs.odu.edu/">http://memento-damage.cs.odu.edu/</a>. This service is suitable for the purpose of finding the damage of single URI. To use the tool, user just simply type or paste the URI to the damage-check textbox form, and type enter or click check button.</p>
+          <p><img src="https://github.com/erikaris/web-memento-damage/raw/screenshot/pasted%20image%200.png" alt="" style="width: 100%;"></p>
+          <p>The output will be displayed on the result page, on tab ‘summary’. Other tabs in the result page provide the details of the damage according to the resources types: images, stylesheets, javascript, multimedia, and text. Tab ‘screenshot’ provide the screenshot of the URI and tab ‘log’ gives the details of the process that happens during the damage calculation.</p>
+          <p><img src="https://github.com/erikaris/web-memento-damage/raw/screenshot/online-2.png" alt="" style="width: 100%;"></p>
+          <h3><a id="REST_API_21"></a>REST API</h3>
+          <p>REST API facilitates damage calculation from any HTTP Client (e.g. web browser, curl, etc) and give output in JSON format. This enables user to do further analysis with the output. User can create a script and utilize the REST API to calculate damage on few number of URIs (e.g. 5). Here are some simple examples of accessing memento-damage service using REST API:</p>
+          <h4><a id="CURL_25"></a>CURL</h4>
           <pre><code>curl http://memento-damage.cs.odu.edu/api/damage/http://odu.edu/compsci
           </code></pre>
-          <h4><a id="Python_23"></a>Python</h4>
+          <h4><a id="Python_30"></a>Python</h4>
           <pre><code>import requests
-          resp = requests.get('http://memento-damage.cs.odu.edu/api/damage/http://odu.edu/compsci')
-          print resp.json()
+resp = requests.get('http://memento-damage.cs.odu.edu/api/damage/http://odu.edu/compsci')
+print resp.json()
           </code></pre>
-          <h2><a id="Local_Service_30"></a>Local Service</h2>
-          <p>Local service is used by installing and running Memento Damage tool in local machine. This option is suitable if you want to calculate the damage on a myriad number of URIs (say 10.000 URIs).  The web service <a href="http://memento-damage.cs.odu.edu/">http://memento-damage.cs.odu.edu/</a> clearly cannot handle this. Therefore, we provide an option so that users can create the memento damage environment on their own machine.</p>
-          <p>There are 2 (two) way to use Memento Damage tool in local machine: using Docker, and using library. Using docker is recommended since it’s result is more consistent.</p>
-          <h3><a id="Docker_35"></a>Docker</h3>
-          <p>First, install docker in your machine, and make sure docker daemon is started. Refer to this steps on how to install docker: <a href="https://docs.docker.com/engine/getstarted/step_one/#step-2-install-docker">https://docs.docker.com/engine/getstarted/step_one/#step-2-install-docker</a>.</p>
+          <h2><a id="Local_Service_37"></a>Local Service</h2>
+          <p>This option is suitable for calculating the damage on a myriad number of URIs (e.g. 10.000 URIs).  The web service <a href="http://memento-damage.cs.odu.edu/">http://memento-damage.cs.odu.edu/</a> clearly cannot handle this. Therefore, we provide an option so that users can install and run the Memento Damage tool on their own machine.</p>
+          <p>There are 2 (two) ways to use Memento Damage tool in local machine: using Docker or library. Using docker is recommended since user does not need to worry about system dependencies.</p>
+          <h3><a id="Docker_42"></a>Docker</h3>
+          <p>First, install docker in your machine, and make sure docker daemon is started. Please refer to this steps on how to install docker: <a href="https://docs.docker.com/engine/getstarted/step_one/#step-2-install-docker">https://docs.docker.com/engine/getstarted/step_one/#step-2-install-docker</a>.</p>
           <p>Pull the docker image of memento-damage from: erikaris/memento-damage:</p>
           <pre><code>docker pull erikaris/memento-damage
           </code></pre>
-          <p>run the container for the image:</p>
+          <p>Run the container for the image:</p>
           <pre><code>docker run -i -t -P --name memento-damage erikaris/memento-damage:latest /app/entrypoint.sh
+
           </code></pre>
-          <p>After docker container of memento-damge is running, we can execute memento-damage from within docker container or outside docker container.</p>
-          <h4><a id="Inside_Container_50"></a>Inside Container</h4>
-          <p>First, attach container:</p>
+          <p>Then, user can start executing memento-damage tool from within docker container or outside docker container.</p>
+          <h4><a id="Inside_Container_57"></a>Inside Container</h4>
+          <p>Attach the container:</p>
           <pre><code>docker attach memento-damage
           </code></pre>
-          <p>Or, alternatively, using exec:</p>
+          <p>Alternatively, use exec:</p>
           <pre><code>docker exec -it memento-damage bash
           </code></pre>
           <p>Then, start using memento-damage by typing the command:</p>
           <pre><code>memento-damage [options] &lt;URI&gt;
           </code></pre>
-          <p>Explore available options by using:</p>
+          <p>Explore available options by typing:</p>
           <pre><code>memento-damage --help
           </code></pre>
-          <h4><a id="Outside_Container_71"></a>Outside Container</h4>
-          <p>We can also executing memento-damage without entering container explicitly, by using:</p>
+          <h4><a id="Outside_Container_77"></a>Outside Container</h4>
+          <p>We can also executing memento-damage without entering container using:</p>
           <pre><code>docker exec memento-damage memento-damage [options] &lt;URI&gt;
           </code></pre>
+          <h3><a id="Library_83"></a>Library</h3>
+          <p>Using library is relatively similar to using docker. The installation process is much simpler and faster than the docker version. But user has to ensure that all the requirements (phantomjs 2.xx and python 2.7) are installed on their machines.</p>
+          <p>Download the latest library version from <a href="https://github.com/erikaris/web-memento-damage/tree/master/dist">https://github.com/erikaris/web-memento-damage/tree/master/dist</a>.</p>
+          <p>Install the library using command:</p>
+          <pre><code>sudo pip install memento-damage-x.x.x.tar.gz
+          </code></pre>
+          <p>Start using the tool by typing the command ‘memento-damage’, which is similar to that of the docker version.</p>
         </div>
       </div>
     </div>
@@ -93,12 +115,16 @@
 
 {% block tail %}
 <script type="text/javascript">
-  $('.widget h3').each(function() {
-    var text = $(this).html();
+  $('h1,h2,h3,h4,h5,h6').each(function() {
+    var text = $(this).text();
     var id = text.toLowerCase().replace(/[^\w\s]/gi, '').replace(/ /g,"-");
 
+    var level = $(this).prop("tagName").toLowerCase().replace('h', '');
+    level = parseInt(level);
+
     $(this).attr('id', id)
-    $('<li><a href="#' + id + '">' + text + '</a></li>').appendTo($('#side-nav'));
+    $('<li><a href="#' + id + '">' + text + '</a></li>').appendTo($('#side-nav'))
+      .css('padding-left', level * 10);
   });
 
   $('body')
