@@ -2,12 +2,12 @@
 
 Memento Damage is a tool that helps to estimate the damage that happens on a memento. Although the main idea is to calculate damage on memento (URI-M), this tool can also be used for calculating damage on a live web page (URI-R).  </br>
 There are 2 ways to use this tool:
-- Online service
-  - Website
-  - REST API
+- [Online service](#online-service)
+  - [Website](#website)
+  - [REST API](#rest-api)
 - Local service
-  - Docker
-  - Library
+  - [Docker](#docker)
+  - [Library](#library)
 
 ## Online Service
 ### Website
