@@ -261,6 +261,7 @@
 <!-- /main -->
 {% endblock %} {% block tail %}
 <script src="{{ url_for('static', filename='assets/js/md5.js') }}"></script>
+<script src="{{ url_for('static', filename='assets/moment.js/moment.js') }}"></script>
 <script type="text/javascript">
     $('input[name=url]').val('{{ url }}');
     $('#url').html('{{ url }}').attr('title', '{{ url }}');
@@ -835,10 +836,11 @@
             }
 
             else {
-                // Show alert if result is an archive calculation ================================
+                // Show info if result is an archive calculation ================================
                 if (result['is_archive'] == true) {
                     $('#alert-is-archive').show();
-                    $('#archive-time').html(result['archive_time']);
+                    var nlArchiveTime = moment(result['archive_time']).fromNow();
+                    $('#archive-time').html(nlArchiveTime);
 
                     var url_hash = window.location.href.split('#');
                     var url_fresh = url_hash[0] + '&fresh=true';
@@ -846,7 +848,7 @@
                         url_fresh += '#' + url_hash[1]
                     }
 
-                    $('#fresh-uri').attr('href', url_fresh).html(url_fresh);
+                    $('#fresh-uri').attr('href', url_fresh);
                 }
 
                 // Show summary ==================================================================

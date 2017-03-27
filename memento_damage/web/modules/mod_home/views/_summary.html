@@ -10,6 +10,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     margin-bottom: 20px;
+    line-height: 35px;
   }
   .result h2 {
     margin: 40px 0 50px;
@@ -22,17 +23,14 @@
 
 <div class="col-sm-12">
   <div id="alert-is-finished" style="display:none" class="alert alert-info" role="alert">
-    <strong>Info</strong> Calculation is finished in
-    <strong><span id="calculation-time"></span></strong> seconds.
+    The damage calculation took <strong><span id="calculation-time"></span></strong> seconds.
   </div>
 </div>
 
 <div class="col-sm-12">
-  <div id="alert-is-archive" style="display:none" class="alert alert-warning" role="alert">
-    <strong>Warning!</strong> This result is an archive damage calculation
-    that was done in <strong><span id="archive-time"></span></strong>.
-    To make fresh calculation follow this URI
-    <strong><a id="fresh-uri" href="#">Fresh Calculation</a></strong>
+  <div id="alert-is-archive" style="display:none" class="alert alert-info" role="alert">
+    <strong>Info</strong> This is an archived damage calculation done at <strong><span id="archive-time"></span></strong>.
+    Click <strong><a id="fresh-uri" href="#">here</a></strong> for fresh calculation
   </div>
 </div>
 
