@@ -200,6 +200,7 @@ class MementoDamage(object):
                 self._result = json.loads(io.open(self.json_result_file).read())
 
     def get_result(self):
+        self._do_close_logger()
         return self._result
 
     def print_result(self):
@@ -226,6 +227,8 @@ class MementoDamage(object):
                 else:
                     self.logger.error('Choose mode "simple" or "json"')
 
+        self._do_close_logger()
+
     def _do_analysis(self):
         # Calculate damage
         analysis = MementoDamageAnalysis(self)
@@ -238,6 +241,12 @@ class MementoDamage(object):
         if self._clean_cache:
             time.sleep(3)
             rmdir_recursive(self.output_dir)
+
+    def _do_close_logger(self):
+        for h in self.logger.handlers:
+            h.flush()
+            h.close()
+            self.logger.removeHandler(h)
 
     def set_show_debug_message(self):
         self._debug = True
