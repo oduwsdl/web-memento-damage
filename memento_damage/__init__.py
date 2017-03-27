@@ -161,7 +161,7 @@ class MementoDamage(object):
             # Equivalent with console:
             phantomjs = os.getenv('PHANTOMJS', 'phantomjs')
 
-            pjs_cmd = [phantomjs, '--ssl-protocol=any', '--output-encoding=utf8', '--web-security=no',
+            pjs_cmd = [phantomjs, '--ssl-protocol=any', '--ignore-ssl-errors=true' , '--output-encoding=utf8', '--web-security=no',
                        self._crawljs_script, self.uri, self.output_dir, str(self._follow_redirection),
                        '{}x{}'.format(*self.viewport_size), str(self.logger.level)]
             cmd = Command(pjs_cmd, pipe_stdout_callback=self.log_stdout, pipe_stderr_callback=self.log_stderr)

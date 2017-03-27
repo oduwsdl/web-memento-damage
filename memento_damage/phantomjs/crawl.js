@@ -673,8 +673,6 @@ function processScreenshots(url, outputDir) {
 }
 
 function processTextInFrame() {
-    console.error('Processing text in frame ' + page.frameName);
-
     var textLog = page.evaluate(function() {
         // $.noConflict();
 

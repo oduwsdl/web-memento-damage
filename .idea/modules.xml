@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/memento-damage-v2.iml" filepath="$PROJECT_DIR$/.idea/memento-damage-v2.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/web-memento-damage.iml" filepath="$PROJECT_DIR$/.idea/web-memento-damage.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/web-memento-damage.iml" filepath="$PROJECT_DIR$/.idea/web-memento-damage.iml" />
     </modules>
   </component>
 </project>
