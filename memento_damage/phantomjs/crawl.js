@@ -11,6 +11,7 @@ phantom.injectJs('underscore.js');
 phantom.injectJs('mimetype.js');
 
 var networkResources = {};
+var reverseRedirectMapping = {};
 var Log = {'DEBUG': 10, 'INFO': 20};
 var starttime = Date.now();
 
@@ -231,6 +232,15 @@ else {
 }
 
 function processPage(url, outputDir) {
+    var urls = Object.keys(networkResources);
+    for(var u=0; u<urls.length; u++) {
+        if(networkResources[urls[u]]['status_code'] == 301 || networkResources[urls[u]]['status_code'] == 302) {
+            if('headers' in networkResources[urls[u]] && 'Location' in networkResources[urls[u]]['headers']) {
+                reverseRedirectMapping[networkResources[urls[u]]['headers']['Location']] = urls[u];
+            }
+        }
+    }
+
     processNetworkResources(url, outputDir);
     processHtml(url, outputDir);
     processImages(url, outputDir);
@@ -331,7 +341,7 @@ function processImages(url, outputDir) {
         }
     }
     page.switchToMainFrame();
-        console.error('ini adalah images: ' + JSON.stringify(images));
+
     // Check images url == resource url, append position if same
     var networkImages = {};
     var docImageUrls = Object.keys(images);
@@ -339,12 +349,28 @@ function processImages(url, outputDir) {
         if(networkResources[url]['content_type']) {
             if(networkResources[url]['content_type'].indexOf('image/') == 0) {
                 networkImages[url] = networkResources[url];
+
+                var match = false
                 docImageUrls.forEach(function(diUrl, idx) {
-                    //console.error('ini adalah diUrl and url: ' + diUrl + " - " + url);
                     if(url.indexOf(diUrl) >= 0) {
                         networkImages[url] = _.extend(networkImages[url], images[diUrl]);
+                        match = true;
                     }
                 });
+
+                var pUrl = url;
+                while(true) {
+                    if(match) break;
+                    if(! (pUrl in reverseRedirectMapping)) break;
+
+                    pUrl = reverseRedirectMapping[pUrl];
+                    docImageUrls.forEach(function(diUrl, idx) {
+                        if(pUrl.indexOf(diUrl) >= 0) {
+                            networkImages[url] = _.extend(networkResources[pUrl], images[diUrl]);
+                            match = true;
+                        }
+                    });
+                }
 
                 if(! ('viewport_size' in networkImages[url])) {
                     networkImages[url]['viewport_size'] = viewportSize;
@@ -413,26 +439,13 @@ function processMultimediasInFrame() {
                 docVideo.ownerDocument.body.clientHeight
             ];
 
-            // Computed styles
-            var cs = window.getComputedStyle(docVideo);
-            var width = parseFloat(cs.width.replace('px', '')) || docVideo.clientWidth;
-            var height = parseFloat(cs.height.replace('px', '')) || docVideo.clientHeight;
+            // get the height and width of each element
+            var width = $(docVideo).outerWidth(false);         // source: http://stackoverflow.com/questions/9276633/get-absolute-height-and-width
+            var height = $(docVideo).outerHeight(false);
 
-            // Calculate top left position
-//            var obj = docVideo;
-//            var left = 0, top = 0;
-//            do {
-//                left += obj.offsetLeft;
-//                top += obj.offsetTop;
-//            } while (obj = obj.offsetParent);
-
-
-            var left = 0, top = 0;
-            do {
-                left += docVideo.offsetLeft;                    // alternative: elem.getBoundingClientRect()  --> has been tested.
-                top += docVideo.offsetTop;
-            } while (docVideo = docVideo.offsetParent);
-
+            // calculate absolute top-left position of the object --> find the coordinate
+            var top = $(docVideo).offset().top;
+            var left = $(docVideo).offset().left;
 
             rectangle = {
                 'width' : width,
@@ -469,11 +482,28 @@ function processMultimedias(url, outputDir) {
         if(networkResources[url]['content_type']) {
             if(networkResources[url]['content_type'].indexOf('video/') == 0) {
                 networkVideos[url] = networkResources[url];
+
+                var match = false
                 docVideoUrls.forEach(function(dvUrl, idx) {
-                    if(networkVideos[url]['url'].indexOf(dvUrl) >= 0)    {       // if docVideoUrls contains dvUrl
+                    if(url.indexOf(dvUrl) >= 0) {
                         networkVideos[url] = _.extend(networkVideos[url], videos[dvUrl]);
+                        match = true;
                     }
                 });
+
+                var pUrl = url;
+                while(true) {
+                    if(match) break;
+                    if(! (pUrl in reverseRedirectMapping)) break;
+
+                    pUrl = reverseRedirectMapping[pUrl];
+                    docVideoUrls.forEach(function(dvUrl, idx) {
+                        if(pUrl.indexOf(dvUrl) >= 0) {
+                            networkVideos[url] = _.extend(networkResources[pUrl], videos[diUrl]);
+                            match = true;
+                        }
+                    });
+                }
 
                 if(! ('viewport_size' in networkVideos[url])) {
                     networkVideos[url]['viewport_size'] = viewportSize;
