@@ -296,18 +296,13 @@ function processImagesInFrame() {
                 docImage.ownerDocument.body.clientHeight
             ];
 
-            // Computed styles
-            var cs = window.getComputedStyle(docImage);
-            var width = parseFloat(cs.width.replace('px', '')) || docImage.clientWidth;
-            var height = parseFloat(cs.height.replace('px', '')) || docImage.clientHeight;
+            // get the height and width of each element
+            var width = $(docImage).outerWidth(false);         // source: http://stackoverflow.com/questions/9276633/get-absolute-height-and-width
+            var height = $(docImage).outerHeight(false);
 
-            // Calculate top left position
-            var obj = docImage;
-            var left = 0, top = 0;
-            do {
-                left += obj.offsetLeft;
-                top += obj.offsetTop;
-            } while (obj = obj.offsetParent);
+            // calculate absolute top-left position of the object --> find the coordinate
+            var top = $(docImage).offset().top;
+            var left = $(docImage).offset().left;
 
             rectangle = {
                 'width' : width,
@@ -336,7 +331,7 @@ function processImages(url, outputDir) {
         }
     }
     page.switchToMainFrame();
-
+        console.error('ini adalah images: ' + JSON.stringify(images));
     // Check images url == resource url, append position if same
     var networkImages = {};
     var docImageUrls = Object.keys(images);
@@ -345,6 +340,7 @@ function processImages(url, outputDir) {
             if(networkResources[url]['content_type'].indexOf('image/') == 0) {
                 networkImages[url] = networkResources[url];
                 docImageUrls.forEach(function(diUrl, idx) {
+                    //console.error('ini adalah diUrl and url: ' + diUrl + " - " + url);
                     if(url.indexOf(diUrl) >= 0) {
                         networkImages[url] = _.extend(networkImages[url], images[diUrl]);
                     }
@@ -354,9 +350,7 @@ function processImages(url, outputDir) {
                     networkImages[url]['viewport_size'] = viewportSize;
                 }
 
-                if(! ('rectangles' in networkImages[url])) {
-                    networkImages[url]['rectangles'] = [];
-                }
+                networkImages[url]['rectangles'] = networkImages[url]['rectangles'] || [];
 
                 if(! ('url' in networkImages[url]))    {
                     networkImages[url]['url'] = url;

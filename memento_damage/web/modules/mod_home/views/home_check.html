@@ -836,6 +836,7 @@
             }
 
             else {
+                $('#alert-is-finished').show();
                 // Show info if result is an archive calculation ================================
                 if (result['is_archive'] == true) {
                     $('#alert-is-archive').show();
@@ -961,7 +962,6 @@
     function checkDamageUriM(uri, fresh, onFinished) {
         $.get('/api/damage/' + encodeURIComponent(uri) + '?fresh=' + fresh, function(result) {
             $('#calculation-time').html(result['calculation_time']);
-            $('#alert-is-finished').show();
 
             // Call onFinished callback
             onFinished(uri, result)
