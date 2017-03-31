@@ -738,8 +738,8 @@ function processTextInFrame() {
 
             textLog[idx] = {
                 'id': idx,
-                'html': outerHTML,
-                'tag': outerTag,
+                'html': $("<div>").text(outerHTML).html(),
+                'tag': $("<div>").text(outerTag).html(),
                 'original-text': originalText.trim(),
                 'visible': visible,
                 'in-viewport': inViewport,
