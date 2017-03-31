@@ -2,6 +2,7 @@ import io
 import json
 import math
 import urlparse
+import httplib
 
 import html2text
 from PIL import Image
@@ -83,49 +84,61 @@ class MementoDamageAnalysis(object):
         else:
             final_uri, final_status_code = self.memento_damage.uri, None
 
-        if (not final_status_code) or (final_status_code == 404):
-            total_damage = 1
-        elif self._potential_damage != 0:
-            total_damage = self._actual_damage / self._potential_damage
-        else:
-            total_damage = 0
-
-        self._logger.info('Calculate total damage (actual damage / potential damage) = {}'.format(total_damage))
+        # if (not final_status_code) or (final_status_code == 404):
+        #     total_damage = 1
+        # elif self._potential_damage != 0:
+        #     total_damage = self._actual_damage / self._potential_damage
+        # else:
+        #     total_damage = 0
 
         result = {}
-        result['uri'] = self.memento_damage.uri
-        result['weight'] = {
-            'multimedia': self.multimedia_weight,
-            'css': self.css_weight,
-            'js': self.js_weight,
-            'image': self.image_weight,
-            'text': self.text_weight
-        }
-        result['images'] = self._image_logs
-        result['csses'] = self._css_logs
-        result['jses'] = self._js_logs
-        result['multimedias'] = self._mlm_logs
-        result['text'] = self._text_logs
-        result['potential_damage'] = {
-            'total': self._potential_damage,
-            'image': self._potential_image_damage,
-            'css': self._potential_css_damage,
-            'js': self._potential_js_damage,
-            'multimedia': self._potential_multimedia_damage,
-            'text': self._potential_damage_text,
-        }
-        result['actual_damage'] = {
-            'total': self._actual_damage,
-            'image': self._actual_image_damage,
-            'css': self._actual_css_damage,
-            'js': self._actual_js_damage,
-            'multimedia': self._actual_multimedia_damage,
-            'text': self._actual_damage_text,
-        }
-        result['total_damage'] = total_damage
-        result['redirect_uris'] = redirect_uris
-        result['error'] = False
-        result['is_archive'] = False
+        if final_status_code == 200:
+            if self._potential_damage != 0:
+                total_damage = self._actual_damage / self._potential_damage
+            else:
+                total_damage = 0
+
+            result['uri'] = self.memento_damage.uri
+            result['weight'] = {
+                'multimedia': self.multimedia_weight,
+                'css': self.css_weight,
+                'js': self.js_weight,
+                'image': self.image_weight,
+                'text': self.text_weight
+            }
+            result['images'] = self._image_logs
+            result['csses'] = self._css_logs
+            result['jses'] = self._js_logs
+            result['multimedias'] = self._mlm_logs
+            result['text'] = self._text_logs
+            result['potential_damage'] = {
+                'total': self._potential_damage,
+                'image': self._potential_image_damage,
+                'css': self._potential_css_damage,
+                'js': self._potential_js_damage,
+                'multimedia': self._potential_multimedia_damage,
+                'text': self._potential_damage_text,
+            }
+            result['actual_damage'] = {
+                'total': self._actual_damage,
+                'image': self._actual_image_damage,
+                'css': self._actual_css_damage,
+                'js': self._actual_js_damage,
+                'multimedia': self._actual_multimedia_damage,
+                'text': self._actual_damage_text,
+            }
+            result['total_damage'] = total_damage
+            result['redirect_uris'] = redirect_uris
+            result['error'] = False
+            result['is_archive'] = False
+
+            self._logger.info('Calculate total damage (actual damage / potential damage) = {}'.format(total_damage))
+
+        else:
+            result['uri'] = self.memento_damage.uri
+            result['error'] = True
+            result['message'] = 'Error in loading url. Page {0} (Status code {1})'\
+                .format(httplib.responses[final_status_code], final_status_code)
 
         return result
 
