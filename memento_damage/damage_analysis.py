@@ -639,11 +639,11 @@ class MementoDamageAnalysis(object):
             '''
 
             # Based on measureMemento.pl line 703
-            if (x + w) > middle_x and x < middle_x:
+            if (x + w) > middle_x and x < middle_x:             # if it crosses the vertical center
                 location_importance += centrality_weight / 2;
 
             # Based on measureMemento.pl line 715
-            if (y + h) > middle_y and y < middle_y:
+            if (y + h) > middle_y and y < middle_y:             # if it crosses the horizontal center
                 location_importance += centrality_weight / 2;
 
             size_importance = 0.0

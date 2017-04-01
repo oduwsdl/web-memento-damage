@@ -176,12 +176,16 @@ else {
             headers[header['name']] = header['value'];
         });
 
+        var normalized_resUrl = resUrl.substr(0, resUrl.indexOf('?'))
+
         var resource = {
             'url' : resUrl,
             'status_code' : resStatus,
-            'content_type' : resStatus > 399 ? mimeType.lookup(resUrl) : res.contentType,
+            'content_type' : resStatus > 399 ? mimeType.lookup(normalized_resUrl) : res.contentType,
             'headers' : headers,
         };
+
+        //console.log("ini adalah mimeType dari url: " + resUrl + ", mimetype= " + mimeType.lookup(normalized_resUrl));
 
         var networkResourcesKeys = Object.keys(networkResources);
         if(! _.contains(networkResourcesKeys, resUrl)) {

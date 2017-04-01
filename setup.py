@@ -43,7 +43,7 @@ for package, data in packages_data.items():
 
 setup(
     name='memento-damage',
-    version='2.0',
+    version='2.0.7',
     packages=packages,
     package_dir=package_dir,
     package_data=package_data,
