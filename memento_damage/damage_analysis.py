@@ -343,9 +343,6 @@ class MementoDamageAnalysis(object):
                 if log['status_code'] > 399:
                     self.missing_csses_log.append(log)
 
-                    # Since all css set to 404 (missing)
-                    # self.missing_csses_log = self._css_logs
-
     def _calculate_potential_damage(self):
         self._logger.info('Calculating potential damage')
 
@@ -354,25 +351,25 @@ class MementoDamageAnalysis(object):
 
         total_images_damage = 0.0
         for idx, log in enumerate(self._image_logs):
-            text_damages = self._calculate_image_and_multimedia_damage(log, use_viewport_size=True)
+            image_damage = self._calculate_image_and_multimedia_damage(log, use_viewport_size=True)
             # Based on measureMemento.pl line 463
             total_location_importance = 0
             total_size_importance = 0
-            total_text_damage = 0
-            for location_importance, size_importance, damage in text_damages:
+            total_image_damage = 0
+            for location_importance, size_importance, damage in image_damage:
                 total_location_importance += location_importance
                 total_size_importance += size_importance
-                total_text_damage += damage
+                total_image_damage += damage
 
-            total_images_damage += total_text_damage
+            total_images_damage += total_image_damage
 
             self._image_logs[idx]['potential_damage'] = {
                 'location': total_location_importance,
                 'size': total_size_importance,
-                'total': total_text_damage
+                'total': total_image_damage
             }
 
-            self._logger.info('Potential damage of {} is {}'.format(log['url'], total_text_damage))
+            self._logger.info('Potential damage of {} is {}'.format(log['url'], total_image_damage))
 
         # Css
         self._logger.info('Calculate potential damage for Stylesheet(s)')
@@ -391,7 +388,6 @@ class MementoDamageAnalysis(object):
                 'total': css_damage
             }
             self._logger.info('Potential damage of {} is {}'.format(log['url'], css_damage))
-            # print('Potential damage {} for {}'.format(css_damage, log['url']))
 
         # Js
         self._logger.info('Calculate potential damage for Javascript(s)')
@@ -430,8 +426,6 @@ class MementoDamageAnalysis(object):
             }
 
             self._logger.info('Potential damage of {} is {}'.format(log['url'], total_mlm_damage))
-            # print('Potential damage {} for {}'
-            #       .format(total_mlm_damage, log['url']))
 
         # Text
         self._logger.info('Calculate potential damage for Text')
@@ -518,8 +512,6 @@ class MementoDamageAnalysis(object):
                 }
 
                 self._logger.info('Actual damage of {} is {}'.format(log['url'], total_image_damage))
-                # print('Actual damage {} for {}'
-                #       .format(total_image_damage, log['url']))
 
         # Css
         self._logger.info('Calculate actual damage for Stylesheet(s)')
@@ -540,7 +532,6 @@ class MementoDamageAnalysis(object):
                 }
 
                 self._logger.info('Actual damage of {} is {}'.format(log['url'], css_damage))
-                # print('Actual damage {} for {}'.format(css_damage, log['url']))
 
         # Javascript
         self._logger.info('Calculate actual damage for Javascript(s)')
@@ -581,15 +572,12 @@ class MementoDamageAnalysis(object):
                 }
 
                 self._logger.info('Actual damage of {} is {}'.format(log['url'], total_mlm_damage))
-                # print('Actual damage {} for {}'
-                #       .format(total_mlm_damage, log['url']))
 
         # Text
         total_text_damage = 0
         self._actual_damage_text = total_text_damage * self.text_weight
 
         self._logger.info('Actual damage of {} is {}'.format('"text"', self._actual_damage_text))
-        # print('Actual damage {} for {}'.format(self.actual_damage_text, 'text'))
 
         # Based on measureMemento.pl line 555
         self._logger.info('Weighting actual damage(s)')
