@@ -67,8 +67,15 @@ class MementoDamageAnalysis(object):
 
         self._logger.info('Start calculating damage...')
 
-        self._calculate_potential_damage()
-        self._calculate_actual_damage()
+        self.calculate_image_damage()
+        self.calculate_multimedia_damage()
+        self.calculate_css_damage()
+        self.calculate_javascript_damage()
+        self.calculate_text_damage()
+        self.calculate_damage()
+
+        # self._calculate_potential_damage()
+        # self._calculate_actual_damage()
 
         self._logger.info('Done calculating damage')
 
@@ -343,58 +350,141 @@ class MementoDamageAnalysis(object):
                 if log['status_code'] > 399:
                     self.missing_csses_log.append(log)
 
-    def _calculate_potential_damage(self):
-        self._logger.info('Calculating potential damage')
+    def calculate_image_damage(self):
+        self._logger.info('Calculating damage for Image(s)')
 
-        # Image
-        self._logger.info('Calculate potential damage for Image(s)')
+        total_potential_damage = 0.0
+        total_actual_damage = 0.0
 
-        total_images_damage = 0.0
         for idx, log in enumerate(self._image_logs):
             image_damage = self._calculate_image_and_multimedia_damage(log, use_viewport_size=True)
+
+            # Potential
             # Based on measureMemento.pl line 463
-            total_location_importance = 0
-            total_size_importance = 0
-            total_image_damage = 0
-            for location_importance, size_importance, damage in image_damage:
+            total_location_importance = 0.0
+            total_size_importance = 0.0
+            total_importance = 0.0
+            for location_importance, size_importance, importance in image_damage:
                 total_location_importance += location_importance
                 total_size_importance += size_importance
-                total_image_damage += damage
+                total_importance += importance
 
-            total_images_damage += total_image_damage
+            total_potential_damage += total_importance
 
             self._image_logs[idx]['potential_damage'] = {
                 'location': total_location_importance,
                 'size': total_size_importance,
-                'total': total_image_damage
+                'total': total_importance
             }
 
-            self._logger.info('Potential damage of {} is {}'.format(log['url'], total_image_damage))
+            self._logger.info('Potential damage of {} is {}'.format(log['url'], total_importance))
 
-        # Css
-        self._logger.info('Calculate potential damage for Stylesheet(s)')
+            # Actual
+            if log['status_code'] > 399:
+                total_actual_damage += total_importance
 
-        total_css_damage = 0.0
+                self._image_logs[idx]['actual_damage'] = {
+                    'location': total_location_importance,
+                    'size': total_size_importance,
+                    'total': total_importance
+                }
+
+                self._logger.info('Actual damage of {} is {}'.format(log['url'], total_importance))
+
+        self._potential_image_damage = total_potential_damage * self.image_weight
+        self._actual_image_damage = total_actual_damage * self.image_weight
+
+    def calculate_multimedia_damage(self):
+        self._logger.info('Calculating damage for Multimedia(s)')
+
+        total_potential_damage = 0.0
+        total_actual_damage = 0.0
+
+        for idx, log in enumerate(self._mlm_logs):
+            image_damage = self._calculate_image_and_multimedia_damage(log, use_viewport_size=True)
+
+            # Potential
+            # Based on measureMemento.pl line 463
+            total_location_importance = 0.0
+            total_size_importance = 0.0
+            total_importance = 0.0
+            for location_importance, size_importance, importance in image_damage:
+                total_location_importance += location_importance
+                total_size_importance += size_importance
+                total_importance += importance
+
+            total_potential_damage += total_importance
+
+            self._mlm_logs[idx]['potential_damage'] = {
+                'location': total_location_importance,
+                'size': total_size_importance,
+                'total': total_importance
+            }
+
+            self._logger.info('Potential damage of {} is {}'.format(log['url'], total_importance))
+
+            # Actual
+            if log['status_code'] > 399:
+                total_actual_damage += total_importance
+
+                self._mlm_logs[idx]['actual_damage'] = {
+                    'location': total_location_importance,
+                    'size': total_size_importance,
+                    'total': total_importance
+                }
+
+                self._logger.info('Actual damage of {} is {}'.format(log['url'], total_importance))
+
+        self._potential_multimedia_damage = total_potential_damage * self.multimedia_weight
+        self._actual_multimedia_damage = total_actual_damage * self.multimedia_weight
+
+    def calculate_css_damage(self):
+        self._logger.info('Calculating damage for Stylesheet(s)')
+
+        total_potential_damage = 0.0
+        total_actual_damage = 0.0
+
         for idx, log in enumerate(self._css_logs):
-            tag_importance, ratio_importance, css_damage = \
-                self._calculate_css_damage(log, is_potential=True, use_viewport_size=True)
+            tag_importance, ratio_importance, total_importance = self._calculate_css_damage(log, is_potential=True,
+                                                                                            use_viewport_size=True)
 
             # Based on measureMemento.pl line 468
-            total_css_damage += css_damage
+            total_potential_damage += total_importance
 
             self._css_logs[idx]['potential_damage'] = {
                 'tag': tag_importance,
                 'ratio': ratio_importance,
-                'total': css_damage
+                'total': total_importance
             }
-            self._logger.info('Potential damage of {} is {}'.format(log['url'], css_damage))
 
-        # Js
-        self._logger.info('Calculate potential damage for Javascript(s)')
+            self._logger.info('Potential damage of {} is {}'.format(log['url'], total_importance))
 
-        total_js_damage = 0.0
+            if ('status_code' in log) and (log['status_code'] > 399):
+                tag_importance, ratio_importance, total_importance = self._calculate_css_damage(log, is_potential=False,
+                                                                                                use_viewport_size=False)
+
+                # Based on measureMemento.pl line 468
+                total_actual_damage += total_importance
+
+                self._css_logs[idx]['actual_damage'] = {
+                    'tag': tag_importance,
+                    'ratio': ratio_importance,
+                    'total': total_importance
+                }
+
+                self._logger.info('Actual damage of {} is {}'.format(log['url'], total_importance))
+
+        self._potential_css_damage = total_potential_damage * self.css_weight
+        self._actual_css_damage = total_actual_damage * self.css_weight
+
+    def calculate_javascript_damage(self):
+        self._logger.info('Calculating damage for Javascript(s)')
+
+        total_potential_damage = 0.0
+        total_actual_damage = 0.0
+
         for idx, log in enumerate(self._js_logs):
-            total_js_damage += 1
+            total_potential_damage += 1
 
             self._js_logs[idx]['potential_damage'] = {
                 'total': 1
@@ -402,33 +492,20 @@ class MementoDamageAnalysis(object):
 
             self._logger.info('Potential damage of {} is {}'.format(log['url'], 1))
 
-        # Multimedia
-        self._logger.info('Calculate potential damage for Multimedia(s)')
+            if ('status_code' in log) and (log['status_code'] > 399):
+                total_actual_damage += 1
 
-        total_mlms_damage = 0
-        for idx, log in enumerate(self._mlm_logs):
-            css_damage = self._calculate_image_and_multimedia_damage(log, use_viewport_size=False)
-            # Based on measureMemento.pl line 463
-            total_location_importance = 0
-            total_size_importance = 0
-            total_mlm_damage = 0
-            for location_importance, size_importance, damage in css_damage:
-                total_location_importance += location_importance
-                total_size_importance += size_importance
-                total_mlm_damage += damage
+                self._js_logs[idx]['actual_damage'] = {
+                    'total': 1
+                }
 
-            total_mlms_damage += total_mlm_damage
+                self._logger.info('Actual damage of {} is {}'.format(log['url'], 1))
 
-            self._mlm_logs[idx]['potential_damage'] = {
-                'location': total_location_importance,
-                'size': total_size_importance,
-                'total': total_mlm_damage
-            }
+        self._potential_js_damage = total_potential_damage * self.js_weight
+        self._actual_js_damage = total_actual_damage * self.js_weight
 
-            self._logger.info('Potential damage of {} is {}'.format(log['url'], total_mlm_damage))
-
-        # Text
-        self._logger.info('Calculate potential damage for Text')
+    def calculate_text_damage(self):
+        self._logger.info('Calculating damage for Text(s)')
 
         # num_words_of_text = len(self._text.split())
         # total_text_damage = float(num_words_of_text) / self.words_per_image
@@ -436,45 +513,42 @@ class MementoDamageAnalysis(object):
         # self._text_logs['num_words'] = num_words_of_text
         # self._text_logs['words_per_image'] = self.words_per_image
 
-        total_texts_damage = 0.0
-        num_words_of_text = 0
+        total_potential_damage = 0.0
+        total_actual_damage = 0.0
+        num_words = 0
+
         for idx, log in enumerate(self._text_logs):
             if len(log['text']) > 0:
                 text_damages = self._calculate_text_damage(log, use_viewport_size=True)
                 # Based on measureMemento.pl line 463
                 total_location_importance = 0
                 total_size_importance = 0
-                total_text_damage = 0
-                for location_importance, size_importance, damage in text_damages:
+                total_importance = 0
+                for location_importance, size_importance, importance in text_damages:
                     total_location_importance += location_importance
                     total_size_importance += size_importance
-                    total_text_damage += damage
+                    total_importance += importance
 
-                total_texts_damage += total_text_damage
-                num_words_of_text += len(log['text'])
+                total_potential_damage += total_importance
+                num_words += len(log['text'])
 
                 self._text_logs[idx]['potential_damage'] = {
                     'location': total_location_importance,
                     'size': total_size_importance,
-                    'total': total_text_damage
+                    'total': total_importance
                 }
             else:
-                try:
-                    self._text_logs.pop(idx)
-                except:
-                    pass
+                try: self._text_logs.pop(idx)
+                except: pass
 
-        self._logger.info('Potential damage of {} is {}'.format('"text"', total_texts_damage))
+        self._logger.info('Potential damage of {} is {}'.format('"text"', total_potential_damage))
+        self._logger.info('Actual damage of {} is {}'.format('"text"', total_actual_damage))
 
-        # Based on measureMemento.pl line 555
-        self._logger.info('Weighting potential damage(s)')
+        self._potential_damage_text = total_potential_damage * self.text_weight
+        self._actual_damage_text = total_actual_damage * self.text_weight
 
-        self._potential_image_damage = total_images_damage * self.image_weight
-        self._potential_css_damage = total_css_damage * self.css_weight
-        self._potential_js_damage = total_js_damage * self.js_weight
-        self._potential_multimedia_damage = total_mlms_damage * \
-                                            self.multimedia_weight
-        self._potential_damage_text = total_texts_damage * self.text_weight
+    def calculate_damage(self):
+        self._logger.info('Calculating damage for "webpage"')
 
         self._potential_damage = self._potential_image_damage + \
                                  self._potential_css_damage + \
@@ -484,109 +558,6 @@ class MementoDamageAnalysis(object):
 
         self._logger.info('Potential damage of {} is {}'.format('"webpage"', self._potential_damage))
 
-    def _calculate_actual_damage(self):
-        self._logger.info('Calculating actual damage')
-
-        # Images
-        self._logger.info('Calculate actual damage for Image(s)')
-
-        total_images_damage = 0
-        for idx, log in enumerate(self._image_logs):
-            if log['status_code'] > 399:
-                image_damage = self._calculate_image_and_multimedia_damage(log, use_viewport_size=False)
-                # Based on measureMemento.pl line 463
-                total_location_importance = 0
-                total_size_importance = 0
-                total_image_damage = 0
-                for location_importance, size_importance, damage in image_damage:
-                    total_location_importance += location_importance
-                    total_size_importance += size_importance
-                    total_image_damage += damage
-
-                total_images_damage += total_image_damage
-
-                self._image_logs[idx]['actual_damage'] = {
-                    'location': total_location_importance,
-                    'size': total_size_importance,
-                    'total': total_image_damage
-                }
-
-                self._logger.info('Actual damage of {} is {}'.format(log['url'], total_image_damage))
-
-        # Css
-        self._logger.info('Calculate actual damage for Stylesheet(s)')
-
-        total_css_damage = 0
-        for idx, log in enumerate(self._css_logs):
-            if ('status_code' in log) and (log['status_code'] > 399):
-                tag_importance, ratio_importance, css_damage = \
-                    self._calculate_css_damage(log, use_viewport_size=False)
-
-                # Based on measureMemento.pl line 468
-                total_css_damage += css_damage
-
-                self._css_logs[idx]['actual_damage'] = {
-                    'tag': tag_importance,
-                    'ratio': ratio_importance,
-                    'total': css_damage
-                }
-
-                self._logger.info('Actual damage of {} is {}'.format(log['url'], css_damage))
-
-        # Javascript
-        self._logger.info('Calculate actual damage for Javascript(s)')
-
-        total_js_damage = 0
-        for idx, log in enumerate(self._js_logs):
-            if ('status_code' in log) and (log['status_code'] > 399):
-                total_js_damage += 1
-
-                self._js_logs[idx]['actual_damage'] = {
-                    'total': 1
-                }
-
-                self._logger.info('Potential damage of {} is {}'.format(log['url'], 1))
-
-        # Multimedia
-        self._logger.info('Calculate actual damage for Multimedia(s)')
-
-        total_mlms_damage = 0
-        for idx, log in enumerate(self._mlm_logs):
-            if log['status_code'] > 399:
-                mlm_damage = self._calculate_image_and_multimedia_damage(log, use_viewport_size=False)
-                # Based on measureMemento.pl line 463
-                total_location_importance = 0
-                total_size_importance = 0
-                total_mlm_damage = 0
-                for location_importance, size_importance, damage in mlm_damage:
-                    total_location_importance += location_importance
-                    total_size_importance += size_importance
-                    total_mlm_damage += damage
-
-                total_mlms_damage += total_mlm_damage
-
-                self._mlm_logs[idx]['actual_damage'] = {
-                    'location': total_location_importance,
-                    'size': total_size_importance,
-                    'total': total_mlm_damage
-                }
-
-                self._logger.info('Actual damage of {} is {}'.format(log['url'], total_mlm_damage))
-
-        # Text
-        total_text_damage = 0
-        self._actual_damage_text = total_text_damage * self.text_weight
-
-        self._logger.info('Actual damage of {} is {}'.format('"text"', self._actual_damage_text))
-
-        # Based on measureMemento.pl line 555
-        self._logger.info('Weighting actual damage(s)')
-
-        self._actual_image_damage = total_images_damage * self.image_weight
-        self._actual_css_damage = total_css_damage * self.css_weight
-        self._actual_js_damage = total_js_damage * self.js_weight
-        self._actual_multimedia_damage = total_mlms_damage * \
-                                         self.multimedia_weight
         self._actual_damage = self._actual_image_damage + \
                               self._actual_css_damage + \
                               self._actual_js_damage + \
@@ -764,12 +735,6 @@ class MementoDamageAnalysis(object):
 
         total_importance = tag_importance + ratio_importance
         return (tag_importance, ratio_importance, total_importance)
-
-    def _calculate_js_damage(self, log, tag_weight=0.5, ratio_weight=0.5,
-                             is_potential=False, use_viewport_size=True):
-        css_url = log['url']
-
-        return None
 
     def _calculate_text_damage(self, log, size_weight=0.5, centrality_weight=0.5, use_viewport_size=True):
         importances = []

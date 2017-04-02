@@ -39,23 +39,25 @@ class MementoDamage(object):
         self.reformat_uri_webrecorder_io()
 
         # Initialize variable
-        self.app_log_file       = os.path.join(self.output_dir, 'app.log')
-        self.html_file          = os.path.join(self.output_dir, 'source.html')
-        self.network_log_file   = os.path.join(self.output_dir, 'network.log')
-        self.image_log_file     = os.path.join(self.output_dir, 'image.log')
-        self.css_log_file       = os.path.join(self.output_dir, 'css.log')
-        self.js_log_file        = os.path.join(self.output_dir, 'js.log')
-        self.video_log_file     = os.path.join(self.output_dir, 'video.log')
-        self.text_log_file      = os.path.join(self.output_dir, 'text.log')
-        self.screenshot_file    = os.path.join(self.output_dir, 'screenshot.png')
-        self.json_result_file   = os.path.join(self.output_dir, 'result.json')
+        self.app_log_file = os.path.join(self.output_dir, 'app.log')
+        self.html_file = os.path.join(self.output_dir, 'source.html')
+        self.network_log_file = os.path.join(self.output_dir, 'network.log')
+        self.image_log_file = os.path.join(self.output_dir, 'image.log')
+        self.css_log_file = os.path.join(self.output_dir, 'css.log')
+        self.js_log_file = os.path.join(self.output_dir, 'js.log')
+        self.video_log_file = os.path.join(self.output_dir, 'video.log')
+        self.text_log_file = os.path.join(self.output_dir, 'text.log')
+        self.screenshot_file = os.path.join(self.output_dir, 'screenshot.png')
+        self.json_result_file = os.path.join(self.output_dir, 'result.json')
 
         # options
         if 'mode' in options: self._mode = options['mode']
         if 'redirect' in options: self._follow_redirection = options['redirect']
         if 'debug' in options:
-            if options['debug'] == 'complete': self._debug = True
-            elif options['debug'] == 'simple': self._info = True
+            if options['debug'] == 'complete':
+                self._debug = True
+            elif options['debug'] == 'simple':
+                self._info = True
 
         # Setup logger --> to show debug verbosity
         log_formatter = logging.Formatter('%(asctime)s %(name)s %(levelname)s %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
@@ -113,8 +115,10 @@ class MementoDamage(object):
             self._crawl_result = crawl_result
             msg = crawl_result['message']
 
-        if self.logger.level == logging.DEBUG: self.logger.debug(msg)
-        elif self.logger.level == logging.INFO: self.logger.info(msg)
+        if self.logger.level == logging.DEBUG:
+            self.logger.debug(msg)
+        elif self.logger.level == logging.INFO:
+            self.logger.info(msg)
 
     def log_stderr(self, out, write_fn):
         if out and hasattr(out, 'readline'):
@@ -167,13 +171,13 @@ class MementoDamage(object):
             # Equivalent with console:
             phantomjs = os.getenv('PHANTOMJS', 'phantomjs')
 
-            pjs_cmd = [phantomjs, '--ssl-protocol=any', '--ignore-ssl-errors=true' , '--output-encoding=utf8', '--web-security=no',
-                       self._crawljs_script, self.uri, self.output_dir, str(self._follow_redirection),
-                       '{}x{}'.format(*self.viewport_size), str(self.logger.level)]
+            pjs_cmd = [phantomjs, '--ssl-protocol=any', '--ignore-ssl-errors=true', '--output-encoding=utf8',
+                       '--web-security=false', self._crawljs_script, self.uri, self.output_dir,
+                       str(self._follow_redirection), '{}x{}'.format(*self.viewport_size), str(self.logger.level)]
             cmd = Command(pjs_cmd, pipe_stdout_callback=self.log_stdout, pipe_stderr_callback=self.log_stderr)
             err_code = cmd.run(10 * 60,
-                               stdout_callback_args=(self.log_output, ),
-                               stderr_callback_args=(self.log_error, ))
+                               stdout_callback_args=(self.log_output,),
+                               stderr_callback_args=(self.log_error,))
 
             if err_code != 0:
                 self._result['uri'] = self.uri
@@ -330,6 +334,7 @@ def main():
         damage.set_dont_clean_cache_on_finish()
     damage.run(re_run)
     damage.print_result()
+
 
 if __name__ == "__main__":
     main()
