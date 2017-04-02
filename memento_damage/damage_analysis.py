@@ -51,7 +51,7 @@ class MementoDamageAnalysis(object):
         self._text_logs = [json.loads(log, strict=False) for log in
                            io.open(memento_damage.text_log_file, encoding="utf-8").readlines()]
         self._iframe_logs = [json.loads(log, strict=False) for log in
-                           io.open(memento_damage.iframe_log_file, encoding="utf-8").readlines()]
+                             io.open(memento_damage.iframe_log_file, encoding="utf-8").readlines()]
         # self._text_logs = {}
 
         self.viewport_size = self.memento_damage.viewport_size
@@ -555,8 +555,10 @@ class MementoDamageAnalysis(object):
                     'total': total_importance
                 }
             else:
-                try: self._text_logs.pop(idx)
-                except: pass
+                try:
+                    self._text_logs.pop(idx)
+                except:
+                    pass
 
         self._logger.info('Potential damage of {} is {}'.format('"text"', total_potential_damage))
         self._logger.info('Actual damage of {} is {}'.format('"text"', total_actual_damage))
@@ -635,8 +637,6 @@ class MementoDamageAnalysis(object):
 
         # im = Image.open(self.screenshot_file)
         viewport_w, viewport_h = self.viewport_size if use_viewport_size else self.page_size
-        middle_x = viewport_w / 2
-        middle_y = viewport_h / 2
 
         # A line in *.img.log representate an image
         # An image can be appeared in more than one location in page
@@ -648,45 +648,9 @@ class MementoDamageAnalysis(object):
             w = image_rect['width']
             h = image_rect['height']
 
-            location_importance = 0.0
-
-            # New algorithm, need to be tested
-            '''
-            if x and y and w and h:
-                text_middle_x = float(x + w) / 2
-                text_middle_y = float(y + h) / 2
-
-                if float(x + w) >= 0.0 and float(y + h) >= 0.0:
-                    distance_x = abs(middle_x - text_middle_x)
-                    distance_y = abs(middle_y - text_middle_y)
-
-                    prop_x = (middle_x - distance_x) / middle_x
-                    prop_y = (middle_y - distance_y) / middle_y
-
-                    location_importance += prop_x * (centrality_weight / 2)
-                    location_importance += prop_y * (centrality_weight / 2)
-            '''
-
-            # Based on measureMemento.pl line 703
-            if (x + w) > middle_x and x < middle_x:  # if it crosses the vertical center
-                location_importance += centrality_weight / 2;
-
-            # Based on measureMemento.pl line 715
-            if (y + h) > middle_y and y < middle_y:  # if it crosses the horizontal center
-                location_importance += centrality_weight / 2;
-
-            size_importance = 0.0
-            if w and h:
-                if viewport_w * viewport_h > 0:
-                    prop = float(w * h) / (viewport_w * viewport_h)
-                else:
-                    prop = 0.0
-
-                size_importance = prop * size_weight
-
-            importance = location_importance + size_importance
-            importances.append((location_importance, size_importance,
-                                importance))
+            importance, location_importance, size_importance = self._calculate_block_importance(
+                (x, y), (w, h), (viewport_w, viewport_h), (centrality_weight, size_weight))
+            importances.append((location_importance, size_importance, importance))
 
         return importances
 
@@ -803,8 +767,6 @@ class MementoDamageAnalysis(object):
         importances = []
 
         viewport_w, viewport_h = self.viewport_size if use_viewport_size else self.page_size
-        middle_x = viewport_w / 2.0
-        middle_y = viewport_h / 2.0
 
         if len(log['text']) > 0:
             x = log['left']
@@ -813,42 +775,8 @@ class MementoDamageAnalysis(object):
             h = log['height']
             c = log['coverage']
 
-            location_importance = 0.0
-            if x and y and w and h:
-                text_middle_x = float(x + w) / 2
-                text_middle_y = float(y + h) / 2
-
-                # New algorithm, need to be tested
-                '''
-                if float(x + w) >= 0.0 and float(y + h) >= 0.0:
-                    distance_x = abs(middle_x - text_middle_x)
-                    distance_y = abs(middle_y - text_middle_y)
-
-                    prop_x = (middle_x - distance_x) / middle_x
-                    prop_y = (middle_y - distance_y) / middle_y
-
-                    location_importance += prop_x * (centrality_weight / 2)
-                    location_importance += prop_y * (centrality_weight / 2)
-                '''
-
-                # Based on measureMemento.pl line 703
-                if (x + w) > middle_x and x < middle_x:
-                    location_importance += centrality_weight / 2;
-
-                # Based on measureMemento.pl line 715
-                if (y + h) > middle_y and y < middle_y:
-                    location_importance += centrality_weight / 2;
-
-            size_importance = 0.0
-            if c:
-                if viewport_w * viewport_h > 0:
-                    prop = float(c) / (viewport_w * viewport_h)
-                else:
-                    prop = 0.0
-
-                size_importance = prop * size_weight
-
-            importance = location_importance + size_importance
+            importance, location_importance, size_importance = self._calculate_block_importance(
+                (x, y), (w, h), (viewport_w, viewport_h), (centrality_weight, size_weight), alt_coverage=c)
             importances.append((location_importance, size_importance, importance))
 
         return importances
@@ -857,21 +785,31 @@ class MementoDamageAnalysis(object):
         importances = []
 
         viewport_w, viewport_h = self.viewport_size if use_viewport_size else self.page_size
-        middle_x = viewport_w / 2.0
-        middle_y = viewport_h / 2.0
-
         x = log['left']
         y = log['top']
         w = log['width']
         h = log['height']
 
+        importance, location_importance, size_importance = self._calculate_block_importance(
+            (x, y), (w, h), (viewport_w, viewport_h), (centrality_weight, size_weight))
+        importances.append((location_importance, size_importance, importance))
+
+        return importances
+
+    def _calculate_block_importance(self, (x, y), (w, h), (viewport_w, viewport_h),
+                                    (location_weight, size_weight), alt_coverage=None):
+        middle_x = float(viewport_w) / 2
+        middle_y = float(viewport_h) / 2
+
         location_importance = 0.0
+        size_importance = 0.0
+
+        # New algorithm, need to be tested
+        '''
         if x and y and w and h:
             text_middle_x = float(x + w) / 2
             text_middle_y = float(y + h) / 2
 
-            # New algorithm, need to be tested
-            '''
             if float(x + w) >= 0.0 and float(y + h) >= 0.0:
                 distance_x = abs(middle_x - text_middle_x)
                 distance_y = abs(middle_y - text_middle_y)
@@ -881,27 +819,27 @@ class MementoDamageAnalysis(object):
 
                 location_importance += prop_x * (centrality_weight / 2)
                 location_importance += prop_y * (centrality_weight / 2)
-            '''
+        '''
 
-            # Based on measureMemento.pl line 703
-            if (x + w) > middle_x and x < middle_x:
-                location_importance += centrality_weight / 2;
+        # Location Importance
+        # Based on measureMemento.pl line 703
+        if (x + w) > middle_x and x < middle_x:  # if it crosses the vertical center
+            location_importance += location_weight / 2;
 
-            # Based on measureMemento.pl line 715
-            if (y + h) > middle_y and y < middle_y:
-                location_importance += centrality_weight / 2;
+        # Based on measureMemento.pl line 715
+        if (y + h) > middle_y and y < middle_y:  # if it crosses the horizontal center
+            location_importance += location_weight / 2;
+
+        # Size Importance
+        coverage = float(w) * h
+        if alt_coverage:
+            coverage = float(alt_coverage)
 
         if viewport_w * viewport_h > 0:
-            prop = float(w) * h / (viewport_w * viewport_h)
-        else:
-            prop = 0.0
+            prop = coverage / (viewport_w * viewport_h)
+            size_importance = prop * size_weight
 
-        size_importance = prop * size_weight
-
-        importance = location_importance + size_importance
-        importances.append((location_importance, size_importance, importance))
-
-        return importances
+        return location_importance + size_importance, location_importance, size_importance
 
     def _rgb2hex(self, r, g, b):
         return '{:02x}{:02x}{:02x}'.format(r, g, b).upper()
