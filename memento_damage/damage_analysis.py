@@ -340,6 +340,12 @@ class MementoDamageAnalysis(object):
                                float(viewport_w * vieport_h)
             self._mlm_logs[idx]['percentage_coverage'] = pct_mlm_coverage
 
+        # Coverage of iframes
+        for idx, log in enumerate(self._iframe_logs):
+            viewport_w, vieport_h = log['viewport_size']
+            w, h = log['width'], log['height']
+            self._iframe_logs[idx]['percentage_coverage'] = float(w) * h / float(viewport_w) * h
+
         self._logger.info('Calculate percentage coverage')
 
     def _find_missing_uris(self):
