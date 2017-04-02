@@ -22,6 +22,7 @@ class MementoDamageAnalysis(object):
     image_weight = proportion * (1 - (multimedia_weight + css_weight + js_weight))
     text_weight = 1.0 - (multimedia_weight + css_weight + js_weight + image_weight)
     words_per_image = 1000
+    iframe_weight = image_weight
 
     blacklisted_uris = [
         'https://analytics.archive.org/',
@@ -49,6 +50,8 @@ class MementoDamageAnalysis(object):
                           io.open(memento_damage.video_log_file, encoding="utf-8").readlines()]
         self._text_logs = [json.loads(log, strict=False) for log in
                            io.open(memento_damage.text_log_file, encoding="utf-8").readlines()]
+        self._iframe_logs = [json.loads(log, strict=False) for log in
+                           io.open(memento_damage.iframe_log_file, encoding="utf-8").readlines()]
         # self._text_logs = {}
 
         self.viewport_size = self.memento_damage.viewport_size
@@ -72,6 +75,7 @@ class MementoDamageAnalysis(object):
         self.calculate_css_damage()
         self.calculate_javascript_damage()
         self.calculate_text_damage()
+        self.calculate_iframe_damage()
         self.calculate_damage()
 
         # self._calculate_potential_damage()
@@ -111,20 +115,23 @@ class MementoDamageAnalysis(object):
                 'css': self.css_weight,
                 'js': self.js_weight,
                 'image': self.image_weight,
-                'text': self.text_weight
+                'text': self.text_weight,
+                'iframe': self.iframe_weight,
             }
             result['images'] = self._image_logs
             result['csses'] = self._css_logs
             result['jses'] = self._js_logs
             result['multimedias'] = self._mlm_logs
             result['text'] = self._text_logs
+            result['iframes'] = self._iframe_logs
             result['potential_damage'] = {
                 'total': self._potential_damage,
                 'image': self._potential_image_damage,
                 'css': self._potential_css_damage,
                 'js': self._potential_js_damage,
                 'multimedia': self._potential_multimedia_damage,
-                'text': self._potential_damage_text,
+                'text': self._potential_text_damage,
+                'iframe': self._potential_iframe_damage,
             }
             result['actual_damage'] = {
                 'total': self._actual_damage,
@@ -132,7 +139,8 @@ class MementoDamageAnalysis(object):
                 'css': self._actual_css_damage,
                 'js': self._actual_js_damage,
                 'multimedia': self._actual_multimedia_damage,
-                'text': self._actual_damage_text,
+                'text': self._actual_text_damage,
+                'iframe': self._actual_iframe_damage,
             }
             result['total_damage'] = total_damage
             result['redirect_uris'] = redirect_uris
@@ -226,6 +234,9 @@ class MementoDamageAnalysis(object):
 
         # Resolve redirection for js
         self._js_logs = self._purify_logs(self._js_logs, logs)
+
+        # Resolve redirection for iframes
+        self._iframe_logs = self._purify_logs(self._iframe_logs, logs)
 
         self._logger.info('Resolve URI redirection')
 
@@ -544,8 +555,52 @@ class MementoDamageAnalysis(object):
         self._logger.info('Potential damage of {} is {}'.format('"text"', total_potential_damage))
         self._logger.info('Actual damage of {} is {}'.format('"text"', total_actual_damage))
 
-        self._potential_damage_text = total_potential_damage * self.text_weight
-        self._actual_damage_text = total_actual_damage * self.text_weight
+        self._potential_text_damage = total_potential_damage * self.text_weight
+        self._actual_text_damage = total_actual_damage * self.text_weight
+
+    def calculate_iframe_damage(self):
+        self._logger.info('Calculating damage for IFrame(s)')
+
+        total_potential_damage = 0.0
+        total_actual_damage = 0.0
+
+        for idx, log in enumerate(self._iframe_logs):
+            damage = self._calculate_iframe_damage(log, use_viewport_size=True)
+
+            # Potential
+            # Based on measureMemento.pl line 463
+            total_location_importance = 0.0
+            total_size_importance = 0.0
+            total_importance = 0.0
+            for location_importance, size_importance, importance in damage:
+                total_location_importance += location_importance
+                total_size_importance += size_importance
+                total_importance += importance
+
+            total_potential_damage += total_importance
+
+            self._iframe_logs[idx]['potential_damage'] = {
+                'location': total_location_importance,
+                'size': total_size_importance,
+                'total': total_importance
+            }
+
+            self._logger.info('Potential damage of {} is {}'.format(log['url'], total_importance))
+
+            # Actual
+            if log['status_code'] > 399:
+                total_actual_damage += total_importance
+
+                self._iframe_logs[idx]['actual_damage'] = {
+                    'location': total_location_importance,
+                    'size': total_size_importance,
+                    'total': total_importance
+                }
+
+                self._logger.info('Actual damage of {} is {}'.format(log['url'], total_importance))
+
+        self._potential_iframe_damage = total_potential_damage * self.iframe_weight
+        self._actual_iframe_damage = total_actual_damage * self.iframe_weight
 
     def calculate_damage(self):
         self._logger.info('Calculating damage for "webpage"')
@@ -554,7 +609,8 @@ class MementoDamageAnalysis(object):
                                  self._potential_css_damage + \
                                  self._potential_js_damage + \
                                  self._potential_multimedia_damage + \
-                                 self._potential_damage_text
+                                 self._potential_text_damage + \
+                                 self._potential_iframe_damage
 
         self._logger.info('Potential damage of {} is {}'.format('"webpage"', self._potential_damage))
 
@@ -562,7 +618,8 @@ class MementoDamageAnalysis(object):
                               self._actual_css_damage + \
                               self._actual_js_damage + \
                               self._actual_multimedia_damage + \
-                              self._actual_damage_text
+                              self._actual_text_damage + \
+                              self._actual_iframe_damage
 
         self._logger.info('Actual damage of {} is {}'.format('"webpage"', self._actual_damage))
 
@@ -786,8 +843,57 @@ class MementoDamageAnalysis(object):
                 size_importance = prop * size_weight
 
             importance = location_importance + size_importance
-            importances.append((location_importance, size_importance,
-                                importance))
+            importances.append((location_importance, size_importance, importance))
+
+        return importances
+
+    def _calculate_iframe_damage(self, log, size_weight=0.5, centrality_weight=0.5, use_viewport_size=True):
+        importances = []
+
+        viewport_w, viewport_h = self.viewport_size if use_viewport_size else self.page_size
+        middle_x = viewport_w / 2.0
+        middle_y = viewport_h / 2.0
+
+        x = log['left']
+        y = log['top']
+        w = log['width']
+        h = log['height']
+
+        location_importance = 0.0
+        if x and y and w and h:
+            text_middle_x = float(x + w) / 2
+            text_middle_y = float(y + h) / 2
+
+            # New algorithm, need to be tested
+            '''
+            if float(x + w) >= 0.0 and float(y + h) >= 0.0:
+                distance_x = abs(middle_x - text_middle_x)
+                distance_y = abs(middle_y - text_middle_y)
+
+                prop_x = (middle_x - distance_x) / middle_x
+                prop_y = (middle_y - distance_y) / middle_y
+
+                location_importance += prop_x * (centrality_weight / 2)
+                location_importance += prop_y * (centrality_weight / 2)
+            '''
+
+            # Based on measureMemento.pl line 703
+            if (x + w) > middle_x and x < middle_x:
+                location_importance += centrality_weight / 2;
+
+            # Based on measureMemento.pl line 715
+            if (y + h) > middle_y and y < middle_y:
+                location_importance += centrality_weight / 2;
+
+        if viewport_w * viewport_h > 0:
+            prop = float(w) * h / (viewport_w * viewport_h)
+        else:
+            prop = 0.0
+
+        size_importance = prop * size_weight
+
+        importance = location_importance + size_importance
+        importances.append((location_importance, size_importance, importance))
 
         return importances
 

@@ -47,6 +47,7 @@ class MementoDamage(object):
         self.js_log_file = os.path.join(self.output_dir, 'js.log')
         self.video_log_file = os.path.join(self.output_dir, 'video.log')
         self.text_log_file = os.path.join(self.output_dir, 'text.log')
+        self.iframe_log_file = os.path.join(self.output_dir, 'iframe.log')
         self.screenshot_file = os.path.join(self.output_dir, 'screenshot.png')
         self.json_result_file = os.path.join(self.output_dir, 'result.json')
 

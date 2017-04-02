@@ -403,82 +403,102 @@ function processHtml(url, outputDir) {
 }
 
 function processIframe(url, outputDir) {
-//    page.switchToMainFrame();
-//    var iframes = page.evaluate(function() {
-//        var iframeLog = {};
-//
-//        function findIframeIn(parent) {
-//            $(parent).find('frame,iframe').each(function(idx, el) {
-//                if(this.src) {
-//                    var src = this.src;
-//                    var w = $(this).outerWidth(false);
-//                    var h = $(this).outerHeight(false);
-//                    var t = $(this).offset().top;
-//                    var l = $(this).offset().left;
-//
-//                    var visible = false;
-//                    if ($(this).is(':visible') || $(this).is(':not(:hidden)')) {
-//                        visible = true;
-//                    }
-//
-//                    var cs = getComputedStyle(this);
-//                    if (cs['visibility'] == '' || cs['visibility'] == 'visible') {
-//                        visible = true;
-//                    } else if(cs['visibility'] == 'hidden') {
-//                        visible = false;
-//                    }
-//
-//                    iframeLog[src] = {
-//                        'src': src,
-//                        'top': t,
-//                        'left': l,
-//                        'width': w,
-//                        'height': h,
-//                        'visible': visible
-//                    }
-//                }
-//
-//                findIframeIn(this.contentDocument);
-//            });
-//        }
-//
-//        findIframeIn($('body'));
-//        return iframeLog;
-//    });
-//
-//    var networkFrames = {};
-//    var docUrls = Object.keys(iframes);
-//    for(nUrl in networkResources) {
-//        if(networkResources[nUrl]['content_type']) {
-//            if(networkResources[nUrl]['content_type'].indexOf('text/html') == 0) {
-//                networkFrames[nUrl] = networkResources[nUrl];
-//
-//                var match = false
-//                docUrls.forEach(function(dUrl, idx) {
-//                    if(nUrl.indexOf(dUrl) >= 0) {
-//                        networkFrames[nUrl] = _.extend(networkFrames[nUrl], iframes[dUrl]);
-//                        match = true;
-//                    }
-//                });
-//
-//                var pUrl = nUrl;
-//                while(true) {
-//                    if(match) break;
-//                    if(! (pUrl in reverseRedirectMapping)) break;
-//
-//                    pUrl = reverseRedirectMapping[pUrl];
-//                    docUrls.forEach(function(dUrl, idx) {
-//                        if(pUrl.indexOf(dUrl) >= 0) {
-//                            networkFrames[nUrl] = _.extend(networkResources[pUrl], iframes[dUrl]);
-//                            match = true;
-//                        }
-//                    });
-//                }
-//            }
-//        }
-//    }
-//
-//    console.error(JSON.stringify(networkFrames));
+    page.switchToMainFrame();
+    var docResources = page.evaluate(function() {
+        var iframeLog = {};
+
+        function findIframeIn(parent, parentSrc, parentLeft, parentTop) {
+            $(parent).find('frame,iframe').each(function(idx, el) {
+                var w = $(this).outerWidth(false);
+                var h = $(this).outerHeight(false);
+                var t = parentTop + ($(this).offset().top || 0);
+                var l = parentLeft + ($(this).offset().left || 0);
+
+                if(this.src) {
+                    var src = this.src;
+
+                    var visible = false;
+                    if ($(this).is(':visible') || $(this).is(':not(:hidden)')) {
+                        visible = true;
+                    }
+
+                    var cs = getComputedStyle(this);
+                    if (cs['visibility'] == '' || cs['visibility'] == 'visible') {
+                        visible = true;
+                    } else if(cs['visibility'] == 'hidden') {
+                        visible = false;
+                    }
+
+                    iframeLog[src] = {
+                        'url': src,
+                        'parent': parentSrc,
+                        'top': t,
+                        'left': l,
+                        'width': w,
+                        'height': h,
+                        'visible': visible
+                    }
+                }
+
+                findIframeIn(this.contentDocument, src, l, t);
+            });
+        }
+
+        findIframeIn($('body'), null, 0, 0);
+        return iframeLog;
+    });
+
+    var documentNetworkResources = {};
+    var docUrls = Object.keys(docResources);
+    docUrls.forEach(function(dUrl, idx) {
+        var match = false;
+        for(nUrl in networkResources) {
+            if(nUrl.indexOf(dUrl) >= 0) {
+                documentNetworkResources[nUrl] = _.extend(networkResources[nUrl], docResources[dUrl]);
+                match = true;
+                break;
+            }
+        }
+
+        var pUrl = dUrl;
+        while(true) {
+            if(match) break;
+            var exists = false;
+            for(lUrl in reverseRedirectMapping) {
+                if(lUrl.indexOf(pUrl) >= 0) {
+                    exists = true;
+                    break;
+                }
+            }
+            if(! exists) break;
+
+            pUrl = reverseRedirectMapping[pUrl];
+            for(nUrl in networkResources) {
+                if(nUrl.indexOf(dUrl) >= 0) {
+                    documentNetworkResources[nUrl] = _.extend(networkResources[nUrl], docResources[dUrl]);
+                    match = true;
+                    break;
+                }
+            }
+        }
+    });
+
+    // Set default value
+    for (nUrl in documentNetworkResources) {
+        documentNetworkResources[nUrl]['viewport_size'] = documentNetworkResources[nUrl]['viewport_size'] || viewportSize;
+    }
+
+    // Save all resource images
+    var values = [];
+    var keys = Object.keys(documentNetworkResources);
+    for(r=0; r<keys.length; r++) {
+        var value = documentNetworkResources[keys[r]];
+        values.push(JSON.stringify(value));
+    }
+
+    var resourceIFrameFile = outputDir + '/iframe.log';
+    fs.write(resourceIFrameFile, unescape(encodeURIComponent(values.join('\n'))), "w");
+    if(logLevel <= Log.INFO) console.log('Processing iframes --> creating ' + resourceIFrameFile);
 }
 
 function processImagesInFrame() {
