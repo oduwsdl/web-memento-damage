@@ -307,7 +307,7 @@ function joinDocumentAndNetworkResources(docResources, prefixContentType) {
     var docUrls = Object.keys(docResources);
     for(nUrl in networkResources) {
         if(networkResources[nUrl]['content_type']) {
-            if(networkResources[nUrl]['content_type'].indexOf('image/') == 0) {
+            if(networkResources[nUrl]['content_type'].indexOf(prefixContentType) == 0) {
                 documentNetworkResources[nUrl] = networkResources[nUrl];
 
                 var match = false;
