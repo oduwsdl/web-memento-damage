@@ -354,7 +354,11 @@
                     ' px, Width: ' + rect['width'] + ' px, Height: ' + rect['height'] + ' px');
             });
 
-            tbody += '<tr class="title status-' + image.status_code + '">' +
+            var rowClass = '';
+            if (image.status_code > 399) rowClass = 'status-404';
+            else if (image.status_code == 200) rowClass = 'status-200';
+
+            tbody += '<tr class="title ' + rowClass  + '">' +
                 '<td data-th="No">' + (idx + 1) + '</td>' +
                 '<td data-th="URI" style="text-align: left;">' +
                 '<a href="' + image['url'] + '" target="_blank" class="text" title="' + image['url'] + '">' + image['url'] + '</span>' +
@@ -446,7 +450,11 @@
         csses.forEach(function(css, idx) {
             if (!css['rules_tag']) css['rules_tag'] = [];
 
-            tbody += '<tr class="title status-' + css.status_code + '">' +
+            var rowClass = '';
+            if (css.status_code > 399) rowClass = 'status-404';
+            else if (css.status_code == 200) rowClass = 'status-200';
+
+            tbody += '<tr class="title ' + rowClass + '">' +
                 '<td data-th="No">' + (idx + 1) + '</td>' +
                 '<td data-th="URI" style="text-align:left;">' +
                 '<a href="' + css['url'] + '" target="_blank" class="text" title="' + css['url'] + '">' + css['url'] + '</span>' +
@@ -531,7 +539,11 @@
         jses.forEach(function(js, idx) {
             if (!js['rules_tag']) js['rules_tag'] = [];
 
-            tbody += '<tr class="title status-' + js.status_code + '">' +
+            var rowClass = '';
+            if (js.status_code > 399) rowClass = 'status-404';
+            else if (js.status_code == 200) rowClass = 'status-200';
+
+            tbody += '<tr class="title ' + rowClass + '">' +
                     '<td data-th="No">' + (idx + 1) + '</td>' +
                     '<td data-th="URI" style="text-align:left;">' +
                     '<a href="' + js['url'] + '" target="_blank" class="text" title="' + js['url'] + '">' + js['url'] + '</span>' +
@@ -616,7 +628,11 @@
                     ' px, Width: ' + rect['width'] + ' px, Height: ' + rect['height'] + ' px');
             });
 
-            tbody += '<tr class="title status-' + multimedia.status_code + '">' +
+            var rowClass = '';
+            if (multimedia.status_code > 399) rowClass = 'status-404';
+            else if (multimedia.status_code == 200) rowClass = 'status-200';
+
+            tbody += '<tr class="title ' + rowClass + '">' +
                 '<td data-th="No">' + (idx + 1) + '</td>' +
                 '<td data-th="URI" style="text-align: left;">' +
                 '<a href="' + multimedia['url'] + '" target="_blank" class="text" title="' + multimedia['url'] + '">' + multimedia['url'] + '</span>' +
@@ -706,7 +722,11 @@
         tbody = '<tbody>';
         pdLocation = pdSize = adLocation = adSize = 0;
         iframes.forEach(function(iframe, idx) {
-            tbody += '<tr class="title status-200">' +
+            var rowClass = '';
+            if (iframe.status_code > 399) rowClass = 'status-404';
+            else if (iframe.status_code == 200) rowClass = 'status-200';
+
+            tbody += '<tr class="title ' + rowClass + '">' +
                   '<td data-th="No">' + (idx + 1) + '</td>' +
                   '<td data-th="URI" style="text-align: left;">' +
                     '<span class="text" title="' + iframe['url'] + '">' + iframe['url'] + '</span>' +
