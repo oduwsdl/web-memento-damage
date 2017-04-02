@@ -305,20 +305,20 @@ class MementoDamageAnalysis(object):
 
         # Coverage of images
         for idx, log in enumerate(self._image_logs):
-            viewport_w, vieport_h = log['viewport_size']
+            viewport_w, viewport_h = log['viewport_size']
             image_coverage = 0
             for rect in log['rectangles']:
                 w = rect['width']
                 h = rect['height']
                 image_coverage += (w * h)
 
-            if float(viewport_w * vieport_h) <= 0:
+            if float(viewport_w * viewport_h) <= 0:
                 # If javascript cannot calculate viewport size, use screenshot size,
                 # since, it is representation of webpage
-                viewport_w, vieport_h = im.size
+                viewport_w, viewport_h = im.size
 
             pct_image_coverage = float(image_coverage) / \
-                                 float(viewport_w * vieport_h)
+                                 float(viewport_w * viewport_h)
 
             # if float(viewport_w * vieport_h) > 0:
             #     pct_image_coverage = float(image_coverage) / \
@@ -329,7 +329,7 @@ class MementoDamageAnalysis(object):
 
         # Coverage of videos
         for idx, log in enumerate(self._mlm_logs):
-            viewport_w, vieport_h = log['viewport_size']
+            viewport_w, viewport_h = log['viewport_size']
             mlm_coverage = 0
             for rect in log['rectangles']:
                 w = rect['width']
@@ -337,14 +337,14 @@ class MementoDamageAnalysis(object):
                 mlm_coverage += (w * h)
 
             pct_mlm_coverage = float(mlm_coverage) / \
-                               float(viewport_w * vieport_h)
+                               float(viewport_w * viewport_h)
             self._mlm_logs[idx]['percentage_coverage'] = pct_mlm_coverage
 
         # Coverage of iframes
         for idx, log in enumerate(self._iframe_logs):
-            viewport_w, vieport_h = log['viewport_size']
+            viewport_w, viewport_h = log['viewport_size']
             w, h = log['width'], log['height']
-            self._iframe_logs[idx]['percentage_coverage'] = float(w) * h / float(viewport_w) * h
+            self._iframe_logs[idx]['percentage_coverage'] = float(w) * h / (float(viewport_w) * viewport_h)
 
         self._logger.info('Calculate percentage coverage')
 
