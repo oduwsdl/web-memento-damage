@@ -44,7 +44,7 @@ class MementoDamageAnalysis(object):
         self._css_logs = [json.loads(log, strict=False) for log in
                           io.open(memento_damage.css_log_file, encoding="utf-8").readlines()]
         self._js_logs = [json.loads(log, strict=False) for log in
-                          io.open(memento_damage.js_log_file, encoding="utf-8").readlines()]
+                         io.open(memento_damage.js_log_file, encoding="utf-8").readlines()]
         self._mlm_logs = [json.loads(log, strict=False) for log in
                           io.open(memento_damage.video_log_file, encoding="utf-8").readlines()]
         self._text_logs = [json.loads(log, strict=False) for log in
@@ -137,7 +137,7 @@ class MementoDamageAnalysis(object):
         else:
             result['uri'] = self.memento_damage.uri
             result['error'] = True
-            result['message'] = 'Error in loading url. Page {0} (Status code {1})'\
+            result['message'] = 'Error in loading url. Page {0} (Status code {1})' \
                 .format(httplib.responses[final_status_code], final_status_code)
 
         return result
@@ -217,6 +217,9 @@ class MementoDamageAnalysis(object):
         # Resolve redirection for css
         self._css_logs = self._purify_logs(self._css_logs, logs)
 
+        # Resolve redirection for js
+        self._js_logs = self._purify_logs(self._js_logs, logs)
+
         self._logger.info('Resolve URI redirection')
 
     def _purify_logs(self, source_logs, logs):
@@ -227,7 +230,6 @@ class MementoDamageAnalysis(object):
         final_uris = []
         for log in source_logs:
             uri = log['url']
-
             redirect_uris = []
             self._follow_redirection(uri, logs, redirect_uris)
 
@@ -247,6 +249,8 @@ class MementoDamageAnalysis(object):
 
     def _follow_redirection(self, uri, logs, redirect_uris):
         uri = unicode(uri)
+        logs = {k.lower(): v for k, v in logs.items()}
+
         while True:
             if uri.endswith('/'):
                 slashed_uri = uri
@@ -339,8 +343,8 @@ class MementoDamageAnalysis(object):
                 if log['status_code'] > 399:
                     self.missing_csses_log.append(log)
 
-        # Since all css set to 404 (missing)
-        # self.missing_csses_log = self._css_logs
+                    # Since all css set to 404 (missing)
+                    # self.missing_csses_log = self._css_logs
 
     def _calculate_potential_damage(self):
         self._logger.info('Calculating potential damage')
@@ -461,8 +465,10 @@ class MementoDamageAnalysis(object):
                     'total': total_text_damage
                 }
             else:
-                try: self._text_logs.pop(idx)
-                except: pass
+                try:
+                    self._text_logs.pop(idx)
+                except:
+                    pass
 
         self._logger.info('Potential damage of {} is {}'.format('"text"', total_texts_damage))
 
@@ -601,7 +607,8 @@ class MementoDamageAnalysis(object):
 
         self._logger.info('Actual damage of {} is {}'.format('"webpage"', self._actual_damage))
 
-    def _calculate_image_and_multimedia_damage(self, log, size_weight=0.5, centrality_weight=0.5, use_viewport_size=True):
+    def _calculate_image_and_multimedia_damage(self, log, size_weight=0.5, centrality_weight=0.5,
+                                               use_viewport_size=True):
         importances = []
 
         # im = Image.open(self.screenshot_file)
@@ -639,11 +646,11 @@ class MementoDamageAnalysis(object):
             '''
 
             # Based on measureMemento.pl line 703
-            if (x + w) > middle_x and x < middle_x:             # if it crosses the vertical center
+            if (x + w) > middle_x and x < middle_x:  # if it crosses the vertical center
                 location_importance += centrality_weight / 2;
 
             # Based on measureMemento.pl line 715
-            if (y + h) > middle_y and y < middle_y:             # if it crosses the horizontal center
+            if (y + h) > middle_y and y < middle_y:  # if it crosses the horizontal center
                 location_importance += centrality_weight / 2;
 
             size_importance = 0.0
@@ -771,7 +778,7 @@ class MementoDamageAnalysis(object):
         return (tag_importance, ratio_importance, total_importance)
 
     def _calculate_js_damage(self, log, tag_weight=0.5, ratio_weight=0.5,
-                              is_potential=False, use_viewport_size=True):
+                             is_potential=False, use_viewport_size=True):
         css_url = log['url']
 
         return None
