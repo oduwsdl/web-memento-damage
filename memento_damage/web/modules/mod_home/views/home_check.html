@@ -295,6 +295,7 @@
         $('.actual-damage-image').html(result['actual_damage']['image'].toFixed(3));
         $('.actual-damage-css').html(result['actual_damage']['css'].toFixed(3));
         $('.actual-damage-multimedia').html(result['actual_damage']['multimedia'].toFixed(3));
+        $('.actual-damage-javascript').html(result['actual_damage']['js'].toFixed(3));
         $('.actual-damage-iframe').html(result['actual_damage']['iframe'].toFixed(3));
         $('.actual-damage-text').html(0.00000);
 
@@ -303,6 +304,7 @@
         $('.potential-damage-image').html(result['potential_damage']['image'].toFixed(3));
         $('.potential-damage-css').html(result['potential_damage']['css'].toFixed(3));
         $('.potential-damage-multimedia').html(result['potential_damage']['multimedia'].toFixed(3));
+        $('.potential-damage-javascript').html(result['potential_damage']['js'].toFixed(3));
         $('.potential-damage-iframe').html(result['potential_damage']['iframe'].toFixed(3));
         $('.potential-damage-text').html(result['potential_damage']['text'].toFixed(3));
 
@@ -315,6 +317,9 @@
         });
         $('.mlm-ref').on('click', function() {
             $('a[data-toggle="tab"][href="#multimedias"]').tab('show')
+        });
+        $('.js-ref').on('click', function() {
+            $('a[data-toggle="tab"][href="#jses"]').tab('show')
         });
         $('.ifr-ref').on('click', function() {
             $('a[data-toggle="tab"][href="#iframes"]').tab('show')
