@@ -561,19 +561,19 @@ function processImages(url, outputDir) {
     }
     page.switchToMainFrame();
 
-    var networkImages = joinDocumentAndNetworkResources(images, 'image/')
-
-    // Set default value
-    for (nUrl in networkImages) {
-        networkImages[nUrl]['viewport_size'] = networkImages[nUrl]['viewport_size'] || viewportSize;
-        networkImages[nUrl]['rectangles'] = networkImages[nUrl]['rectangles'] || [];
-    }
+//    var networkImages = joinDocumentAndNetworkResources(images, 'image/')
+//
+//    // Set default value
+//    for (nUrl in networkImages) {
+//        networkImages[nUrl]['viewport_size'] = networkImages[nUrl]['viewport_size'] || viewportSize;
+//        networkImages[nUrl]['rectangles'] = networkImages[nUrl]['rectangles'] || [];
+//    }
 
     // Save all resource images
     var values = [];
-    var keys = Object.keys(networkImages);
+    var keys = Object.keys(images);
     for(r=0; r<keys.length; r++) {
-        var value = networkImages[keys[r]];
+        var value = images[keys[r]];
         values.push(JSON.stringify(value));
     }
 
@@ -653,19 +653,19 @@ function processMultimedias(url, outputDir) {
     }
     page.switchToMainFrame();
 
-    var networkVideos = joinDocumentAndNetworkResources(videos, 'video/')
-
-    // Set default value
-    for (nUrl in networkVideos) {
-        networkVideos[nUrl]['viewport_size'] = networkVideos[nUrl]['viewport_size'] || viewportSize;
-        networkVideos[nUrl]['rectangles'] = networkVideos[nUrl]['rectangles'] || [];
-    }
+//    var networkVideos = joinDocumentAndNetworkResources(videos, 'video/')
+//
+//    // Set default value
+//    for (nUrl in networkVideos) {
+//        networkVideos[nUrl]['viewport_size'] = networkVideos[nUrl]['viewport_size'] || viewportSize;
+//        networkVideos[nUrl]['rectangles'] = networkVideos[nUrl]['rectangles'] || [];
+//    }
 
     // Save all resource images
     var networkVideosValues = []
-    var networkVideosKeys = Object.keys(networkVideos);
+    var networkVideosKeys = Object.keys(videos);
     for(r=0; r<networkVideosKeys.length; r++) {
-        var value = networkVideos[networkVideosKeys[r]];
+        var value = videos[networkVideosKeys[r]];
         networkVideosValues.push(JSON.stringify(value));
     }
 
@@ -742,29 +742,29 @@ function processCsses(url, outputDir) {
     }
     page.switchToMainFrame();
 
-    // Check css url == resource url, append position if same
-    var networkCsses = []
-    var networkResourcesKeys = Object.keys(networkResources);
-    for(var i=0; i<csses.length; i++) {
-        var css = csses[i];
-
-        if('hash' in css) css['hash'] = md5(css['hash']);
-        if(! ('rules_tag' in css)) css['rules_tag'] = [];
-
-        idx = _.indexOf(networkResourcesKeys, css['url']);
-        if(idx >= 0) {
-            var networkCss = networkResources[networkResourcesKeys[idx]];
-            css = _.extend(css, networkCss);
-        }
-
-        networkCsses.push(css);
-    }
+//    // Check css url == resource url, append position if same
+//    var networkCsses = []
+//    var networkResourcesKeys = Object.keys(networkResources);
+//    for(var i=0; i<csses.length; i++) {
+//        var css = csses[i];
+//
+//        if('hash' in css) css['hash'] = md5(css['hash']);
+//        if(! ('rules_tag' in css)) css['rules_tag'] = [];
+//
+//        idx = _.indexOf(networkResourcesKeys, css['url']);
+//        if(idx >= 0) {
+//            var networkCss = networkResources[networkResourcesKeys[idx]];
+//            css = _.extend(css, networkCss);
+//        }
+//
+//        networkCsses.push(css);
+//    }
 
     // Save all resource csses
     // var resourceCssFile = path.join(resourceDir, resourceBasename + '.css.log');
     networkCssValues = []
-    for(r=0; r<networkCsses.length; r++) {
-        networkCssValues.push(JSON.stringify(networkCsses[r]));
+    for(r=0; r<csses.length; r++) {
+        networkCssValues.push(JSON.stringify(csses[r]));
     }
 
     resourceCssFile = outputDir + '/css.log';
@@ -804,26 +804,26 @@ function processJavascripts(url, outputDir) {
     }
     page.switchToMainFrame();
 
-    // Check css url == resource url, append position if same
-    var networkJses = []
-    var networkResourcesKeys = Object.keys(networkResources);
-    for(var i=0; i<jses.length; i++) {
-        var js = jses[i];
-
-        idx = _.indexOf(networkResourcesKeys, js['url']);
-        if(idx >= 0) {
-            var networkJs = networkResources[networkResourcesKeys[idx]];
-            js = _.extend(js, networkJs);
-        }
-
-        networkJses.push(js);
-    }
+//    // Check css url == resource url, append position if same
+//    var networkJses = []
+//    var networkResourcesKeys = Object.keys(networkResources);
+//    for(var i=0; i<jses.length; i++) {
+//        var js = jses[i];
+//
+//        idx = _.indexOf(networkResourcesKeys, js['url']);
+//        if(idx >= 0) {
+//            var networkJs = networkResources[networkResourcesKeys[idx]];
+//            js = _.extend(js, networkJs);
+//        }
+//
+//        networkJses.push(js);
+//    }
 
     // Save all resource csses
     // var resourceCssFile = path.join(resourceDir, resourceBasename + '.css.log');
     networkJsValues = []
-    for(r=0; r<networkJses.length; r++) {
-        networkJsValues.push(JSON.stringify(networkJses[r]));
+    for(r=0; r<jses.length; r++) {
+        networkJsValues.push(JSON.stringify(jses[r]));
     }
 
     resourceJsFile = outputDir + '/js.log';

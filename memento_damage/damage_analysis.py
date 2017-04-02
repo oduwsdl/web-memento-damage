@@ -1,10 +1,12 @@
 import io
 import json
 import math
+import os
 import urlparse
 import httplib
 
 import html2text
+import sys
 from PIL import Image
 
 
@@ -38,8 +40,9 @@ class MementoDamageAnalysis(object):
         h.ignore_links = True
         self._text = h.handle(
             u' '.join([line.strip() for line in io.open(memento_damage.html_file, encoding="utf-8").readlines()]))
-        self._logs = [json.loads(log, strict=False) for log in
+        logs = [json.loads(log, strict=False) for log in
                       io.open(memento_damage.network_log_file, encoding="utf-8").readlines()]
+        self._network_logs = {log['url'].lower(): log for log in logs}
         self._image_logs = [json.loads(log, strict=False) for log in
                             io.open(memento_damage.image_log_file, encoding="utf-8").readlines()]
         self._css_logs = [json.loads(log, strict=False) for log in
@@ -61,12 +64,17 @@ class MementoDamageAnalysis(object):
         self._logger = self.memento_damage.logger
 
     def run(self):
+        self.detect_redirection()
+        self.remove_blacklisted_uris()
+        self.resolve_redirection()
+
+
         # Filter blacklisted uris
-        self._remove_blacklisted_uris()
-        self._resolve_uri_redirection()
+        # self._remove_blacklisted_uris()
+        # self._resolve_uri_redirection()
 
         self._calculate_percentage_coverage()
-        self._find_missing_uris()
+        # self._find_missing_uris()
 
         self._logger.info('Start calculating damage...')
 
@@ -83,17 +91,153 @@ class MementoDamageAnalysis(object):
 
         self._logger.info('Done calculating damage')
 
-    def get_result(self):
-        logs = {}
-        for log in self._logs:
-            logs[log['url'].lower()] = log
+    def detect_redirection(self):
+        redirection_mapping = {}
+        reverse_redirection_mapping = {}
+        for url, log in self._network_logs.items():
+            if log['status_code'] in [301, 302] and 'headers' in log and 'Location' in log['headers']:
+                redirect_url = urlparse.urljoin(url.lower(), log['headers']['Location'].lower())
+                redirection_mapping[url.lower()] = redirect_url
+                reverse_redirection_mapping[redirect_url] = url.lower()
 
-        redirect_uris = []
-        self._follow_redirection(self.memento_damage.uri, logs, redirect_uris)
-        if len(redirect_uris) > 0:
-            final_uri, final_status_code = redirect_uris[len(redirect_uris) - 1]
+        self.redirect_urls = self._detect_redirection({'url': self.memento_damage.uri}, redirection_mapping)
+
+        for idx, log in enumerate(self._image_logs):
+            redirect_urls = self._detect_redirection(log, redirection_mapping)
+            self._image_logs[idx]['redirect_urls'] = redirect_urls
+
+        for idx, log in enumerate(self._css_logs):
+            redirect_urls = self._detect_redirection(log, redirection_mapping)
+            self._css_logs[idx]['redirect_urls'] = redirect_urls
+
+        for idx, log in enumerate(self._js_logs):
+            redirect_urls = self._detect_redirection(log, redirection_mapping)
+            self._js_logs[idx]['redirect_urls'] = redirect_urls
+
+        for idx, log in enumerate(self._mlm_logs):
+            redirect_urls = self._detect_redirection(log, redirection_mapping)
+            self._mlm_logs[idx]['redirect_urls'] = redirect_urls
+
+        for idx, log in enumerate(self._text_logs):
+            redirect_urls = self._detect_redirection(log, redirection_mapping)
+            self._text_logs[idx]['redirect_urls'] = redirect_urls
+
+        for idx, log in enumerate(self._iframe_logs):
+            redirect_urls = self._detect_redirection(log, redirection_mapping)
+            self._iframe_logs[idx]['redirect_urls'] = redirect_urls
+
+    def _detect_redirection(self, log, redirection_mapping):
+        redirect_urls = []
+
+        if 'url' in log:
+            t_url = log['url'].lower()
+            while True:
+                a = zip(*redirect_urls)
+                if len(a) > 0 and t_url in a[0]:
+                    break
+
+                if t_url in self._network_logs:
+                    redirect_urls.append((t_url, self._network_logs[t_url]['status_code'],
+                                          self._network_logs[t_url]['content_type']))
+
+                if t_url in redirection_mapping:
+                    t_url = redirection_mapping[t_url]
+                else:
+                    break
+
+        return redirect_urls
+
+    def remove_blacklisted_uris(self):
+        to_be_removed = []
+        for idx, log in enumerate(self._image_logs):
+            if 'url' in log and self._is_blacklisted(log):
+                to_be_removed.append(idx)
+        for idx in sorted(to_be_removed, reverse=True):
+            self._image_logs.pop(idx)
+
+        to_be_removed = []
+        for idx, log in enumerate(self._css_logs):
+            if 'url' in log and self._is_blacklisted(log):
+                to_be_removed.append(idx)
+        for idx in sorted(to_be_removed, reverse=True):
+                self._css_logs.pop(idx)
+
+        to_be_removed = []
+        for idx, log in enumerate(self._js_logs):
+            if 'url' in log and self._is_blacklisted(log):
+                to_be_removed.append(idx)
+        for idx in sorted(to_be_removed, reverse=True):
+            self._js_logs.pop(idx)
+
+        to_be_removed = []
+        for idx, log in enumerate(self._mlm_logs):
+            if 'url' in log and self._is_blacklisted(log):
+                to_be_removed.append(idx)
+        for idx in sorted(to_be_removed, reverse=True):
+            self._mlm_logs.pop(idx)
+
+        to_be_removed = []
+        for idx, log in enumerate(self._text_logs):
+            if 'url' in log and self._is_blacklisted(log):
+                to_be_removed.append(idx)
+        for idx in sorted(to_be_removed, reverse=True):
+            self._text_logs.pop(idx)
+
+        to_be_removed = []
+        for idx, log in enumerate(self._iframe_logs):
+            if 'url' in log and self._is_blacklisted(log):
+                to_be_removed.append(idx)
+        for idx in sorted(to_be_removed, reverse=True):
+            self._iframe_logs.pop(idx)
+
+    def resolve_redirection(self):
+        for idx, log in enumerate(self._image_logs):
+            if 'url' in log and len(log['redirect_urls']) > 0:
+                final_url, final_status, content_type = log['redirect_urls'][len(log['redirect_urls']) - 1]
+                self._image_logs[idx]['url'] = final_url
+                self._image_logs[idx]['status_code'] = final_status
+                self._image_logs[idx]['content_type'] = content_type
+
+        for idx, log in enumerate(self._css_logs):
+            if 'url' in log and len(log['redirect_urls']) > 0:
+                final_url, final_status, content_type = log['redirect_urls'][len(log['redirect_urls']) - 1]
+                self._css_logs[idx]['url'] = final_url
+                self._css_logs[idx]['status_code'] = final_status
+                self._css_logs[idx]['content_type'] = content_type
+
+        for idx, log in enumerate(self._js_logs):
+            if 'url' in log and len(log['redirect_urls']) > 0:
+                final_url, final_status, content_type = log['redirect_urls'][len(log['redirect_urls']) - 1]
+                self._js_logs[idx]['url'] = final_url
+                self._js_logs[idx]['status_code'] = final_status
+                self._js_logs[idx]['content_type'] = content_type
+
+        for idx, log in enumerate(self._mlm_logs):
+            if 'url' in log and len(log['redirect_urls']) > 0:
+                final_url, final_status, content_type = log['redirect_urls'][len(log['redirect_urls']) - 1]
+                self._mlm_logs[idx]['url'] = final_url
+                self._mlm_logs[idx]['status_code'] = final_status
+                self._mlm_logs[idx]['content_type'] = content_type
+
+        for idx, log in enumerate(self._text_logs):
+            if 'url' in log and len(log['redirect_urls']) > 0:
+                final_url, final_status, content_type = log['redirect_urls'][len(log['redirect_urls']) - 1]
+                self._text_logs[idx]['url'] = final_url
+                self._text_logs[idx]['status_code'] = final_status
+                self._text_logs[idx]['content_type'] = content_type
+
+        for idx, log in enumerate(self._iframe_logs):
+            if 'url' in log and len(log['redirect_urls']) > 0:
+                final_url, final_status, content_type = log['redirect_urls'][len(log['redirect_urls']) - 1]
+                self._iframe_logs[idx]['url'] = final_url
+                self._iframe_logs[idx]['status_code'] = final_status
+                self._iframe_logs[idx]['content_type'] = content_type
+
+    def get_result(self):
+        if len(self.redirect_urls) > 0:
+            final_uri, final_status_code, content_type = self.redirect_urls[len(self.redirect_urls) - 1]
         else:
-            final_uri, final_status_code = self.memento_damage.uri, None
+            final_uri, final_status_code, content_type = self.memento_damage.uri, None
 
         # if (not final_status_code) or (final_status_code == 404):
         #     total_damage = 1
@@ -143,7 +287,7 @@ class MementoDamageAnalysis(object):
                 'iframe': self._actual_iframe_damage,
             }
             result['total_damage'] = total_damage
-            result['redirect_uris'] = redirect_uris
+            result['redirect_uris'] = self.redirect_urls
             result['error'] = False
             result['is_archive'] = False
 
@@ -165,16 +309,18 @@ class MementoDamageAnalysis(object):
 
         # Check whether uri is defined in blacklisted_uris
         for b_uri in self.blacklisted_uris:
-            if log['url'].startswith(b_uri):
+            if 'url' in log and log['url'].startswith(b_uri):
                 is_blacklisted = True
                 break
 
         # If not defined, check whether uri has header 'Link' containing
         # <http://mementoweb.org/terms/donotnegotiate>; rel="type"
-        if 'headers' in log and 'Link' in log['headers'] and not is_blacklisted:
-            if log['headers']['Link'] == '<http://mementoweb.org/terms/' \
-                                         'donotnegotiate>; rel="type"':
-                is_blacklisted = True
+        if 'url' in log and log['url'] in self._network_logs:
+            log = self._network_logs[log['url']]
+            if 'headers' in log and 'Link' in log['headers'] and not is_blacklisted:
+                if log['headers']['Link'] == '<http://mementoweb.org/terms/' \
+                                             'donotnegotiate>; rel="type"':
+                    is_blacklisted = True
 
         return is_blacklisted
 
@@ -220,7 +366,7 @@ class MementoDamageAnalysis(object):
 
     def _resolve_uri_redirection(self):
         logs = {}
-        for log in self._logs:
+        for log in self._network_logs:
             logs[log['url']] = log
 
         # Resolve redirection for image
@@ -397,7 +543,8 @@ class MementoDamageAnalysis(object):
             self._logger.info('Potential damage of {} is {}'.format(log['url'], total_importance))
 
             # Actual
-            if log['status_code'] > 399:
+            if 'url' in log and log['url'] in self._network_logs and 'status_code' in self._network_logs[log['url']] \
+                    and self._network_logs[log['url']]['status_code'] > 399:
                 total_actual_damage += total_importance
 
                 self._image_logs[idx]['actual_damage'] = {
@@ -410,6 +557,8 @@ class MementoDamageAnalysis(object):
 
         self._potential_image_damage = total_potential_damage * self.image_weight
         self._actual_image_damage = total_actual_damage * self.image_weight
+
+        self._logger.info('Calculating damage for Image(s) is Done')
 
     def calculate_multimedia_damage(self):
         self._logger.info('Calculating damage for Multimedia(s)')
@@ -441,7 +590,8 @@ class MementoDamageAnalysis(object):
             self._logger.info('Potential damage of {} is {}'.format(log['url'], total_importance))
 
             # Actual
-            if log['status_code'] > 399:
+            if 'url' in log and log['url'] in self._network_logs and 'status_code' in self._network_logs[log['url']] \
+                    and self._network_logs[log['url']]['status_code'] > 399:
                 total_actual_damage += total_importance
 
                 self._mlm_logs[idx]['actual_damage'] = {
@@ -454,6 +604,8 @@ class MementoDamageAnalysis(object):
 
         self._potential_multimedia_damage = total_potential_damage * self.multimedia_weight
         self._actual_multimedia_damage = total_actual_damage * self.multimedia_weight
+
+        self._logger.info('Calculating damage for Multimedia(s) is Done')
 
     def calculate_css_damage(self):
         self._logger.info('Calculating damage for Stylesheet(s)')
@@ -476,7 +628,8 @@ class MementoDamageAnalysis(object):
 
             self._logger.info('Potential damage of {} is {}'.format(log['url'], total_importance))
 
-            if ('status_code' in log) and (log['status_code'] > 399):
+            if 'url' in log and log['url'] in self._network_logs and 'status_code' in self._network_logs[log['url']] \
+                    and self._network_logs[log['url']]['status_code'] > 399:
                 tag_importance, ratio_importance, total_importance = self._calculate_css_damage(log, is_potential=False,
                                                                                                 use_viewport_size=False)
 
@@ -494,6 +647,8 @@ class MementoDamageAnalysis(object):
         self._potential_css_damage = total_potential_damage * self.css_weight
         self._actual_css_damage = total_actual_damage * self.css_weight
 
+        self._logger.info('Calculating damage for Stylesheet(s) is Done')
+
     def calculate_javascript_damage(self):
         self._logger.info('Calculating damage for Javascript(s)')
 
@@ -509,7 +664,8 @@ class MementoDamageAnalysis(object):
 
             self._logger.info('Potential damage of {} is {}'.format(log['url'], 1))
 
-            if ('status_code' in log) and (log['status_code'] > 399):
+            if 'url' in log and log['url'] in self._network_logs and 'status_code' in self._network_logs[log['url']] \
+                    and self._network_logs[log['url']]['status_code'] > 399:
                 total_actual_damage += 1
 
                 self._js_logs[idx]['actual_damage'] = {
@@ -520,6 +676,8 @@ class MementoDamageAnalysis(object):
 
         self._potential_js_damage = total_potential_damage * self.js_weight
         self._actual_js_damage = total_actual_damage * self.js_weight
+
+        self._logger.info('Calculating damage for Javascript(s) is Done')
 
     def calculate_text_damage(self):
         self._logger.info('Calculating damage for Text(s)')
@@ -566,6 +724,8 @@ class MementoDamageAnalysis(object):
         self._potential_text_damage = total_potential_damage * self.text_weight
         self._actual_text_damage = total_actual_damage * self.text_weight
 
+        self._logger.info('Calculating damage for Text(s) is Done')
+
     def calculate_iframe_damage(self):
         self._logger.info('Calculating damage for IFrame(s)')
 
@@ -596,7 +756,8 @@ class MementoDamageAnalysis(object):
             self._logger.info('Potential damage of {} is {}'.format(log['url'], total_importance))
 
             # Actual
-            if log['status_code'] > 399:
+            if 'url' in log and log['url'] in self._network_logs and 'status_code' in self._network_logs[log['url']] \
+                    and self._network_logs[log['url']]['status_code'] > 399:
                 total_actual_damage += total_importance
 
                 self._iframe_logs[idx]['actual_damage'] = {
@@ -609,6 +770,8 @@ class MementoDamageAnalysis(object):
 
         self._potential_iframe_damage = total_potential_damage * self.iframe_weight
         self._actual_iframe_damage = total_actual_damage * self.iframe_weight
+
+        self._logger.info('Calculating damage for IFrame(s) is Done')
 
     def calculate_damage(self):
         self._logger.info('Calculating damage for "webpage"')
