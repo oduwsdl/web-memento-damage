@@ -48,10 +48,13 @@ console.error = function () {
 page.settings.webSecurityEnabled = false;
 phantom.injectJs('md5.js');
 phantom.injectJs('underscore.js');
+phantom.injectJs('jquery-3.1.0.min.js')
+phantom.injectJs('isInViewport.min.js')
 phantom.injectJs('mimetype.js');
 
 var networkResources = {};
 var reverseRedirectMapping = {};
+var redirectMapping = {};
 var Log = {'DEBUG': 10, 'INFO': 20};
 var starttime = Date.now();
 
@@ -137,7 +140,7 @@ else {
 
         else if(pageStatusCode != null && pageStatusCode != 200) {
             isAborted = true;
-            abortMessage = 'Page status is ' + HTTP_STATUS_CODES[pageStatusCode] + '(Status code ' + pageStatusCode + ')';
+            abortMessage = 'Page status is ' + HTTP_STATUS_CODES[pageStatusCode] + '(' + pageStatusCode + ')';
             req.abort();
         }
     };
@@ -166,32 +169,32 @@ else {
             if(logLevel <= Log.DEBUG) console.log('Resource ' + resUrl + ' (' + resStatus + ') is being received');
         } else if(res.stage === 'end') {
             if(logLevel <= Log.DEBUG) console.log('Resource ' + resUrl + ' (' + resStatus + ') is received');
-        }
 
-        // Save all network resources to variable
-        // res are sometimes duplicated, so only pushed if array hasnt contains this value
-        // use underscore.js to check whether value has been contained in networkResources key
-        headers = {};
-        res.headers.forEach(function(header) {
-            headers[header['name']] = header['value'];
-        });
+            // Save all network resources to variable
+            // res are sometimes duplicated, so only pushed if array hasnt contains this value
+            // use underscore.js to check whether value has been contained in networkResources key
+            headers = {};
+            res.headers.forEach(function(header) {
+                headers[header['name']] = header['value'];
+            });
 
-        var normalized_resUrl = resUrl.substr(0, resUrl.indexOf('?'))
+//            var normalized_resUrl = resUrl.substr(0, resUrl.indexOf('?'))
 
-        var resource = {
-            'url' : resUrl,
-            'status_code' : resStatus,
-            'content_type' : resStatus > 399 ? mimeType.lookup(normalized_resUrl) : res.contentType,
-            'headers' : headers,
-        };
+            var resource = {
+                'url' : resUrl,
+                'status_code' : resStatus,
+                'content_type' : res.contentType, // resStatus > 399 ? mimeType.lookup(normalized_resUrl) : res.contentType,
+                'headers' : headers,
+            };
 
-        //console.log("ini adalah mimeType dari url: " + resUrl + ", mimetype= " + mimeType.lookup(normalized_resUrl));
+            //console.log("ini adalah mimeType dari url: " + resUrl + ", mimetype= " + mimeType.lookup(normalized_resUrl));
 
-        var networkResourcesKeys = Object.keys(networkResources);
-        if(! _.contains(networkResourcesKeys, resUrl)) {
-            // Sometimes url received in quoted (encoded) format, so decode it
-            resUrl = decodeURIComponent(resUrl);
-            networkResources[resUrl] = resource;
+            var networkResourcesKeys = Object.keys(networkResources);
+            if(! _.contains(networkResourcesKeys, resUrl)) {
+                // Sometimes url received in quoted (encoded) format, so decode it
+                resUrl = decodeURIComponent(resUrl);
+                networkResources[resUrl] = resource;
+            }
         }
     };
 
@@ -281,6 +284,7 @@ function processPage(url, outputDir) {
     for(var u=0; u<urls.length; u++) {
         if(networkResources[urls[u]]['status_code'] == 301 || networkResources[urls[u]]['status_code'] == 302) {
             if('headers' in networkResources[urls[u]] && 'Location' in networkResources[urls[u]]['headers']) {
+                redirectMapping[urls[u]] = networkResources[urls[u]]['headers']['Location'];
                 reverseRedirectMapping[networkResources[urls[u]]['headers']['Location']] = urls[u];
             }
         }
@@ -288,12 +292,84 @@ function processPage(url, outputDir) {
 
     processNetworkResources(url, outputDir);
     processHtml(url, outputDir);
+    processIframe(url, outputDir);
     processImages(url, outputDir);
     processMultimedias(url, outputDir);
     processCsses(url, outputDir);
     processJavascripts(url, outputDir);
     processScreenshots(url, outputDir);
     processText(url, outputDir);
+}
+
+function joinDocumentAndNetworkResources(docResources, prefixContentType) {
+    // For each url in network-resources having content-type e.g. image/*, find the corresponding entry in document.images
+    var documentNetworkResources = {};
+    var docUrls = Object.keys(docResources);
+    for(nUrl in networkResources) {
+        if(networkResources[nUrl]['content_type']) {
+            if(networkResources[nUrl]['content_type'].indexOf('image/') == 0) {
+                documentNetworkResources[nUrl] = networkResources[nUrl];
+
+                var match = false;
+                docUrls.forEach(function(dUrl, idx) {
+                    if(nUrl.indexOf(dUrl) >= 0) {
+                        documentNetworkResources[nUrl] = _.extend(documentNetworkResources[nUrl], docResources[dUrl]);
+                        match = true;
+                    }
+                });
+
+                var pUrl = nUrl;
+                while(true) {
+                    if(match) break;
+                    if(! (pUrl in reverseRedirectMapping)) break;
+
+                    pUrl = reverseRedirectMapping[pUrl];
+                    docUrls.forEach(function(dUrl, idx) {
+                        if(pUrl.indexOf(dUrl) >= 0) {
+                            documentNetworkResources[nUrl] = _.extend(networkResources[pUrl], docResources[dUrl]);
+                            match = true;
+                        }
+                    });
+                }
+            }
+        }
+    }
+
+    // For each src in e.g. document.images, find the corresponding entry in network-resources
+    docUrls.forEach(function(dUrl, idx) {
+        var match = false;
+        for(nUrl in networkResources) {
+            if(nUrl.indexOf(dUrl) >= 0) {
+                documentNetworkResources[nUrl] = _.extend(networkResources[nUrl], docResources[dUrl]);
+                match = true;
+                break;
+            }
+        }
+
+        var pUrl = dUrl;
+        while(true) {
+            if(match) break;
+            var exists = false;
+            for(lUrl in reverseRedirectMapping) {
+                if(lUrl.indexOf(pUrl) >= 0) {
+                    exists = true;
+                    break;
+                }
+            }
+            if(! exists) break;
+
+            pUrl = reverseRedirectMapping[pUrl];
+            for(nUrl in networkResources) {
+                if(nUrl.indexOf(dUrl) >= 0) {
+                    documentNetworkResources[nUrl] = _.extend(networkResources[nUrl], docResources[dUrl]);
+                    match = true;
+                    break;
+                }
+            }
+        }
+    });
+
+    return documentNetworkResources;
 }
 
 function processNetworkResources(url, outputDir) {
@@ -324,6 +400,85 @@ function processHtml(url, outputDir) {
     fs.write(htmlFile, html, "w");
 
     if(logLevel <= Log.INFO) console.log('Saving HTML source --> creating ' + htmlFile);
+}
+
+function processIframe(url, outputDir) {
+//    page.switchToMainFrame();
+//    var iframes = page.evaluate(function() {
+//        var iframeLog = {};
+//
+//        function findIframeIn(parent) {
+//            $(parent).find('frame,iframe').each(function(idx, el) {
+//                if(this.src) {
+//                    var src = this.src;
+//                    var w = $(this).outerWidth(false);
+//                    var h = $(this).outerHeight(false);
+//                    var t = $(this).offset().top;
+//                    var l = $(this).offset().left;
+//
+//                    var visible = false;
+//                    if ($(this).is(':visible') || $(this).is(':not(:hidden)')) {
+//                        visible = true;
+//                    }
+//
+//                    var cs = getComputedStyle(this);
+//                    if (cs['visibility'] == '' || cs['visibility'] == 'visible') {
+//                        visible = true;
+//                    } else if(cs['visibility'] == 'hidden') {
+//                        visible = false;
+//                    }
+//
+//                    iframeLog[src] = {
+//                        'src': src,
+//                        'top': t,
+//                        'left': l,
+//                        'width': w,
+//                        'height': h,
+//                        'visible': visible
+//                    }
+//                }
+//
+//                findIframeIn(this.contentDocument);
+//            });
+//        }
+//
+//        findIframeIn($('body'));
+//        return iframeLog;
+//    });
+//
+//    var networkFrames = {};
+//    var docUrls = Object.keys(iframes);
+//    for(nUrl in networkResources) {
+//        if(networkResources[nUrl]['content_type']) {
+//            if(networkResources[nUrl]['content_type'].indexOf('text/html') == 0) {
+//                networkFrames[nUrl] = networkResources[nUrl];
+//
+//                var match = false
+//                docUrls.forEach(function(dUrl, idx) {
+//                    if(nUrl.indexOf(dUrl) >= 0) {
+//                        networkFrames[nUrl] = _.extend(networkFrames[nUrl], iframes[dUrl]);
+//                        match = true;
+//                    }
+//                });
+//
+//                var pUrl = nUrl;
+//                while(true) {
+//                    if(match) break;
+//                    if(! (pUrl in reverseRedirectMapping)) break;
+//
+//                    pUrl = reverseRedirectMapping[pUrl];
+//                    docUrls.forEach(function(dUrl, idx) {
+//                        if(pUrl.indexOf(dUrl) >= 0) {
+//                            networkFrames[nUrl] = _.extend(networkResources[pUrl], iframes[dUrl]);
+//                            match = true;
+//                        }
+//                    });
+//                }
+//            }
+//        }
+//    }
+//
+//    console.error(JSON.stringify(networkFrames));
 }
 
 function processImagesInFrame() {
@@ -381,53 +536,17 @@ function processImages(url, outputDir) {
         if(!_.includes(page.framesName[f], 'fb_') && !_.includes(page.framesName[f], 'twitter-')) {
             page.switchToFrame(page.framesName[f]);
             var imagesFrame = processImagesInFrame();
-            // textLog = textLog.concat(textLogFrame);
             _.extend(images, imagesFrame);
         }
     }
     page.switchToMainFrame();
 
-    // Check images url == resource url, append position if same
-    var networkImages = {};
-    var docImageUrls = Object.keys(images);
-    for(url in networkResources) {
-        if(networkResources[url]['content_type']) {
-            if(networkResources[url]['content_type'].indexOf('image/') == 0) {
-                networkImages[url] = networkResources[url];
+    var networkImages = joinDocumentAndNetworkResources(images, 'image/')
 
-                var match = false
-                docImageUrls.forEach(function(diUrl, idx) {
-                    if(url.indexOf(diUrl) >= 0) {
-                        networkImages[url] = _.extend(networkImages[url], images[diUrl]);
-                        match = true;
-                    }
-                });
-
-                var pUrl = url;
-                while(true) {
-                    if(match) break;
-                    if(! (pUrl in reverseRedirectMapping)) break;
-
-                    pUrl = reverseRedirectMapping[pUrl];
-                    docImageUrls.forEach(function(diUrl, idx) {
-                        if(pUrl.indexOf(diUrl) >= 0) {
-                            networkImages[url] = _.extend(networkResources[pUrl], images[diUrl]);
-                            match = true;
-                        }
-                    });
-                }
-
-                if(! ('viewport_size' in networkImages[url])) {
-                    networkImages[url]['viewport_size'] = viewportSize;
-                }
-
-                networkImages[url]['rectangles'] = networkImages[url]['rectangles'] || [];
-
-                if(! ('url' in networkImages[url]))    {
-                    networkImages[url]['url'] = url;
-                }
-            }
-        }
+    // Set default value
+    for (nUrl in networkImages) {
+        networkImages[nUrl]['viewport_size'] = networkImages[nUrl]['viewport_size'] || viewportSize;
+        networkImages[nUrl]['rectangles'] = networkImages[nUrl]['rectangles'] || [];
     }
 
     // Save all resource images
@@ -439,13 +558,7 @@ function processImages(url, outputDir) {
     }
 
     resourceImageFile = outputDir + '/image.log';
-//    console.log("values = " + values + "\n");
-//    console.log("values.join = " + (values.join('\n')) + "\n");
-//    console.log("value = " + values[0] + "\n");
-//    console.log("value encodeURIComponent = " + encodeURIComponent(values[0]));
-//    console.log("value encode unescape = " + unescape(encodeURIComponent(values[0])));
     fs.write(resourceImageFile, unescape(encodeURIComponent(values.join('\n'))), "w");
-    //fs.write(resourceImageFile, (values.join('\n')), "w");
     if(logLevel <= Log.INFO) console.log('Processing images --> creating ' + resourceImageFile);
 }
 
@@ -520,47 +633,12 @@ function processMultimedias(url, outputDir) {
     }
     page.switchToMainFrame();
 
-    // Check images url == resource url, append position if same
-    var networkVideos = {};
-    var docVideoUrls = Object.keys(videos);
-    for(url in networkResources) {
-        if(networkResources[url]['content_type']) {
-            if(networkResources[url]['content_type'].indexOf('video/') == 0) {
-                networkVideos[url] = networkResources[url];
+    var networkVideos = joinDocumentAndNetworkResources(images, 'video/')
 
-                var match = false
-                docVideoUrls.forEach(function(dvUrl, idx) {
-                    if(url.indexOf(dvUrl) >= 0) {
-                        networkVideos[url] = _.extend(networkVideos[url], videos[dvUrl]);
-                        match = true;
-                    }
-                });
-
-                var pUrl = url;
-                while(true) {
-                    if(match) break;
-                    if(! (pUrl in reverseRedirectMapping)) break;
-
-                    pUrl = reverseRedirectMapping[pUrl];
-                    docVideoUrls.forEach(function(dvUrl, idx) {
-                        if(pUrl.indexOf(dvUrl) >= 0) {
-                            networkVideos[url] = _.extend(networkResources[pUrl], videos[diUrl]);
-                            match = true;
-                        }
-                    });
-                }
-
-                if(! ('viewport_size' in networkVideos[url])) {
-                    networkVideos[url]['viewport_size'] = viewportSize;
-                }
-
-                if(! ('rectangles' in networkVideos[url])) {
-                    networkVideos[url]['rectangles'] = [];
-                }
-
-                networkVideos[url]['url'] = url;
-            }
-        }
+    // Set default value
+    for (nUrl in networkImages) {
+        networkVideos[nUrl]['viewport_size'] = networkVideos[nUrl]['viewport_size'] || viewportSize;
+        networkVideos[nUrl]['rectangles'] = networkVideos[nUrl]['rectangles'] || [];
     }
 
     // Save all resource images
@@ -764,10 +842,14 @@ function processTextInFrame() {
             allElements[idx] = this;
 
             var visible = false;
-            if ($(this).is(':visible') || $(this).is(':not(:hidden)') ||
-                originalCs['display'] == '' || originalCs['display'] != 'none' ||
-                originalCs['visibility'] == '' || originalCs['visibility'] == 'visible') {
+            if ($(this).is(':visible') || $(this).is(':not(:hidden)')) {
                 visible = true;
+            }
+
+            if (originalCs['visibility'] == '' || originalCs['visibility'] == 'visible') {
+                visible = true;
+            } else if(originalCs['visibility'] == 'hidden') {
+                visible = false;
             }
 
             var inViewport = false;
@@ -807,10 +889,12 @@ function processTextInFrame() {
                 }
 
                 try {
-                    var cs = window.getComputedStyle(allElements[idx]);
+                    var oW = $(this).outerWidth(false);
+                    var oH = $(this).outerHeight(false);
+
                     textLog[idx]['text'] = $(this).text().trim();
-                    textLog[idx]['width'] = parseFloat(cs.width.replace('px', '')) || 0;
-                    textLog[idx]['height'] = parseFloat(cs.height.replace('px', '')) || 0;
+                    textLog[idx]['width'] = oW;
+                    textLog[idx]['height'] = oH;
                 } catch(ex) {}
             }
 
