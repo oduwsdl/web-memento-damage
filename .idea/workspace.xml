@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ac84af60-6197-432d-8f1e-19313b68059f" name="Default" comment="">
+    <list default="true" id="ac84af60-6197-432d-8f1e-19313b68059f" name="Default" comment="Show error message">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MANIFEST" afterPath="$PROJECT_DIR$/MANIFEST" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/memento_damage/damage_analysis.py" afterPath="$PROJECT_DIR$/memento_damage/damage_analysis.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/memento_damage/phantomjs/crawl.js" afterPath="$PROJECT_DIR$/memento_damage/phantomjs/crawl.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/setup.py" afterPath="$PROJECT_DIR$/setup.py" />
     </list>
     <ignored path="web-memento-damage.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -26,50 +25,12 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="app.py" pinned="false" current-in-tab="false">
-        <entry file="file:///usr/local/lib/python2.7/dist-packages/flask/app.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="29340">
-              <caret line="1981" column="0" selection-start-line="1981" selection-start-column="0" selection-end-line="1981" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="memento-damage-server" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/memento_damage/cli/memento-damage-server">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="45">
-              <caret line="3" column="6" selection-start-line="3" selection-start-column="6" selection-end-line="3" selection-end-column="6" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="__init__.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/memento_damage/web/__init__.py">
+        <entry file="file://$PROJECT_DIR$/memento_damage/__init__.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="197">
-              <caret line="90" column="4" selection-start-line="90" selection-start-column="4" selection-end-line="90" selection-end-column="4" />
+            <state relative-caret-position="194">
+              <caret line="187" column="27" selection-start-line="187" selection-start-column="27" selection-end-line="187" selection-end-column="27" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="create_graphic4.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../../../testing_justin_paper/create_graphic4.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1102">
-              <caret line="431" column="37" selection-start-line="431" selection-start-column="37" selection-end-line="431" selection-end-column="37" />
-              <folding>
-                <element signature="e#1826#1859#0" expanded="false" />
-                <element signature="e#1901#3303#0" expanded="false" />
-                <element signature="e#1992#2330#0" expanded="false" />
-                <element signature="e#2012#2330#0" expanded="false" />
-                <element signature="e#2012#2189#0" expanded="false" />
-                <element signature="e#3004#3290#0" expanded="false" />
-                <element signature="e#3118#3290#0" expanded="false" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -77,129 +38,8 @@
       <file leaf-file-name="damage_analysis.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/memento_damage/damage_analysis.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="149">
-              <caret line="645" column="94" selection-start-line="645" selection-start-column="94" selection-end-line="645" selection-end-column="94" />
-              <folding>
-                <element signature="e#2674#5434#0" expanded="false" />
-                <element signature="e#5480#5526#0" expanded="false" />
-                <element signature="e#5572#6241#0" expanded="false" />
-                <element signature="e#5711#5813#0" expanded="false" />
-                <element signature="e#5760#5803#0" expanded="false" />
-                <element signature="e#5813#5877#0" expanded="false" />
-                <element signature="e#6038#6210#0" expanded="false" />
-                <element signature="e#6067#6171#0" expanded="false" />
-                <element signature="e#6291#7539#0" expanded="false" />
-                <element signature="e#6388#6523#0" expanded="false" />
-                <element signature="e#6673#6806#0" expanded="false" />
-                <element signature="e#6947#7080#0" expanded="false" />
-                <element signature="e#7225#7357#0" expanded="false" />
-                <element signature="e#7589#8043#0" expanded="false" />
-                <element signature="e#8100#8884#0" expanded="false" />
-                <element signature="e#8252#8787#0" expanded="false" />
-                <element signature="e#8420#8787#0" expanded="false" />
-                <element signature="e#8621#8787#0" expanded="false" />
-                <element signature="e#8955#10088#0" expanded="false" />
-                <element signature="e#9006#10088#0" expanded="false" />
-                <element signature="e#9044#9110#0" expanded="false" />
-                <element signature="e#9145#9204#0" expanded="false" />
-                <element signature="e#9470#9643#0" expanded="false" />
-                <element signature="e#9682#10048#0" expanded="false" />
-                <element signature="e#9896#10000#0" expanded="false" />
-                <element signature="e#10144#11767#0" expanded="false" />
-                <element signature="e#10292#11197#0" expanded="false" />
-                <element signature="e#10427#10521#0" expanded="false" />
-                <element signature="e#10590#10763#0" expanded="false" />
-                <element signature="e#10590#10658#0" expanded="false" />
-                <element signature="e#10900#10939#0" expanded="false" />
-                <element signature="e#11291#11707#0" expanded="false" />
-                <element signature="e#11424#11516#0" expanded="false" />
-                <element signature="e#11811#12480#0" expanded="false" />
-                <element signature="e#11935#12013#0" expanded="false" />
-                <element signature="e#12097#12175#0" expanded="false" />
-                <element signature="e#12260#12480#0" expanded="false" />
-                <element signature="e#12301#12480#0" expanded="false" />
-                <element signature="e#12350#12480#0" expanded="false" />
-                <element signature="e#12394#12430#0" expanded="false" />
-                <element signature="e#12533#18491#0" expanded="false" />
-                <element signature="e#12769#13637#0" expanded="false" />
-                <element signature="e#13115#13264#0" expanded="false" />
-                <element signature="e#13376#13536#0" expanded="false" />
-                <element signature="e#13822#14418#0" expanded="false" />
-                <element signature="e#14111#14244#0" expanded="false" />
-                <element signature="e#14600#14802#0" expanded="false" />
-                <element signature="e#14675#14717#0" expanded="false" />
-                <element signature="e#14993#15957#0" expanded="false" />
-                <element signature="e#15335#15483#0" expanded="false" />
-                <element signature="e#15590#15749#0" expanded="false" />
-                <element signature="e#15862#15898#0" expanded="false" />
-                <element signature="e#16048#16093#0" expanded="false" />
-                <element signature="e#16437#17430#0" expanded="false" />
-                <element signature="e#16478#17337#0" expanded="false" />
-                <element signature="e#16832#16989#0" expanded="false" />
-                <element signature="e#17161#17337#0" expanded="false" />
-                <element signature="e#17372#17430#0" expanded="false" />
-                <element signature="e#18541#23586#0" expanded="false" />
-                <element signature="e#18770#19858#0" expanded="false" />
-                <element signature="e#18815#19858#0" expanded="false" />
-                <element signature="e#19187#19345#0" expanded="false" />
-                <element signature="e#19463#19640#0" expanded="false" />
-                <element signature="e#19760#19793#0" expanded="false" />
-                <element signature="e#20038#20722#0" expanded="false" />
-                <element signature="e#20112#20722#0" expanded="false" />
-                <element signature="e#20396#20545#0" expanded="false" />
-                <element signature="e#20907#21206#0" expanded="false" />
-                <element signature="e#20981#21196#0" expanded="false" />
-                <element signature="e#21057#21107#0" expanded="false" />
-                <element signature="e#21384#22452#0" expanded="false" />
-                <element signature="e#21429#22452#0" expanded="false" />
-                <element signature="e#21795#21951#0" expanded="false" />
-                <element signature="e#22063#22238#0" expanded="false" />
-                <element signature="e#22356#22389#0" expanded="false" />
-                <element signature="e#22678#22752#0" expanded="false" />
-                <element signature="e#25890#25970#0" expanded="false" />
-                <element signature="e#26160#30656#0" expanded="false" />
-                <element signature="e#26235#26301#0" expanded="false" />
-                <element signature="e#26848#30526#0" expanded="false" />
-                <element signature="e#27067#30423#0" expanded="false" />
-                <element signature="e#27067#27123#0" expanded="false" />
-                <element signature="e#27462#27490#0" expanded="false" />
-                <element signature="e#27715#27754#0" expanded="false" />
-                <element signature="e#27922#27974#0" expanded="false" />
-                <element signature="e#28112#28778#0" expanded="false" />
-                <element signature="e#28218#28778#0" expanded="false" />
-                <element signature="e#28218#28248#0" expanded="false" />
-                <element signature="e#28388#28418#0" expanded="false" />
-                <element signature="e#28778#28805#0" expanded="false" />
-                <element signature="e#29762#29799#0" expanded="false" />
-                <element signature="e#30221#30334#0" expanded="false" />
-                <element signature="e#30815#30856#0" expanded="false" />
-                <element signature="e#30973#32905#0" expanded="false" />
-                <element signature="e#31202#32877#0" expanded="false" />
-                <element signature="e#31427#32426#0" expanded="false" />
-                <element signature="e#31577#32072#1" expanded="false" />
-                <element signature="e#32496#32698#0" expanded="false" />
-                <element signature="e#32795#32875#0" expanded="false" />
-                <element signature="e#32948#32999#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="__init__.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/memento_damage/web/modules/mod_api/__init__.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="525">
-              <caret line="50" column="97" selection-start-line="50" selection-start-column="86" selection-end-line="50" selection-end-column="97" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="dump_csv.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../../../testing_justin_paper/dump_csv.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="-317">
+              <caret line="88" column="43" selection-start-line="88" selection-start-column="43" selection-end-line="88" selection-end-column="43" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
@@ -207,11 +47,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="graphic1_analysis.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../../../testing_justin_paper/graphic1_analysis.py">
+      <file leaf-file-name="create_graphic.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../testing/test_26_20170301_archivability_test/create_graphic.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="27" column="70" selection-start-line="27" selection-start-column="70" selection-end-line="27" selection-end-column="70" />
+            <state relative-caret-position="84">
+              <caret line="27" column="12" selection-start-line="27" selection-start-column="12" selection-end-line="27" selection-end-column="12" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
               </folding>
@@ -222,28 +62,33 @@
       <file leaf-file-name="crawl.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/memento_damage/phantomjs/crawl.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="187" column="10" selection-start-line="187" selection-start-column="10" selection-end-line="187" selection-end-column="10" />
-              <folding>
-                <element signature="e#0#32614#0" expanded="false" />
-              </folding>
+            <state relative-caret-position="-9873">
+              <caret line="176" column="11" selection-start-line="176" selection-start-column="11" selection-end-line="176" selection-end-column="11" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="crawl.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../../learning_rewrite/memento_damage/phantomjs/crawl.js">
+      <file leaf-file-name="_summary.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/memento_damage/web/modules/mod_home/views/_summary.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4470">
-              <caret line="298" column="53" selection-start-line="298" selection-start-column="34" selection-end-line="298" selection-end-column="53" />
+            <state relative-caret-position="330">
+              <caret line="37" column="34" selection-start-line="37" selection-start-column="34" selection-end-line="37" selection-end-column="34" />
               <folding>
-                <element signature="e#0#49900#0" expanded="false" />
+                <element signature="n#style#0;n#div#0;n#div#3;n#!!top" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
     </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="PREVIOUS_COMMIT_AUTHORS">
@@ -261,32 +106,40 @@
         <option value="$PROJECT_DIR$/../../misc/simple_popen_test.py" />
         <option value="$PROJECT_DIR$/../../learning_rewrite/memento_damage/tools.py" />
         <option value="$PROJECT_DIR$/../../learning_rewrite/memento_damage/__init__.py" />
-        <option value="$PROJECT_DIR$/memento_damage/web/modules/mod_contact_us/views/contact_us_index.html" />
         <option value="$PROJECT_DIR$/../../../testing_justin_paper/create_graphic2.py" />
-        <option value="$PROJECT_DIR$/memento_damage/web/modules/mod_home/views/home_index.html" />
         <option value="$PROJECT_DIR$/memento_damage/web/templates/templatevamp.html" />
-        <option value="$PROJECT_DIR$/memento_damage/web/modules/mod_home/views/home_check.html" />
         <option value="$PROJECT_DIR$/../../../testing_justin_paper/create_graphic3.py" />
-        <option value="$PROJECT_DIR$/memento_damage/web/modules/mod_faq/views/faq_index.html" />
-        <option value="$PROJECT_DIR$/../../../testing_justin_paper/memento_damage_test_2.py" />
-        <option value="$PROJECT_DIR$/memento_damage/cli/memento-damage-server" />
-        <option value="$PROJECT_DIR$/memento_damage/__init__.py" />
-        <option value="$PROJECT_DIR$/../../../testing_justin_paper/graphic1_analysis.py" />
         <option value="$PROJECT_DIR$/../../learning_rewrite/memento_damage/phantomjs/crawl.js" />
-        <option value="$PROJECT_DIR$/memento_damage/web/__init__.py" />
-        <option value="/run/user/1000/gvfs/sftp:host=127.0.0.1,port=2222,user=root/root/page_ranking/pagerank2.py" />
-        <option value="/run/user/1000/gvfs/sftp:host=127.0.0.1,port=2222,user=root/root/page_ranking/pagerank_hollins.py" />
-        <option value="$PROJECT_DIR$/../../../testing_justin_paper/create_graphic4.py" />
+        <option value="$PROJECT_DIR$/memento_damage/web/modules/mod_contact_us/views/contact_us_index.html" />
+        <option value="$PROJECT_DIR$/memento_damage/web/modules/mod_faq/views/faq_index.html" />
+        <option value="$PROJECT_DIR$/memento_damage/web/modules/mod_api/views/api_index.html" />
+        <option value="$PROJECT_DIR$/memento_damage/web/modules/mod_api/__init__.py" />
+        <option value="$PROJECT_DIR$/memento_damage/web/modules/mod_home/views/home_index.html" />
+        <option value="$PROJECT_DIR$/memento_damage/web/modules/mod_help/views/help_index.html" />
+        <option value="$PROJECT_DIR$/../testing/test_26_20170301_archivability_test/pynats_test.py" />
+        <option value="$PROJECT_DIR$/../testing/test_26_20170301_archivability_test/pynats_test_2.py" />
+        <option value="$PROJECT_DIR$/../testing/test_26_20170301_archivability_test/memento_damage_test_2.py" />
+        <option value="$PROJECT_DIR$/memento_damage/web/static/assets/moment.js/moment.js" />
+        <option value="$PROJECT_DIR$/memento_damage/web/modules/mod_home/views/_images.html" />
+        <option value="$PROJECT_DIR$/memento_damage/web/modules/mod_home/views/_csses.html" />
+        <option value="$PROJECT_DIR$/memento_damage/web/modules/mod_home/views/_jses.html" />
+        <option value="$PROJECT_DIR$/memento_damage/web/modules/mod_home/views/_multimedias.html" />
+        <option value="$PROJECT_DIR$/memento_damage/web/modules/mod_home/views/_text.html" />
+        <option value="$PROJECT_DIR$/memento_damage/web/modules/mod_home/views/home_check.html" />
+        <option value="$PROJECT_DIR$/../testing/test_26_20170301_archivability_test/create_graphic.py" />
+        <option value="$PROJECT_DIR$/../testing/test_26_20170301_archivability_test/hypothesis_1.py" />
+        <option value="$PROJECT_DIR$/../testing/test_26_20170301_archivability_test/dump_csv.py" />
+        <option value="$PROJECT_DIR$/memento_damage/web/modules/mod_home/views/_summary.html" />
         <option value="$PROJECT_DIR$/memento_damage/damage_analysis.py" />
+        <option value="$PROJECT_DIR$/memento_damage/__init__.py" />
         <option value="$PROJECT_DIR$/memento_damage/phantomjs/crawl.js" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="65" />
-    <option name="y" value="24" />
-    <option name="width" value="1855" />
-    <option name="height" value="1056" />
+    <option name="y" value="30" />
+    <option name="width" value="1366" />
+    <option name="height" value="738" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -313,32 +166,55 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="web-memento-damage" />
+              <option name="myItemId" value="memento-damage-v2" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="web-memento-damage" />
+              <option name="myItemId" value="memento-damage-v2" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="web-memento-damage" />
+              <option name="myItemId" value="test_26_20170301_archivability_test" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="web-memento-damage" />
+              <option name="myItemId" value="memento-damage-v2" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="web-memento-damage" />
+              <option name="myItemId" value="test_26_20170301_archivability_test" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="data" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="memento-damage-v2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="memento-damage-v2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="memento-damage-v2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="memento-damage-v2" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -348,51 +224,11 @@
           </PATH>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="web-memento-damage" />
+              <option name="myItemId" value="memento-damage-v2" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="web-memento-damage" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="memento_damage" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="web" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="web-memento-damage" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="web-memento-damage" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="memento_damage" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="web" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="templates" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="web-memento-damage" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="web-memento-damage" />
+              <option name="myItemId" value="memento-damage-v2" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -403,18 +239,14 @@
               <option name="myItemId" value="web" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="modules" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="web-memento-damage" />
+              <option name="myItemId" value="memento-damage-v2" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="web-memento-damage" />
+              <option name="myItemId" value="memento-damage-v2" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -429,18 +261,14 @@
               <option name="myItemId" value="modules" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mod_home" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="web-memento-damage" />
+              <option name="myItemId" value="memento-damage-v2" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="web-memento-damage" />
+              <option name="myItemId" value="memento-damage-v2" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -456,21 +284,17 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="mod_home" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
+              <option name="myItemId" value="mod_api" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="web-memento-damage" />
+              <option name="myItemId" value="memento-damage-v2" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="web-memento-damage" />
+              <option name="myItemId" value="memento-damage-v2" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -478,55 +302,17 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="web" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="modules" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mod_contact_us" />
+              <option name="myItemId" value="phantomjs" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="web-memento-damage" />
+              <option name="myItemId" value="memento-damage-v2" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="web-memento-damage" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="memento_damage" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="web" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="modules" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mod_contact_us" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="web-memento-damage" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="web-memento-damage" />
+              <option name="myItemId" value="memento-damage-v2" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -540,126 +326,21 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
       <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="settings.editor.selected.configurable" value="configurable.group.appearance" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../testing/test_26_20170301_archivability_test" />
+    <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file:///media/soedomoto/DATA/ERIKA/SummerWork/memento-damage/memento-damage-v2/memento_damage/__init__.py&#10;app.log&#9;null&#9;null" />
   </component>
-  <component name="RestoreUpdateTree" date="Moments ago" ActionInfo="_Update">
-    <UpdatedFiles>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Updated from server" />
-        <option name="myStatusName" value="Changed on server" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="CHANGED_ON_SERVER" />
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Updated" />
-          <option name="myStatusName" value="Changed" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="UPDATED" />
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/memento_damage/__init__.py</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/memento_damage/damage_analysis.py</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/memento_damage/phantomjs/crawl.js</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/memento_damage/web/modules/mod_home/views/_summary.html</PATH>
-        </FILE-GROUP>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Created" />
-          <option name="myStatusName" value="Created" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="CREATED" />
-        </FILE-GROUP>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Deleted" />
-          <option name="myStatusName" value="Deleted" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="true" />
-          <option name="myId" value="REMOVED_FROM_REPOSITORY" />
-        </FILE-GROUP>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Restored" />
-          <option name="myStatusName" value="Will be restored" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="RESTORED" />
-        </FILE-GROUP>
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Modified" />
-        <option name="myStatusName" value="Modified" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="MODIFIED" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Skipped" />
-        <option name="myStatusName" value="Skipped" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="SKIPPED" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Merged with conflicts" />
-        <option name="myStatusName" value="Will be merged with conflicts" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="MERGED_WITH_CONFLICTS" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Merged with tree conflicts" />
-        <option name="myStatusName" value="Merged with tree conflicts" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="MERGED_WITH_TREE_CONFLICT" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Merged with property conflicts" />
-        <option name="myStatusName" value="Will be merged with property conflicts" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="MERGED_WITH_PROPERTY_CONFLICT" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Merged" />
-        <option name="myStatusName" value="Will be merged" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="MERGED" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Not in repository" />
-        <option name="myStatusName" value="Not in repository" />
-        <option name="mySupportsDeletion" value="true" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="UNKNOWN" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Locally added" />
-        <option name="myStatusName" value="Locally added" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="LOCALLY_ADDED" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Locally removed" />
-        <option name="myStatusName" value="Locally removed" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="LOCALLY_REMOVED" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Switched" />
-        <option name="myStatusName" value="Switched" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="SWITCHED" />
-      </FILE-GROUP>
-    </UpdatedFiles>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/../testing/test_26_20170301_archivability_test" />
+      <recent name="$PROJECT_DIR$/memento_damage/phantomjs" />
+    </key>
   </component>
   <component name="RunManager" selected="Python.memento-damage-server">
     <configuration default="false" name="memento-damage-server" type="PythonConfigurationType" factoryName="Python" temporary="true">
@@ -673,60 +354,60 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="web-memento-damage" />
+      <module name="memento-damage-v2" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/memento_damage/cli/memento-damage-server" />
-      <option name="PARAMETERS" value="-P 8088" />
+      <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <method />
     </configuration>
-    <configuration default="false" name="create_graphic3" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration default="false" name="memento-damage" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="/usr/bin/python2.7" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../../../testing_justin_paper" />
-      <option name="IS_MODULE_SDK" value="false" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/memento_damage/cli" />
+      <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="web-memento-damage" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../../../testing_justin_paper/create_graphic3.py" />
-      <option name="PARAMETERS" value="output_urim_distinct.txt $PROJECT_DIR$/../../../testing_justin_paper/output_dir_20170329 dump3.pkl" />
+      <module name="memento-damage-v2" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/memento_damage/cli/memento-damage" />
+      <option name="PARAMETERS" value="-L http://matkelly.com/" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <method />
     </configuration>
-    <configuration default="false" name="create_graphic4" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration default="false" name="create_graphic" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="/usr/bin/python2.7" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../../../testing_justin_paper" />
-      <option name="IS_MODULE_SDK" value="false" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../testing/test_26_20170301_archivability_test" />
+      <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="web-memento-damage" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../../../testing_justin_paper/create_graphic4.py" />
-      <option name="PARAMETERS" value="output_urim_distinct.txt $PROJECT_DIR$/../../../testing_justin_paper/output_dir dump6.pkl" />
+      <module name="test_26_20170301_archivability_test" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../testing/test_26_20170301_archivability_test/create_graphic.py" />
+      <option name="PARAMETERS" value="data/output_urim_distinct.txt output_dir data/dumps.pkl" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <method />
     </configuration>
-    <configuration default="false" name="graphic1_analysis" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration default="false" name="hypothesis_1" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="/usr/bin/python2.7" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../../../testing_justin_paper" />
-      <option name="IS_MODULE_SDK" value="false" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../testing/test_26_20170301_archivability_test" />
+      <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="web-memento-damage" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../../../testing_justin_paper/graphic1_analysis.py" />
-      <option name="PARAMETERS" value="dump5.pkl" />
+      <module name="test_26_20170301_archivability_test" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../testing/test_26_20170301_archivability_test/hypothesis_1.py" />
+      <option name="PARAMETERS" value="data/dumps.pkl" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <method />
     </configuration>
@@ -736,14 +417,14 @@
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="/usr/bin/python2.7" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../../../testing_justin_paper" />
-      <option name="IS_MODULE_SDK" value="false" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../testing/test_26_20170301_archivability_test" />
+      <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="web-memento-damage" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../../../testing_justin_paper/dump_csv.py" />
-      <option name="PARAMETERS" value="dump6.pkl output.csv" />
+      <module name="test_26_20170301_archivability_test" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../testing/test_26_20170301_archivability_test/dump_csv.py" />
+      <option name="PARAMETERS" value="data/dumps.pkl data/dumps.csv" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <method />
     </configuration>
@@ -886,23 +567,26 @@
     </configuration>
     <list size="5">
       <item index="0" class="java.lang.String" itemvalue="Python.memento-damage-server" />
-      <item index="1" class="java.lang.String" itemvalue="Python.create_graphic3" />
-      <item index="2" class="java.lang.String" itemvalue="Python.create_graphic4" />
-      <item index="3" class="java.lang.String" itemvalue="Python.graphic1_analysis" />
+      <item index="1" class="java.lang.String" itemvalue="Python.memento-damage" />
+      <item index="2" class="java.lang.String" itemvalue="Python.create_graphic" />
+      <item index="3" class="java.lang.String" itemvalue="Python.hypothesis_1" />
       <item index="4" class="java.lang.String" itemvalue="Python.dump_csv" />
     </list>
     <recent_temporary>
       <list size="5">
         <item index="0" class="java.lang.String" itemvalue="Python.memento-damage-server" />
         <item index="1" class="java.lang.String" itemvalue="Python.dump_csv" />
-        <item index="2" class="java.lang.String" itemvalue="Python.create_graphic4" />
-        <item index="3" class="java.lang.String" itemvalue="Python.graphic1_analysis" />
-        <item index="4" class="java.lang.String" itemvalue="Python.create_graphic3" />
+        <item index="2" class="java.lang.String" itemvalue="Python.create_graphic" />
+        <item index="3" class="java.lang.String" itemvalue="Python.hypothesis_1" />
+        <item index="4" class="java.lang.String" itemvalue="Python.memento-damage" />
       </list>
     </recent_temporary>
   </component>
   <component name="ShelveChangesManager" show_recycled="false">
     <option name="remove_strategy" value="false" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -926,30 +610,114 @@
       <option name="project" value="LOCAL" />
       <updated>1489588144922</updated>
     </task>
-    <task id="LOCAL-00003" summary="change faq">
-      <created>1490801444895</created>
+    <task id="LOCAL-00003" summary="add spacer">
+      <created>1490055811461</created>
       <option name="number" value="00003" />
       <option name="presentableId" value="LOCAL-00003" />
       <option name="project" value="LOCAL" />
-      <updated>1490801444895</updated>
+      <updated>1490055811461</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Fixed contact us">
+      <created>1490057944487</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1490057944487</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Fixed contact us">
+      <created>1490058685445</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1490058685445</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Fixed scrollspy width">
+      <created>1490067632515</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1490067632515</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Add help (from readme.md)">
+      <created>1490067660077</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1490067660077</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Show error message">
+      <created>1490083375560</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1490083375560</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Fix help">
+      <created>1490162628411</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1490162628411</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Add close log handlers">
+      <created>1490605644412</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1490605644412</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Implement sawood suggestions">
+      <created>1490631852236</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1490631852236</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Detect mimetype by content-type">
+      <created>1490763274981</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1490763274981</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Solve resource redirection when merging">
+      <created>1490806007705</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1490806007705</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Escape tag">
+      <created>1490974396971</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1490974396971</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Fix non 200">
+      <created>1490978119596</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1490978119596</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="65" y="24" width="1855" height="1056" extended-state="6" />
+    <frame x="0" y="30" width="1366" height="738" extended-state="6" />
     <editor active="false" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24944155" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32960325" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295082" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.36724314" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.36557376" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32960325" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39979655" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39836067" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -958,6 +726,24 @@
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="RECENTLY_FILTERED_USER_GROUPS">
+                <collection />
+              </option>
+              <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+                <collection />
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="Vcs.Log.UiProperties">
     <option name="RECENTLY_FILTERED_USER_GROUPS">
@@ -973,140 +759,30 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="change the method in calculating coordinate and size in crawl.js" />
     <MESSAGE value="change faq" />
-    <option name="LAST_COMMIT_MESSAGE" value="change faq" />
+    <MESSAGE value="add spacer" />
+    <MESSAGE value="Fixed contact us" />
+    <MESSAGE value="Fixed scrollspy width" />
+    <MESSAGE value="Add help (from readme.md)" />
+    <MESSAGE value="Show error message" />
+    <MESSAGE value="Fix help" />
+    <MESSAGE value="Add close log handlers" />
+    <MESSAGE value="Implement sawood suggestions" />
+    <MESSAGE value="Detect mimetype by content-type" />
+    <MESSAGE value="Solve resource redirection when merging" />
+    <MESSAGE value="Escape tag" />
+    <MESSAGE value="Fix non 200" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix non 200" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/memento_damage/__init__.py</url>
-          <line>98</line>
-          <option name="timeStamp" value="21" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/memento_damage/__init__.py</url>
-          <line>78</line>
-          <option name="timeStamp" value="22" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/../../../testing_justin_paper/create_graphic4.py</url>
-          <line>167</line>
-          <option name="timeStamp" value="23" />
-        </line-breakpoint>
-      </breakpoints>
-      <option name="time" value="27" />
+      <breakpoints-dialog>
+        <breakpoints-dialog />
+      </breakpoints-dialog>
+      <option name="time" value="60" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/../../learning_rewrite/memento_damage/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/memento_damage/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3255">
-          <caret line="217" column="57" selection-start-line="215" selection-start-column="4" selection-end-line="217" selection-end-column="57" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../learning_rewrite/memento_damage/cli/memento-damage" />
-    <entry file="file:///usr/lib/python2.7/hmac.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="593">
-          <caret line="118" column="8" selection-start-line="118" selection-start-column="8" selection-end-line="118" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/.PyCharm2016.2/system/python_stubs/-1247972723/_md5.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1065">
-          <caret line="71" column="8" selection-start-line="71" selection-start-column="8" selection-end-line="71" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/.PyCharm2016.2/system/python_stubs/-1247972723/__builtin__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="317">
-          <caret line="330" column="4" selection-start-line="330" selection-start-column="4" selection-end-line="330" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/lib/python2.7/subprocess.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="186">
-          <caret line="651" column="29" selection-start-line="651" selection-start-column="29" selection-end-line="651" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/lib/python2.7/logging/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="186">
-          <caret line="1144" column="8" selection-start-line="1144" selection-start-column="8" selection-end-line="1144" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/lib/python2.7/threading.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="512">
-          <caret line="659" column="79" selection-start-line="659" selection-start-column="8" selection-end-line="659" selection-end-column="79" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../misc/simple_popen_test.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="32" column="49" selection-start-line="32" selection-start-column="22" selection-end-line="32" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/lib/python2.7/re.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="197">
-          <caret line="172" column="4" selection-start-line="172" selection-start-column="4" selection-end-line="172" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/memento_damage/tools.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="570">
-          <caret line="41" column="8" selection-start-line="41" selection-start-column="8" selection-end-line="41" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/memento_damage/web/models/memento.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../learning_rewrite/memento_damage/tools.py" />
-    <entry file="file://$PROJECT_DIR$/../../learning_rewrite/memento_damage/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../web-memento-damage_20170104/cli/damage.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="307">
-          <caret line="173" column="0" selection-start-line="173" selection-start-column="0" selection-end-line="173" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/memento_damage/web/modules/mod_contact_us/views/contact_us_index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="73">
-          <caret line="31" column="246" selection-start-line="31" selection-start-column="246" selection-end-line="31" selection-end-column="246" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/memento_damage/web/modules/mod_faq/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1114,20 +790,8 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/memento_damage/web/templates/templatevamp.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="900">
-          <caret line="190" column="115" selection-start-line="190" selection-start-column="115" selection-end-line="190" selection-end-column="115" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../../testing_justin_paper/create_graphic2.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="262">
-          <caret line="125" column="63" selection-start-line="124" selection-start-column="4" selection-end-line="125" selection-end-column="63" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../testing_justin_paper/create_graphic2.py" />
+    <entry file="file://$PROJECT_DIR$/../../../testing_justin_paper/create_graphic3.py" />
     <entry file="file:///usr/local/lib/python2.7/dist-packages/memento_damage/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1890">
@@ -1135,331 +799,328 @@
         </state>
       </provider>
     </entry>
-    <entry file="file:///usr/lib/python2.7/tempfile.py">
+    <entry file="file://$PROJECT_DIR$/../../../testing_justin_paper/memento_damage_test.py" />
+    <entry file="file://$PROJECT_DIR$/../../learning_rewrite/memento_damage/phantomjs/crawl.js" />
+    <entry file="file://$PROJECT_DIR$/memento_damage/web/modules/mod_contact_us/views/contact_us_index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-225">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="195">
+          <caret line="37" column="73" selection-start-line="37" selection-start-column="73" selection-end-line="37" selection-end-column="73" />
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/memento_damage/web/modules/mod_api/views/api_index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" column="24" selection-start-line="10" selection-start-column="24" selection-end-line="10" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/env-linux/local/lib/python2.7/site-packages/flask/app.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="112">
+          <caret line="1597" column="0" selection-start-line="1597" selection-start-column="0" selection-end-line="1597" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/memento_damage/web/modules/mod_home/views/_summary_old.html" />
     <entry file="file://$PROJECT_DIR$/memento_damage/web/modules/mod_faq/views/faq_index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="80" column="18" selection-start-line="80" selection-start-column="18" selection-end-line="80" selection-end-column="18" />
+        <state relative-caret-position="150">
+          <caret line="22" column="3" selection-start-line="6" selection-start-column="2" selection-end-line="22" selection-end-column="3" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../../../testing_justin_paper/memento_damage_test_2.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="365">
-          <caret line="211" column="57" selection-start-line="211" selection-start-column="57" selection-end-line="211" selection-end-column="57" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../web-memento-damage_20170301/memento_damage/phantomjs/crawl.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="465">
-          <caret line="665" column="16" selection-start-line="665" selection-start-column="16" selection-end-line="665" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../../testing_justin_paper/memento_damage_test.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1712">
-          <caret line="228" column="40" selection-start-line="228" selection-start-column="40" selection-end-line="228" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../web-memento-damage_20170301/memento_damage/cli/memento-damage-server">
+    <entry file="file://$PROJECT_DIR$/../testing/test_26_20170301_archivability_test/memento_damage_test.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/lib/python2.7/dist-packages/multiprocess/queues.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="254">
+          <caret line="270" column="0" selection-start-line="270" selection-start-column="0" selection-end-line="270" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/.PyCharm2016.2/system/python_stubs/-1247972723/time.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="121" column="4" selection-start-line="121" selection-start-column="4" selection-end-line="121" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/lib/python2.7/dist-packages/multiprocess/process.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="112">
+          <caret line="257" column="0" selection-start-line="257" selection-start-column="0" selection-end-line="257" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../testing/test_26_20170301_archivability_test/pynats_test_2.py" />
+    <entry file="jar:///usr/local/lib/python2.7/dist-packages/pynats-0.0.1-py2.7.egg!/pynats/connection.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="92" column="44" selection-start-line="92" selection-start-column="44" selection-end-line="92" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/memento_damage/web/modules/mod_help/views/help_index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1590">
+          <caret line="106" column="23" selection-start-line="106" selection-start-column="23" selection-end-line="106" selection-end-column="23" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/memento_damage/cli/memento-damage">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="11" selection-start-line="2" selection-start-column="11" selection-end-line="2" selection-end-column="11" />
+        <state relative-caret-position="45">
+          <caret line="3" column="6" selection-start-line="3" selection-start-column="6" selection-end-line="3" selection-end-column="6" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/memento_damage/web/modules/mod_home/views/_summary.html">
+    <entry file="file://$PROJECT_DIR$/memento_damage/tools.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="179">
-          <caret line="19" column="6" selection-start-line="19" selection-start-column="6" selection-end-line="19" selection-end-column="6" />
+        <state relative-caret-position="461">
+          <caret line="41" column="8" selection-start-line="41" selection-start-column="8" selection-end-line="41" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/setup.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="810">
+          <caret line="55" column="6" selection-start-line="55" selection-start-column="6" selection-end-line="55" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../testing/test_26_20170301_archivability_test/memento_damage_test_2.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="207">
+          <caret line="211" column="12" selection-start-line="211" selection-start-column="12" selection-end-line="211" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/lib/python2.7/logging/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="193">
+          <caret line="1135" column="13" selection-start-line="1135" selection-start-column="13" selection-end-line="1135" selection-end-column="13" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/memento_damage/web/modules/mod_home/views/home_index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="26" column="21" selection-start-line="26" selection-start-column="18" selection-end-line="26" selection-end-column="21" />
+        <state relative-caret-position="30">
+          <caret line="2" column="14" selection-start-line="2" selection-start-column="9" selection-end-line="2" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/memento_damage/cli/memento-damage-server">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="21" selection-start-line="0" selection-start-column="21" selection-end-line="0" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/memento_damage/web/static/assets/moment.js/moment.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="551">
+          <caret line="4462" column="5" selection-start-line="4462" selection-start-column="5" selection-end-line="4462" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/memento_damage/web/templates/templatevamp.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2488">
+          <caret line="5" column="63" selection-start-line="5" selection-start-column="58" selection-end-line="5" selection-end-column="63" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/memento_damage/web/modules/mod_home/views/_log.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/memento_damage/web/modules/mod_home/views/_jses.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" column="52" selection-start-line="3" selection-start-column="52" selection-end-line="3" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/memento_damage/web/modules/mod_home/views/_multimedias.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" column="51" selection-start-line="3" selection-start-column="51" selection-end-line="3" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/memento_damage/web/modules/mod_home/views/_text.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" column="51" selection-start-line="3" selection-start-column="51" selection-end-line="3" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/memento_damage/web/modules/mod_home/views/_images.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/memento_damage/web/modules/mod_home/views/_csses.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" column="52" selection-start-line="3" selection-start-column="52" selection-end-line="3" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../testing/test_26_20170301_archivability_test/pynats_test.py" />
+    <entry file="file://$PROJECT_DIR$/../testing/test_26_20170301_archivability_test/output_dir/http%3A__archive-is_20020802035514_http%3A__www-good-state-al-us_.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="16" column="21" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../testing/test_26_20170301_archivability_test/hypothesis_1.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" column="32" selection-start-line="10" selection-start-column="32" selection-end-line="10" selection-end-column="32" />
+          <folding>
+            <element signature="e#0#9#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/lib/python2.7/dist-packages/unicodecsv/py2.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="283">
+          <caret line="68" column="32" selection-start-line="68" selection-start-column="9" selection-end-line="68" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../testing/test_26_20170301_archivability_test/data/dumps.csv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/memento_damage/web/modules/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/memento_damage/web/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-990">
+          <caret line="16" column="16" selection-start-line="16" selection-start-column="14" selection-end-line="16" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/memento_damage/web/modules/mod_api/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="821">
+          <caret line="89" column="74" selection-start-line="89" selection-start-column="74" selection-end-line="89" selection-end-column="74" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/memento_damage/web/modules/mod_home/views/home_check.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1468">
-          <caret line="992" column="25" selection-start-line="992" selection-start-column="18" selection-end-line="992" selection-end-column="25" />
+        <state relative-caret-position="8604">
+          <caret line="817" column="9" selection-start-line="817" selection-start-column="9" selection-end-line="817" selection-end-column="9" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../../../testing_justin_paper/create_graphic3.py">
+    <entry file="file://$PROJECT_DIR$/../testing/test_26_20170301_archivability_test/dump_csv.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="15" column="8" selection-start-line="15" selection-start-column="8" selection-end-line="15" selection-end-column="8" />
+        <state relative-caret-position="315">
+          <caret line="21" column="100" selection-start-line="21" selection-start-column="100" selection-end-line="21" selection-end-column="100" />
+          <folding>
+            <element signature="e#0#9#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/.PyCharm2016.2/system/python_stubs/-1247972723/operator.py">
+    <entry file="file://$USER_HOME$/.PyCharm2016.2/system/python_stubs/-650890321/exceptions.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="197">
-          <caret line="21" column="4" selection-start-line="21" selection-start-column="4" selection-end-line="21" selection-end-column="4" />
+        <state relative-caret-position="-437">
+          <caret line="17" column="6" selection-start-line="17" selection-start-column="6" selection-end-line="17" selection-end-column="6" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/memento_damage/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-525">
-          <caret line="197" column="0" selection-start-line="197" selection-start-column="0" selection-end-line="197" selection-end-column="0" />
+        <state relative-caret-position="194">
+          <caret line="187" column="27" selection-start-line="187" selection-start-column="27" selection-end-line="187" selection-end-column="27" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file:///usr/local/lib/python2.7/dist-packages/flask/app.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="29340">
-          <caret line="1981" column="0" selection-start-line="1981" selection-start-column="0" selection-end-line="1981" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../../../semester_4/HPC/10_pagerank/pagerank.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="690">
-          <caret line="46" column="38" selection-start-line="46" selection-start-column="38" selection-end-line="46" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///run/user/1000/gvfs/sftp:host=127.0.0.1,port=2222,user=root/root/page_ranking/pagerank2.py" />
-    <entry file="file:///run/user/1000/gvfs/sftp:host=127.0.0.1,port=2222,user=root/root/spark_wordcount/rdd_wordcount.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-758">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///run/user/1000/gvfs/sftp:host=127.0.0.1,port=2222,user=root/root/page_ranking/pagerank.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="735">
-          <caret line="49" column="0" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="48" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///run/user/1000/gvfs/sftp:host=127.0.0.1,port=2222,user=root/root/python_wordcount/mapper_bigram.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/lib/python2.7/decimal.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///run/user/1000/gvfs/sftp:host=127.0.0.1,port=2222,user=root/root/page_ranking/pagerank_hollins.py" />
-    <entry file="file://$PROJECT_DIR$/../../../testing_justin_paper/graphic1_analysis.py">
+    <entry file="file://$PROJECT_DIR$/memento_damage/web/modules/mod_home/views/_summary.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="330">
-          <caret line="27" column="70" selection-start-line="27" selection-start-column="70" selection-end-line="27" selection-end-column="70" />
+          <caret line="37" column="34" selection-start-line="37" selection-start-column="34" selection-end-line="37" selection-end-column="34" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#div#3;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/memento_damage/phantomjs/text-coverage.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/memento_damage/phantomjs/mimetype.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1635">
+          <caret line="29" column="12" selection-start-line="29" selection-start-column="4" selection-end-line="29" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../testing/test_26_20170301_archivability_test/create_graphic.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="27" column="12" selection-start-line="27" selection-start-column="12" selection-end-line="27" selection-end-column="12" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../../learning_rewrite/memento_damage/phantomjs/crawl.js">
+    <entry file="file://$PROJECT_DIR$/memento_damage/damage_analysis.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4470">
-          <caret line="298" column="53" selection-start-line="298" selection-start-column="34" selection-end-line="298" selection-end-column="53" />
-          <folding>
-            <element signature="e#0#49900#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../../testing_justin_paper/dump_csv.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="-317">
+          <caret line="88" column="43" selection-start-line="88" selection-start-column="43" selection-end-line="88" selection-end-column="43" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../../../testing_justin_paper/create_graphic4.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1102">
-          <caret line="431" column="37" selection-start-line="431" selection-start-column="37" selection-end-line="431" selection-end-column="37" />
-          <folding>
-            <element signature="e#1826#1859#0" expanded="false" />
-            <element signature="e#1901#3303#0" expanded="false" />
-            <element signature="e#1992#2330#0" expanded="false" />
-            <element signature="e#2012#2330#0" expanded="false" />
-            <element signature="e#2012#2189#0" expanded="false" />
-            <element signature="e#3004#3290#0" expanded="false" />
-            <element signature="e#3118#3290#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/memento_damage/web/modules/mod_api/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="525">
-          <caret line="50" column="97" selection-start-line="50" selection-start-column="86" selection-end-line="50" selection-end-column="97" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/memento_damage/damage_analysis.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="149">
-          <caret line="645" column="94" selection-start-line="645" selection-start-column="94" selection-end-line="645" selection-end-column="94" />
-          <folding>
-            <element signature="e#2674#5434#0" expanded="false" />
-            <element signature="e#5480#5526#0" expanded="false" />
-            <element signature="e#5572#6241#0" expanded="false" />
-            <element signature="e#5711#5813#0" expanded="false" />
-            <element signature="e#5760#5803#0" expanded="false" />
-            <element signature="e#5813#5877#0" expanded="false" />
-            <element signature="e#6038#6210#0" expanded="false" />
-            <element signature="e#6067#6171#0" expanded="false" />
-            <element signature="e#6291#7539#0" expanded="false" />
-            <element signature="e#6388#6523#0" expanded="false" />
-            <element signature="e#6673#6806#0" expanded="false" />
-            <element signature="e#6947#7080#0" expanded="false" />
-            <element signature="e#7225#7357#0" expanded="false" />
-            <element signature="e#7589#8043#0" expanded="false" />
-            <element signature="e#8100#8884#0" expanded="false" />
-            <element signature="e#8252#8787#0" expanded="false" />
-            <element signature="e#8420#8787#0" expanded="false" />
-            <element signature="e#8621#8787#0" expanded="false" />
-            <element signature="e#8955#10088#0" expanded="false" />
-            <element signature="e#9006#10088#0" expanded="false" />
-            <element signature="e#9044#9110#0" expanded="false" />
-            <element signature="e#9145#9204#0" expanded="false" />
-            <element signature="e#9470#9643#0" expanded="false" />
-            <element signature="e#9682#10048#0" expanded="false" />
-            <element signature="e#9896#10000#0" expanded="false" />
-            <element signature="e#10144#11767#0" expanded="false" />
-            <element signature="e#10292#11197#0" expanded="false" />
-            <element signature="e#10427#10521#0" expanded="false" />
-            <element signature="e#10590#10763#0" expanded="false" />
-            <element signature="e#10590#10658#0" expanded="false" />
-            <element signature="e#10900#10939#0" expanded="false" />
-            <element signature="e#11291#11707#0" expanded="false" />
-            <element signature="e#11424#11516#0" expanded="false" />
-            <element signature="e#11811#12480#0" expanded="false" />
-            <element signature="e#11935#12013#0" expanded="false" />
-            <element signature="e#12097#12175#0" expanded="false" />
-            <element signature="e#12260#12480#0" expanded="false" />
-            <element signature="e#12301#12480#0" expanded="false" />
-            <element signature="e#12350#12480#0" expanded="false" />
-            <element signature="e#12394#12430#0" expanded="false" />
-            <element signature="e#12533#18491#0" expanded="false" />
-            <element signature="e#12769#13637#0" expanded="false" />
-            <element signature="e#13115#13264#0" expanded="false" />
-            <element signature="e#13376#13536#0" expanded="false" />
-            <element signature="e#13822#14418#0" expanded="false" />
-            <element signature="e#14111#14244#0" expanded="false" />
-            <element signature="e#14600#14802#0" expanded="false" />
-            <element signature="e#14675#14717#0" expanded="false" />
-            <element signature="e#14993#15957#0" expanded="false" />
-            <element signature="e#15335#15483#0" expanded="false" />
-            <element signature="e#15590#15749#0" expanded="false" />
-            <element signature="e#15862#15898#0" expanded="false" />
-            <element signature="e#16048#16093#0" expanded="false" />
-            <element signature="e#16437#17430#0" expanded="false" />
-            <element signature="e#16478#17337#0" expanded="false" />
-            <element signature="e#16832#16989#0" expanded="false" />
-            <element signature="e#17161#17337#0" expanded="false" />
-            <element signature="e#17372#17430#0" expanded="false" />
-            <element signature="e#18541#23586#0" expanded="false" />
-            <element signature="e#18770#19858#0" expanded="false" />
-            <element signature="e#18815#19858#0" expanded="false" />
-            <element signature="e#19187#19345#0" expanded="false" />
-            <element signature="e#19463#19640#0" expanded="false" />
-            <element signature="e#19760#19793#0" expanded="false" />
-            <element signature="e#20038#20722#0" expanded="false" />
-            <element signature="e#20112#20722#0" expanded="false" />
-            <element signature="e#20396#20545#0" expanded="false" />
-            <element signature="e#20907#21206#0" expanded="false" />
-            <element signature="e#20981#21196#0" expanded="false" />
-            <element signature="e#21057#21107#0" expanded="false" />
-            <element signature="e#21384#22452#0" expanded="false" />
-            <element signature="e#21429#22452#0" expanded="false" />
-            <element signature="e#21795#21951#0" expanded="false" />
-            <element signature="e#22063#22238#0" expanded="false" />
-            <element signature="e#22356#22389#0" expanded="false" />
-            <element signature="e#22678#22752#0" expanded="false" />
-            <element signature="e#25890#25970#0" expanded="false" />
-            <element signature="e#26160#30656#0" expanded="false" />
-            <element signature="e#26235#26301#0" expanded="false" />
-            <element signature="e#26848#30526#0" expanded="false" />
-            <element signature="e#27067#30423#0" expanded="false" />
-            <element signature="e#27067#27123#0" expanded="false" />
-            <element signature="e#27462#27490#0" expanded="false" />
-            <element signature="e#27715#27754#0" expanded="false" />
-            <element signature="e#27922#27974#0" expanded="false" />
-            <element signature="e#28112#28778#0" expanded="false" />
-            <element signature="e#28218#28778#0" expanded="false" />
-            <element signature="e#28218#28248#0" expanded="false" />
-            <element signature="e#28388#28418#0" expanded="false" />
-            <element signature="e#28778#28805#0" expanded="false" />
-            <element signature="e#29762#29799#0" expanded="false" />
-            <element signature="e#30221#30334#0" expanded="false" />
-            <element signature="e#30815#30856#0" expanded="false" />
-            <element signature="e#30973#32905#0" expanded="false" />
-            <element signature="e#31202#32877#0" expanded="false" />
-            <element signature="e#31427#32426#0" expanded="false" />
-            <element signature="e#31577#32072#1" expanded="false" />
-            <element signature="e#32496#32698#0" expanded="false" />
-            <element signature="e#32795#32875#0" expanded="false" />
-            <element signature="e#32948#32999#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/memento_damage/web/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="197">
-          <caret line="90" column="4" selection-start-line="90" selection-start-column="4" selection-end-line="90" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/memento_damage/cli/memento-damage-server">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" column="6" selection-start-line="3" selection-start-column="6" selection-end-line="3" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/memento_damage/phantomjs/crawl.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="187" column="10" selection-start-line="187" selection-start-column="10" selection-end-line="187" selection-end-column="10" />
-          <folding>
-            <element signature="e#0#32614#0" expanded="false" />
-          </folding>
+        <state relative-caret-position="-9873">
+          <caret line="176" column="11" selection-start-line="176" selection-start-column="11" selection-end-line="176" selection-end-column="11" />
+          <folding />
         </state>
       </provider>
     </entry>
