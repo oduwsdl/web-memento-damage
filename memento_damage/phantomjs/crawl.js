@@ -633,10 +633,10 @@ function processMultimedias(url, outputDir) {
     }
     page.switchToMainFrame();
 
-    var networkVideos = joinDocumentAndNetworkResources(images, 'video/')
+    var networkVideos = joinDocumentAndNetworkResources(videos, 'video/')
 
     // Set default value
-    for (nUrl in networkImages) {
+    for (nUrl in networkVideos) {
         networkVideos[nUrl]['viewport_size'] = networkVideos[nUrl]['viewport_size'] || viewportSize;
         networkVideos[nUrl]['rectangles'] = networkVideos[nUrl]['rectangles'] || [];
     }
