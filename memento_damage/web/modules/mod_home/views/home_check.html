@@ -830,8 +830,6 @@
         tbody = '<tbody>';
         pdLocation = pdSize = adLocation = adSize = 0;
         text.forEach(function(txt, idx) {
-            var escapedTag = $('<div/>').text(txt['tag']).html();
-
             tbody += '<tr class="title status-200">' +
                   '<td data-th="No">' + (idx + 1) + '</td>' +
                   '<td data-th="URI" style="text-align: left;">' +
