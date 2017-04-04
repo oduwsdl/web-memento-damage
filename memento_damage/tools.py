@@ -45,6 +45,13 @@ def prompt_yes_no(question=''):
         return prompt_yes_no(question)
 
 
+def rectangle_intersection_area(a, b):
+    dx = min(a.xmax, b.xmax) - max(a.xmin, b.xmin)
+    dy = min(a.ymax, b.ymax) - max(a.ymin, b.ymin)
+    if (dx >= 0) and (dy >= 0):
+        return dx * dy
+
+
 class Command(object):
     def __init__(self, cmd, pipe_stdout_callback=None, pipe_stderr_callback=None):
         self.cmd = cmd

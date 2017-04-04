@@ -4,10 +4,15 @@ import math
 import os
 import urlparse
 import httplib
+from collections import namedtuple
 
 import html2text
 import sys
+
+import itertools
 from PIL import Image
+
+from memento_damage.tools import rectangle_intersection_area
 
 
 class MementoDamageAnalysis(object):
@@ -41,7 +46,7 @@ class MementoDamageAnalysis(object):
         self._text = h.handle(
             u' '.join([line.strip() for line in io.open(memento_damage.html_file, encoding="utf-8").readlines()]))
         logs = [json.loads(log, strict=False) for log in
-                      io.open(memento_damage.network_log_file, encoding="utf-8").readlines()]
+                io.open(memento_damage.network_log_file, encoding="utf-8").readlines()]
         self._network_logs = {log['url'].lower(): log for log in logs}
         self._image_logs = [json.loads(log, strict=False) for log in
                             io.open(memento_damage.image_log_file, encoding="utf-8").readlines()]
@@ -55,6 +60,7 @@ class MementoDamageAnalysis(object):
                            io.open(memento_damage.text_log_file, encoding="utf-8").readlines()]
         self._iframe_logs = [json.loads(log, strict=False) for log in
                              io.open(memento_damage.iframe_log_file, encoding="utf-8").readlines()]
+        self.redirection_mapping = {}
         # self._text_logs = {}
 
         self.viewport_size = self.memento_damage.viewport_size
@@ -66,15 +72,9 @@ class MementoDamageAnalysis(object):
     def run(self):
         self.detect_redirection()
         self.remove_blacklisted_uris()
+        self.remove_hidden_elements()
         self.resolve_redirection()
-
-
-        # Filter blacklisted uris
-        # self._remove_blacklisted_uris()
-        # self._resolve_uri_redirection()
-
         self._calculate_percentage_coverage()
-        # self._find_missing_uris()
 
         self._logger.info('Start calculating damage...')
 
@@ -92,38 +92,37 @@ class MementoDamageAnalysis(object):
         self._logger.info('Done calculating damage')
 
     def detect_redirection(self):
-        redirection_mapping = {}
         reverse_redirection_mapping = {}
         for url, log in self._network_logs.items():
             if log['status_code'] in [301, 302] and 'headers' in log and 'Location' in log['headers']:
                 redirect_url = urlparse.urljoin(url.lower(), log['headers']['Location'].lower())
-                redirection_mapping[url.lower()] = redirect_url
+                self.redirection_mapping[url.lower()] = redirect_url
                 reverse_redirection_mapping[redirect_url] = url.lower()
 
-        self.redirect_urls = self._detect_redirection({'url': self.memento_damage.uri}, redirection_mapping)
+        self.redirect_urls = self._detect_redirection({'url': self.memento_damage.uri}, self.redirection_mapping)
 
         for idx, log in enumerate(self._image_logs):
-            redirect_urls = self._detect_redirection(log, redirection_mapping)
+            redirect_urls = self._detect_redirection(log, self.redirection_mapping)
             self._image_logs[idx]['redirect_urls'] = redirect_urls
 
         for idx, log in enumerate(self._css_logs):
-            redirect_urls = self._detect_redirection(log, redirection_mapping)
+            redirect_urls = self._detect_redirection(log, self.redirection_mapping)
             self._css_logs[idx]['redirect_urls'] = redirect_urls
 
         for idx, log in enumerate(self._js_logs):
-            redirect_urls = self._detect_redirection(log, redirection_mapping)
+            redirect_urls = self._detect_redirection(log, self.redirection_mapping)
             self._js_logs[idx]['redirect_urls'] = redirect_urls
 
         for idx, log in enumerate(self._mlm_logs):
-            redirect_urls = self._detect_redirection(log, redirection_mapping)
+            redirect_urls = self._detect_redirection(log, self.redirection_mapping)
             self._mlm_logs[idx]['redirect_urls'] = redirect_urls
 
         for idx, log in enumerate(self._text_logs):
-            redirect_urls = self._detect_redirection(log, redirection_mapping)
+            redirect_urls = self._detect_redirection(log, self.redirection_mapping)
             self._text_logs[idx]['redirect_urls'] = redirect_urls
 
         for idx, log in enumerate(self._iframe_logs):
-            redirect_urls = self._detect_redirection(log, redirection_mapping)
+            redirect_urls = self._detect_redirection(log, self.redirection_mapping)
             self._iframe_logs[idx]['redirect_urls'] = redirect_urls
 
     def _detect_redirection(self, log, redirection_mapping):
@@ -160,7 +159,7 @@ class MementoDamageAnalysis(object):
             if 'url' in log and self._is_blacklisted(log):
                 to_be_removed.append(idx)
         for idx in sorted(to_be_removed, reverse=True):
-                self._css_logs.pop(idx)
+            self._css_logs.pop(idx)
 
         to_be_removed = []
         for idx, log in enumerate(self._js_logs):
@@ -186,6 +185,49 @@ class MementoDamageAnalysis(object):
         to_be_removed = []
         for idx, log in enumerate(self._iframe_logs):
             if 'url' in log and self._is_blacklisted(log):
+                to_be_removed.append(idx)
+        for idx in sorted(to_be_removed, reverse=True):
+            self._iframe_logs.pop(idx)
+
+    def remove_hidden_elements(self):
+        to_be_removed = []
+        for idx, log in enumerate(self._image_logs):
+            if 'visible' in log and not log['visible']:
+                to_be_removed.append(idx)
+        for idx in sorted(to_be_removed, reverse=True):
+            self._image_logs.pop(idx)
+
+        to_be_removed = []
+        for idx, log in enumerate(self._css_logs):
+            if 'visible' in log and not log['visible']:
+                to_be_removed.append(idx)
+        for idx in sorted(to_be_removed, reverse=True):
+            self._css_logs.pop(idx)
+
+        to_be_removed = []
+        for idx, log in enumerate(self._js_logs):
+            if 'visible' in log and not log['visible']:
+                to_be_removed.append(idx)
+        for idx in sorted(to_be_removed, reverse=True):
+            self._js_logs.pop(idx)
+
+        to_be_removed = []
+        for idx, log in enumerate(self._mlm_logs):
+            if 'visible' in log and not log['visible']:
+                to_be_removed.append(idx)
+        for idx in sorted(to_be_removed, reverse=True):
+            self._mlm_logs.pop(idx)
+
+        to_be_removed = []
+        for idx, log in enumerate(self._text_logs):
+            if 'visible' in log and not log['visible']:
+                to_be_removed.append(idx)
+        for idx in sorted(to_be_removed, reverse=True):
+            self._text_logs.pop(idx)
+
+        to_be_removed = []
+        for idx, log in enumerate(self._iframe_logs):
+            if 'visible' in log and not log['visible']:
                 to_be_removed.append(idx)
         for idx in sorted(to_be_removed, reverse=True):
             self._iframe_logs.pop(idx)
@@ -324,128 +366,6 @@ class MementoDamageAnalysis(object):
 
         return is_blacklisted
 
-    def _remove_blacklisted_uris(self):
-        # Filter images log
-        tmp_image_logs = []
-        for log in self._image_logs:
-            # If not blacklisted, put into temporary array
-            if not self._is_blacklisted(log):
-                tmp_image_logs.append(log)
-
-        self._image_logs = tmp_image_logs
-
-        # Filter multimedia log
-        tmp_mlm_logs = []
-        for log in self._mlm_logs:
-            # If not blacklisted, put into temporary array
-            if not self._is_blacklisted(log):
-                tmp_mlm_logs.append(log)
-
-        self._mlm_logs = tmp_mlm_logs
-
-        # Filter csses log
-        tmp_css_logs = []
-        for log in self._css_logs:
-            # If not blacklisted, put into temporary array
-            if not self._is_blacklisted(log):
-                tmp_css_logs.append(log)
-
-        self._css_logs = tmp_css_logs
-
-        # Filter javascripts log
-        tmp_js_logs = []
-        for log in self._js_logs:
-            # If not blacklisted, put into temporary array
-            if not self._is_blacklisted(log):
-                tmp_js_logs.append(log)
-
-        self._js_logs = tmp_js_logs
-
-        self._logger.info('Remove blacklisted URIS')
-        self._logger.info('Blacklisted URIS: {}'.format(', '.join(self.blacklisted_uris)))
-
-    def _resolve_uri_redirection(self):
-        logs = {}
-        for log in self._network_logs:
-            logs[log['url']] = log
-
-        # Resolve redirection for image
-        self._image_logs = self._purify_logs(self._image_logs, logs)
-
-        # Resolve redirection for multimedia
-        self._mlm_logs = self._purify_logs(self._mlm_logs, logs)
-
-        # Resolve redirection for css
-        self._css_logs = self._purify_logs(self._css_logs, logs)
-
-        # Resolve redirection for js
-        self._js_logs = self._purify_logs(self._js_logs, logs)
-
-        # Resolve redirection for iframes
-        self._iframe_logs = self._purify_logs(self._iframe_logs, logs)
-
-        self._logger.info('Resolve URI redirection')
-
-    def _purify_logs(self, source_logs, logs):
-        log_obj = {}
-        for log in source_logs:
-            log_obj[log['url']] = log
-
-        final_uris = []
-        for log in source_logs:
-            uri = log['url']
-            redirect_uris = []
-            self._follow_redirection(uri, logs, redirect_uris)
-
-            if len(redirect_uris) > 0:
-                original_uri, original_status = redirect_uris[0]
-                final_uri, final_status_code = redirect_uris[len(redirect_uris) - 1]
-
-                if original_uri != final_uri:
-                    log_obj[original_uri]['url'] = final_uri
-                    log_obj[original_uri]['status_code'] = final_status_code
-                    final_uris.append(final_uri)
-
-        for uri in final_uris:
-            log_obj.pop(uri, 0)
-
-        return log_obj.values()
-
-    def _follow_redirection(self, uri, logs, redirect_uris):
-        uri = unicode(uri)
-        logs = {k.lower(): v for k, v in logs.items()}
-
-        while True:
-            if uri.endswith('/'):
-                slashed_uri = uri
-                unslashed_uri = slashed_uri[:-1]
-            else:
-                unslashed_uri = uri
-                slashed_uri = uri + '/'
-
-            unslashed_uri = unslashed_uri.lower()
-            slashed_uri = slashed_uri.lower()
-
-            line = None
-            urls = [u.lower() for u, s in redirect_uris]
-            if unslashed_uri not in urls and slashed_uri not in urls:
-                if unslashed_uri in logs.keys():
-                    line = logs[unslashed_uri]
-                elif slashed_uri in logs.keys():
-                    line = logs[slashed_uri]
-
-            if line:
-                status_code = line['status_code']
-                redirect_uris.append((uri, status_code))
-
-                if status_code in [301, 302] and 'headers' in line and 'Location' in line['headers']:
-                    redirect_url = line['headers']['Location']
-                    uri = urlparse.urljoin(uri, redirect_url)
-                else:
-                    break
-            else:
-                break
-
     def _calculate_percentage_coverage(self):
         im = Image.open(self.memento_damage.screenshot_file)
 
@@ -487,31 +407,63 @@ class MementoDamageAnalysis(object):
             self._mlm_logs[idx]['percentage_coverage'] = pct_mlm_coverage
 
         # Coverage of iframes
+        Rectangle = namedtuple('Rectangle', 'xmin ymin xmax ymax')
+        for a, b in itertools.combinations(range(len(self._iframe_logs)), 2):
+            # Detect iframe intersection
+            x1 = self._iframe_logs[a]['left']
+            y1 = self._iframe_logs[a]['top']
+            w1 = self._iframe_logs[a]['width']
+            h1 = self._iframe_logs[a]['height']
+            ra = Rectangle(x1, y1, x1 + w1, y1 + h1)
+
+            x2 = self._iframe_logs[b]['left']
+            y2 = self._iframe_logs[b]['top']
+            w2 = self._iframe_logs[b]['width']
+            h2 = self._iframe_logs[b]['height']
+            rb = Rectangle(x2, y2, x2 + w2, y2 + h2)
+
+            area = rectangle_intersection_area(ra, rb)
+            if area:
+                if self._iframe_logs[a]['parent'] or self._iframe_logs[b]['parent']:
+                    uri_a_reds = self._detect_redirection({'url': self._iframe_logs[a]['url']},
+                                                          self.redirection_mapping)
+                    uri_b_reds = self._detect_redirection({'url': self._iframe_logs[b]['url']},
+                                                          self.redirection_mapping)
+                    uri_pa_reds = self._detect_redirection({'url': self._iframe_logs[a]['parent']},
+                                                           self.redirection_mapping)
+                    uri_pb_reds = self._detect_redirection({'url': self._iframe_logs[b]['parent']},
+                                                           self.redirection_mapping)
+
+                    fa = uri_a_reds[len(uri_a_reds) - 1][0] if len(uri_a_reds) > 0 else None
+                    fb = uri_b_reds[len(uri_b_reds) - 1][0] if len(uri_b_reds) > 0 else None
+                    fpa = uri_pa_reds[len(uri_pa_reds) - 1][0] if len(uri_pa_reds) > 0 else None
+                    fpb = uri_pb_reds[len(uri_pb_reds) - 1][0] if len(uri_pb_reds) > 0 else None
+
+                    if fpa and fb and fpa.lower() == fb.lower():
+                        self._iframe_logs[b]['coverage'] = float(w2) * h2 - area
+                        if self._iframe_logs[b]['coverage'] < area:
+                            self._iframe_logs[b]['important'] = False
+                    elif fpb and fa and fpb.lower() == fa.lower():
+                        self._iframe_logs[a]['coverage'] = float(w1) * h1 - area
+                        if self._iframe_logs[a]['coverage'] < area:
+                            self._iframe_logs[a]['important'] = False
+                else:
+                    self._iframe_logs[b]['coverage'] = float(w2) * h2 - (float(w1 * h1))
+                    if self._iframe_logs[b]['coverage'] < area:
+                        self._iframe_logs[b]['important'] = False
+
+            if 'important' not in self._iframe_logs[a]: self._iframe_logs[a]['important'] = True
+            if 'important' not in self._iframe_logs[b]: self._iframe_logs[b]['important'] = True
+
         for idx, log in enumerate(self._iframe_logs):
             viewport_w, viewport_h = log['viewport_size']
             w, h = log['width'], log['height']
-            self._iframe_logs[idx]['percentage_coverage'] = float(w) * h / (float(viewport_w) * viewport_h)
+            coverage = float(w) * h
+            if 'coverage' in log:
+                coverage = log['coverage']
+            self._iframe_logs[idx]['percentage_coverage'] = coverage / (float(viewport_w) * viewport_h)
 
         self._logger.info('Calculate percentage coverage')
-
-    def _find_missing_uris(self):
-        self._logger.info('Find missing URIS')
-
-        self.missing_imgs_log = []
-        for log in self._image_logs:
-            if log['status_code'] > 399:
-                self.missing_imgs_log.append(log)
-
-        self.missing_mlms_log = []
-        for log in self._mlm_logs:
-            if log['status_code'] > 399:
-                self.missing_mlms_log.append(log)
-
-        self.missing_csses_log = []
-        for log in self._css_logs:
-            if 'status_code' in log:
-                if log['status_code'] > 399:
-                    self.missing_csses_log.append(log)
 
     def calculate_image_damage(self):
         self._logger.info('Calculating damage for Image(s)')
@@ -954,7 +906,12 @@ class MementoDamageAnalysis(object):
         h = log['height']
 
         importance, location_importance, size_importance = self._calculate_block_importance(
-            (x, y), (w, h), (viewport_w, viewport_h), (centrality_weight, size_weight))
+            (x, y), (w, h), (viewport_w, viewport_h), (centrality_weight, size_weight),
+            alt_coverage=log['coverage'] if 'coverage' in log else None)
+
+        if not log['important']:
+            location_importance = 0.0
+
         importances.append((location_importance, size_importance, importance))
 
         return importances

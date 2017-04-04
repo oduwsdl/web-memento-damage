@@ -50,6 +50,7 @@ phantom.injectJs('md5.js');
 phantom.injectJs('underscore.js');
 phantom.injectJs('jquery-3.1.0.min.js')
 phantom.injectJs('isInViewport.min.js')
+phantom.injectJs('plugin.js')
 phantom.injectJs('mimetype.js');
 
 var networkResources = {};
@@ -236,7 +237,8 @@ else {
             // Use setTimeout to delay process
             // Timeout in ms, means 200 ms
             window.setTimeout(function () {
-                if (page.injectJs('jquery-3.1.0.min.js') && page.injectJs('underscore.js') && page.injectJs('isInViewport.min.js')) {
+                if (page.injectJs('jquery-3.1.0.min.js') && page.injectJs('underscore.js') &&
+                        page.injectJs('isInViewport.min.js') && page.injectJs('plugin.js')) {
                     // Calculate bgcolor
                     var bgcolor = getBackgroundColor();
                     // If bgcolor == 000000 -> change it to white
@@ -416,19 +418,6 @@ function processIframe(url, outputDir) {
 
                 if(this.src) {
                     var src = this.src;
-
-                    var visible = false;
-                    if ($(this).is(':visible') || $(this).is(':not(:hidden)')) {
-                        visible = true;
-                    }
-
-                    var cs = getComputedStyle(this);
-                    if (cs['visibility'] == '' || cs['visibility'] == 'visible') {
-                        visible = true;
-                    } else if(cs['visibility'] == 'hidden') {
-                        visible = false;
-                    }
-
                     iframeLog[src] = {
                         'url': src,
                         'parent': parentSrc,
@@ -436,11 +425,13 @@ function processIframe(url, outputDir) {
                         'left': l,
                         'width': w,
                         'height': h,
-                        'visible': visible
+                        'visible': $(this).isVisible()
                     }
                 }
 
-                findIframeIn(this.contentDocument, src, l, t);
+                try {
+                    findIframeIn(this.contentDocument, src, l, t);
+                } catch(e) {}
             });
         }
 
@@ -501,73 +492,52 @@ function processIframe(url, outputDir) {
     if(logLevel <= Log.INFO) console.log('Processing iframes --> creating ' + resourceIFrameFile);
 }
 
-function processImagesInFrame() {
-    // Get images using document.images
-    // document.images also can be execute in browser console
-    var images = page.evaluate(function () {
-        var allImages = {};
-        var documentImages = document.images;
-
-        for(var i=0; i<documentImages.length; i++) {
-            var docImage = documentImages[i];
-
-            // Make defaults value
-            allImages[docImage['src']] = {};
-            allImages[docImage['src']]['url'] = docImage['src'];
-            allImages[docImage['src']]['rectangles'] = [];
-        }
-
-        for(var i=0; i<documentImages.length; i++) {
-            var docImage = documentImages[i];
-
-            // Calculate vieport size
-            allImages[docImage['src']]['viewport_size'] = [
-                docImage.ownerDocument.body.clientWidth,
-                docImage.ownerDocument.body.clientHeight
-            ];
-
-            // get the height and width of each element
-            var width = $(docImage).outerWidth(false);         // source: http://stackoverflow.com/questions/9276633/get-absolute-height-and-width
-            var height = $(docImage).outerHeight(false);
-
-            // calculate absolute top-left position of the object --> find the coordinate
-            var top = $(docImage).offset().top;
-            var left = $(docImage).offset().left;
-
-            rectangle = {
-                'width' : width,
-                'height' : height,
-                'top' : top,
-                'left' : left,
-            }
-
-            allImages[docImage['src']]['rectangles'].push(rectangle);
-        }
-
-        return allImages;
-    }) || {};
-
-    return images;
-}
-
 function processImages(url, outputDir) {
-    var images = processImagesInFrame();
-    for(var f=0; f<page.framesCount; f++) {
-        if(!_.includes(page.framesName[f], 'fb_') && !_.includes(page.framesName[f], 'twitter-')) {
-            page.switchToFrame(page.framesName[f]);
-            var imagesFrame = processImagesInFrame();
-            _.extend(images, imagesFrame);
-        }
-    }
     page.switchToMainFrame();
+    var images = page.evaluate(function() {
+        var allImages = {};
 
-//    var networkImages = joinDocumentAndNetworkResources(images, 'image/')
-//
-//    // Set default value
-//    for (nUrl in networkImages) {
-//        networkImages[nUrl]['viewport_size'] = networkImages[nUrl]['viewport_size'] || viewportSize;
-//        networkImages[nUrl]['rectangles'] = networkImages[nUrl]['rectangles'] || [];
-//    }
+        function findIframeIn(parent, parentLeft, parentTop) {
+            $(parent).find('img').each(function(idx, el) {
+                // get the height and width of each element
+                // source: http://stackoverflow.com/questions/9276633/get-absolute-height-and-width
+                var width = $(this).outerWidth(false);
+                var height = $(this).outerHeight(false);
+                var top = parentTop + ($(this).offset().top || 0);
+                var left = parentLeft + ($(this).offset().left || 0);
+
+                rectangle = {
+                    'width' : width,
+                    'height' : height,
+                    'top' : top,
+                    'left' : left,
+                }
+
+                if (! (this['src'] in allImages)) allImages[this['src']] = {};
+                if (! ('rectangles' in allImages[this['src']])) allImages[this['src']]['rectangles'] = [];
+                allImages[this['src']]['url'] = this['src'];
+//                allImages[this['src']]['viewport_size'] = viewportSize;
+                allImages[this['src']]['rectangles'].push(rectangle);
+                allImages[this['src']]['visible'] = $(this).isVisible();
+            });
+
+            $(parent).find('frame,iframe').each(function(idx, el) {
+                var t = parentTop + ($(this).offset().top || 0);
+                var l = parentLeft + ($(this).offset().left || 0);
+
+                try {
+                    findIframeIn(this.contentDocument, l, t);
+                } catch(e) {}
+            });
+        }
+
+        findIframeIn('body', 0, 0);
+        return allImages;
+    });
+
+    for (var url in images) {
+        images[url]['viewport_size'] = viewportSize;
+    }
 
     // Save all resource images
     var values = [];
@@ -653,14 +623,6 @@ function processMultimedias(url, outputDir) {
     }
     page.switchToMainFrame();
 
-//    var networkVideos = joinDocumentAndNetworkResources(videos, 'video/')
-//
-//    // Set default value
-//    for (nUrl in networkVideos) {
-//        networkVideos[nUrl]['viewport_size'] = networkVideos[nUrl]['viewport_size'] || viewportSize;
-//        networkVideos[nUrl]['rectangles'] = networkVideos[nUrl]['rectangles'] || [];
-//    }
-
     // Save all resource images
     var networkVideosValues = []
     var networkVideosKeys = Object.keys(videos);
@@ -742,24 +704,6 @@ function processCsses(url, outputDir) {
     }
     page.switchToMainFrame();
 
-//    // Check css url == resource url, append position if same
-//    var networkCsses = []
-//    var networkResourcesKeys = Object.keys(networkResources);
-//    for(var i=0; i<csses.length; i++) {
-//        var css = csses[i];
-//
-//        if('hash' in css) css['hash'] = md5(css['hash']);
-//        if(! ('rules_tag' in css)) css['rules_tag'] = [];
-//
-//        idx = _.indexOf(networkResourcesKeys, css['url']);
-//        if(idx >= 0) {
-//            var networkCss = networkResources[networkResourcesKeys[idx]];
-//            css = _.extend(css, networkCss);
-//        }
-//
-//        networkCsses.push(css);
-//    }
-
     // Save all resource csses
     // var resourceCssFile = path.join(resourceDir, resourceBasename + '.css.log');
     networkCssValues = []
@@ -804,21 +748,6 @@ function processJavascripts(url, outputDir) {
     }
     page.switchToMainFrame();
 
-//    // Check css url == resource url, append position if same
-//    var networkJses = []
-//    var networkResourcesKeys = Object.keys(networkResources);
-//    for(var i=0; i<jses.length; i++) {
-//        var js = jses[i];
-//
-//        idx = _.indexOf(networkResourcesKeys, js['url']);
-//        if(idx >= 0) {
-//            var networkJs = networkResources[networkResourcesKeys[idx]];
-//            js = _.extend(js, networkJs);
-//        }
-//
-//        networkJses.push(js);
-//    }
-
     // Save all resource csses
     // var resourceCssFile = path.join(resourceDir, resourceBasename + '.css.log');
     networkJsValues = []
@@ -841,8 +770,6 @@ function processScreenshots(url, outputDir) {
 
 function processTextInFrame() {
     var textLog = page.evaluate(function() {
-        // $.noConflict();
-
         var allElements = {};
         var textLog = {};
         $('body').find('*').each(function(idx, el) {
@@ -861,17 +788,6 @@ function processTextInFrame() {
 
             allElements[idx] = this;
 
-            var visible = false;
-            if ($(this).is(':visible') || $(this).is(':not(:hidden)')) {
-                visible = true;
-            }
-
-            if (originalCs['visibility'] == '' || originalCs['visibility'] == 'visible') {
-                visible = true;
-            } else if(originalCs['visibility'] == 'hidden') {
-                visible = false;
-            }
-
             var inViewport = false;
             if ($(this).is(':in-viewport')) {
                 inViewport = true;
@@ -886,9 +802,9 @@ function processTextInFrame() {
             textLog[idx] = {
                 'id': idx,
                 'html': $("<div>").text(outerHTML).html(),
-                'tag': $("<div>").text(outerTag).html(),
+                'tag': this.tagName,
                 'original-text': originalText.trim(),
-                'visible': visible,
+                'visible': $(this).isVisible(),
                 'in-viewport': inViewport,
                 'text': text.trim(),
                 'top': curtop,
