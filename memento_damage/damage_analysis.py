@@ -2,6 +2,7 @@ import io
 import json
 import math
 import os
+import urllib
 import urlparse
 import httplib
 from collections import namedtuple
@@ -47,7 +48,7 @@ class MementoDamageAnalysis(object):
             u' '.join([line.strip() for line in io.open(memento_damage.html_file, encoding="utf-8").readlines()]))
         logs = [json.loads(log, strict=False) for log in
                 io.open(memento_damage.network_log_file, encoding="utf-8").readlines()]
-        self._network_logs = {log['url'].lower(): log for log in logs}
+        self._network_logs = {urllib.unquote(log['url'].lower()): log for log in logs}
         self._image_logs = [json.loads(log, strict=False) for log in
                             io.open(memento_damage.image_log_file, encoding="utf-8").readlines()]
         self._css_logs = [json.loads(log, strict=False) for log in
@@ -130,6 +131,7 @@ class MementoDamageAnalysis(object):
 
         if 'url' in log:
             t_url = log['url'].lower()
+            t_url = urllib.unquote(t_url)
             while True:
                 a = zip(*redirect_urls)
                 if len(a) > 0 and t_url in a[0]:
@@ -279,7 +281,7 @@ class MementoDamageAnalysis(object):
         if len(self.redirect_urls) > 0:
             final_uri, final_status_code, content_type = self.redirect_urls[len(self.redirect_urls) - 1]
         else:
-            final_uri, final_status_code, content_type = self.memento_damage.uri, None
+            final_uri, final_status_code = self.memento_damage.uri, 200
 
         # if (not final_status_code) or (final_status_code == 404):
         #     total_damage = 1
@@ -909,7 +911,7 @@ class MementoDamageAnalysis(object):
             (x, y), (w, h), (viewport_w, viewport_h), (centrality_weight, size_weight),
             alt_coverage=log['coverage'] if 'coverage' in log else None)
 
-        if not log['important']:
+        if 'important' in log and not log['important']:
             location_importance = 0.0
 
         importances.append((location_importance, size_importance, importance))
