@@ -157,7 +157,12 @@ class MementoDamage(object):
             res = urllib.urlopen(self.uri)
             http_message = res.info()
             mimetype = http_message.type
-        except:
+        except IOError, e:
+            self._result['uri'] = self.uri
+            self._result['error'] = True
+            self._result['message'] = e.strerror.strerror
+            return
+        except Exception, e:
             mimetype, encoding = mimetypes.guess_type(self.uri)
 
         if mimetype and 'html' not in mimetype:
