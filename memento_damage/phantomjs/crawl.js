@@ -146,7 +146,7 @@ else {
 
         else if(pageStatusCode != null && pageStatusCode != 200) {
             isAborted = true;
-            abortMessage = 'Page status is ' + HTTP_STATUS_CODES[pageStatusCode] + '(' + pageStatusCode + ')';
+            abortMessage = 'Web page status is ' + HTTP_STATUS_CODES[pageStatusCode] + '(' + pageStatusCode + ')';
             req.abort();
         }
     };
@@ -211,7 +211,7 @@ else {
 
     page.onLoadFinished = function (status) {
         if(isAborted) {
-            processPage(url, outputDir);
+            //processPage(url, outputDir);
 
             //? what's the difference between console.log vs console.error?
             //? where can I find this 'crawl-result' print out?
