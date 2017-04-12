@@ -46,9 +46,13 @@ class MementoDamageAnalysis(object):
         h.ignore_links = True
         self._text = h.handle(
             u' '.join([line.strip() for line in io.open(memento_damage.html_file, encoding="utf-8").readlines()]))
+
         logs = [json.loads(log, strict=False) for log in
                 io.open(memento_damage.network_log_file, encoding="utf-8").readlines()]
+        for i in range(len(logs)):
+            logs[i]['url'] = urllib.unquote(logs[i]['url'])
         self._network_logs = {urllib.unquote(log['url'].lower()): log for log in logs}
+
         self._image_logs = [json.loads(log, strict=False) for log in
                             io.open(memento_damage.image_log_file, encoding="utf-8").readlines()]
         self._css_logs = [json.loads(log, strict=False) for log in
@@ -95,10 +99,10 @@ class MementoDamageAnalysis(object):
     def detect_redirection(self):
         reverse_redirection_mapping = {}
         for url, log in self._network_logs.items():
-            if log['status_code'] in [301, 302] and 'headers' in log and 'Location' in log['headers']:
+            if log['status_code'] in [301, 302, 307, 308] and 'headers' in log and 'Location' in log['headers']:
                 redirect_url = urlparse.urljoin(url.lower(), log['headers']['Location'].lower())
-                self.redirection_mapping[url.lower()] = redirect_url
-                reverse_redirection_mapping[redirect_url] = url.lower()
+                self.redirection_mapping[urllib.unquote(url.lower())] = urllib.unquote(redirect_url)
+                reverse_redirection_mapping[urllib.unquote(redirect_url)] = urllib.unquote(url.lower())
 
         self.redirect_urls = self._detect_redirection({'url': self.memento_damage.uri}, self.redirection_mapping)
 

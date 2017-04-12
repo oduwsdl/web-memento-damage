@@ -134,13 +134,17 @@ else {
     page.onResourceRequested = function(res, req) {
         if(isAborted) req.abort();
 
-        if(pageStatusCode === 301 || pageStatusCode === 302) {
+        if(pageStatusCode === 301 || pageStatusCode === 302 || pageStatusCode === 307 || pageStatusCode === 308) {
             if(!followRedirect) {
                 isAborted = true;
                 if(pageStatusCode === 301) {
                     abortMessage = 'Page is moved permanently (Status code 301)';
                 } else if(pageStatusCode === 302) {
                     abortMessage = 'Page is found, but redirected (Status code 302)';
+                } else if(pageStatusCode === 307) {
+                    abortMessage = 'Page is temporary redirect (Status code 307)';
+                } else if(pageStatusCode === 308) {
+                    abortMessage = 'Page is permanent redirect (Status code 308)';
                 }
                 req.abort();
             }
