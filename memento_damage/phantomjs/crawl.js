@@ -134,17 +134,17 @@ else {
     page.onResourceRequested = function(res, req) {
         if(isAborted) req.abort();
 
-        if(!followRedirect && (pageStatusCode === 301 || pageStatusCode === 302)) {
-            isAborted = true;
-            if(pageStatusCode === 301) {
-                abortMessage = 'Page is moved permanently (Status code 301)';
-            } else if(pageStatusCode === 302) {
-                abortMessage = 'Page is found, but redirected (Status code 302)';
+        if(pageStatusCode === 301 || pageStatusCode === 302) {
+            if(!followRedirect) {
+                isAborted = true;
+                if(pageStatusCode === 301) {
+                    abortMessage = 'Page is moved permanently (Status code 301)';
+                } else if(pageStatusCode === 302) {
+                    abortMessage = 'Page is found, but redirected (Status code 302)';
+                }
+                req.abort();
             }
-            req.abort();
-        }
-
-        else if(pageStatusCode != null && pageStatusCode != 200) {
+        } else if(pageStatusCode != null && pageStatusCode != 200) {
             isAborted = true;
             abortMessage = 'Web page status is ' + HTTP_STATUS_CODES[pageStatusCode] + '(' + pageStatusCode + ')';
             req.abort();
