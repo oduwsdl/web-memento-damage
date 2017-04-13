@@ -86,7 +86,8 @@ class MementoDamage(object):
             wrc_url = '/'.join(wrc_comps[3:])
             new_uri = 'https://wbrc.io/{}/{}/{}id_/{}'.format(user, project, date, wrc_url)
             self.uri = new_uri
-
+    
+    # set level of the logger. 
     def setup_logger(self):
         if self._info:
             self.logger.setLevel(logging.INFO)
