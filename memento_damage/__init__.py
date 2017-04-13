@@ -168,7 +168,7 @@ class MementoDamage(object):
         if mimetype and 'html' not in mimetype:
             self._result['uri'] = self.uri
             self._result['error'] = True
-            self._result['message'] = 'URI must be in HTML format'
+            self._result['message'] = 'This is not an HTML page'
             return
 
         self.request_time = datetime.now()
