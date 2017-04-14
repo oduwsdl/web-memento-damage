@@ -46,7 +46,7 @@ String.prototype.endsWith = function(suffix) {
 var system = require('system');
 var fs = require('fs');
 var page = require('webpage').create();
-page.settings.userAgent = 'memento-damage research <@WebSciDL>';    // setting user-agent
+page.settings.userAgent = 'memento-damage research ODU <@WebSciDL>';    // setting user-agent
 
 console.error = function () {
     require("system").stderr.write(Array.prototype.join.call(arguments, ' ') + '\n');
