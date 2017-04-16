@@ -197,7 +197,7 @@ class MementoDamage(object):
                     self.response_time = datetime.now()
 
                     if not self._result['error']:
-                        self._result['message'] = 'Calculation is finished in {} seconds'.format(
+                        self._result['message'] = 'The damage calculation took {} seconds'.format(
                             (self.response_time - self.request_time).seconds)
                         self._result['timer'] = {
                             'request_time': (self.request_time - datetime(1970, 1, 1)).total_seconds(),
