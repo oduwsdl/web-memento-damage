@@ -55,6 +55,7 @@ class MementoDamageAnalysis(object):
 
         self._image_logs = [json.loads(log, strict=False) for log in
                             io.open(memento_damage.image_log_file, encoding="utf-8").readlines()]
+        print('image_logs adalah = {}'.format(self._image_logs))
         self._css_logs = [json.loads(log, strict=False) for log in
                           io.open(memento_damage.css_log_file, encoding="utf-8").readlines()]
         self._js_logs = [json.loads(log, strict=False) for log in
@@ -71,6 +72,7 @@ class MementoDamageAnalysis(object):
         self.viewport_size = self.memento_damage.viewport_size
         im = Image.open(self.memento_damage.screenshot_file)
         self.page_size = im.size
+        print "self page size = ", self.page_size
 
         self._logger = self.memento_damage.logger
 
@@ -101,34 +103,49 @@ class MementoDamageAnalysis(object):
         for url, log in self._network_logs.items():
             if log['status_code'] in [301, 302, 307, 308] and 'headers' in log and 'Location' in log['headers']:
                 redirect_url = urlparse.urljoin(url.lower(), log['headers']['Location'].lower())
+                # print('url.lower adalah = {}'.format(url.lower()))
+                # print('headers location adalah = {}'.format(log['headers']['Location'].lower()))
+                print('redirect_url adalah = {}'.format(redirect_url))
                 self.redirection_mapping[urllib.unquote(url.lower())] = urllib.unquote(redirect_url)
                 reverse_redirection_mapping[urllib.unquote(redirect_url)] = urllib.unquote(url.lower())
 
+        print('redirection mapping adalah = {}'.format(self.redirection_mapping))
+        print('reverse_redirection_mapping adalah = {}'.format(reverse_redirection_mapping))
         self.redirect_urls = self._detect_redirection({'url': self.memento_damage.uri}, self.redirection_mapping)
+        print('redirect_urls detect_redirection adalah = {}'.format(self.redirect_urls))
+        print("log redirect adalah = {}".format({'url': self.memento_damage.uri}))
+
+        print('enumerate image logs adalah = {}'.format(enumerate(self._image_logs)))
 
         for idx, log in enumerate(self._image_logs):
             redirect_urls = self._detect_redirection(log, self.redirection_mapping)
             self._image_logs[idx]['redirect_urls'] = redirect_urls
+        print('redirect_urls image adalah = {}'.format(redirect_urls))
 
         for idx, log in enumerate(self._css_logs):
             redirect_urls = self._detect_redirection(log, self.redirection_mapping)
             self._css_logs[idx]['redirect_urls'] = redirect_urls
+        print('redirect_urls css adalah = {}'.format(redirect_urls))
 
         for idx, log in enumerate(self._js_logs):
             redirect_urls = self._detect_redirection(log, self.redirection_mapping)
             self._js_logs[idx]['redirect_urls'] = redirect_urls
+        print('redirect_urls js adalah = {}'.format(redirect_urls))
 
         for idx, log in enumerate(self._mlm_logs):
             redirect_urls = self._detect_redirection(log, self.redirection_mapping)
             self._mlm_logs[idx]['redirect_urls'] = redirect_urls
+        print('redirect_urls mlm_logs adalah = {}'.format(redirect_urls))
 
         for idx, log in enumerate(self._text_logs):
             redirect_urls = self._detect_redirection(log, self.redirection_mapping)
             self._text_logs[idx]['redirect_urls'] = redirect_urls
+        print('redirect_urls text adalah = {}'.format(redirect_urls))
 
         for idx, log in enumerate(self._iframe_logs):
             redirect_urls = self._detect_redirection(log, self.redirection_mapping)
             self._iframe_logs[idx]['redirect_urls'] = redirect_urls
+        print('redirect_urls iframe adalah = {}'.format(redirect_urls))
 
     def _detect_redirection(self, log, redirection_mapping):
         redirect_urls = []
@@ -138,6 +155,7 @@ class MementoDamageAnalysis(object):
             t_url = urllib.unquote(t_url)
             while True:
                 a = zip(*redirect_urls)
+                print('a = {} with len = {}'.format(a, len(a)))
                 if len(a) > 0 and t_url in a[0]:
                     break
 
@@ -150,6 +168,7 @@ class MementoDamageAnalysis(object):
                 else:
                     break
 
+        print('redirect_urls _detect_redireg adalah = {}'.format(redirect_urls))
         return redirect_urls
 
     def remove_blacklisted_uris(self):
@@ -640,47 +659,49 @@ class MementoDamageAnalysis(object):
     def calculate_text_damage(self):
         self._logger.info('Calculating damage for Text(s)')
 
-        # num_words_of_text = len(self._text.split())
-        # total_text_damage = float(num_words_of_text) / self.words_per_image
-        #
-        # self._text_logs['num_words'] = num_words_of_text
-        # self._text_logs['words_per_image'] = self.words_per_image
-
-        total_potential_damage = 0.0
+        num_words = len(self._text.split())
+        total_potential_damage = float(num_words) / self.words_per_image
         total_actual_damage = 0.0
-        num_words = 0
 
-        for idx, log in enumerate(self._text_logs):
-            if len(log['text']) > 0:
-                text_damages = self._calculate_text_damage(log, use_viewport_size=True)
-                # Based on measureMemento.pl line 463
-                total_location_importance = 0
-                total_size_importance = 0
-                total_importance = 0
-                for location_importance, size_importance, importance in text_damages:
-                    total_location_importance += location_importance
-                    total_size_importance += size_importance
-                    total_importance += importance
+        self._text_logs = {}
+        self._text_logs['num_words'] = num_words
+        self._text_logs['words_per_image'] = self.words_per_image
 
-                total_potential_damage += total_importance
-                num_words += len(log['text'])
-
-                self._text_logs[idx]['potential_damage'] = {
-                    'location': total_location_importance,
-                    'size': total_size_importance,
-                    'total': total_importance
-                }
-            else:
-                try:
-                    self._text_logs.pop(idx)
-                except:
-                    pass
-
-        self._logger.info('Potential damage of {} is {}'.format('"text"', total_potential_damage))
-        self._logger.info('Actual damage of {} is {}'.format('"text"', total_actual_damage))
+        # total_potential_damage = 0.0
+        # total_actual_damage = 0.0
+        # num_words = 0
+        #
+        # for idx, log in enumerate(self._text_logs):
+        #     if len(log['text']) > 0:
+        #         text_damages = self._calculate_text_damage(log, use_viewport_size=True)
+        #         # Based on measureMemento.pl line 463
+        #         total_location_importance = 0
+        #         total_size_importance = 0
+        #         total_importance = 0
+        #         for location_importance, size_importance, importance in text_damages:
+        #             total_location_importance += location_importance
+        #             total_size_importance += size_importance
+        #             total_importance += importance
+        #
+        #         total_potential_damage += total_importance
+        #         num_words += len(log['text'])
+        #
+        #         self._text_logs[idx]['potential_damage'] = {
+        #             'location': total_location_importance,
+        #             'size': total_size_importance,
+        #             'total': total_importance
+        #         }
+        #     else:
+        #         try:
+        #             self._text_logs.pop(idx)
+        #         except:
+        #             pass
 
         self._potential_text_damage = total_potential_damage * self.text_weight
         self._actual_text_damage = total_actual_damage * self.text_weight
+
+        self._logger.info('Potential damage of {} is {}'.format('"text"', self._potential_text_damage))
+        self._logger.info('Actual damage of {} is {}'.format('"text"', self._actual_text_damage))
 
         self._logger.info('Calculating damage for Text(s) is Done')
 
