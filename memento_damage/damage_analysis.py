@@ -1022,31 +1022,14 @@ class MementoDamageAnalysis(object):
         location_importance = 0.0
         size_importance = 0.0
 
-        # New algorithm, need to be tested
-        '''
-        if x and y and w and h:
-            text_middle_x = float(x + w) / 2
-            text_middle_y = float(y + h) / 2
-
-            if float(x + w) >= 0.0 and float(y + h) >= 0.0:
-                distance_x = abs(middle_x - text_middle_x)
-                distance_y = abs(middle_y - text_middle_y)
-
-                prop_x = (middle_x - distance_x) / middle_x
-                prop_y = (middle_y - distance_y) / middle_y
-
-                location_importance += prop_x * (centrality_weight / 2)
-                location_importance += prop_y * (centrality_weight / 2)
-        '''
-
         # Location Importance
         # Based on measureMemento.pl line 703
         if (x + w) > middle_x and x < middle_x:  # if it crosses the vertical center
-            location_importance += location_weight / 2;
+            location_importance = location_weight / 2;
 
         # Based on measureMemento.pl line 715
         if (y + h) > middle_y and y < middle_y:  # if it crosses the horizontal center
-            location_importance += location_weight / 2;
+            location_importance = location_weight / 2;
 
         # Size Importance
         coverage = float(w) * h
