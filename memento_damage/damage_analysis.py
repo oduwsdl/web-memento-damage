@@ -16,8 +16,6 @@ from PIL import Image
 from memento_damage.tools import rectangle_intersection_area
 
 
-Rectangle = namedtuple('Rectangle', 'xmin ymin xmax ymax')
-
 class MementoDamageAnalysis(object):
     image_importance = {}
     css_importance = 0
@@ -36,11 +34,8 @@ class MementoDamageAnalysis(object):
 
     blacklisted_uris = [
         'https://analytics.archive.org/',
-        'http://analytics.archive.org/',
-        'https://web.archive.org/static',
-        'http://web.archive.org/static',
         '[INTERNAL]',
-        'data:',
+        'data:'
     ]
 
     def __init__(self, memento_damage):
@@ -60,6 +55,7 @@ class MementoDamageAnalysis(object):
 
         self._image_logs = [json.loads(log, strict=False) for log in
                             io.open(memento_damage.image_log_file, encoding="utf-8").readlines()]
+        print('image_logs adalah = {}'.format(self._image_logs))
         self._css_logs = [json.loads(log, strict=False) for log in
                           io.open(memento_damage.css_log_file, encoding="utf-8").readlines()]
         self._js_logs = [json.loads(log, strict=False) for log in
@@ -76,6 +72,7 @@ class MementoDamageAnalysis(object):
         self.viewport_size = self.memento_damage.viewport_size
         im = Image.open(self.memento_damage.screenshot_file)
         self.page_size = im.size
+        print "self page size = ", self.page_size
 
         self._logger = self.memento_damage.logger
 
@@ -84,7 +81,7 @@ class MementoDamageAnalysis(object):
         self.remove_blacklisted_uris()
         self.remove_hidden_elements()
         self.resolve_redirection()
-        self.calculate_percentage_coverage()
+        self._calculate_percentage_coverage()
 
         self._logger.info('Start calculating damage...')
 
@@ -171,7 +168,7 @@ class MementoDamageAnalysis(object):
                 else:
                     break
 
-        # print('redirect_urls _detect_redireg adalah = {}'.format(redirect_urls))
+        print('redirect_urls _detect_redireg adalah = {}'.format(redirect_urls))
         return redirect_urls
 
     def remove_blacklisted_uris(self):
@@ -394,116 +391,48 @@ class MementoDamageAnalysis(object):
 
         return is_blacklisted
 
-    def calculate_percentage_coverage(self):
+    def _calculate_percentage_coverage(self):
         im = Image.open(self.memento_damage.screenshot_file)
 
-        '''
-        ==================================================================
         # Coverage of images
-        ==================================================================
-        '''
-        # Make flatmap of image logs
-        flat_image_logs = []
-        for idx, log in enumerate(self._image_logs):
-            for r_idx, rect in enumerate(log['rectangles']):
-                rect.update({'url': log['url']})
-                flat_image_logs.append(rect)
-
-        for a, b in itertools.combinations(range(len(flat_image_logs)), 2):
-            # Detect image intersection
-            x1 = flat_image_logs[a]['left']
-            y1 = flat_image_logs[a]['top']
-            w1 = flat_image_logs[a]['width']
-            h1 = flat_image_logs[a]['height']
-            ra = Rectangle(x1, y1, x1 + w1, y1 + h1)
-
-            x2 = flat_image_logs[b]['left']
-            y2 = flat_image_logs[b]['top']
-            w2 = flat_image_logs[b]['width']
-            h2 = flat_image_logs[b]['height']
-            rb = Rectangle(x2, y2, x2 + w2, y2 + h2)
-
-            area = rectangle_intersection_area(ra, rb)
-            if area:
-                flat_image_logs[b]['coverage'] = float(w2) * h2 - area
-                if flat_image_logs[b]['coverage'] < area:
-                    flat_image_logs[b]['important'] = False
-
-        # Group flatmap of image logs by url
-        image_coverages = {}
-        for idx, log in enumerate(flat_image_logs):
-            image_coverages.setdefault(log['url'], 0)
-            if 'coverage' in log:
-                image_coverages[log['url']] += log['coverage']
-            else:
-                image_coverages[log['url']] += float(log['width']) * log['height']
-
         for idx, log in enumerate(self._image_logs):
             viewport_w, viewport_h = log['viewport_size']
+            image_coverage = 0
+            for rect in log['rectangles']:
+                w = rect['width']
+                h = rect['height']
+                image_coverage += (w * h)
+
             if float(viewport_w * viewport_h) <= 0:
                 # If javascript cannot calculate viewport size, use screenshot size,
                 # since, it is representation of webpage
                 viewport_w, viewport_h = im.size
 
-            self._image_logs[idx]['percentage_coverage'] = float(image_coverages[log['url']]) / \
-                                                           float(viewport_w * viewport_h)
+            pct_image_coverage = float(image_coverage) / \
+                                 float(viewport_w * viewport_h)
 
-        '''
-        ==================================================================
+            # if float(viewport_w * vieport_h) > 0:
+            #     pct_image_coverage = float(image_coverage) / \
+            #                          float(viewport_w * vieport_h)
+            # else: pct_image_coverage = 0.0
+
+            self._image_logs[idx]['percentage_coverage'] = pct_image_coverage
+
         # Coverage of videos
-        ==================================================================
-        '''
-        # Make flatmap of image logs
-        flat_mlm_logs = []
-        for idx, log in enumerate(self._mlm_logs):
-            for r_idx, rect in enumerate(log['rectangles']):
-                rect.update({'url': log['url']})
-                flat_mlm_logs.append(rect)
-
-        for a, b in itertools.combinations(range(len(flat_mlm_logs)), 2):
-            # Detect image intersection
-            x1 = flat_mlm_logs[a]['left']
-            y1 = flat_mlm_logs[a]['top']
-            w1 = flat_mlm_logs[a]['width']
-            h1 = flat_mlm_logs[a]['height']
-            ra = Rectangle(x1, y1, x1 + w1, y1 + h1)
-
-            x2 = flat_mlm_logs[b]['left']
-            y2 = flat_mlm_logs[b]['top']
-            w2 = flat_mlm_logs[b]['width']
-            h2 = flat_mlm_logs[b]['height']
-            rb = Rectangle(x2, y2, x2 + w2, y2 + h2)
-
-            area = rectangle_intersection_area(ra, rb)
-            if area:
-                flat_mlm_logs[b]['coverage'] = float(w2) * h2 - area
-                if flat_mlm_logs[b]['coverage'] < area:
-                    flat_mlm_logs[b]['important'] = False
-
-        # Group flatmap of image logs by url
-        image_coverages = {}
-        for idx, log in enumerate(flat_mlm_logs):
-            image_coverages.setdefault(log['url'], 0)
-            if 'coverage' in log:
-                image_coverages[log['url']] += log['coverage']
-            else:
-                image_coverages[log['url']] += float(log['width']) * log['height']
-
         for idx, log in enumerate(self._mlm_logs):
             viewport_w, viewport_h = log['viewport_size']
-            if float(viewport_w * viewport_h) <= 0:
-                # If javascript cannot calculate viewport size, use screenshot size,
-                # since, it is representation of webpage
-                viewport_w, viewport_h = im.size
+            mlm_coverage = 0
+            for rect in log['rectangles']:
+                w = rect['width']
+                h = rect['height']
+                mlm_coverage += (w * h)
 
-            self._mlm_logs[idx]['percentage_coverage'] = float(image_coverages[log['url']]) / \
-                                                           float(viewport_w * viewport_h)
+            pct_mlm_coverage = float(mlm_coverage) / \
+                               float(viewport_w * viewport_h)
+            self._mlm_logs[idx]['percentage_coverage'] = pct_mlm_coverage
 
-        '''
-        ==================================================================
         # Coverage of iframes
-        ==================================================================
-        '''
+        Rectangle = namedtuple('Rectangle', 'xmin ymin xmax ymax')
         for a, b in itertools.combinations(range(len(self._iframe_logs)), 2):
             # Detect iframe intersection
             x1 = self._iframe_logs[a]['left']
