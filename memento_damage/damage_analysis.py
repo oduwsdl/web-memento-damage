@@ -954,11 +954,11 @@ class MementoDamageAnalysis(object):
         # Location Importance
         # Based on measureMemento.pl line 703
         if (x + w) > middle_x and x < middle_x:  # if it crosses the vertical center
-            location_importance = location_weight / 2;
+            location_importance += location_weight / 2;
 
         # Based on measureMemento.pl line 715
         if (y + h) > middle_y and y < middle_y:  # if it crosses the horizontal center
-            location_importance = location_weight / 2;
+            location_importance += location_weight / 2;
 
         # Size Importance
         coverage = float(w) * h
