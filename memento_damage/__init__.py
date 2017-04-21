@@ -176,15 +176,15 @@ class MementoDamage(object):
 
         self.request_time = datetime.now()
         if re_run:
-            # Crawl page with phantomjs crawl.js via arguments
-            # Equivalent with console:
-            phantomjs = os.getenv('PHANTOMJS', 'phantomjs')
-
-            pjs_cmd = [phantomjs, '--ssl-protocol=any', '--ignore-ssl-errors=true', '--output-encoding=utf8',
+            # Crawl page with phantomjs crawl.js via arguments. Equivalent with console
+            # Argument used in crawl.js
+            # <URI> <output_dir> [redirect] [viewport_w x viewport_h] [log_level] [timeout_seconds]
+            pjs_cmd = ['phantomjs', '--ssl-protocol=any', '--ignore-ssl-errors=true', '--output-encoding=utf8',
                        '--web-security=false', self._crawljs_script, self.uri, self.output_dir,
-                       str(self._follow_redirection), '{}x{}'.format(*self.viewport_size), str(self.logger.level)]
+                       str(self._follow_redirection), '{}x{}'.format(*self.viewport_size), str(self.logger.level),
+                       str(10 * 60)]
             cmd = Command(pjs_cmd, pipe_stdout_callback=self.log_stdout, pipe_stderr_callback=self.log_stderr)
-            err_code = cmd.run(10 * 60,
+            err_code = cmd.run(11 * 60,
                                stdout_callback_args=(self.log_output,),
                                stderr_callback_args=(self.log_error,))
 

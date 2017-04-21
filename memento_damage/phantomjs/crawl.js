@@ -67,8 +67,9 @@ var Log = {'DEBUG': 10, 'INFO': 20};
 var starttime = Date.now();
 
 // If number of arguments after crawl.js is not 2, show message and exit phantomjs
+// uri, output_dir, follow_redirection, viewport_size, logger_level
 if (system.args.length < 3) {
-    console.error('Usage: phantomjs crawl.js <URI> <output_dir> [redirect] [viewport_w x viewport_h] [log_level]');
+    console.error('Usage: phantomjs crawl.js <URI> <output_dir> [redirect] [viewport_w x viewport_h] [log_level] [timeout]');
     phantom.exit(1);
 }
 
@@ -81,6 +82,7 @@ else {
     followRedirect = false;
     viewportSize = [1024, 768];
     logLevel = Log.DEBUG;
+    timeout = 5 * 60;
 
     if(system.args.length >= 4) {
         followRedirect = (system.args[3].toLowerCase() == 'true' || system.args[3] == '1');
@@ -95,6 +97,10 @@ else {
 
     if(system.args.length >= 6) {
         logLevel = parseInt(system.args[5]);
+    }
+
+    if(system.args.length >= 7) {
+        timeout = parseInt(system.args[6]);
     }
 
     // Set timeout on fetching resources to 30 seconds (can be changed)
@@ -289,7 +295,7 @@ else {
     // Kill crawl.js, after 5 minutes not responding
     window.setTimeout(function () {
         phantom.exit(1);
-    }, 5 * 60 * 1000);
+    }, timeout * 1000);
 
     // Open URI
     if(logLevel <= Log.INFO) console.log('Start crawling URI ' + url);
