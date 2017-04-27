@@ -1,0 +1,3 @@
+docker run -itPd -m 2g -e PORT=8888 -v /data/esiregar:/app/cache --net
+=host --name=memento-damage-test erikaris/memento-damage:latest /app/entrypoint
+.sh
