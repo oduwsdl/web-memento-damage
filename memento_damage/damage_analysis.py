@@ -158,7 +158,7 @@ class MementoDamageAnalysis(object):
             t_url = urllib.unquote(t_url)
             while True:
                 a = zip(*redirect_urls)
-                print('a = {} with len = {}'.format(a, len(a)))
+                #print('a = {} with len = {}'.format(a, len(a)))
                 if len(a) > 0 and t_url in a[0]:
                     break
 
@@ -1060,4 +1060,5 @@ class MementoDamageAnalysis(object):
         return location_importance + size_importance, location_importance, size_importance
 
     def _rgb2hex(self, r, g, b):
+        print ' print format adalah {:02x}{:02x}{:02x}'.format(r, g, b).upper()
         return '{:02x}{:02x}{:02x}'.format(r, g, b).upper()
