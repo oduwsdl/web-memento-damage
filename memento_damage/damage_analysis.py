@@ -106,49 +106,34 @@ class MementoDamageAnalysis(object):
         for url, log in self._network_logs.items():
             if log['status_code'] in [301, 302, 307, 308] and 'headers' in log and 'Location' in log['headers']:
                 redirect_url = urlparse.urljoin(url.lower(), log['headers']['Location'].lower())
-                # print('url.lower adalah = {}'.format(url.lower()))
-                # print('headers location adalah = {}'.format(log['headers']['Location'].lower()))
-                # print('redirect_url adalah = {}'.format(redirect_url))
                 self.redirection_mapping[urllib.unquote(url.lower())] = urllib.unquote(redirect_url)
                 reverse_redirection_mapping[urllib.unquote(redirect_url)] = urllib.unquote(url.lower())
 
-        # print('redirection mapping adalah = {}'.format(self.redirection_mapping))
-        # print('reverse_redirection_mapping adalah = {}'.format(reverse_redirection_mapping))
         self.redirect_urls = self._detect_redirection({'url': self.memento_damage.uri}, self.redirection_mapping)
-        # print('redirect_urls detect_redirection adalah = {}'.format(self.redirect_urls))
-        # print("log redirect adalah = {}".format({'url': self.memento_damage.uri}))
-
-        # print('enumerate image logs adalah = {}'.format(enumerate(self._image_logs)))
 
         for idx, log in enumerate(self._image_logs):
             redirect_urls = self._detect_redirection(log, self.redirection_mapping)
             self._image_logs[idx]['redirect_urls'] = redirect_urls
-            # print('redirect_urls image adalah = {}'.format(redirect_urls))
 
         for idx, log in enumerate(self._css_logs):
             redirect_urls = self._detect_redirection(log, self.redirection_mapping)
             self._css_logs[idx]['redirect_urls'] = redirect_urls
-            # print('redirect_urls css adalah = {}'.format(redirect_urls))
 
         for idx, log in enumerate(self._js_logs):
             redirect_urls = self._detect_redirection(log, self.redirection_mapping)
             self._js_logs[idx]['redirect_urls'] = redirect_urls
-            # print('redirect_urls js adalah = {}'.format(redirect_urls))
 
         for idx, log in enumerate(self._mlm_logs):
             redirect_urls = self._detect_redirection(log, self.redirection_mapping)
             self._mlm_logs[idx]['redirect_urls'] = redirect_urls
-            # print('redirect_urls mlm_logs adalah = {}'.format(redirect_urls))
 
         for idx, log in enumerate(self._text_logs):
             redirect_urls = self._detect_redirection(log, self.redirection_mapping)
             self._text_logs[idx]['redirect_urls'] = redirect_urls
-            # print('redirect_urls text adalah = {}'.format(redirect_urls))
 
         for idx, log in enumerate(self._iframe_logs):
             redirect_urls = self._detect_redirection(log, self.redirection_mapping)
             self._iframe_logs[idx]['redirect_urls'] = redirect_urls
-            # print('redirect_urls iframe adalah = {}'.format(redirect_urls))
 
     def _detect_redirection(self, log, redirection_mapping):
         redirect_urls = []
@@ -158,7 +143,6 @@ class MementoDamageAnalysis(object):
             t_url = urllib.unquote(t_url)
             while True:
                 a = zip(*redirect_urls)
-                #print('a = {} with len = {}'.format(a, len(a)))
                 if len(a) > 0 and t_url in a[0]:
                     break
 
@@ -171,7 +155,6 @@ class MementoDamageAnalysis(object):
                 else:
                     break
 
-        # print('redirect_urls _detect_redireg adalah = {}'.format(redirect_urls))
         return redirect_urls
 
     def remove_blacklisted_uris(self):
@@ -1060,5 +1043,4 @@ class MementoDamageAnalysis(object):
         return location_importance + size_importance, location_importance, size_importance
 
     def _rgb2hex(self, r, g, b):
-        print ' print format adalah {:02x}{:02x}{:02x}'.format(r, g, b).upper()
         return '{:02x}{:02x}{:02x}'.format(r, g, b).upper()

@@ -97,7 +97,6 @@ class MementoDamage(object):
             self.logger.setLevel(logging.ERROR)
 
     def log_stdout(self, out, write_fn):
-        #print "out = ", dir(out)
         if out and hasattr(out, 'readline'):
             for line in iter(out.readline, b''):
                 line = line.strip()
@@ -106,7 +105,6 @@ class MementoDamage(object):
             write_fn(out)
 
     def log_output(self, msg):
-        #print "msg adalah = ", msg
         if 'background_color' in msg:
             msg = json.loads(msg)
             if msg['background_color']:
@@ -224,7 +222,6 @@ class MementoDamage(object):
         return self._result
 
     def print_result(self):
-        # Print total damage
         if self._result:
             if not self._result['error']:
                 if self._mode == 'simple':
