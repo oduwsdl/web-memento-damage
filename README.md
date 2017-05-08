@@ -1,4 +1,4 @@
-https://docs.google.com/presentation/d/1sh8-9zQhLXGqSJWvE5QCK3ysCcCaGAim8pCoa4T-62I/edit?usp=sharing
+[comment]: https://docs.google.com/presentation/d/1sh8-9zQhLXGqSJWvE5QCK3ysCcCaGAim8pCoa4T-62I/edit?usp=sharing
 
 # Memento Damage
 
