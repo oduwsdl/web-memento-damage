@@ -1,5 +1,5 @@
 FROM soedomoto/docker:ubuntu-lxde
-MAINTAINER Erika Siregar <erikaris1515@gmail.com>
+LABEL maintainer="Grant Atkins <gatki001@odu.edu>"
 
 # Change ubuntu mirror
 RUN sed -i 's|http://archive.ubuntu.com/ubuntu/|mirror://mirrors.ubuntu.com/mirrors.txt|g' /etc/apt/sources.list
