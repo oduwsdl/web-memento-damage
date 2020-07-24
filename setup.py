@@ -54,7 +54,7 @@ setup(
         'flask',
         'Flask-SQLAlchemy'
     ],
-    url='https://github.com/erikaris/web-memento-damage',
+    url='https://github.com/oduwsdl/web-memento-damage',
     license='',
     author='erikaris',
     author_email='erikaris1515@gmail.com',

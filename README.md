@@ -15,11 +15,11 @@ There are 2 ways to use this tool:
 ### Website
 The website version can be used by accesing http://memento-damage.cs.odu.edu/. This service is suitable for the purpose of finding the damage of single URI. To use the tool, user just simply type or paste the URI to the damage-check textbox form, and type enter or click check button.
 
-![](https://github.com/erikaris/web-memento-damage/raw/screenshot/pasted%20image%200.png)
+![](https://github.com/oduwsdl/web-memento-damage/raw/screenshot/pasted%20image%200.png)
 
 The output will be displayed on the result page, on tab ‘summary’. Other tabs in the result page provide the details of the damage according to the resources types: images, stylesheets, javascript, multimedia, and text. Tab ‘screenshot’ provide the screenshot of the URI and tab ‘log’ gives the details of the process that happens during the damage calculation.
 
-![](https://github.com/erikaris/web-memento-damage/raw/screenshot/online-2.png)
+![](https://github.com/oduwsdl/web-memento-damage/raw/screenshot/online-2.png)
 
 ### REST API
 REST API facilitates damage calculation from any HTTP Client (e.g. web browser, curl, etc) and give output in JSON format. This enables user to do further analysis with the output. User can create a script and utilize the REST API to calculate damage on few number of URIs (e.g. 5). Here are some simple examples of accessing memento-damage service using REST API:
@@ -45,14 +45,14 @@ There are 2 (two) ways to use Memento Damage tool in local machine: using Docker
 ### Docker
 First, install docker in your machine, and make sure docker daemon is started. Please refer to this steps on how to install docker: https://docs.docker.com/engine/getstarted/step_one/#step-2-install-docker. 
 
-Pull the docker image of memento-damage from: erikaris/memento-damage:
+Pull the docker image of memento-damage from: oduwsdl/memento-damage:
 ```
-docker pull erikaris/memento-damage
+docker pull oduwsdl/memento-damage
 ```
 
 Run the container for the image:
 ```
-docker run -i -t -P --name memento-damage erikaris/memento-damage:latest /app/entrypoint.sh
+docker run -i -t -P --name memento-damage oduwsdl/memento-damage:latest /app/entrypoint.sh
 
 ```
 Then, user can start executing memento-damage tool from within docker container or outside docker container.
@@ -85,7 +85,7 @@ docker exec memento-damage memento-damage [options] <URI>
 
 ### Library
 Using library is relatively similar to using docker. The installation process is much simpler and faster than the docker version. But user has to ensure that all the requirements (phantomjs 2.xx and python 2.7) are installed on their machines.  <br />
-Download the latest library version from https://github.com/erikaris/web-memento-damage/tree/master/dist. <br />
+Download the latest library version from https://github.com/oduwsdl/web-memento-damage/tree/master/dist. <br />
 Install the library using command:  
 ```
 sudo pip install memento-damage-x.x.x.tar.gz
