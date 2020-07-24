@@ -45,14 +45,14 @@ There are 2 (two) ways to use Memento Damage tool in local machine: using Docker
 ### Docker
 First, install docker in your machine, and make sure docker daemon is started. Please refer to this steps on how to install docker: https://docs.docker.com/engine/getstarted/step_one/#step-2-install-docker. 
 
-Pull the docker image of memento-damage from: erikaris/memento-damage:
+Pull the docker image of memento-damage from: oduwsdl/memento-damage:
 ```
-docker pull erikaris/memento-damage
+docker pull oduwsdl/memento-damage
 ```
 
 Run the container for the image:
 ```
-docker run -i -t -P --name memento-damage erikaris/memento-damage:latest /app/entrypoint.sh
+docker run -i -t -P --name memento-damage oduwsdl/memento-damage:latest /app/entrypoint.sh
 
 ```
 Then, user can start executing memento-damage tool from within docker container or outside docker container.
