@@ -1,0 +1,143 @@
+<style>
+  u {
+    color: #5b0021 !important;
+    border-bottom: 1px dotted #000;
+    text-decoration: none;
+    cursor: help;
+  }
+  .title {
+    margin-bottom: 20px;
+    line-height: 35px;
+    word-wrap: break-word;
+  }
+  .result h2 {
+    margin: 40px 0 50px;
+  }
+</style>
+
+<div class="col-sm-10 col-sm-offset-1 text-center">
+  <h3 class="title">Damage of <span id="url"></span></h3>
+</div>
+
+<div class="col-sm-12">
+  <div id="alert-is-finished" style="display:none" class="alert alert-info" role="alert">
+    The damage calculation took <strong><span id="calculation-time"></span></strong> seconds.
+  </div>
+</div>
+
+<div class="col-sm-12">
+  <div id="alert-is-archive" style="display:none" class="alert alert-info" role="alert">
+    <strong>Info</strong> This is an archived damage calculation done <strong><span id="archive-time"></span></strong> ago.
+    Click <strong><a id="fresh-uri" href="#">here</a></strong> for fresh calculation
+  </div>
+</div>
+
+<div class="col-sm-12">
+  <div id="alert-is-error" style="display:none" class="alert alert-danger" role="alert"></div>
+</div>
+
+<div class="col-sm-12">
+  <div class="col-sm-5">
+    <div class="frame">
+      <div class="aspect"></div>
+      <div class="inner">
+          <img class="thumb">
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-7">
+    <div class="col-sm-12 result"></div>
+    <div class="col-sm-6">
+      <div class="widget">
+        <div class="widget-header"><i class="fa fa-check-square-o"></i>
+          <h3>Actual Damage</h3>
+        </div>
+        <div class="widget-content">
+          <!-- <div>Actual Damage = <span class="actual-damage-total"><i class="fa fa-spinner fa-pulse"></i></span></div> -->
+          <ul>
+            <li>Images = <u class="actual-damage-image img-ref"><i class="fa fa-spinner fa-pulse"></i></u></li>
+            <li>Stylesheets = <u class="actual-damage-css css-ref"><i class="fa fa-spinner fa-pulse"></i></u></li>
+            <li>Multimedia = <u class="actual-damage-multimedia mlm-ref"><i class="fa fa-spinner fa-pulse"></i></u></li>
+            <li>Javascript = <u class="actual-damage-javascript js-ref"><i class="fa fa-spinner fa-pulse"></i></u></li>
+            <li>IFrames = <u class="actual-damage-iframe ifr-ref"><i class="fa fa-spinner fa-pulse"></i></u></li>
+            <li>Text = <u class="actual-damage-text text-ref"><i class="fa fa-spinner fa-pulse"></i></u></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-6">
+      <div class="widget">
+        <div class="widget-header"><i class="fa fa-check-square-o"></i>
+          <h3>Potential Damage</h3>
+        </div>
+        <div class="widget-content">
+          <!-- <div>Potential Damage = <span class="potential-damage-total"><i class="fa fa-spinner fa-pulse"></i></span></div> -->
+          <ul>
+            <li>Images = <u class="potential-damage-image img-ref"><i class="fa fa-spinner fa-pulse"></i></u></li>
+            <li>Stylesheets = <u class="potential-damage-css css-ref"><i class="fa fa-spinner fa-pulse"></i></u></li>
+            <li>Multimedia = <u class="potential-damage-multimedia mlm-ref"><i class="fa fa-spinner fa-pulse"></i></u></li>
+            <li>Javascript = <u class="potential-damage-javascript js-ref"><i class="fa fa-spinner fa-pulse"></i></u></li>
+            <li>IFrames = <u class="potential-damage-iframe ifr-ref"><i class="fa fa-spinner fa-pulse"></i></u></li>
+            <li>Text = <u class="potential-damage-text text-ref"><i class="fa fa-spinner fa-pulse"></i></u></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!--<div class="col-sm-10 col-sm-offset-1">-->
+  <!--<div class="col-sm-6">-->
+    <!--<div class="frame">-->
+      <!--<div class="aspect"></div>-->
+      <!--<div class="inner">-->
+          <!--<img class="thumb">-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</div>-->
+
+  <!--<div class="col-sm-6">-->
+    <!--<div class="frame" style="border: 0px;">-->
+      <!--<div class="aspect"></div>-->
+      <!--<div class="inner result" style="background-color: transparent;"></div>-->
+    <!--</div>-->
+  <!--</div>-->
+<!--</div>-->
+
+<!--<div class="col-sm-10 col-sm-offset-1">-->
+  <!--<div class="col-sm-6">-->
+    <!--<div class="widget">-->
+      <!--<div class="widget-header"><i class="fa fa-check-square-o"></i>-->
+        <!--<h3>Actual Damage</h3>-->
+      <!--</div>-->
+      <!--<div class="widget-content">-->
+        <!--<div>Actual Damage = <span class="actual-damage-total"><i class="fa fa-spinner fa-pulse"></i></span></div>-->
+        <!--<ul>-->
+          <!--<li>Images = <u class="actual-damage-image img-ref"><i class="fa fa-spinner fa-pulse"></i></u></li>-->
+          <!--<li>Sylesheets = <u class="actual-damage-css css-ref"><i class="fa fa-spinner fa-pulse"></i></u></li>-->
+          <!--<li>Multimedia = <u class="actual-damage-multimedia mlm-ref"><i class="fa fa-spinner fa-pulse"></i></u></li>-->
+        <!--</ul>-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</div>-->
+
+  <!--<div class="col-sm-6">-->
+    <!--<div class="widget">-->
+      <!--<div class="widget-header"><i class="fa fa-check-square-o"></i>-->
+        <!--<h3>Potential Damage</h3>-->
+      <!--</div>-->
+      <!--<div class="widget-content">-->
+        <!--<div>Potential Damage = <span class="potential-damage-total"><i class="fa fa-spinner fa-pulse"></i></span></div>-->
+        <!--<ul>-->
+          <!--<li>Images = <u class="potential-damage-image img-ref"><i class="fa fa-spinner fa-pulse"></i></u></li>-->
+          <!--<li>Sylesheets = <u class="potential-damage-css css-ref"><i class="fa fa-spinner fa-pulse"></i></u></li>-->
+          <!--<li>Multimedia = <u class="potential-damage-multimedia mlm-ref"><i class="fa fa-spinner fa-pulse"></i></u></li>-->
+          <!--<li>Text = <u class="potential-damage-text text-ref"><i class="fa fa-spinner fa-pulse"></i></u></li>-->
+        <!--</ul>-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</div>-->
+<!--</div>-->

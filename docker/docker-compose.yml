@@ -1,0 +1,16 @@
+version: '3.5'
+
+networks:
+  memento-damage:
+    driver: bridge
+
+services:
+  memento-damage-web:
+    build:
+      context: .
+      dockerfile: 'Dockerfile'
+    image: 'ghcr.io/oduwsdl/web-memento-damage:latest'
+    ports:
+      - '8080:8080'
+    networks:
+      - 'memento-damage'

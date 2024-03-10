@@ -1,0 +1,32 @@
+[build-system]
+requires = ['setuptools']
+build-backend = 'setuptools.build_meta'
+
+[project]
+name = "memento_damage"
+version = "3.0.0"
+description = "Memento Damage"
+readme = "README.md"
+
+requires-python = ">=3.11"
+dependencies = [
+  'flask',
+  'pillow',
+  'html2text',
+  'Flask-SQLAlchemy',
+  'validators',
+  'urllib3',
+  'requests',
+  'bs4',
+  'numpy',
+  'ratelimit',
+]
+
+[project.scripts]
+memento-damage = "cli:main"
+memento-damage-web = "web:main"
+
+[tool.setuptools.packages.find]
+namespaces = false
+where = ['src']
+exclude = ['crawler']
