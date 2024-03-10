@@ -40,56 +40,56 @@ print resp.json()
 ## Local Service
 This option is suitable for calculating the damage on a myriad number of URIs (e.g. 10.000 URIs).  The web service http://memento-damage.cs.odu.edu/ clearly cannot handle this. Therefore, we provide an option so that users can install and run the Memento Damage tool on their own machine.
 
-There are 2 (two) ways to use Memento Damage tool in local machine: using Docker or library. Using docker is recommended since user does not need to worry about system dependencies.
+### Install
 
-### Docker
-First, install docker in your machine, and make sure docker daemon is started. Please refer to this steps on how to install docker: https://docs.docker.com/engine/getstarted/step_one/#step-2-install-docker. 
-
-Pull the docker image of memento-damage from: oduwsdl/memento-damage:
-```
-docker pull oduwsdl/memento-damage
-```
-
-Run the container for the image:
-```
-docker run -i -t -P --name memento-damage oduwsdl/memento-damage:latest /app/entrypoint.sh
+To install Memento Damage locally, simply navigate to the project's root directory and run the following commands.
 
 ```
-Then, user can start executing memento-damage tool from within docker container or outside docker container.
+pip install .
 
-#### Inside Container
-Attach the container:
-```
-docker attach memento-damage
-```
-Alternatively, use exec:
-```
-docker exec -it memento-damage bash
+npm install .
 ```
 
-Then, start using memento-damage by typing the command:
+### Run
+
+### Command-line
+
+#### Load generic URIs
+
 ```
-memento-damage [options] <URI>
+memento-damage -c <DATA_PATH> <URI>
 ```
 
-Explore available options by typing:
+#### Load URIs in batch
+
+To load multiple URIs for analysis provide a file path in place of a Web URI, prefixed with the keyword `file:`. Input files should be in CSV format, where each line is formatted as `<URI>,` (note the trailing comma) or `<URI>, <WARC_FILE_NAME>`.
+
 ```
-memento-damage --help
+memento-damage -c <DATA_PATH> file:<CSV_INPUT_FILE>
 ```
 
-#### Outside Container
-We can also executing memento-damage without entering container using:
+
+#### Load WARC files
+
+Load WARCs using -w flag; local warc files should have relatively little load time unless they are very large in size, remote warcs (-w http://xyz.warc) might require normal or longer timeout set. If your WARC file is very large, consider using the [WACZ format](https://specs.webrecorder.net/wacz/1.1.1/). To load a WARC file, a `-W` flag is required, specifying from where to load the file. In order to load multiple WARCS from an input CSV file all WARC files must exist in the same directory.
+
 ```
-docker exec memento-damage memento-damage [options] <URI>
+memento-damage -c <DATA_PATH> -W <LOCAL_WARC_DIR> -w <WARC_FILENAME> <URI>
 ```
 
-### Library
-Using library is relatively similar to using docker. The installation process is much simpler and faster than the docker version. But user has to ensure that all the requirements (phantomjs 2.xx and python 2.7) are installed on their machines.  <br />
-Download the latest library version from https://github.com/oduwsdl/web-memento-damage/tree/master/dist. <br />
-Install the library using command:  
-```
-sudo pip install memento-damage-x.x.x.tar.gz
-```
-Start using the tool by typing the command ‘memento-damage’, which is similar to that of the docker version. 
+### Web Service
+To run a local version of the Web service, simply provide a directory where data will be stored using the `-c` (for 'cache') flag.
 
+```
+memento-damage-web -c <DATA_PATH>
+```
 
+The Memento Damage Web service will run on port `8080` by default. Optionally, a custom port and host IP can be specified using the `-H` and `-P` flags
+
+```
+memento-damage-web -c <DATA_PATH> -H 1.2.3.4 -P 9999
+```
+
+### Advanced configurations
+
+For further customizations, such as enabling debugging output and timeouts, please use the `-h` or `--help` flags to display all command options.
