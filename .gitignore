@@ -6,3 +6,5 @@ env-*/*
 *.log
 *.pem
 *.ppk
+*.egg-info
+.python-version

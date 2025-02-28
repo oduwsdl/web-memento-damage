@@ -8,25 +8,27 @@ version = "3.0.0"
 description = "Memento Damage"
 readme = "README.md"
 
-requires-python = ">=3.11"
+requires-python = ">=3.10"
 dependencies = [
-  'flask',
-  'pillow',
-  'html2text',
-  'Flask-SQLAlchemy',
-  'validators',
-  'urllib3',
-  'requests',
+  'beautifulsoup4',
   'bs4',
+  'Flask-SQLAlchemy',
+  'flask',
+  'html2text',
   'numpy',
+  'pillow',
   'ratelimit',
+  'requests',
+  'urllib3',
+  'validators',
 ]
 
 [project.scripts]
 memento-damage = "cli:main"
+memento-damage-code = 'code_crawler:main'
 memento-damage-web = "web:main"
 
 [tool.setuptools.packages.find]
 namespaces = false
 where = ['src']
-exclude = ['crawler']
+exclude = ['crawler', 'replay']
