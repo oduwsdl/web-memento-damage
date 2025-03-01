@@ -107,6 +107,7 @@ class API(Blueprint):
                 return Response(response=s, status=200, mimetype='image/jpg')
 
 
+
         # @self.route('/damage/data/image/<path:uri>', methods=['GET'])
         # def api_data_image(uri):
         #     uriFolder = utils.uriToFoldername(uri)
@@ -173,7 +174,6 @@ class API(Blueprint):
             uriCache = Path(app.config['CACHE_DIR'], uriFolder)
 
             if not Path(uriCache).is_dir():
-                print(f"Cache directory does not exist for {uri}")
                 utils.mkDir(uriCache)
                 with open(Path(uriCache, 'uri.json'), 'w') as f:
                     json.dump({'original': uri}, f, indent=2)
@@ -214,6 +214,53 @@ class API(Blueprint):
                     result['calculation_time'] = processTime
                     return Response(response=json.dumps(result), status=200, mimetype='application/json')
 
+
+        @self.route('/results/<path:uri>', methods=['GET'])
+        def api_results(uri):
+            precursorData = {}
+            resultDetails = {}
+            uriFolder = utils.uriToFoldername(uri)
+            uriCache = Path(app.config['CACHE_DIR'], uriFolder)
+
+            if not Path(uriCache).is_dir() and not Path(uriCache, 'result.json').is_file():
+                return Response(response=json.dumps({'error': f'No result data available for {uri}'}), status=200, mimetype='application/json')
+            else:
+                if Path(uriCache, 'result.json').is_file():
+                    resultDetauls = {}
+                    with open(Path(uriCache, 'result.json'), 'r') as f:
+                        result = json.load(f)
+                        result['calculation_time'] = 0
+
+                # if Path(uriCache, 'data', 'precursors.json').is_file():
+                #     with open(Path(self.cacheDir, 'data', 'precursors.jsonl'), mode='r', encoding='utf-8') as f:
+
+
+                # if Path(uriCache, 'data', 'css.json').is_file():
+                #     with open(Path(self.cacheDir, 'data', 'css.jsonl'), mode='r', encoding='utf-8') as f:
+                #         cssData = [json.loads(line) for line in list(f)]
+                
+                # if Path(uriCache, 'data', 'js.json').is_file():
+                #     with open(Path(self.cacheDir, 'data', 'js.jsonl'), mode='r', encoding='utf-8') as f:
+                #         jsData = [json.loads(line) for line in list(f)]
+                
+                # if Path(uriCache, 'data', 'iframe.json').is_file():
+                #     with open(Path(self.cacheDir, 'data', 'iframe.jsonl'), mode='r', encoding='utf-8') as f:
+                #         iframeData = [json.loads(line) for line in list(f)]
+                
+                # if Path(uriCache, 'data', 'text.json').is_file():
+                #     with open(Path(self.cacheDir, 'data', 'text.jsonl'), mode='r', encoding='utf-8') as f:
+                #         textData = [json.loads(line) for line in list(f)]
+                
+                # if Path(uriCache, 'data', 'image.json').is_file():
+                #     with open(Path(self.cacheDir, 'data', 'image.jsonl'), mode='r', encoding='utf-8') as f:
+                #         imageData = [json.loads(line) for line in list(f)]
+                
+                # if Path(uriCache, 'data', 'media.json').is_file():
+                #     with open(Path(self.cacheDir, 'data', 'media.jsonl'), mode='r', encoding='utf-8') as f:
+                #         mediaData = [json.loads(line) for line in list(f)]
+                
+                
+                return Response(response=json.dumps(resultDetails), status=200, mimetype='application/json')
 
     def analyzeUri(self, uri, uriCache):
         analysis = DamageAnalysis(uriCache, uri, options=(

@@ -206,31 +206,32 @@
 
 {% block tail %}
 <script type="text/javascript">
-  $('.example a').each(function() {
-    $(this).attr('href', window.location.href + $(this).attr('href'));
-  });
+//   $('.example a').each(function() {
+//     console.log(`Updating href URIs to: ${window.location.href + $(this).attr('href')}`)
+//     $(this).attr('href', window.location.href + $(this).attr('href'));
+//   });
 
   /** $('img.thumb').elevateZoom({
     zoomType : "inner",
     cursor: "crosshair"
   }); */
 
-  function processNoOverflow() {
-    var hrefs = [], as = $('a.no-overflow');
-    for(var i=0; i<as.length; i++) {
-      hrefs.push($(as[i]).attr('href'));
-    }
+//   function processNoOverflow() {
+//     var hrefs = [], as = $('a.no-overflow');
+//     for(var i=0; i<as.length; i++) {
+//       hrefs.push($(as[i]).attr('href'));
+//     }
 
-    for(var i=0; i<as.length; i++) {
-      if ($(as[i]).innerWidth() > $(as[i]).parent().innerWidth()) {
-        $(as[i]).addClass('midlle-ellipsis');
-        $(as[i]).html('');
-      } else {
-        $(as[i]).removeClass('midlle-ellipsis');
-        $(as[i]).html(hrefs[i]);
-      }
-    }
-  }
+//     for(var i=0; i<as.length; i++) {
+//       if ($(as[i]).innerWidth() > $(as[i]).parent().innerWidth()) {
+//         $(as[i]).addClass('midlle-ellipsis');
+//         $(as[i]).html('');
+//       } else {
+//         $(as[i]).removeClass('midlle-ellipsis');
+//         $(as[i]).html(hrefs[i]);
+//       }
+//     }
+//   }
 
   function centeredSearchBox() {
     var bodyH = $('body').outerHeight(true);

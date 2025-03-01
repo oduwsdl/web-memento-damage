@@ -1,14 +1,13 @@
-from pathlib import Path
-import argparse, csv, logging
-import re
-import sys, time, json, requests
+import argparse, csv, json, logging, re, requests, sys, time
 from datetime import datetime
-from requests.adapters import HTTPAdapter
+from pathlib import Path
 from ratelimit import limits, sleep_and_retry
+from requests.adapters import HTTPAdapter
 from urllib.parse import urlparse
 
 from memento_damage import utils
 from memento_damage.analysis import DamageAnalysis
+
 
 
 # Default viewport size
@@ -19,6 +18,9 @@ LOG_FILE = 'cli.log'
 LOG_FORMAT = logging.Formatter('%(asctime)s %(levelname)s: %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
 LOG_LEVEL = 30
 log = None
+
+REPO_HOSTS = ['github.com', 'gitlab.com', 'sourceforge.net']
+
 
 # Network adapter
 session = requests.Session()
@@ -35,8 +37,10 @@ MAX_URI_RETRIES = 2
 
 lastIACrawlCompleted = None
 iaRefusedCount = 0
-iaRefusedBackoffSeconds = [60, 300, 600]
+iaRefusedBackoffSeconds = [60, 180, 300]
 iaCrawlsSinceLastRefusal = 0
+
+
 
 '''
 Command-line main entry
@@ -100,6 +104,14 @@ def main():
                             log.error(f'Skipping invalid URL: {uri}')
                             continue
 
+                        if args.CRAWL_REPO:
+                            if warcFile != None:
+                                log.error('WARC repo crawls not supported at this time')
+                                continue
+                            if not any(repoHost in uri for repoHost in REPO_HOSTS):
+                                log.error('Input URI not from a valid hosted repository')
+                                continue
+
                         if warcFile == None: uri = utils.rectifyURI(uri)
                         items.append((uri, warcFile))
                     except Exception as e:
@@ -126,6 +138,14 @@ def main():
         if not (result.scheme and result.netloc):
             log.error(f'Skipping invalid URL: {uri}')
             exit(1)
+
+        if args.CRAWL_REPO:
+            if warcFile != None:
+                log.error('WARC repo crawls not supported at this time')
+                exit(1)
+            if not any(repoHost in uri for repoHost in REPO_HOSTS):
+                log.error('Input URI not from a valid hosted repository')
+                exit(1)
 
         if warcFile == None: uri = utils.rectifyURI(uri)
         items.append((uri, warcFile))
@@ -157,12 +177,11 @@ def main():
 
         dereferenceQueue.append((uri, uriCache))
 
-    if args.DEBUG: print(f'Enqueued {len(dereferenceQueue)} URIs for dereferencing')
 
     '''
     Dereference URIs
     '''
-    if args.DEBUG: print('Dereferencing URIs')
+    if args.DEBUG: print(f'Dereferencing {len(dereferenceQueue)} URIs')
     uriRetries = []
     while len(dereferenceQueue) > 0:
         uri, uriCache = dereferenceQueue.pop(0)
@@ -191,9 +210,14 @@ def main():
             with open(Path(uriCache, 'uri.json'), 'w') as f:
                 json.dump({'original': uri, 'dereference': uri}, f, indent=2)
             crawlQueue.append((uri, uriCache))
-            if args.DEBUG: print(f'Recorded direct IA URI dereference')
+            # if args.DEBUG: print(f'Recorded direct IA URI dereference')
         else:
-            if args.DEBUG: print(f'Dereferencing {uri}')
+            # if args.DEBUG: print(f'Dereferencing {uri}')
+            if Path(uriCache, 'error.json').exists():
+                with open(Path(uriCache, 'error.json'), 'r') as f:
+                    ej = json.load(f)
+                    # if ej['error'].startswith('Page not found (404)'): continue
+                    if ej['error'].startswith('Page not found (404)') or ej['error'] == 'HTTP 520: IA archive job failed': continue
             dereferencedUri, status, error = dereferenceURI(uri)
             match status:
                 case 200:
@@ -227,6 +251,7 @@ def main():
     '''
     Crawl dereferenced URIs
     '''
+    print(f'Crawling {len(crawlQueue)} dereferenced URIs')
     while len(crawlQueue) > 0:
         uri, uriCache = crawlQueue.pop(0)
         checkDamage(args, uriCache, uri)
@@ -246,8 +271,12 @@ def dereferenceURI(uri, timeout=30):
             if response.url.startswith('http://web.archive.org/save/_embed'):
                 return response.url, response.status_code, f'URI is actively being archived, try again later'
             return None, response.status_code, f'Too many requests'
+        elif response.status_code == 520:
+            if response.url.startswith('http://web.archive.org/save/_embed'):
+                return response.url, response.status_code, f'HTTP 520: IA archive job failed'
+            return response.url, response.status_code, f'HTTP 520: Failed to complete connection'
         else:
-            return response.url, response.status_code, None
+            return response.url, response.status_code, 'Unknown error'
     except requests.exceptions.Timeout as e:
         return None, 408, f'Timeout error: {e}'
     except requests.exceptions.ConnectionError as e:
@@ -271,13 +300,13 @@ def checkDamage(args, uriCache, uri, warcDir=None, warcFile=None):
     ))
 
     log.info(f'Checking damage for {uri}')
-    if not analysis.isCrawled():
+    if not analysis.isCrawled() or args.RECRAWL:
         iaUrlMatch = re.match(r'^https?:\/\/web\.archive\.org\/web\/', uri)
         if iaUrlMatch and lastIACrawlCompleted:
             secondsSinceLastIACrawl = (datetime.now() - lastIACrawlCompleted).seconds
             if secondsSinceLastIACrawl < 30:
                 sleepTime = 30 - secondsSinceLastIACrawl
-                if args.DEBUG: print(f'Self rate-limiting for {sleepTime} seconds')
+                # if args.DEBUG: print(f'Self rate-limiting for {sleepTime} seconds')
                 time.sleep(sleepTime)
 
         analysis.crawl(recrawl=args.RECRAWL)
@@ -288,7 +317,7 @@ def checkDamage(args, uriCache, uri, warcDir=None, warcFile=None):
                 iaCrawlsSinceLastRefusal += 1
                 if iaCrawlsSinceLastRefusal >= 3:
                     if args.DEBUG:
-                        log.info(f'The Internet Archive seems to have forgiven our poor little roboto!')
+                        log.info(f'Domo arigato, the Internet Archive seems to have forgiven our poor little roboto!')
                     iaCrawlsSinceLastRefusal = 0
                     iaRefusedCount = 0
 
@@ -304,10 +333,14 @@ def checkDamage(args, uriCache, uri, warcDir=None, warcFile=None):
                     log.warn(f'Connection refused by the Internet Archive, backing off and requeing: {uri}')
                     crawlQueue.append((uri, uriCache))
                     time.sleep(iaRefusedBackoffSeconds[iaRefusedCount-1])
+                elif analysis.error.startswith('Navigation timeout'):
+                    log.warn(f'Recieved navigation timeout, sleeping for 60 seconds')
+                    time.sleep(60)
                 else:
                     log.error(f'Error crawling URI: {uri}\n{analysis.error}')
                     time.sleep(5)
                 return
+
 
     score = analysis.damageScore()
     if score is None or args.IGNORE_CACHE:
@@ -315,7 +348,7 @@ def checkDamage(args, uriCache, uri, warcDir=None, warcFile=None):
         score = analysis.damageScore()
 
     if score is not None:
-        log.info(f"{float(score)*100:.2f}% : {'['+warcFile+'] ' if warcFile else ''}{uri}")
+        log.info(f"{float(score):.2f}% : {'['+warcFile+'] ' if warcFile else ''}{uri}")
         return
     else:
         log.error(f'Unable to calculate damage score for {uri}')
@@ -353,6 +386,8 @@ def parseArgs():
                         help='Local WARC/WACZ file name to process')
     parser.add_argument('-W', '--warc-dir', dest='WARC_DIR',
                         help='Directory for WARC files')
+    parser.add_argument('-x', '--repo', dest='CRAWL_REPO',
+                        help='Specifies that a code crawl should be performed at the repo URI')
     parser.add_argument('URI',
                         help='URI to analyze')
 

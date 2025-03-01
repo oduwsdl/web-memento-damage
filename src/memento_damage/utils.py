@@ -51,16 +51,11 @@ def rmdir_recursive(d, exception_files=[]):
 
 def uriToFoldername(uri: str) -> str:
     uri = unescapeUri(uri)
-    if uri.endswith('/'):
-        uri = uri[:-1]
-    uri = uri \
-        .replace('https', '') \
-        .replace('http', '') \
-        .replace('://', '') \
-        .replace('.', '_') \
-        .replace('/', '_') \
-        .replace('~', '')
-    uri = uri[0:200]
+    if uri.endswith('/'): uri = uri[:-1]
+    uri = re.sub(r'(https?:\/\/)', '', uri)
+    uri = re.sub(r'[\\\/\ ~#%&*@\[\]{}:<>?!=|.,"]', '_', uri)
+    uri = re.sub(r'[_]+', '_', uri)
+    uri = uri[0:150]
     return uri
 
 

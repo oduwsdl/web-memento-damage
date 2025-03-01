@@ -335,7 +335,7 @@ class DamageAnalysis:
             self._clearError()
 
 
-    def _generateAnnotatedScreenshot(self, generate_highlights=False) -> None:
+    def _generateAnnotatedScreenshot(self, generate_highlights=False) -> None: # @audit
         if not Path(self.cacheDir, 'screenshots', 'screenshot.png').is_file():
             self._log.error('Unable to generate annotated screenshot, no base screenshot available.')
             return
@@ -357,21 +357,21 @@ class DamageAnalysis:
                         )
 
                         textPosition = (bbox['left']+4, bbox['top'], bbox['right'], bbox['bottom'])
-                        annotatedScreenshot.text(textPosition, f"{self._precursors[group][i]['value']*100*100:.2f}%", font_size=15,
+                        annotatedScreenshot.text(textPosition, f"{self._precursors[group][i]['value']*100:.2f}%", font_size=15,
                                                 fill='white', stroke_width=1, stroke_fill='black')
 
                         if generate_highlights:
-                            width, height = screenshot.size
+                            pageWidth, pageHeight = screenshot.size
                             buffer = 50
                             left = 0 if bbox['left']-buffer < 0 else bbox['left']-buffer
                             top = 0 if bbox['top']-buffer < 0 else bbox['top']-buffer
-                            right = width if bbox['right']+buffer > width else bbox['right']+buffer
-                            bottom = height if bbox['bottom']+buffer > height else bbox['bottom']+buffer
+                            right = pageWidth if bbox['right']+buffer > pageWidth else bbox['right']+buffer
+                            bottom = pageHeight if bbox['bottom']+buffer > pageHeight else bbox['bottom']+buffer
 
                             crop = screenshot.crop((left, top, right, bottom))
                             cropAnnotation = ImageDraw.Draw(crop)
-                            cropAnnotation.rectangle(((left, top), (right, bottom)), fill=None, outline="red", width=3)
-                            fileHash = hashlib.md5(f'{self._annotations[group][i]['imgUrl']}_{ri}'.encode())
+                            # cropAnnotation.rectangle(((left, top), (right, bottom)), fill=None, outline="red", width=3)
+                            fileHash = hashlib.md5(f'{self._annotations[group][i]["imgUrl"]}_{ri}'.encode())
                             crop.save(Path(self.cacheDir, 'screenshots', 'highlights', f'{fileHash.hexdigest()}.png'))
 
             screenshot.save(Path(self.cacheDir, 'screenshots', 'annotation.png'))
@@ -469,8 +469,8 @@ class DamageAnalysis:
 
             self._pageData = {}
             self._pageData['page'] = {
-                'width': screenshot.size[0],
-                'height': screenshot.size[1],
+                'width': int(screenshot.size[0]),
+                'height': int(screenshot.size[1]),
                 'heatmap_x': columnPixels.tolist(),
                 'heatmap_y': rowPixels.tolist()
             }
@@ -510,7 +510,7 @@ class DamageAnalysis:
             self._log.info(f'No byte data available')
 
         for i, js in enumerate(self._crawlData['js']):
-            self._precursors['js'][i] = {}
+            self._precursors['js'][i] = {'url': js['url']}
 
             if 'url' in js and self._isMissing(js['url']): self._precursors['js'][i]['missing'] = True
 
@@ -526,7 +526,7 @@ class DamageAnalysis:
             # print(f"Checking bytemap for {js['url']}")
             if len(jsBytes) > 0:
                 jsBytes = jsBytes[0]
-                self._precursors['js'][i]['metrics'].update({'usedBytes': jsBytes['usedBytes'], 'totalBytes': jsBytes['totalBytes']})
+                self._precursors['js'][i]['metrics'].update({'usedBytes': jsBytes['utilizedBytes'], 'totalBytes': jsBytes['scriptLength']})
 
 
     def _calculateStylesheetMetrics(self) -> tuple:
@@ -566,7 +566,7 @@ class DamageAnalysis:
             declarations = stylesheet['totalDeclarations'] if 'totalDeclarations' in stylesheet else 0
             references = stylesheet['totalReferences'] if 'totalReferences' in stylesheet else 0
 
-            self._precursors['css'][i] = {}
+            self._precursors['css'][i] = {'url': stylesheet['url']}
 
             if self._isMissing(cssUrl): self._precursors['css'][i]['missing'] = True
 
@@ -583,14 +583,14 @@ class DamageAnalysis:
             cssBytes = list(filter(lambda b: b['url'].endswith(cssUrl), cssByteMap))
             if len(cssBytes) > 0:
                 cssBytes = cssBytes[0]
-                self._precursors['css'][i]['metrics'].update({'usedBytes': cssBytes['usedBytes'], 'totalBytes': cssBytes['usedBytes']})
+                self._precursors['css'][i]['metrics'].update({'usedBytes': cssBytes['utilizedBytes'], 'totalBytes': cssBytes['length']})
 
 
     def _calculateIFrameMetrics(self) -> tuple:
         self._log.info('Assessing IFrame element metrics')
 
         for i, el in enumerate(self._crawlData['iframe']):
-            self._precursors['iframe'][i] = {}
+            self._precursors['iframe'][i] = {'url': el['url']}
             self._precursors['iframe'][i]['metrics'] = [{
                 'width': 0,
                 'height': 0,
@@ -630,7 +630,7 @@ class DamageAnalysis:
             numWords = len(el['text'].split(' '))
             numLinks = 0
 
-            self._precursors['text'][i] = {}
+            self._precursors['text'][i] = {'url': f'Text element {i}'}
             self._precursors['text'][i]['metrics'] = [{
                 'width': el['area']['width'],
                 'height': el['area']['height'],
@@ -644,157 +644,187 @@ class DamageAnalysis:
             }]
             self._precursors['text'][i]['multipliers'] = [{
                 'location': 1.0,
-                'semantic': 1.0
+                'semantic': 0.1
             }]
-            # self._precursors['image'][i]['links'] = numLinks
-
-            # Add annotation
-            # x1 = int(el['left'])
-            # y1 = int(el['top'])
-            # x2 = int(el['left'])+int(el['width'])
-            # y2 = int(el['top'])+int(el['height'])
-            # self._addAnnotation('text', i, {
-            #     'type': 'text',
-            #     'xy': (x1, y1, x2, y2),
-            #     'outline': (0, 204, 102)
-            # })
 
 
-    def _calculateImageMetrics(self) -> None:
+    def _calculateImageMetrics(self) -> None: # @audit
         self._log.info('Calculating image element metrics')
+
+        pageWidth = self._pageData['page']['width']
+        pageHeight = self._pageData['page']['height']
 
         # Pass 1 - check if missing and determine average size of present images
         avgImgSize = {}
         for i, el in enumerate(self._crawlData['image']):
-            self._precursors['image'][i] = {}
-
+            self._precursors['image'][i] = {'url': el['url']}
             if self._isMissing(el['url']): self._precursors['image'][i]['missing'] = True
+            self._precursors['image'][i]['metrics'] = []
+            self._precursors['image'][i]['multipliers'] = []
 
-            self._precursors['image'][i]['metrics'] = [{
-                'width': r['width'],
-                'height': r['height'],
-                'bytes': 0,
-                'styles': len(el['classes']) if 'styles' in el else 0,
-            } for r in el['area']]
-            self._precursors['image'][i]['multipliers'] = [{
-                'location': 1.0,
-                'semantic': 1.0
-            }] * len(el['area'])
+            for r in el['area']:
+                self._precursors['image'][i]['metrics'].append({
+                    'width': int(r['width']) if r['width'] > 0 else 0,
+                    'height': int(r['height']) if r['height'] > 0 else 0,
+                    'bytes': 0,
+                    'styles': len(el['classes']) if 'styles' in el else 0,
+                })
+
+                self._precursors['image'][i]['multipliers'].append({
+                    'location': 1.0,
+                    'semantic': 1.0
+                })
 
             if 'missing' not in self._precursors['image'][i]:
                 parentString = '.'.join(el['parents'])
                 if parentString not in avgImgSize: avgImgSize[parentString] = []
-                for area in el['area']:
-                    avgImgSize[parentString].append((area['width'], area['height']))
+                for r in el['area']:
+                    if int(r['left']) < pageWidth and int(r['top']) < pageHeight:
+                        avgImgSize[parentString].append((int(r['width']), int(r['height'])))
 
         if len(avgImgSize) > 0:
             for key in avgImgSize:
+                if len(avgImgSize[key]) == 0: continue
                 avgImgSize[key] = (sum([r[0] for r in avgImgSize[key]]) / len(avgImgSize[key]),
                                    sum([r[1] for r in avgImgSize[key]]) / len(avgImgSize[key]))
-            # avgImgSizeTotal = (sum([s[0] for s in avgImgSize.values()]) / len(avgImgSize),
-            #                    sum([s[0] for s in avgImgSize.values()]) / len(avgImgSize))
 
         # Pass 2 - Adjust image sizes for missing images
         for i, el in enumerate(self._crawlData['image']):
             if 'missing' in self._precursors['image'][i]:
-                wGuess, hGuess = self._guessImageSize(el, avgImgSize)
-
                 for ii, r in enumerate(el['area']):
-                    width, height = r['width'], r['height']
-
-                    if 'width' in el and 'height' in el and (r['width'] < el['width'] and r['height'] < el['height']):
-                        # use explicit size set from DOM
-                        width, height = el['width'], el['height']
-                    else:
-                        if r['width'] < wGuess and r['height'] < hGuess:
-                            width, height = wGuess, hGuess
-
-                    self._precursors['image'][i]['metrics'][ii].update({'width': width, 'height': height})
-                    self._precursors['image'][i]['metrics'][ii].update({'x': r['left'] + int(width/2), 'y': r['top'] + int(height/2)})
-                    self._precursors['image'][i]['metrics'][ii].update({'width_augment': width - r['width'], 'height_augment': height - r['height']})
-
-                    bbox = {
-                        'left': int(r['left']),
-                        'top': int(r['top']),
-                        'right': int(r['left'])+int(r['width']),
-                        'bottom': int(r['top'])+int(r['height'])
-                    }
+                    if r['right'] < 0 or r['left'] > pageWidth or r['width'] < 0 or r['height'] < 0: continue
+                    bbox = self._estimateImageBoundingBox(el, ii, contextSizes=avgImgSize)
+                    self._precursors['image'][i]['metrics'][ii].update({'width': bbox['width'], 'height': bbox['height']})
                     self._addAnnotation('image', i, el['url'], bbox, ii)
 
 
-    def _guessImageSize(self, el, contextSizes=None):
+    def _estimateImageBoundingBox(self, el, i=0, contextSizes=None):
+        pageWidth = self._pageData['page']['width']
+        pageHeight = self._pageData['page']['height']
+
+        bbox = el['area'][i]
+
+        for k in bbox.keys():
+            if bbox[k] < 0:
+                bbox.update({k: 0})
+            else:
+                bbox.update({k: int(bbox[k])})
+
+        if bbox['right'] > pageWidth: bbox.update({'right': pageWidth, 'width': pageWidth-bbox['left']})
+        if bbox['bottom'] > pageHeight: bbox.update({'bottom': pageHeight, 'width': pageHeight-bbox['top']})
+
+        if 'width' in el and 'height' in el:
+            # use explicit size set from DOM
+            bbox.update({'width': el['width'], 'height': el['height']})
+            return bbox
+
+        if 'parentArea' in el:
+            pbox = el['parentArea']
+            for k in pbox.keys():
+                if pbox[k] < 0:
+                    pbox.update({k: 0})
+                else:
+                    pbox.update({k: int(pbox[k])})
+
+            if pbox['right'] > pageWidth: pbox.update({'right': pageWidth, 'width': pageWidth-pbox['left']})
+            if pbox['bottom'] > pageHeight: pbox.update({'bottom': pageHeight, 'width': pageHeight-pbox['top']})
+
+
+            if pbox['width']*pbox['height'] > bbox['width']*bbox['height']:
+                return pbox
+
         # Evaluate class names
         if 'classes' in el:
             for _class in el['classes']:
                 if 'emoji' in _class:
-                    return (S_EMOJI[0], S_EMOJI[1])
+                    bbox.update({'width': S_EMOJI[0], 'height': S_EMOJI[1]})
+                    return bbox
                 elif 'avatar' in _class:
-                    return (S_AVATAR[0], S_AVATAR[1])
+                    bbox.update({'width': S_AVATAR[0], 'height': S_AVATAR[1]})
+                    return bbox
                 elif 'thumb' in _class or 'thumbnail' in _class or 'logo' in _class:
-                    return (S_THUMBNAIL[0], S_THUMBNAIL[1])
+                    bbox.update({'width': S_THUMBNAIL[0], 'height': S_THUMBNAIL[1]})
+                    return bbox
 
         # Evaluate alt text
         if 'alt' in el:
             if ' ' not in el['alt']: # Character, single word, or URL
                 if ((el['alt'][0] == ':' and el['alt'][-1] == ':')  or el['alt'] in EMOJI_NAMES):
-                    return (S_EMOJI[0], S_EMOJI[1])
+                    bbox.update({'width': S_EMOJI[0], 'height': S_EMOJI[1]})
+                    return bbox
 
                 if el['alt'].startswith('@') or 'avatar' in el['alt']:
-                    return (S_AVATAR[0], S_AVATAR[1])
+                    bbox.update({'width': S_AVATAR[0], 'height': S_AVATAR[1]})
+                    return bbox
 
                 if el['alt'].startswith('http'):
-                    return (S_IMAGE_SM[0], S_IMAGE_SM[1])
+                    bbox.update({'width': S_IMAGE_SM[0], 'height': S_IMAGE_SM[1]})
+                    return bbox
 
             else: # descriptive alt text
                 altWords = el['alt'].split(' ')
                 # avgWordLength = sum(len(word) for word in altWords) / len(altWords)
                 if len(altWords) > 5:
-                    return (S_IMAGE_LG[0], S_IMAGE_LG[1])
+                    bbox.update({'width': S_IMAGE_LG[0], 'height': S_IMAGE_LG[1]})
+                    return bbox
                 else:
-                    return (S_IMAGE_SM[0], S_IMAGE_SM[1])
+                    bbox.update({'width': S_IMAGE_SM[0], 'height': S_IMAGE_SM[1]})
+                    return bbox
 
         parentString = '.'.join(el['parents'])
         if contextSizes and parentString in contextSizes:
-            return contextSizes[parentString]
+            bbox.update({'width': contextSizes[parentString][0], 'height': contextSizes[parentString][1]})
+            return bbox
         else:
-            return (S_THUMBNAIL[0], S_THUMBNAIL[1])
+            bbox.update({'width': S_THUMBNAIL[0], 'height': S_THUMBNAIL[1]})
+            return bbox
 
 
     def _calculateMediaMetrics(self) -> None:
         self._log.info('Calculating media element metrics')
 
+        pageWidth = self._pageData['page']['width']
+        pageHeight = self._pageData['page']['height']
+
         for i, el in enumerate(self._crawlData['media']):
-            self._precursors['media'][i] = {}
+            self._precursors['media'][i] = {'url': el['url']}
+            self._precursors['media'][i]['metrics'] = []
+            self._precursors['media'][i]['multipliers'] = []
+
+            for r in el['area']:
+                if (r['left'] > 0 and r['left'] < pageWidth) and (r['top'] > 0 and r['top'] < pageHeight):
+                    self._precursors['media'][i]['metrics'].append({
+                        'width': r['width'] if r['width'] > 0 else 0,
+                        'height': r['height'] if r['height'] > 0 else 0,
+                        'bytes': 0,
+                        'styles': len(el['classes']) if 'classes' in el else 0,
+                        'duration': 0
+                    })
+
+                    self._precursors['media'][i]['multipliers'].append({
+                        'location': 1.0,
+                        'semantic': 1.0
+                    })
 
             if self._isMissing(el['url']) or 'error' in el: self._precursors['media'][i]['missing'] = True
 
-            self._precursors['media'][i]['metrics'] = [{
-                'width': r['width'],
-                'height': r['height'],
-                'bytes': 0,
-                'styles': len(el['classes']) if 'classes' in el else 0,
-                'duration': 0
-            } for r in el['area']]
-
-            self._precursors['media'][i]['multipliers'] = [{
-                'location': 1.0,
-                'semantic': 1.0
-            }] * len(el['area'])
-
             if 'missing' in self._precursors['media'][i]:
                 for ii, r in enumerate(el['area']):
-                    if r['width'] < S_VIDEO_SM[0] and r['height'] < S_VIDEO_SM[1]:
-                        self._precursors['media'][i]['metrics'][ii].update({'width': S_VIDEO_SM[0], 'height': S_VIDEO_SM[1]})
-                        self._precursors['media'][i]['metrics'][ii].update({'x': r['left'] + int(S_VIDEO_SM[0]/2), 'y': r['top'] + int(S_VIDEO_SM[1]/2)})
-                        self._precursors['media'][i]['metrics'][ii].update({'width_augment': S_VIDEO_SM[0] - r['width'], 'height_augment': S_VIDEO_SM[1] - r['height']})
+                    l = r['left'] if r['left'] > 0 else 0
+                    t = r['top'] if r['top'] > 0 else 0
+                    w = r['width'] if r['width'] > 0 else 0
+                    h = r['height'] if r['height'] > 0 else 0
+                    if (r['left'] > 0 and r['left'] < pageWidth) and (r['top'] > 0 and r['top'] < pageHeight):
+                        if w < S_VIDEO_SM[0] and h < S_VIDEO_SM[1]:
+                            self._precursors['media'][i]['metrics'][ii].update({'width': S_VIDEO_SM[0], 'height': S_VIDEO_SM[1]})
 
-                    bbox = {
-                        'left': int(r['left']),
-                        'top': int(r['top']),
-                        'right': int(r['left'])+int(r['width']),
-                        'bottom': int(r['top'])+int(r['height'])
-                    }
-                    self._addAnnotation('media', i, el['url'], bbox, ii)
+                        bbox = {
+                            'left': int(l),
+                            'top': int(t),
+                            'right': int(l)+int(w),
+                            'bottom': int(t)+int(h)
+                        }
+                        self._addAnnotation('media', i, el['url'], bbox, ii)
 
 
     def _calculateGitRepoMetrics(self) -> None:
@@ -837,7 +867,7 @@ class DamageAnalysis:
         return
 
 
-    def _calculatePageDamageScore(self): # @audit @todo
+    def _calculatePageDamageScore(self):
         self._log.info('Assessing page damage')
         '''
         # Calculate how much of the content area is utilized
@@ -985,7 +1015,7 @@ class DamageAnalysis:
         self._log.info(f'Total page damage: {self.result["total_damage"]}')
 
 
-    def _addAnnotation(self, group, i, imgUrl, bbox, r=0) -> None:
+    def _addAnnotation(self, group, i, imgUrl, bbox, r=0) -> None: # @audit
         if group not in self._annotations: self._annotations[group] = {}
         if i not in self._annotations[group]: self._annotations[group][i] = {}
         if 'bbox' not in self._annotations[group][i]: self._annotations[group][i]['bbox'] = []

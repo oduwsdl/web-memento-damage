@@ -201,8 +201,8 @@
         <div class="container">
             <ul class="mainnav">
                 <li class="active"><a data-toggle="tab" href="#summary"><i class="fa fa fa-circle-o-notch fa-spin"></i><span>Summary</span> </a> </li>
-                <!-- <li><a data-toggle="tab" href="#images"><i class="fa fa fa-circle-o-notch fa-spin"></i><span>Image</span> </a> </li>
-                <li><a data-toggle="tab" href="#csses"><i class="fa fa fa-circle-o-notch fa-spin"></i><span>Stylesheet</span> </a> </li>
+                <li><a data-toggle="tab" href="#images"><i class="fa fa fa-circle-o-notch fa-spin"></i><span>Image</span> </a> </li>
+                <!-- <li><a data-toggle="tab" href="#csses"><i class="fa fa fa-circle-o-notch fa-spin"></i><span>Stylesheet</span> </a> </li>
                 <li><a data-toggle="tab" href="#jses"><i class="fa fa fa-circle-o-notch fa-spin"></i><span>Javascript</span> </a> </li>
                 <li><a data-toggle="tab" href="#multimedias"><i class="fa fa fa-circle-o-notch fa-spin"></i><span>Multimedia</span> </a> </li>
                 <li><a data-toggle="tab" href="#text"><i class="fa fa fa-circle-o-notch fa-spin"></i><span>Text</span> </a> </li>
@@ -309,10 +309,10 @@
         $('.potential-damage-text').html(result['potential_damage']['text'].toFixed(3));
 
         // On value clicked
-        /*
         $('.img-ref').on('click', function() {
             $('a[data-toggle="tab"][href="#images"]').tab('show')
         });
+        /*
         $('.css-ref').on('click', function() {
             $('a[data-toggle="tab"][href="#csses"]').tab('show')
         });
@@ -332,7 +332,6 @@
         MathJax.Hub.Queue(["Typeset", MathJax.Hub, "damage-detail"]);
     }
 
-    /*
     function showImages(images, weight) {
         var table = $('<table class="rwd-table">').appendTo('#images .result');
         $(
@@ -433,6 +432,7 @@
         }
     }
 
+    /*
     function showStylesheets(csses, weight) {
         var table = $('<table class="rwd-table">').appendTo('#csses .result');
         $(
@@ -896,6 +896,8 @@
         }
 
 
+        checkResultUriM('{{ url }}', '{{ fresh }}', checkResultUriM(uri))
+
         checkDamageUriM('{{ url }}', '{{ fresh }}', function(uri, result) {
             checkDamageFinished = true;
             if (result.hasOwnProperty('error') && result['error'] != false) {
@@ -1063,6 +1065,14 @@
     function checkDamageUriM(uri, fresh, onFinished) {
         $.get('/api/damage/' + encodeURIComponent(uri) + '?fresh=' + fresh, function(result) {
             $('#calculation-time').html(result['calculation_time']);
+
+            // Call onFinished callback
+            onFinished(uri, result)
+        }, 'json');
+    }
+
+    function checkResultUriM(uri, onFinished) {
+        $.get('/api/result/' + encodeURIComponent(uri), function(result) {
 
             // Call onFinished callback
             onFinished(uri, result)
