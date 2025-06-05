@@ -18,8 +18,6 @@ For more information on Memento Damage, see:
 
 ## Online Service
 
-*June 2025:* This service is currently offline. Until it's back online, <http://memento-damage.cs.odu.edu/> will redirect to this GitHub repo.
-
 ### Website
 The website version can be used by accesing http://memento-damage.cs.odu.edu/. This service is suitable for the purpose of finding the damage of single URI. To use the tool, user just simply type or paste the URI to the damage-check textbox form, and type enter or click check button.
 
